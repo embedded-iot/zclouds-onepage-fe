@@ -10,7 +10,10 @@ import history from 'utils/history';
 import configureStore from './configureStore';
 
 
-import 'sanitize.css/sanitize.css';
+// import 'sanitize.css/sanitize.css';
+
+//import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import 'globalStyles.scss';
 
 // Create redux store with history
@@ -24,7 +27,7 @@ root.render(
       <ConnectedRouter history={history}>
         <App />
       </ConnectedRouter>
-    </Provider>,
+    </Provider>
   </React.StrictMode>
 );
 
