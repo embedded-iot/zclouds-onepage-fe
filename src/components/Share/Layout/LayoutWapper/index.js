@@ -10,20 +10,22 @@ const { Header, Footer, Sider, Content } = Layout;
 const LayoutWrapper = (props) => {
   return (
     <Layout>
-      <Sider theme="light" width={256}>
-        {props.logo}
-        {props.sider}
-      </Sider>
+      <Header>
+        {props.header}
+      </Header>
       <Layout>
-        <Header>
-          {props.header}
-        </Header>
-        <Content>
-          {props.content}
-        </Content>
-        <Footer>
-          {props.footer}
-        </Footer>
+        <Sider theme="light" width={256}>
+          {props.logo}
+          {props.sider}
+        </Sider>
+        <Layout>
+          <Content>
+            {props.content}
+          </Content>
+          <Footer>
+            {props.footer}
+          </Footer>
+        </Layout>
       </Layout>
     </Layout>
   );
