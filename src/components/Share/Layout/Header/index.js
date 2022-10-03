@@ -3,7 +3,7 @@ import UserInfo from 'components/Share/UserInfo';
 
 import './style.scss';
 
-export default function Header({ logoName, isLogin, currentUser }) {
+export default function Header({ logoName, isLogin, currentUser, redirectTo }) {
   return (
     <div className="header-wrapper">
       <div className='logo-portal'>
@@ -11,6 +11,7 @@ export default function Header({ logoName, isLogin, currentUser }) {
       </div>
       <UserInfo isLogin={isLogin}
                 currentUser={currentUser}
+                redirectTo={redirectTo}
       />
     </div>
   );

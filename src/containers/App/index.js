@@ -9,7 +9,7 @@
 import React, { memo } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -17,13 +17,14 @@ import { setGlobalStore } from './actions';
 
 import UsersPage from 'containers/User/UsersPage/Loadable';
 import AdminsPage from 'containers/Admin/AdminsPage/Loadable';
+import LoginPage from 'containers/Common/LoginPage/Loadable';
 
 import Header from 'components/Share/Layout/Header';
 import Footer from 'components/Share/Layout/Footer';
 import UserSider from 'components/User/UserSider';
 import AdminSider from 'components/Admin/AdminSider';
 import LayoutWrapper from 'components/Share/Layout/LayoutWapper';
-
+import { WEBSITE_NAME } from 'components/contants';
 
 import './style.scss';
 
@@ -37,12 +38,16 @@ const AppWrapper = styled.div`
 const AppContent = (props) => (
   <Switch>
     <Route exact path="/" component={UsersPage} />
-    <Route path="/guest" component={UsersPage} />
-    <Route path="/cms" component={AdminsPage} />
+    <Route exact path="/login" component={LoginPage} />
+    <Route exact path="/guest" component={UsersPage} />
+    <Route exact path="/cms" component={AdminsPage} />
   </Switch>
 )
 
 const App = (props) => {
+  const redirectTo = path => {
+    props.history.push(path);
+  }
   return (
     <AppWrapper>
       <Helmet
@@ -52,9 +57,10 @@ const App = (props) => {
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
       <LayoutWrapper header={(
-                        <Header logoName="MMO Tools"
+                        <Header logoName={WEBSITE_NAME}
                                 isLogin={props.isLogin}
                                 currentUser={props.currentUser}
+                                redirectTo={redirectTo}
                         />
                       )}
                      sider={ props.isAdmin ? <AdminSider /> : <UserSider /> }
@@ -86,6 +92,7 @@ const withConnect = connect(
 );
 
 export default compose(
+  withRouter,
   withConnect,
   memo,
 )(App);

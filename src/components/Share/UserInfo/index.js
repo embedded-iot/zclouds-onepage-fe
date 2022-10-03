@@ -4,14 +4,14 @@ import { LoginOutlined, DollarOutlined, UserAddOutlined, LogoutOutlined } from '
 
 import './style.scss';
 
-export default function UserInfo({ isLogin = false, userInfo = {} }) {
+export default function UserInfo({ isLogin = false, userInfo = {}, redirectTo = () => {}}) {
   return (
     <div className="user-info-wrapper">
       { !isLogin && (
         <>
-          <Button icon={<UserAddOutlined />}>Đăng ký</Button>
-          <Button type="primary" icon={<LoginOutlined />}>Đăng nhập</Button>
-          <Button type="primary" danger icon={<DollarOutlined />}>Bảng giá</Button>
+          <Button icon={<UserAddOutlined />} onClick={() => redirectTo('/register')}>Đăng ký</Button>
+          <Button type="primary" icon={<LoginOutlined />} onClick={() => redirectTo('/login')}>Đăng nhập</Button>
+          <Button type="primary" danger icon={<DollarOutlined />} onClick={() => redirectTo('/prices')}>Bảng giá</Button>
         </>
       )}
       { isLogin && (

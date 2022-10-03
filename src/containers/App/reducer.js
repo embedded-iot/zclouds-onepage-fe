@@ -22,10 +22,9 @@ const appReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case SET_GLOBAL_STORE:
-        draft = {
-          ...draft,
-          ...action.payload
-        }
+        Object.keys(action.payload).forEach(key => {
+          draft[key] = action.payload[key];
+        })
         break;
     }
   });
