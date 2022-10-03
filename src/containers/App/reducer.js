@@ -12,7 +12,8 @@ import { SET_GLOBAL_STORE } from './constants';
 
 // The initial state of the App
 export const initialState = {
-  isAuthenticated: false,
+  isLogin: false,
+  isAdmin: false,
   currentUser: null,
 };
 
