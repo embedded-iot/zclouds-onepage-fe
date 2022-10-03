@@ -20,7 +20,8 @@ import AdminsPage from 'containers/Admin/AdminsPage/Loadable';
 
 import Header from 'components/Share/Layout/Header';
 import Footer from 'components/Share/Layout/Footer';
-import Sider from 'components/Share/Layout/Sider';
+import UserSider from 'components/User/UserSider';
+import AdminSider from 'components/Admin/AdminSider';
 import LayoutWrapper from 'components/Share/Layout/LayoutWapper';
 
 
@@ -36,8 +37,8 @@ const AppWrapper = styled.div`
 const AppContent = (props) => (
   <Switch>
     <Route exact path="/" component={UsersPage} />
-    <Route path="/user" component={UsersPage} />
-    <Route path="/admin" component={AdminsPage} />
+    <Route path="/guest" component={UsersPage} />
+    <Route path="/cms" component={AdminsPage} />
   </Switch>
 )
 
@@ -50,8 +51,13 @@ const App = (props) => {
       >
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
-      <LayoutWrapper header={<Header />}
-                     sider={<Sider />}
+      <LayoutWrapper header={(
+                        <Header logoName="MMO Tools"
+                                isLogin={props.isLogin}
+                                currentUser={props.currentUser}
+                        />
+                      )}
+                     sider={ props.isAdmin ? <AdminSider /> : <UserSider /> }
                      content={<AppContent />}
                      footer={<Footer />}
       />
@@ -60,9 +66,10 @@ const App = (props) => {
 }
 
 function mapStateToProps(state) {
-  const { isAuthenticated, currentUser } = state.global;
+  const { isLogin, isAdmin, currentUser } = state.global;
   return {
-    isAuthenticated,
+    isLogin,
+    isAdmin,
     currentUser,
   }
 }
