@@ -1,7 +1,17 @@
 import React from 'react';
+import UserInfo from 'components/Share/UserInfo';
 
-export default function Header() {
+import './style.scss';
+
+export default function Header({ logoName, isLogin, currentUser }) {
   return (
-    <div>Header</div>
+    <div className="header-wrapper">
+      <div className='logo-portal'>
+        <a href='/'>{ logoName }</a>
+      </div>
+      <UserInfo isLogin={isLogin}
+                currentUser={currentUser}
+      />
+    </div>
   );
 }
