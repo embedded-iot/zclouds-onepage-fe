@@ -1,7 +1,9 @@
 .ant-layout {
   background: #fff !important;
   .ant-layout-header {
-    background: inherit;
+    position: relative;
+    z-index: 10;
+    background: #fff;
     box-shadow: 0 2px 8px #f0f1f2;
   }
 }
