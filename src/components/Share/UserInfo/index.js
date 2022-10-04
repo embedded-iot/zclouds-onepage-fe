@@ -1,10 +1,40 @@
 import React from 'react';
-import { Button } from 'antd';
-import { LoginOutlined, DollarOutlined, UserAddOutlined, LogoutOutlined } from '@ant-design/icons';
+import { Avatar, Button, Dropdown, Menu } from 'antd';
+import { LoginOutlined, DollarOutlined, UserAddOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 
 import './style.scss';
 
-export default function UserInfo({ isLogin = false, userInfo = {}, redirectTo = () => {}}) {
+
+export default function UserInfo({ isLogin = false, currentUser = {}, redirectTo = () => {}, signOut = () => {}}) {
+  const handleMenuClick = (e) => {
+    switch (e.key) {
+      case 'logout':
+        signOut();
+        break;
+      default:
+        redirectTo('/account-info');
+        break;
+    }
+  }
+
+  const menu = (
+    <Menu
+      onClick={handleMenuClick}
+      items={[
+        {
+          label: 'Thông tin tài khoản',
+          key: 'account-info',
+          icon: <UserOutlined />,
+        },
+        {
+          label: 'Đăng xuất',
+          key: 'logout',
+          icon: <LogoutOutlined />,
+        }
+      ]}
+    />
+  );
+
   return (
     <div className="user-info-wrapper">
       { !isLogin && (
@@ -16,8 +46,21 @@ export default function UserInfo({ isLogin = false, userInfo = {}, redirectTo = 
       )}
       { isLogin && (
         <>
-          <span>Xin chào: <b>{userInfo.name || 'USER'}</b> </span>
-          <Button type="primary" icon={<LogoutOutlined />}></Button>
+          <span>Xin chào: <b>{currentUser.name || 'USER'}</b> </span>
+          <Dropdown
+            overlay={menu}
+            placement="bottomRight"
+            arrow={{
+              pointAtCenter: true,
+            }}
+          >
+            <Avatar
+              style={{
+                backgroundColor: '#87d068',
+              }}
+              icon={<UserOutlined />}
+            />
+          </Dropdown>
         </>
       )}
     </div>
