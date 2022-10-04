@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, Form, Input } from 'antd';
 import { WEBSITE_NAME } from 'components/contants';
 
-export default function LoginForm({ onFinish = () => {} }) {
+export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }) {
   return (
     <Card>
       <Form
@@ -50,6 +50,23 @@ export default function LoginForm({ onFinish = () => {} }) {
           <Button type="primary" size='large' htmlType="submit">
             Đăng nhập
           </Button>
+        </Form.Item>
+        <Form.Item
+          wrapperCol={{
+            offset: 8,
+            span: 16,
+          }}
+        >
+          <p>
+            <div>
+              Quên mật khẩu?
+              <Button type="link" danger onClick={() => redirectTo("/forgot-account")}>Lấy lại tại đây</Button>
+            </div>
+            <div>
+              Nếu bạn đã chưa có tài khoản,
+              <Button type="link" danger onClick={() => redirectTo("/register")}>Đăng ký tại đây</Button>
+            </div>
+          </p>
         </Form.Item>
       </Form>
     </Card>
