@@ -1,5 +1,5 @@
 .user-info-wrapper {
-  button {
+  & > span, & > button {
     margin-left: 10px;
   }
 }
