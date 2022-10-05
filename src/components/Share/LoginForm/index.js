@@ -57,7 +57,7 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }
             span: 16,
           }}
         >
-          <p>
+          <>
             <div>
               Quên mật khẩu?
               <Button type="link" danger onClick={() => redirectTo("/forgot-account")}>Lấy lại tại đây</Button>
@@ -66,7 +66,7 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }
               Nếu bạn đã chưa có tài khoản,
               <Button type="link" danger onClick={() => redirectTo("/register")}>Đăng ký tại đây</Button>
             </div>
-          </p>
+          </>
         </Form.Item>
       </Form>
     </Card>
