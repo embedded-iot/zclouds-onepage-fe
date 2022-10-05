@@ -5,8 +5,12 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { goBack } from 'connected-react-router';
 import UserDetailBox from 'components/Share/UserDetailBox';
+import UserDetailForm from 'components/Share/UserDetailForm';
 
 const AccountInfoPage = (props) => {
+  const onFinish = () => {
+
+  }
   return (
     <div className="page-wrapper">
       <Helmet>
@@ -20,6 +24,11 @@ const AccountInfoPage = (props) => {
         <Row>
           <Col span={12}>
             <UserDetailBox userInfo={props.currentUser} />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            <UserDetailForm onFinish={onFinish} />
           </Col>
         </Row>
       </div>
