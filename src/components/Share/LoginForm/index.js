@@ -18,7 +18,7 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }
       >
         <Form.Item
           label="Tên đăng nhập"
-          name="username"
+          name="userName"
           rules={[
             {
               required: true,
@@ -26,7 +26,7 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }
             },
           ]}
         >
-          <Input placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}/>
+          <Input placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}  />
         </Form.Item>
 
         <Form.Item
@@ -39,7 +39,7 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }
             },
           ]}
         >
-          <Input.Password placeholder={`Mật khẩu ${WEBSITE_NAME}`}/>
+          <Input.Password placeholder={`Mật khẩu ${WEBSITE_NAME}`} />
         </Form.Item>
         <Form.Item
           wrapperCol={{

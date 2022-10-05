@@ -1,6 +1,5 @@
-import BaseService from './BaseService'
-
+import * as  UserService from "./Common/UserService";
 
 export {
-  BaseService,
+  UserService
 }

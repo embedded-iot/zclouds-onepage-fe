@@ -1,7 +1,7 @@
-function getBaseURL() {
-  return "/api";
+const getBaseURL = () => {
+  return process.env.REACT_APP_API;
 }
 
-export default {
+export {
   getBaseURL,
 }

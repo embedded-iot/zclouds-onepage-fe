@@ -1,23 +1,33 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, PageHeader, Row } from 'antd';
+import { Col, notification, PageHeader, Row } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import LoginForm from 'components/Share/LoginForm';
 import { goBack, push } from 'connected-react-router';
-
+import { UserService } from "services"
 
 const LoginPage = (props) => {
-  const onFinish = () => {
-    props.setGlobalStore({
-      isLogin: true,
-      isAdmin: false,
-      currentUser: {
-        name: "nguyenquan5895",
-      }
-    })
-    props.goBack();
+  const onFinish = (values) => {
+    UserService.login(values, response => {
+      notification.success({
+        message: "Đăng nhập thành công!",
+      });
+      props.setGlobalStore({
+        isLogin: true,
+        isAdmin: false,
+        currentUser: {
+          ...values
+        }
+      })
+      props.goBack();
+    }, error => {
+      console.log(error);
+      notification.error({
+        message: error.status && error.status.message ? error.status.message : "Không thể đăng nhập tài khoản bây giờ. Vui lòng thử lại sau!",
+      });
+    });
   }
   return (
     <div className="page-wrapper">
