@@ -16,19 +16,31 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { setGlobalStore } from './actions';
 
-import UsersPage from 'containers/User/UsersPage/Loadable';
-import AdminsPage from 'containers/Admin/AdminsPage/Loadable';
+
+import Header from 'components/Share/Layout/Header';
+import Footer from 'components/Share/Layout/Footer';
+import LayoutWrapper from 'components/Share/Layout/LayoutWapper';
+
+import UserSider from 'components/User/UserSider';
+
+import AdminSider from 'components/Admin/AdminSider';
+
+
 import LoginPage from 'containers/Common/LoginPage/Loadable';
 import RegisterPage from 'containers/Common/RegisterPage/Loadable';
 import ForgotAccountPage from 'containers/Common/ForgotAccountPage/Loadable';
 import AccountInfoPage from 'containers/Common/AccountInfoPage/Loadable';
 
-import Header from 'components/Share/Layout/Header';
-import Footer from 'components/Share/Layout/Footer';
-import UserSider from 'components/User/UserSider';
-import AdminSider from 'components/Admin/AdminSider';
-import LayoutWrapper from 'components/Share/Layout/LayoutWapper';
-import { WEBSITE_NAME } from 'components/contants';
+import WalletPage from 'containers/User/WalletPage/Loadable';
+import UsersPage from 'containers/User/UsersPage/Loadable';
+
+
+import AdminsPage from 'containers/Admin/AdminsPage/Loadable';
+
+
+import { ROUTERS, WEBSITE_NAME } from 'components/contants';
+
+import 'scss/style.scss';
 
 import './style.scss';
 
@@ -42,11 +54,12 @@ const AppWrapper = styled.div`
 
 const AppContent = (props) => (
   <Switch>
-    <Route exact path="/" component={UsersPage} />
-    <Route exact path="/login" component={LoginPage} />
-    <Route exact path="/register" component={RegisterPage} />
-    <Route exact path="/forgot-account" component={ForgotAccountPage} />
-    <Route exact path="/account-info" component={AccountInfoPage} />
+    <Route exact path={ROUTERS.ROOT} component={UsersPage} />
+    <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
+    <Route exact path={ROUTERS.REGISTER} component={RegisterPage} />
+    <Route exact path={ROUTERS.FORGOT_ACCOUNT} component={ForgotAccountPage} />
+    <Route exact path={ROUTERS.ACCOUNT_INFO} component={AccountInfoPage} />
+    <Route exact path={ROUTERS.WALLET_WITH_TAB} component={WalletPage} />
     <Route exact path="/guest" component={UsersPage} />
     <Route exact path="/cms" component={AdminsPage} />
   </Switch>
@@ -74,6 +87,7 @@ const App = (props) => {
       <LayoutWrapper header={(
                         <Header logoName={WEBSITE_NAME}
                                 isLogin={props.isLogin}
+                                isAdmin={props.isAdmin}
                                 currentUser={props.currentUser}
                                 redirectTo={redirectTo}
                                 signOut={signOut}
