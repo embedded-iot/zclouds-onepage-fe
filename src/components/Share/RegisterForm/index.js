@@ -17,8 +17,20 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
         autoComplete="off"
       >
         <Form.Item
+          label="Họ và tên"
+          name="fullName"
+          rules={[
+            {
+              required: true,
+              message: 'Vui lòng nhập họ tên của bạn!',
+            },
+          ]}
+        >
+          <Input placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}/>
+        </Form.Item>
+        <Form.Item
           label="Tên đăng nhập"
-          name="username"
+          name="userName"
           rules={[
             {
               required: true,
@@ -30,7 +42,7 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
         </Form.Item>
         <Form.Item
           label="Số điện thoại"
-          name="phoneNumber"
+          name="numberPhone"
           rules={[
             {
               required: true,
@@ -39,6 +51,22 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
           ]}
         >
           <Input placeholder={`Số điện thoại ${WEBSITE_NAME}`}/>
+        </Form.Item>
+        <Form.Item
+          label="E-mail"
+          name="email"
+          rules={[
+            {
+              type: 'email',
+              message: 'Email không hợp lệ!',
+            },
+            {
+              required: true,
+              message: 'Vui lòng nhập email của bạn!',
+            },
+          ]}
+        >
+          <Input placeholder={`Email ${WEBSITE_NAME}`}/>
         </Form.Item>
 
         <Form.Item
@@ -55,12 +83,21 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
         </Form.Item>
         <Form.Item
           label="Nhập lại mật khẩu"
-          name="password"
+          name="confirmPassword"
+          dependencies={['password']}
           rules={[
             {
               required: true,
               message: 'Vui lòng nhập lại mật khẩu đăng nhập của bạn!',
             },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('Mật khẩu không phù hợp!'));
+              },
+            }),
           ]}
         >
           <Input.Password placeholder={`Nhập lại mật khẩu ${WEBSITE_NAME}`}/>

@@ -18,7 +18,7 @@ const LoginPage = (props) => {
         isLogin: true,
         isAdmin: false,
         currentUser: {
-          ...values
+          ...response.data
         }
       })
       props.goBack();

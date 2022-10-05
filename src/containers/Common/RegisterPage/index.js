@@ -1,22 +1,27 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, PageHeader, Row } from 'antd';
+import { Col, notification, PageHeader, Row } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import RegisterForm from 'components/Share/RegisterForm';
+import { UserService } from 'services';
 
 const RegisterPage = (props) => {
-  const onFinish = () => {
-    props.setGlobalStore({
-      isLogin: true,
-      isAdmin: false,
-      currentUser: {
-        name: "nguyenquan5895",
-      }
-    })
-    props.goBack();
+  const onFinish = (values) => {
+    const { confirmPassword, ...data} = values;
+    UserService.register({ ...data, email: "nguyenquan5895@gmail.com"}, response => {
+      notification.success({
+        message: "Đăng ký thành công!",
+      });
+      props.goBack();
+    }, error => {
+      console.log(error);
+      notification.error({
+        message: error.status && error.status.message ? error.status.message : "Không thể đăng ký tài khoản bây giờ. Vui lòng thử lại sau!",
+      });
+    });
   }
 
   return (
