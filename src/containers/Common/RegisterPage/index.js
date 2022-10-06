@@ -11,13 +11,12 @@ import { UserService } from 'services';
 const RegisterPage = (props) => {
   const onFinish = (values) => {
     const { confirmPassword, ...data} = values;
-    UserService.register({ ...data, email: "nguyenquan5895@gmail.com"}, response => {
+    UserService.register(data, response => {
       notification.success({
-        message: "Đăng ký thành công!",
+        message: "Đăng ký thành công! Vui lòng kiểm tra email để kích hoạt tài khoản của bạn.",
       });
       props.goBack();
     }, error => {
-      console.log(error);
       notification.error({
         message: error.status && error.status.message ? error.status.message : "Không thể đăng ký tài khoản bây giờ. Vui lòng thử lại sau!",
       });
