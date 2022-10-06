@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authentication from './authentication';
 
-function request(configs = {}, successCallback = () => {}, failCallback = () => {}) {
+function request(configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = () => {}) {
   const accessToken = authentication.getToken();
   const defaultHeaders = {
     'content-type': 'application/json',
@@ -19,7 +19,7 @@ function request(configs = {}, successCallback = () => {}, failCallback = () => 
       if (response.status === 204 || response.status === 205) {
         successCallback(null);
       } else {
-        successCallback(response.data);
+        successCallback(transformFunc(response.data));
       }
     })
     .catch(error => {
@@ -27,40 +27,40 @@ function request(configs = {}, successCallback = () => {}, failCallback = () => 
     })
 }
 
-function makeGetWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}) {
+function makeGetWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = () => {}) {
   const requestConfigs = {
     method: 'get',
     url,
     ...configs
   }
-  return request(requestConfigs, successCallback, failCallback);
+  return request(requestConfigs, successCallback, failCallback, transformFunc);
 }
 
-function makePostWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}) {
+function makePostWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = () => {}) {
   const requestConfigs = {
     method: 'post',
     url,
     ...configs
   }
-  return request(requestConfigs, successCallback, failCallback);
+  return request(requestConfigs, successCallback, failCallback, transformFunc);
 }
 
-function makePutWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}) {
+function makePutWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = () => {}) {
   const requestConfigs = {
     method: 'put',
     url,
     ...configs
   }
-  return request(requestConfigs, successCallback, failCallback);
+  return request(requestConfigs, successCallback, failCallback, transformFunc);
 }
 
-function makeDeleteWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}) {
+function makeDeleteWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = () => {}) {
   const requestConfigs = {
     method: 'delete',
     url,
     ...configs
   }
-  return request(requestConfigs, successCallback, failCallback);
+  return request(requestConfigs, successCallback, failCallback, transformFunc);
 }
 
 export {
@@ -69,5 +69,3 @@ export {
   makePutWithConfigs,
   makeDeleteWithConfigs,
 }
-
-
