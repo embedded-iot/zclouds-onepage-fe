@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, Form, Input, Typography } from 'antd';
 import { WEBSITE_NAME } from 'components/contants';
 const { Text } = Typography;
 
 export default function UserDetailForm({ onFinish = () => {}, redirectTo = () => {}}) {
+  const [isInputPassword, setInputPassword] = useState(false);
+  const [form] = Form.useForm();
+  const onValuesChange = (value, allValues) => {
+    setInputPassword(allValues.oldPassword || allValues.newPassword);
+    if (!allValues.oldPassword && !allValues.newPassword) {
+      form.resetFields(['oldPassword', 'newPassword']);
+    }
+  }
+
   return (
     <Card>
       <Form
+        form={form}
         name="basic"
         labelCol={{
           span: 8,
@@ -15,19 +25,25 @@ export default function UserDetailForm({ onFinish = () => {}, redirectTo = () =>
           span: 16,
         }}
         onFinish={onFinish}
+        onValuesChange={onValuesChange}
         autoComplete="off"
         layout="vertical"
       >
         <Form.Item
-          label="Email"
-          name="email"
+          label="Họ và tên"
+          name="fullName"
+          rules={[
+            {
+              required: true,
+              message: 'Vui lòng nhập họ tên của bạn!',
+            },
+          ]}
         >
-          <Input disabled placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}/>
-          <Text type="danger">Email dùng để sử dụng khi quên mật khẩu, vui lòng nhập đúng Email vì chỉ được thay đổi 1 lần.</Text>
+          <Input placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}/>
         </Form.Item>
         <Form.Item
           label="Tên đăng nhập"
-          name="username"
+          name="userName"
           rules={[
             {
               required: true,
@@ -35,11 +51,11 @@ export default function UserDetailForm({ onFinish = () => {}, redirectTo = () =>
             },
           ]}
         >
-          <Input placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}/>
+          <Input disabled placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}/>
         </Form.Item>
         <Form.Item
           label="Số điện thoại"
-          name="phoneNumber"
+          name="phone"
           rules={[
             {
               required: true,
@@ -49,18 +65,64 @@ export default function UserDetailForm({ onFinish = () => {}, redirectTo = () =>
         >
           <Input placeholder={`Số điện thoại ${WEBSITE_NAME}`}/>
         </Form.Item>
-        <Text>* Để trống nếu không muốn thay đổi mật khẩu</Text>
         <Form.Item
-          label="Mật khẩu"
-          name="password"
+          label="E-mail"
+          name="email"
+          rules={[
+            {
+              type: 'email',
+              message: 'Email không hợp lệ!',
+            },
+            {
+              required: true,
+              message: 'Vui lòng nhập email của bạn!',
+            },
+          ]}
         >
-          <Input.Password placeholder={`Mật khẩu ${WEBSITE_NAME}`}/>
+          <Input placeholder={`Email ${WEBSITE_NAME}`}/>
         </Form.Item>
         <Form.Item
-          label="Nhập lại mật khẩu"
-          name="password"
+          label="Địa chỉ"
+          name="address"
         >
-          <Input.Password placeholder={`Nhập lại mật khẩu ${WEBSITE_NAME}`}/>
+          <Input placeholder={`Địa chỉ ${WEBSITE_NAME}`}/>
+        </Form.Item>
+        <Form.Item
+          label="Đường đẫn ảnh đại diện"
+          name="avatar"
+          rules={[
+            {
+              type: 'url',
+              message: 'Đường dẫn ảnh đại diện không hợp lệ!',
+            },
+          ]}
+        >
+          <Input placeholder={`https://.../image.jpg ${WEBSITE_NAME}`}/>
+        </Form.Item>
+        <Text>* Để trống nếu không muốn thay đổi mật khẩu</Text>
+        <Form.Item
+          label="Mật khẩu cũ"
+          name="oldPassword"
+          rules={[
+            {
+              required: isInputPassword,
+              message: 'Vui lòng nhập nhập mật khẩu cũ của bạn!',
+            },
+          ]}
+        >
+          <Input.Password placeholder={`Mật khẩu cũ ${WEBSITE_NAME}`}/>
+        </Form.Item>
+        <Form.Item
+          label="Mật khẩu mới"
+          name="newPassword"
+          rules={[
+            {
+              required: isInputPassword,
+              message: 'Vui lòng nhập nhập mật khẩu mới của bạn!',
+            },
+          ]}
+        >
+          <Input.Password placeholder={`Mật khẩu mới ${WEBSITE_NAME}`}/>
         </Form.Item>
 
         <Form.Item>
