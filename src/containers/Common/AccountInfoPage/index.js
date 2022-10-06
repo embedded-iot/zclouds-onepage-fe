@@ -1,15 +1,49 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, PageHeader, Row } from 'antd';
+import { Col, notification, PageHeader, Row } from 'antd';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { goBack } from 'connected-react-router';
 import UserDetailBox from 'components/Share/UserDetailBox';
 import UserDetailForm from 'components/Share/UserDetailForm';
+import { UserService } from 'services';
+import { setGlobalStore } from 'containers/App/actions';
 
 const AccountInfoPage = (props) => {
-  const onFinish = () => {
-
+  const changeUserInfo = (userId, data) => {
+    UserService.changeUserInfo(userId, data, response => {
+      notification.success({
+        message: "Thay đổi thông tin tài khoản thành công!",
+      });
+      props.setGlobalStore({
+        currentUser: {
+          ...props.currentUser,
+          ...response.data
+        }
+      })
+    }, error => {
+      notification.error({
+        message: error.status && error.status.message ? error.status.message : "Không thể thay đổi thông tin bây giờ. Vui lòng thử lại sau!",
+      });
+    });
+  }
+  const changePassword = (userId, data) => {
+    UserService.changePassword(userId, data, response => {
+      notification.success({
+        message: "Thay đổi mật khẩu thành công!",
+      });
+    }, error => {
+      notification.error({
+        message: error.status && error.status.message ? error.status.message : "Không thể mật khẩu bây giờ. Vui lòng thử lại sau!",
+      });
+    });
+  }
+  const onFinish = (values) => {
+    const { fullName, email, phone, address, avatar, oldPassword, newPassword } = values;
+    changeUserInfo(props.currentUser.userId, { fullName, email, phone, address, avatar })
+    if (!!oldPassword && !!newPassword) {
+      changePassword(props.currentUser.userId, { oldPassword, newPassword })
+    }
   }
   return (
     <div className="page-wrapper">
@@ -44,6 +78,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setGlobalStore: options => dispatch(setGlobalStore(options)),
     goBack: () => dispatch(goBack()),
   };
 }
