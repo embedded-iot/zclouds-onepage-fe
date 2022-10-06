@@ -67,7 +67,7 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
       )}
       { isLogin && (
         <>
-          <span>Xin chào: <b>{currentUser.name || 'USER'}</b></span>
+          <span>Xin chào: <b>{currentUser.fullName || 'USER'}</b></span>
           <span>Số dư: </span>
           <Button type="primary" size="small" danger>
             {currentUser.balance || '0'}đ
@@ -85,6 +85,7 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
                 backgroundColor: '#87d068',
                 cursor: 'pointer'
               }}
+              src={currentUser.avatar}
               icon={<UserOutlined />}
             />
           </Dropdown>
