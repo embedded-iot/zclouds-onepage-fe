@@ -1,0 +1,15 @@
+.table-view-wrapper {
+  .table-header {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    .additional-button-list {
+      button {
+        margin-right: 10px;
+      }
+    }
+  }
+  .selected-item-label {
+    height: 25px;
+  }
+}
