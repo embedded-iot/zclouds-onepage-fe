@@ -14,7 +14,7 @@ import { SET_GLOBAL_STORE } from './constants';
 export const initialState = {
   isLogin: false,
   isAdmin: false,
-  currentUser: null,
+  currentUser: {},
 };
 
 /* eslint-disable default-case, no-param-reassign */
