@@ -14,13 +14,14 @@ export default function UserDetailBox({ userInfo = {}}) {
             style={{
               backgroundColor: '#87d068',
             }}
+            src={userInfo.avatar}
             icon={<UserOutlined />}
             size={80}
           />
         </Col>
         <Col span={20}>
           <Descriptions column={2}>
-            <Descriptions.Item label="Tên tài khoản">{userInfo.username || "-"}</Descriptions.Item>
+            <Descriptions.Item label="Tên tài khoản">{userInfo.fullName || "-"}</Descriptions.Item>
             <Descriptions.Item label="Thành viên">{userInfo.level || "VIP"}</Descriptions.Item>
             <Descriptions.Item label="Số dư">
               <Text type="danger">{userInfo.balance || "0"} đ</Text>
