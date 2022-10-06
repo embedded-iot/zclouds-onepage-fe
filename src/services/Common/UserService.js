@@ -46,9 +46,15 @@ function changeUserInfo(userId, data, successCallback, failureCallback) {
   makePutWithConfigs(url, config, successCallback, failureCallback)
 }
 
+function getUserInfo(successCallback, failureCallback) {
+  const url = getBaseURL() + '/user/profile';
+  makeGetWithConfigs(url, {}, successCallback, failureCallback)
+}
+
 export {
   login,
   register,
+  getUserInfo,
   logout,
   forgotPassword,
   changePassword,

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import authentication from './authentication';
 
-function request(configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = () => {}) {
+function request(configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = (response) => response) {
   const accessToken = authentication.getToken();
   const defaultHeaders = {
-    'content-type': 'application/json',
-    'authentication': accessToken
+    'Content-Type': 'application/json',
+    'Authorization': accessToken
   }
   const requestConfigs = {
     ...configs,
@@ -27,7 +27,7 @@ function request(configs = {}, successCallback = () => {}, failCallback = () => 
     })
 }
 
-function makeGetWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = () => {}) {
+function makeGetWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = (response) => response) {
   const requestConfigs = {
     method: 'get',
     url,
@@ -36,7 +36,7 @@ function makeGetWithConfigs(url, configs = {}, successCallback = () => {}, failC
   return request(requestConfigs, successCallback, failCallback, transformFunc);
 }
 
-function makePostWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = () => {}) {
+function makePostWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = (response) => response) {
   const requestConfigs = {
     method: 'post',
     url,
@@ -45,7 +45,7 @@ function makePostWithConfigs(url, configs = {}, successCallback = () => {}, fail
   return request(requestConfigs, successCallback, failCallback, transformFunc);
 }
 
-function makePutWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = () => {}) {
+function makePutWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = (response) => response) {
   const requestConfigs = {
     method: 'put',
     url,
@@ -54,7 +54,7 @@ function makePutWithConfigs(url, configs = {}, successCallback = () => {}, failC
   return request(requestConfigs, successCallback, failCallback, transformFunc);
 }
 
-function makeDeleteWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = () => {}) {
+function makeDeleteWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = (response) => response) {
   const requestConfigs = {
     method: 'delete',
     url,
