@@ -39,6 +39,8 @@ import AdminsPage from 'containers/Admin/AdminsPage/Loadable';
 
 
 import { ROUTERS, WEBSITE_NAME } from 'components/contants';
+import { UserService } from 'services';
+
 
 import 'scss/style.scss';
 
@@ -70,11 +72,13 @@ const App = (props) => {
     props.push(path);
   }
   const signOut = () => {
-    props.setGlobalStore({
-      isLogin: false,
-      isAdmin: false,
-      currentUser: null,
-    })
+    UserService.logout(() => {
+      props.setGlobalStore({
+        isLogin: false,
+        isAdmin: false,
+        currentUser: {},
+      })
+    });
   }
   return (
     <AppWrapper>
