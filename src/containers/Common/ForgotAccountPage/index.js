@@ -1,15 +1,25 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, PageHeader, Row } from 'antd';
+import { Col, notification, PageHeader, Row } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import ForgotAccountForm from 'components/Share/ForgotAccountForm';
+import { UserService } from 'services';
 
 const ForgotAccountPage = (props) => {
-  const onFinish = () => {
-    props.goBack();
+  const onFinish = (values) => {
+    UserService.forgotPassword(values, response => {
+      notification.success({
+        message: "Vui lòng kiểm tra email, để khôi phục mật khẩu tài khoản của bạn!",
+      });
+      props.goBack();
+    }, error => {
+      notification.error({
+        message: error.status && error.status.message ? error.status.message : "Không thể lấy lại mật khẩu bây giờ. Vui lòng thử lại sau!",
+      });
+    });
   }
 
   return (
