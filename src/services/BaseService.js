@@ -1,5 +1,5 @@
 const getBaseURL = () => {
-  return process.env.REACT_APP_API;
+  return '/api';
 }
 
 export {
