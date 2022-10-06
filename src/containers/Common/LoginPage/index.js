@@ -23,7 +23,6 @@ const LoginPage = (props) => {
       })
       props.goBack();
     }, error => {
-      console.log(error);
       notification.error({
         message: error.status && error.status.message ? error.status.message : "Không thể đăng nhập tài khoản bây giờ. Vui lòng thử lại sau!",
       });
