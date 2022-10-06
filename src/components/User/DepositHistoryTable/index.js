@@ -3,20 +3,24 @@ import React from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { OrderUserService } from 'services';
 import { Button } from 'antd';
-import { events } from 'utils';
+import { datetime, events } from 'utils';
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: 'Thời gian',
+    dataIndex: 'datetime',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
+    title: 'Phương thức',
+    dataIndex: 'depositMethod',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
+    title: 'Số tiền',
+    dataIndex: 'money',
+  },
+  {
+    title: 'Trạng thái',
+    dataIndex: 'status',
   },
 ];
 const data = [];
@@ -24,9 +28,10 @@ const data = [];
 for (let i = 0; i < 46; i++) {
   data.push({
     key: i,
-    name: `Edward King ${i}`,
-    age: 32,
-    address: `London, Park Lane no. ${i}`,
+    datetime: datetime.convert(new Date(), "DD/MM/YYYY HH:MM"),
+    depositMethod: "NẠP QUA NGÂN HÀNG",
+    money: `500.000 đ`,
+    status: `Thành công`,
   });
 }
 
@@ -59,7 +64,7 @@ export default function DepositHistoryTable(props) {
   const reloadTable = () => {
     events.publish(RELOAD_EVENT_KEY, { searchText: 'sadasd'});
   }
-
+  // eslint-disable-next-line
   const actionButtonList = [
     <Button key={1} onClick={reloadTable}>Reload</Button>,
     <Button key={2}>ádasdad</Button>
@@ -68,7 +73,7 @@ export default function DepositHistoryTable(props) {
   return (
     <TableGrid tableConfig={tableConfig}
                paginationConfig={paginationConfig}
-               actionButtonList={actionButtonList}
+               actionButtonList={{}}
                defaultParams={{}}
                defaultData={defaultData}
                isShowPagination={false}

@@ -11,7 +11,7 @@ export default function TableGrid({
                                     defaultParams = {},
                                     defaultData = {},
                                     onSelectedItemsChange = () => {},
-                                    isShowPagination = true,
+                                    isShowPagination = false,
                                     isAllowSelection = false,
                                     RELOAD_EVENT_KEY = ''
                                   }) {
@@ -40,14 +40,16 @@ export default function TableGrid({
 
   useEffect(() => {
     getDataFunc();
+    let reloadListener = null;
     if (!!RELOAD_EVENT_KEY) {
-      events.subscribe(RELOAD_EVENT_KEY, (newParams = {}) => {
-        setParams({ ...params, ...newParams});
-        console.log(params);
+      reloadListener = events.subscribe(RELOAD_EVENT_KEY, (newParams = {}) => {
+        setParams(params => ({ ...params, ...newParams}));
         getDataFunc();
       })
     }
-
+    return () => {
+      reloadListener && reloadListener.remove();
+    };
     // eslint-disable-next-line
   }, []);
 
@@ -57,7 +59,6 @@ export default function TableGrid({
   };
 
   const rowSelection = {
-    show: isAllowSelection,
     selectedRowKeys,
     onChange: onSelectChange,
   };
@@ -88,7 +89,7 @@ export default function TableGrid({
       <div className="selected-item-label">
         { hasSelected && `Đã chọn ${selectedRowKeys.length} phần tử`}
       </div>
-      <Table rowSelection={rowSelection}
+      <Table rowSelection={isAllowSelection ? rowSelection : null}
              columns={tableConfig.columns}
              dataSource={data.items}
              pagination={false}
