@@ -1,0 +1,30 @@
+image: node
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - apt-get update -qq
+  - apt-get install -qq git
+  - "which ssh-agent || ( apt-get install -qq openssh-client )"
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+deploy:
+  stage: deploy
+  environment:
+    name: staging
+  script:
+    - yarn install
+    - yarn run build:staging
+
+    - echo "Deploying to 139.162.17.12"
+    - scp -r build/ root@139.162.17.12:/var/www/html/
+
+    -  echo "Finished copying the build files"
+  only:
+    - develop
+    - master
