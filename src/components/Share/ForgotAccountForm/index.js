@@ -21,6 +21,10 @@ export default function ForgotAccountForm({ onFinish = () => {}, redirectTo = ()
           name="email"
           rules={[
             {
+              type: 'email',
+              message: 'Email không hợp lệ!',
+            },
+            {
               required: true,
               message: 'Vui lòng nhập email của bạn!',
             },
@@ -31,7 +35,7 @@ export default function ForgotAccountForm({ onFinish = () => {}, redirectTo = ()
 
         <Form.Item
           label="Tên tài khoản"
-          name="username"
+          name="userName"
         >
           <Input placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}/>
         </Form.Item>
