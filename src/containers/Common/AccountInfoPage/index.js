@@ -10,40 +10,41 @@ import { UserService } from 'services';
 import { setGlobalStore } from 'containers/App/actions';
 
 const AccountInfoPage = (props) => {
-  const changeUserInfo = (userId, data) => {
-    UserService.changeUserInfo(userId, data, response => {
-      notification.success({
-        message: "Thay đổi thông tin tài khoản thành công!",
-      });
-      props.setGlobalStore({
-        currentUser: {
-          ...props.currentUser,
-          ...response.data
-        }
-      })
-    }, error => {
-      notification.error({
-        message: error.status && error.status.message ? error.status.message : "Không thể thay đổi thông tin bây giờ. Vui lòng thử lại sau!",
-      });
-    });
+  const { id:userId, fullName, userName, phone, email, address, avatar } = props.currentUser;
+  const initialValues = {
+    fullName,
+    userName,
+    phone,
+    email,
+    address,
+    avatar,
   }
-  const changePassword = (userId, data) => {
-    UserService.changePassword(userId, data, response => {
-      notification.success({
-        message: "Thay đổi mật khẩu thành công!",
-      });
-    }, error => {
-      notification.error({
-        message: error.status && error.status.message ? error.status.message : "Không thể mật khẩu bây giờ. Vui lòng thử lại sau!",
-      });
-    });
-  }
+
   const onFinish = (values) => {
     const { fullName, email, phone, address, avatar, oldPassword, newPassword } = values;
-    changeUserInfo(props.currentUser.userId, { fullName, email, phone, address, avatar })
-    if (!!oldPassword && !!newPassword) {
-      changePassword(props.currentUser.userId, { oldPassword, newPassword })
-    }
+    const changeUserInfoPromise = new Promise((resolve, reject) => {
+      UserService.changeUserInfo(userId, { fullName, email, phone, address, avatar }, resolve, reject)
+    });
+    const changePasswordPromise = !!oldPassword && !!newPassword ? new Promise((resolve, reject) => {
+      UserService.changePassword(userId, { oldPassword, newPassword }, resolve, reject)
+      }) : true;
+    Promise.all([changeUserInfoPromise, changePasswordPromise])
+      .then( ([changeUserInfoResponse, changePasswordResponse]) => {
+        props.setGlobalStore({
+          currentUser: {
+            ...props.currentUser,
+            ...changeUserInfoResponse.data
+          }
+        })
+        notification.success({
+          message: "Thay đổi thông tin tài khoản thành công!",
+        });
+      })
+      .catch(error => {
+        notification.error({
+          message: error.status && error.status.message ? error.status.message : "Thay đổi thông tin tài khoản thất bại. Vui lòng thử lại sau!",
+        });
+    })
   }
   return (
     <div className="page-wrapper">
@@ -62,7 +63,7 @@ const AccountInfoPage = (props) => {
         </Row>
         <Row>
           <Col span={12}>
-            <UserDetailForm onFinish={onFinish} />
+            <UserDetailForm initialValues={initialValues} onFinish={onFinish} />
           </Col>
         </Row>
       </div>
