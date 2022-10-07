@@ -6,10 +6,11 @@ import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import UserDetailBox from 'components/Share/UserDetailBox';
-import { DollarOutlined, SwapOutlined } from '@ant-design/icons';
+import { DollarOutlined, OrderedListOutlined, SwapOutlined } from '@ant-design/icons';
 import { ROUTERS } from 'components/contants';
 import DepositMethodsList from 'components/User/DepositMethodsList';
 import DepositHistoryTable from 'components/User/DepositHistoryTable';
+import OrdersHistoryTable from 'components/User/OrdersHistoryTable';
 
 function WalletPage(props) {
   const tabItems = [
@@ -32,6 +33,16 @@ function WalletPage(props) {
       ),
       key: ROUTERS.DEPOSIT_HISTORY,
       children: <DepositHistoryTable />,
+    },
+    {
+      label: (
+        <span>
+          <OrderedListOutlined />
+          Lịch sử đơn hàng
+        </span>
+      ),
+      key: ROUTERS.HISTORY_ORDERS,
+      children: <OrdersHistoryTable />,
     },
   ]
   return (
