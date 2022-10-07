@@ -7,10 +7,9 @@ export const ROUTERS = {
   FORGOT_ACCOUNT: '/forgot-account',
   LOGOUT: '/logout',
   ACCOUNT_INFO: '/account-info',
-  HISTORY_ORDERS: '/history-orders',
-  WALLET_WITH_TAB: '/wallet/:tab',
-  DEPOSIT_HISTORY: '/wallet/deposit-history',
-  DEPOSIT_METHODS: '/wallet/deposit-methods',
+  WALLET_WITH_TAB: '/my-account/:tab',
+  DEPOSIT_HISTORY: '/my-account/deposits-history',
+  DEPOSIT_METHODS: '/my-account/deposit-methods',
+  HISTORY_ORDERS: '/my-account/orders-history',
   PRICES: '/prices',
 }
-
