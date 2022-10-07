@@ -70,7 +70,7 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
           <span>Xin chào: <b>{currentUser.fullName || 'USER'}</b></span>
           <span>Số dư: </span>
           <Button type="primary" size="small" danger>
-            {currentUser.balance || '0'}đ
+            {currentUser.wallet || '0'}đ
           </Button>
           <Button type="primary" size="small" icon={<DollarOutlined />} onClick={() => redirectTo(ROUTERS.DEPOSIT_METHODS)}>Nạp tiền</Button>
           <Dropdown
