@@ -3,7 +3,7 @@ import { Button, Card, Form, Input, Typography } from 'antd';
 import { WEBSITE_NAME } from 'components/contants';
 const { Text } = Typography;
 
-export default function UserDetailForm({ onFinish = () => {}, redirectTo = () => {}}) {
+export default function UserDetailForm({ initialValues = {}, onFinish = () => {}}) {
   const [isInputPassword, setInputPassword] = useState(false);
   const [form] = Form.useForm();
   const onValuesChange = (value, allValues) => {
@@ -24,6 +24,7 @@ export default function UserDetailForm({ onFinish = () => {}, redirectTo = () =>
         wrapperCol={{
           span: 16,
         }}
+        initialValues={initialValues}
         onFinish={onFinish}
         onValuesChange={onValuesChange}
         autoComplete="off"
@@ -115,11 +116,20 @@ export default function UserDetailForm({ onFinish = () => {}, redirectTo = () =>
         <Form.Item
           label="Mật khẩu mới"
           name="newPassword"
+          dependencies={['oldPassword']}
           rules={[
             {
               required: isInputPassword,
               message: 'Vui lòng nhập nhập mật khẩu mới của bạn!',
             },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('oldPassword') !== value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('Mật khẩu mới không được trùng mật khẩu cũ!'));
+              },
+            }),
           ]}
         >
           <Input.Password placeholder={`Mật khẩu mới ${WEBSITE_NAME}`}/>
