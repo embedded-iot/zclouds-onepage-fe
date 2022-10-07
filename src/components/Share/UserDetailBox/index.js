@@ -21,12 +21,12 @@ export default function UserDetailBox({ userInfo = {}}) {
         </Col>
         <Col span={20}>
           <Descriptions column={2}>
-            <Descriptions.Item label="Tên tài khoản">{userInfo.fullName || "-"}</Descriptions.Item>
-            <Descriptions.Item label="Thành viên">{userInfo.level || "VIP"}</Descriptions.Item>
+            <Descriptions.Item label="Họ và tên">{userInfo.fullName || "-"}</Descriptions.Item>
+            <Descriptions.Item label="Tên đăng nhập">{userInfo.userName || "VIP"}</Descriptions.Item>
             <Descriptions.Item label="Số dư">
-              <Text type="danger">{userInfo.balance || "0"} đ</Text>
+              <Text type="danger">{userInfo.wallet || "0"} đ</Text>
             </Descriptions.Item>
-            <Descriptions.Item label="Quyền">{!!userInfo.role ? userInfo.role.toUpperCase() : "USER"}</Descriptions.Item>
+            <Descriptions.Item label="Quyền">{!!userInfo.type ? userInfo.type.toUpperCase() : "USER"}</Descriptions.Item>
           </Descriptions>
         </Col>
       </Row>
