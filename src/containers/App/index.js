@@ -33,6 +33,7 @@ import AccountInfoPage from 'containers/Common/AccountInfoPage/Loadable';
 
 import AccountAssetsPage from 'containers/User/AccountAssetsPage/Loadable';
 import UsersPage from 'containers/User/UsersPage/Loadable';
+import OrdersHistoryPage from 'containers/User/OrdersHistoryPage/Loadable';
 
 
 import AdminsPage from 'containers/Admin/AdminsPage/Loadable';
@@ -62,7 +63,7 @@ const AppContent = (props) => (
     <Route exact path={ROUTERS.FORGOT_ACCOUNT} component={ForgotAccountPage} />
     <Route exact path={ROUTERS.ACCOUNT_INFO} component={AccountInfoPage} />
     <Route exact path={ROUTERS.ACCOUNT_ASSETS} component={AccountAssetsPage} />
-    <Route exact path={ROUTERS.DEPOSITS_HISTORY} component={AccountInfoPage} />
+    <Route exact path={ROUTERS.ORDERS_HISTORY} component={OrdersHistoryPage} />
     <Route exact path="/guest" component={UsersPage} />
     <Route exact path="/cms" component={AdminsPage} />
   </Switch>
@@ -98,7 +99,7 @@ const App = (props) => {
                                 signOut={signOut}
                         />
                       )}
-                     sider={ props.isAdmin ? <AdminSider redirectTo={redirectTo}/> : <UserSider redirectTo={redirectTo}/> }
+                     sider={ props.isAdmin ? <AdminSider redirectTo={redirectTo}/> : <UserSider redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/> }
                      content={<AppContent />}
                      footer={<Footer />}
       />
@@ -107,11 +108,12 @@ const App = (props) => {
 }
 
 function mapStateToProps(state) {
-  const { isLogin, isAdmin, currentUser } = state.global;
+  const { isLogin, isAdmin, currentUser, products } = state.global;
   return {
     isLogin,
     isAdmin,
     currentUser,
+    products,
   }
 }
 

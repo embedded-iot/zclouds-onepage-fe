@@ -9,7 +9,7 @@ import { ROUTERS, WEBSITE_DOMAIN } from 'components/contants';
 
 import "./style.scss";
 
-export default function UserSider({ redirectTo = () => {} }) {
+export default function UserSider({ redirectTo = () => {}, setGlobalStore = () => {} }) {
   const [products, setProducts] = useState(null);
   useEffect(() => {
     ProductService.getProducts(response => {
@@ -26,7 +26,11 @@ export default function UserSider({ redirectTo = () => {} }) {
         }
       })
       setProducts(productList);
+      setGlobalStore({
+        products: productList
+      });
     })
+    // eslint-disable-next-line
   }, []);
   const productsItems = (products || []).map(product => {
     const servicesItems = product.services.map(service => {

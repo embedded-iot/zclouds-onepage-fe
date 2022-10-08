@@ -15,6 +15,7 @@ export const initialState = {
   isLogin: false,
   isAdmin: false,
   currentUser: {},
+  products: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */

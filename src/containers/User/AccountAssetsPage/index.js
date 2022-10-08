@@ -42,17 +42,17 @@ function AccountAssetsPage(props) {
         </span>
       ),
       key: ROUTERS.ACCOUNT_ASSETS_ORDERS_HISTORY,
-      children: <OrdersHistoryTable />,
+      children: <OrdersHistoryTable products={props.products}/>,
     },
   ]
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Quản lý nạp tiền</title>
+        <title>Quản lý tài khoản</title>
       </Helmet>
       <PageHeader
         onBack={() => props.goBack()}
-        title="Quản lý nạp tiền"
+        title="Quản lý tài khoản"
       />
       <div className="page-contents">
         <Row>
@@ -74,6 +74,7 @@ function mapStateToProps(state) {
   return {
     router: state.router,
     currentUser: state.global.currentUser || {},
+    products: state.global.products,
   }
 }
 

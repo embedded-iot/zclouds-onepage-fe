@@ -27,3 +27,18 @@ export const ROUTERS = {
   ICON_FB_2020: '/icon-fb-2020',
   VERIFY_FB_ACC: '/verify-fb-acc',
 }
+
+export const ORDER_STATUS = [
+  { value: 'Hoàn thành' },
+  { value: 'Hủy' },
+  { value: 'Yêu cầu Hủy' },
+  { value: 'Tạm dừng' },
+  { value: 'Chờ hoàn tiền' },
+  { value: 'Đã hoàn tiền' },
+  { value: 'Tăng một phần' },
+  { value: 'Lên lịch' },
+  { value: 'Đang kiểm tra' },
+  { value: 'Đang xử lý...' },
+  { value: 'Đợi chạy' },
+  { value: 'Đang chạy' },
+];

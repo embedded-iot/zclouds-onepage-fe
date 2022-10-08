@@ -1,9 +1,9 @@
 import React from 'react';
-
 import TableGrid from 'components/Common/TableGrid';
 import { OrderUserService } from 'services';
 import { Button } from 'antd';
 import { datetime, events } from 'utils';
+import OrdersHistoryFilters from './OrdersHistoryFilters';
 
 const columns = [
   {
@@ -40,7 +40,7 @@ for (let i = 0; i < 46; i++) {
   });
 }
 
-export default function OrdersHistoryTable(props) {
+export default function OrdersHistoryTable({ products }) {
   const RELOAD_EVENT_KEY = 'RELOAD_EVENT_KEY';
   const tableConfig = {
     columns,
@@ -66,8 +66,8 @@ export default function OrdersHistoryTable(props) {
     totalCount: 46,
   }
 
-  const reloadTable = () => {
-    events.publish(RELOAD_EVENT_KEY, { searchText: 'sadasd'});
+  const reloadTable = (filters ={}) => {
+    events.publish(RELOAD_EVENT_KEY, filters);
   }
   // eslint-disable-next-line
   const actionButtonList = [
@@ -75,15 +75,22 @@ export default function OrdersHistoryTable(props) {
     <Button key={2}>ádasdad</Button>
   ]
 
+  const onFiltersChange = filters => {
+    reloadTable(filters);
+  }
+
   return (
-    <TableGrid tableConfig={tableConfig}
-               paginationConfig={paginationConfig}
-               actionButtonList={{}}
-               defaultParams={{}}
-               defaultData={defaultData}
-               isShowPagination={false}
-               onSelectedItemsChange={onSelectedItemsChange}
-               RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
-    />
+    <>
+      <OrdersHistoryFilters products={products} onChange={onFiltersChange} />
+      <TableGrid tableConfig={tableConfig}
+                 paginationConfig={paginationConfig}
+                 actionButtonList={{}}
+                 defaultParams={{}}
+                 defaultData={defaultData}
+                 isShowPagination={false}
+                 onSelectedItemsChange={onSelectedItemsChange}
+                 RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
+      />
+    </>
   );
 }
