@@ -1,0 +1,83 @@
+import React, { useEffect, useState } from 'react';
+import { YoutubeOutlined, TableOutlined, LinkOutlined,
+  OrderedListOutlined, SwapOutlined, DollarOutlined,
+  BellOutlined, FacebookOutlined, UserOutlined,
+  ContactsOutlined } from '@ant-design/icons';
+import Sider, { getItem } from 'components/Share/Layout/Sider';
+import { ProductService } from 'services';
+import { ROUTERS, WEBSITE_DOMAIN } from 'components/contants';
+
+import "./style.scss";
+
+export default function UserSider({ redirectTo = () => {} }) {
+  const [products, setProducts] = useState(null);
+  useEffect(() => {
+    ProductService.getProducts(response => {
+      const productList = response.data.products.map(product => {
+        return {
+          ...product,
+          key: product.type,
+          services: product.services.map((service, serviceIndex) => {
+            return ({
+              ...service,
+              key: `${product.type}_${serviceIndex}`,
+            });
+          })
+        }
+      })
+      setProducts(productList);
+    })
+  }, []);
+  const productsItems = (products || []).map(product => {
+    const servicesItems = product.services.map(service => {
+      return getItem(service.name, service.key, <YoutubeOutlined />);
+    })
+    return getItem(product.name.toUpperCase(), product.key, undefined, servicesItems);
+  })
+
+  const items = [
+      ...productsItems,
+    getItem('CHO THÀNH VIÊN', 'customer', undefined, [
+      getItem('Lịch sử đơn hàng', ROUTERS.HISTORY_ORDERS, <OrderedListOutlined />),
+      getItem( 'Lịch sử đơn nạp', ROUTERS.DEPOSIT_HISTORY, <SwapOutlined />),
+      getItem('Bảng giá Cộng tác viên', ROUTERS.PRICES_FOR_PARTNER, <TableOutlined />),
+      getItem('Tìm ID facebook', ROUTERS.FIND_FACEBOOK_ID, <LinkOutlined />),
+      getItem('Kiếm tiền', ROUTERS.MAKE_MONEY, <DollarOutlined />),
+      getItem('Thông báo', ROUTERS.NOTIFICATION, <BellOutlined />),
+    ]),
+    getItem('LIÊN HỆ', 'contacts', undefined, [
+      getItem(`Fanpage ${WEBSITE_DOMAIN}`, ROUTERS.FB_PAGE, <FacebookOutlined />),
+      getItem( `Admin ${WEBSITE_DOMAIN}`, ROUTERS.FB_ADMIN, <UserOutlined />),
+      getItem('Liên hệ', ROUTERS.CONTACT_INFO, <ContactsOutlined />),
+    ]),
+    getItem('BÀI VIẾT', 'posts', undefined, [
+      getItem('Dịch vụ Tăng like Facebook', ROUTERS.BUFF_FB_LIKE),
+      getItem('Mở khóa Facebook', ROUTERS.UNLOCK_FB_ACC),
+      getItem('Tổng đài Facebook Việt Nam', ROUTERS.HOTLINE_FB_VN),
+      getItem('Icon Facebook 2020', ROUTERS.ICON_FB_2020),
+      getItem('Tích xanh Facebook', ROUTERS.VERIFY_FB_ACC),
+    ]),
+  ];
+  const defaultOpenKeys = items.map(item => item.key);
+  const defaultSelectedKeys = []
+
+  const onClick = (e) => {
+    switch (e.key) {
+      case ROUTERS.FB_PAGE:
+        window.open('https://www.facebook.com/FanpageLike68/?ref=website', '_blank');
+        break;
+      case ROUTERS.FB_ADMIN:
+        window.open('https://www.facebook.com/mr.QuocDoan','_blank');
+        break;
+      default:
+        redirectTo(e.key);
+    }
+  };
+  return (
+    !!products ? <Sider items={items}
+           defaultOpenKeys={defaultOpenKeys}
+           defaultSelectedKeys={defaultSelectedKeys}
+           onClick={onClick}
+    /> : ''
+  );
+}

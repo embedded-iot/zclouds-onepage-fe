@@ -97,7 +97,7 @@ const App = (props) => {
                                 signOut={signOut}
                         />
                       )}
-                     sider={ props.isAdmin ? <AdminSider /> : <UserSider /> }
+                     sider={ props.isAdmin ? <AdminSider redirectTo={redirectTo}/> : <UserSider redirectTo={redirectTo}/> }
                      content={<AppContent />}
                      footer={<Footer />}
       />
