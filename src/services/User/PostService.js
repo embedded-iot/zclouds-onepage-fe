@@ -5,23 +5,23 @@ const postsResponse = {
     posts: [
       {
         key: POST_KEYS.BUFF_FB_LIKE,
-        name: "Tăng view, giờ xem YT",
+        name: "Dịch vụ Tăng like Facebook",
       },
       {
         key: POST_KEYS.UNLOCK_FB_ACC,
-        name: "Tăng like Youtube",
+        name: "Mở khóa Facebook",
       },
       {
         key: POST_KEYS.HOTLINE_FB_VN,
-        name: "Tăng comment Youtube",
+        name: "Tổng đài Facebook Việt Nam",
       },
       {
         key: POST_KEYS.ICON_FB_2020,
-        name: "Tăng Sub Youtube ",
+        name: "Icon Facebook 2020",
       },
       {
         key: POST_KEYS.VERIFY_FB_ACC,
-        name: "Tăng Sub Youtube ",
+        name: "Tích xanh Facebook",
       }
     ]
   }
