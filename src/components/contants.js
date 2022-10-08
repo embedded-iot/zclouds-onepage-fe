@@ -23,11 +23,8 @@ export const ROUTERS = {
   FB_PAGE: '/fb-page',
   FB_ADMIN: '/fb-admin',
   CONTACT_INFO: '/contact-info',
-  BUFF_FB_LIKE: '/buff-fb-like',
-  UNLOCK_FB_ACC: '/unlock-fb-acc',
-  HOTLINE_FB_VN: '/hotline-fb-vn',
-  ICON_FB_2020: '/icon-fb-2020',
-  VERIFY_FB_ACC: '/verify-fb-acc',
+  POSTS: '/posts',
+  DETAIL_POSTS: '/posts/:postKey/:postName',
 }
 
 export const ORDER_STATUS = [
@@ -50,4 +47,12 @@ export const SERVICE_KEYS = {
   'LIKE_YOUTUBE' : 'like-youtube',
   'COMMENT_YOUTUBE' : 'comment-youtube',
   'SUB_YOUTUBE' : 'sub-youtube',
+};
+
+export const POST_KEYS = {
+  BUFF_FB_LIKE: 'buff-fb-like',
+  UNLOCK_FB_ACC: 'unlock-fb-acc',
+  HOTLINE_FB_VN: 'hotline-fb-vn',
+  ICON_FB_2020: 'icon-fb-2020',
+  VERIFY_FB_ACC: 'verify-fb-acc',
 };

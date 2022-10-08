@@ -4,14 +4,15 @@ import { YoutubeOutlined, TableOutlined, LinkOutlined,
   BellOutlined, FacebookOutlined, UserOutlined,
   ContactsOutlined } from '@ant-design/icons';
 import Sider, { getItem } from 'components/Share/Layout/Sider';
-import { ProductService } from 'services';
+import { PostService, ProductService } from 'services';
 import { ROUTERS, WEBSITE_DOMAIN } from 'components/contants';
 
 import "./style.scss";
 
 export default function UserSider({ redirectTo = () => {}, setGlobalStore = () => {} }) {
   const [products, setProducts] = useState(null);
-  useEffect(() => {
+  const [posts, setPosts] = useState(null);
+  const getProducts = () => {
     ProductService.getProducts(response => {
       const productList = response.data.products.map(product => {
         return {
@@ -30,6 +31,21 @@ export default function UserSider({ redirectTo = () => {}, setGlobalStore = () =
         products: productList
       });
     })
+  }
+  const getPosts = () => {
+    PostService.getPosts(response => {
+      const postList = response.data.posts.map(post => {
+        return ({
+          ...post,
+          key: `${ROUTERS.POSTS}/${post.key}/${post.name}`,
+        });
+      })
+      setPosts(postList);
+    })
+  }
+  useEffect(() => {
+    getProducts();
+    getPosts();
     // eslint-disable-next-line
   }, []);
   const productsItems = (products || []).map(product => {
@@ -38,7 +54,9 @@ export default function UserSider({ redirectTo = () => {}, setGlobalStore = () =
     })
     return getItem(product.name.toUpperCase(), product.key, undefined, servicesItems);
   })
-
+  const postsItem = !!posts ? getItem('BÀI VIẾT', 'posts', undefined, posts.map(post => {
+    return getItem(post.name, post.key);
+  })) : {};
   const items = [
       ...productsItems,
     getItem('CHO THÀNH VIÊN', 'customer', undefined, [
@@ -54,13 +72,7 @@ export default function UserSider({ redirectTo = () => {}, setGlobalStore = () =
       getItem( `Admin ${WEBSITE_DOMAIN}`, ROUTERS.FB_ADMIN, <UserOutlined />),
       getItem('Liên hệ', ROUTERS.CONTACT_INFO, <ContactsOutlined />),
     ]),
-    getItem('BÀI VIẾT', 'posts', undefined, [
-      getItem('Dịch vụ Tăng like Facebook', ROUTERS.BUFF_FB_LIKE),
-      getItem('Mở khóa Facebook', ROUTERS.UNLOCK_FB_ACC),
-      getItem('Tổng đài Facebook Việt Nam', ROUTERS.HOTLINE_FB_VN),
-      getItem('Icon Facebook 2020', ROUTERS.ICON_FB_2020),
-      getItem('Tích xanh Facebook', ROUTERS.VERIFY_FB_ACC),
-    ]),
+    postsItem,
   ];
   const defaultOpenKeys = items.map(item => item.key);
   const defaultSelectedKeys = []
@@ -78,7 +90,7 @@ export default function UserSider({ redirectTo = () => {}, setGlobalStore = () =
     }
   };
   return (
-    !!products ? <Sider items={items}
+    !!products && !!posts ? <Sider items={items}
            defaultOpenKeys={defaultOpenKeys}
            defaultSelectedKeys={defaultSelectedKeys}
            onClick={onClick}
