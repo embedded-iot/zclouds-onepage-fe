@@ -6,6 +6,7 @@ import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import OrdersHistoryTable from 'components/User/OrdersHistoryTable';
+import ProtectedBox from 'components/Share/ProtectedBox';
 
 function OrdersHistoryPage(props) {
   return (
@@ -17,7 +18,12 @@ function OrdersHistoryPage(props) {
         title="Lịch sử đơn hàng"
       />
       <div className="page-contents">
-        <OrdersHistoryTable products={props.products} />
+        <ProtectedBox redirectTo={props.push}
+                      setGlobalStore={props.setGlobalStore}
+                      isLogin={props.isLogin}
+        >
+          <OrdersHistoryTable products={props.products} />
+        </ProtectedBox>
       </div>
     </div>
   );
@@ -26,6 +32,7 @@ function OrdersHistoryPage(props) {
 function mapStateToProps(state) {
   return {
     router: state.router,
+    isLogin: state.global.isLogin,
     currentUser: state.global.currentUser || {},
     products: state.global.products,
   }

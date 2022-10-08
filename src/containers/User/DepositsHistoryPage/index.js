@@ -6,6 +6,7 @@ import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import DepositHistoryTable from 'components/User/DepositHistoryTable';
+import ProtectedBox from 'components/Share/ProtectedBox';
 
 function DepositsHistoryPage(props) {
   return (
@@ -17,7 +18,12 @@ function DepositsHistoryPage(props) {
         title="Lịch sử đơn nạp"
       />
       <div className="page-contents">
-        <DepositHistoryTable />
+        <ProtectedBox redirectTo={props.push}
+                      setGlobalStore={props.setGlobalStore}
+                      isLogin={props.isLogin}
+        >
+          <DepositHistoryTable />
+        </ProtectedBox>
       </div>
     </div>
   );
@@ -26,6 +32,7 @@ function DepositsHistoryPage(props) {
 function mapStateToProps(state) {
   return {
     router: state.router,
+    isLogin: state.global.isLogin,
     currentUser: state.global.currentUser || {},
     products: state.global.products,
   }
