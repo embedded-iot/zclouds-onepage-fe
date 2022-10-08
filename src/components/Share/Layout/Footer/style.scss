@@ -1,5 +1,12 @@
 .footer-wrapper {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  .footer-contents {
+    text-align: center;
+    div:not(.ant-divider) {
+      padding: 0 60px;
+    }
+  }
   .ant-divider {
     margin: 5px 10px;
     color: #fff;
