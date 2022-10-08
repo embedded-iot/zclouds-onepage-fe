@@ -31,7 +31,7 @@ import RegisterPage from 'containers/Common/RegisterPage/Loadable';
 import ForgotAccountPage from 'containers/Common/ForgotAccountPage/Loadable';
 import AccountInfoPage from 'containers/Common/AccountInfoPage/Loadable';
 
-import WalletPage from 'containers/User/WalletPage/Loadable';
+import AccountAssetsPage from 'containers/User/AccountAssetsPage/Loadable';
 import UsersPage from 'containers/User/UsersPage/Loadable';
 
 
@@ -61,7 +61,8 @@ const AppContent = (props) => (
     <Route exact path={ROUTERS.REGISTER} component={RegisterPage} />
     <Route exact path={ROUTERS.FORGOT_ACCOUNT} component={ForgotAccountPage} />
     <Route exact path={ROUTERS.ACCOUNT_INFO} component={AccountInfoPage} />
-    <Route exact path={ROUTERS.WALLET_WITH_TAB} component={WalletPage} />
+    <Route exact path={ROUTERS.ACCOUNT_ASSETS} component={AccountAssetsPage} />
+    <Route exact path={ROUTERS.DEPOSITS_HISTORY} component={AccountInfoPage} />
     <Route exact path="/guest" component={UsersPage} />
     <Route exact path="/cms" component={AdminsPage} />
   </Switch>

@@ -12,7 +12,7 @@ import DepositMethodsList from 'components/User/DepositMethodsList';
 import DepositHistoryTable from 'components/User/DepositHistoryTable';
 import OrdersHistoryTable from 'components/User/OrdersHistoryTable';
 
-function WalletPage(props) {
+function AccountAssetsPage(props) {
   const tabItems = [
     {
       label: (
@@ -21,7 +21,7 @@ function WalletPage(props) {
           Phương thức nạp tiền
         </span>
       ),
-      key: ROUTERS.DEPOSIT_METHODS,
+      key: ROUTERS.ACCOUNT_ASSETS_DEPOSIT_METHODS,
       children: <DepositMethodsList userInfo={props.currentUser}/>,
     },
     {
@@ -31,7 +31,7 @@ function WalletPage(props) {
           Lịch sử nạp tiền
         </span>
       ),
-      key: ROUTERS.DEPOSIT_HISTORY,
+      key: ROUTERS.ACCOUNT_ASSETS_DEPOSITS_HISTORY,
       children: <DepositHistoryTable />,
     },
     {
@@ -41,7 +41,7 @@ function WalletPage(props) {
           Lịch sử đơn hàng
         </span>
       ),
-      key: ROUTERS.HISTORY_ORDERS,
+      key: ROUTERS.ACCOUNT_ASSETS_ORDERS_HISTORY,
       children: <OrdersHistoryTable />,
     },
   ]
@@ -92,4 +92,4 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-)(WalletPage);
+)(AccountAssetsPage);

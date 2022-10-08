@@ -27,12 +27,12 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
   const userMenuItems = isLogin && !isAdmin ? [
     {
       label: 'Lịch sử đơn hàng',
-      key: ROUTERS.HISTORY_ORDERS,
+      key: ROUTERS.ACCOUNT_ASSETS_ORDERS_HISTORY,
       icon: <OrderedListOutlined />,
     },
     {
       label: 'Lịch sử đơn nạp',
-      key: ROUTERS.DEPOSIT_HISTORY,
+      key: ROUTERS.ACCOUNT_ASSETS_DEPOSITS_HISTORY,
       icon: <SwapOutlined />,
     }
   ] : [];
@@ -72,7 +72,7 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
           <Button type="primary" size="small" danger>
             {currentUser.wallet || '0'}đ
           </Button>
-          <Button type="primary" size="small" icon={<DollarOutlined />} onClick={() => redirectTo(ROUTERS.DEPOSIT_METHODS)}>Nạp tiền</Button>
+          <Button type="primary" size="small" icon={<DollarOutlined />} onClick={() => redirectTo(ROUTERS.ACCOUNT_ASSETS_DEPOSIT_METHODS)}>Nạp tiền</Button>
           <Dropdown
             overlay={menu}
             placement="bottomRight"

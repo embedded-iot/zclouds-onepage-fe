@@ -38,8 +38,8 @@ export default function UserSider({ redirectTo = () => {} }) {
   const items = [
       ...productsItems,
     getItem('CHO THÀNH VIÊN', 'customer', undefined, [
-      getItem('Lịch sử đơn hàng', ROUTERS.HISTORY_ORDERS, <OrderedListOutlined />),
-      getItem( 'Lịch sử đơn nạp', ROUTERS.DEPOSIT_HISTORY, <SwapOutlined />),
+      getItem('Lịch sử đơn hàng', ROUTERS.ORDERS_HISTORY, <OrderedListOutlined />),
+      getItem( 'Lịch sử đơn nạp', ROUTERS.DEPOSITS_HISTORY, <SwapOutlined />),
       getItem('Bảng giá Cộng tác viên', ROUTERS.PRICES_FOR_PARTNER, <TableOutlined />),
       getItem('Tìm ID facebook', ROUTERS.FIND_FACEBOOK_ID, <LinkOutlined />),
       getItem('Kiếm tiền', ROUTERS.MAKE_MONEY, <DollarOutlined />),
