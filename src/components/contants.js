@@ -7,6 +7,8 @@ export const ROUTERS = {
   FORGOT_ACCOUNT: '/forgot-account',
   LOGOUT: '/logout',
   ACCOUNT_INFO: '/account-info',
+  SERVICES: `/services`,
+  DETAIL_SERVICE: `/services/:serviceKey/:serviceName`,
   ACCOUNT_ASSETS: '/account-assets/:tab',
   ACCOUNT_ASSETS_DEPOSITS_HISTORY: '/account-assets/deposits-history',
   ACCOUNT_ASSETS_DEPOSIT_METHODS: '/account-assets/deposit-methods',
@@ -42,3 +44,10 @@ export const ORDER_STATUS = [
   { value: 'Đợi chạy' },
   { value: 'Đang chạy' },
 ];
+
+export const SERVICE_KEYS = {
+  'VIEW_YOUTUBE' : 'view-youtube',
+  'LIKE_YOUTUBE' : 'like-youtube',
+  'COMMENT_YOUTUBE' : 'comment-youtube',
+  'SUB_YOUTUBE' : 'sub-youtube',
+};

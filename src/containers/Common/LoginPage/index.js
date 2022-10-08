@@ -1,46 +1,17 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, notification, PageHeader, Row } from 'antd';
+import { Col, PageHeader, Row } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import LoginForm from 'components/Share/LoginForm';
 import { goBack, push } from 'connected-react-router';
-import { UserService } from "services"
-import { authentication } from 'utils';
+import LoginBox from 'components/Share/LoginBox';
 
 const LoginPage = (props) => {
-  const getUserInfo = (callback) => {
-    UserService.getUserInfo(response => {
-      props.setGlobalStore({
-        isLogin: true,
-        isAdmin: false,
-        currentUser: {
-          ...response.data
-        }
-      })
-      callback();
-    }, error => {
-      notification.error({
-        message: error.status && error.status.message ? error.status.message : "Không thể lấy thông tin tài khoản bây giờ. Vui lòng thử lại sau!",
-      });
-    })
+  const onFinish = () => {
+    props.goBack();
   }
-  const onFinish = (values) => {
-    UserService.login(values, response => {
-      authentication.setToken(response.data.token);
-      getUserInfo(() => {
-        notification.success({
-          message: "Đăng nhập thành công!",
-        });
-        props.goBack();
-      })
-    }, error => {
-      notification.error({
-        message: error.status && error.status.message ? error.status.message : "Không thể đăng nhập tài khoản bây giờ. Vui lòng thử lại sau!",
-      });
-    });
-  }
+
   return (
     <div className="page-wrapper">
       <Helmet>
@@ -53,7 +24,10 @@ const LoginPage = (props) => {
       <div className="page-contents">
         <Row>
           <Col span={12}>
-            <LoginForm onFinish={onFinish} redirectTo={props.push}/>
+            <LoginBox onFinish={onFinish}
+                      redirectTo={props.push}
+                      setGlobalStore={props.setGlobalStore}
+            />
           </Col>
         </Row>
       </div>

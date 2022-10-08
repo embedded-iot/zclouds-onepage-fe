@@ -20,7 +20,7 @@ export default function UserSider({ redirectTo = () => {}, setGlobalStore = () =
           services: product.services.map((service, serviceIndex) => {
             return ({
               ...service,
-              key: `${product.type}_${serviceIndex}`,
+              key: `${ROUTERS.SERVICES}/${service.key}/${service.name}`,
             });
           })
         }
