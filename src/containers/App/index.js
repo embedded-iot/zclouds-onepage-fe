@@ -87,6 +87,7 @@ const App = (props) => {
       })
     });
   }
+  const selectedRouters = [props.router.location.pathname];
   return (
     <AppWrapper>
       <Helmet
@@ -104,7 +105,7 @@ const App = (props) => {
                                 signOut={signOut}
                         />
                       )}
-                     sider={ props.isAdmin ? <AdminSider redirectTo={redirectTo}/> : <UserSider redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/> }
+                     sider={ props.isAdmin ? <AdminSider selectedRouters={selectedRouters}  redirectTo={redirectTo}/> : <UserSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/> }
                      content={<AppContent />}
                      footer={<Footer />}
       />
@@ -119,6 +120,7 @@ function mapStateToProps(state) {
     isAdmin,
     currentUser,
     products,
+    router: state.router,
   }
 }
 

@@ -9,7 +9,7 @@ import { ROUTERS, WEBSITE_DOMAIN } from 'components/contants';
 
 import "./style.scss";
 
-export default function UserSider({ redirectTo = () => {}, setGlobalStore = () => {} }) {
+export default function UserSider({ selectedRouters = [], redirectTo = () => {}, setGlobalStore = () => {} }) {
   const [products, setProducts] = useState(null);
   const [posts, setPosts] = useState(null);
   const getProducts = () => {
@@ -75,7 +75,6 @@ export default function UserSider({ redirectTo = () => {}, setGlobalStore = () =
     postsItem,
   ];
   const defaultOpenKeys = items.map(item => item.key);
-  const defaultSelectedKeys = []
 
   const onClick = (e) => {
     switch (e.key) {
@@ -92,7 +91,7 @@ export default function UserSider({ redirectTo = () => {}, setGlobalStore = () =
   return (
     !!products && !!posts ? <Sider items={items}
            defaultOpenKeys={defaultOpenKeys}
-           defaultSelectedKeys={defaultSelectedKeys}
+           defaultSelectedKeys={selectedRouters}
            onClick={onClick}
     /> : ''
   );
