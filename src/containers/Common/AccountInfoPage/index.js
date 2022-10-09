@@ -1,13 +1,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, notification, PageHeader, Row } from 'antd';
+import { Col, notification, Row } from 'antd';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { goBack } from 'connected-react-router';
+import { goBack, push } from 'connected-react-router';
 import UserDetailBox from 'components/Share/UserDetailBox';
 import UserDetailForm from 'components/Share/UserDetailForm';
 import { UserService } from 'services';
 import { setGlobalStore } from 'containers/App/actions';
+import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 const AccountInfoPage = (props) => {
   const { id:userId, fullName, userName, phone, email, address, avatar } = props.currentUser;
@@ -51,10 +52,12 @@ const AccountInfoPage = (props) => {
       <Helmet>
         <title>Thông tin tài khoản</title>
       </Helmet>
-      <PageHeader
-        onBack={() => props.goBack()}
+      <PageHeaderBar
+        isHome
+        goHome={() => props.push('/')}
         title="Thông tin tài khoản"
       />
+
       <div className="page-contents">
         <Row>
           <Col span={12}>
@@ -81,6 +84,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setGlobalStore: options => dispatch(setGlobalStore(options)),
     goBack: () => dispatch(goBack()),
+    push: path => dispatch(push(path)),
   };
 }
 

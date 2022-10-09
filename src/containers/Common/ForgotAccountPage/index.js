@@ -7,6 +7,7 @@ import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import ForgotAccountForm from 'components/Share/ForgotAccountForm';
 import { UserService } from 'services';
+import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 const ForgotAccountPage = (props) => {
   const onFinish = (values) => {
@@ -27,8 +28,9 @@ const ForgotAccountPage = (props) => {
       <Helmet>
         <title>Quên mật khẩu</title>
       </Helmet>
-      <PageHeader
-        onBack={() => props.goBack()}
+      <PageHeaderBar
+        isHome
+        goHome={() => props.push('/')}
         title="Quên mật khẩu"
       />
       <div className="page-contents">

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { PageHeader,} from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import DepositHistoryTable from 'components/User/DepositHistoryTable';
 import ProtectedBox from 'components/Share/ProtectedBox';
+import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 function DepositsHistoryPage(props) {
   return (
@@ -14,7 +14,9 @@ function DepositsHistoryPage(props) {
       <Helmet>
         <title>Lịch sử đơn nạp</title>
       </Helmet>
-      <PageHeader
+      <PageHeaderBar
+        isHome
+        goHome={() => props.push('/')}
         title="Lịch sử đơn nạp"
       />
       <div className="page-contents">

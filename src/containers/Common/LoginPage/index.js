@@ -1,11 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, PageHeader, Row } from 'antd';
+import { Col, Row } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import LoginBox from 'components/Share/LoginBox';
+import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 const LoginPage = (props) => {
   const onFinish = () => {
@@ -17,9 +18,10 @@ const LoginPage = (props) => {
       <Helmet>
         <title>Đăng nhập</title>
       </Helmet>
-      <PageHeader
-        onBack={() => props.goBack()}
-        title="Đăng nhập"
+      <PageHeaderBar
+        isHome
+        goHome={() => props.push('/')}
+        title={'Đăng nhập'}
       />
       <div className="page-contents">
         <Row>

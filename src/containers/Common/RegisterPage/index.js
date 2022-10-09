@@ -7,6 +7,7 @@ import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import RegisterForm from 'components/Share/RegisterForm';
 import { UserService } from 'services';
+import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 const RegisterPage = (props) => {
   const onFinish = (values) => {
@@ -28,6 +29,11 @@ const RegisterPage = (props) => {
       <Helmet>
         <title>Đăng ký</title>
       </Helmet>
+      <PageHeaderBar
+        isHome
+        goHome={() => props.push('/')}
+        title="Đăng ký tài khoản"
+      />
       <PageHeader
         onBack={() => props.goBack()}
         title="Đăng ký tài khoản"

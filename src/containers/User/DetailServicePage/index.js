@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Divider, PageHeader } from 'antd';
+import { Divider } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
@@ -8,6 +8,7 @@ import { compose } from 'redux';
 import ProtectedBox from 'components/Share/ProtectedBox';
 import { ViewYoutubePost } from 'components/User/StaticPosts';
 import DetailServiceBox from 'components/User/DetailServiceBox';
+import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 function DetailServicePage(props) {
   return (
@@ -15,7 +16,9 @@ function DetailServicePage(props) {
       <Helmet>
         <title>{props.serviceName}</title>
       </Helmet>
-      <PageHeader
+      <PageHeaderBar
+        isHome
+        goHome={() => props.push('/')}
         title={props.serviceName}
       />
       <div className="page-contents">

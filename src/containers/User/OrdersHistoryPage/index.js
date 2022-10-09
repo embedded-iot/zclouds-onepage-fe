@@ -1,12 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { PageHeader,} from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import OrdersHistoryTable from 'components/User/OrdersHistoryTable';
 import ProtectedBox from 'components/Share/ProtectedBox';
+import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 function OrdersHistoryPage(props) {
   return (
@@ -14,7 +14,9 @@ function OrdersHistoryPage(props) {
       <Helmet>
         <title>Lịch sử đơn hàng</title>
       </Helmet>
-      <PageHeader
+      <PageHeaderBar
+        isHome
+        goHome={() => props.push('/')}
         title="Lịch sử đơn hàng"
       />
       <div className="page-contents">

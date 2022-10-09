@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, PageHeader, Row, Tabs } from 'antd';
+import { Col, Row, Tabs } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
@@ -11,6 +11,7 @@ import { ROUTERS } from 'components/contants';
 import DepositMethodsList from 'components/User/DepositMethodsList';
 import DepositHistoryTable from 'components/User/DepositHistoryTable';
 import OrdersHistoryTable from 'components/User/OrdersHistoryTable';
+import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 function AccountAssetsPage(props) {
   const tabItems = [
@@ -50,8 +51,9 @@ function AccountAssetsPage(props) {
       <Helmet>
         <title>Quản lý tài khoản</title>
       </Helmet>
-      <PageHeader
-        onBack={() => props.goBack()}
+      <PageHeaderBar
+        isHome
+        goHome={() => props.push('/')}
         title="Quản lý tài khoản"
       />
       <div className="page-contents">

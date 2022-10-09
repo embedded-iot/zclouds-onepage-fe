@@ -1,11 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { PageHeader } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { ViewYoutubePost } from 'components/User/StaticPosts';
+import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 function DetailPostPage(props) {
   return (
@@ -13,7 +13,7 @@ function DetailPostPage(props) {
       <Helmet>
         <title>{props.postName}</title>
       </Helmet>
-      <PageHeader
+      <PageHeaderBar
         title={props.postName}
       />
       <div className="page-contents">
