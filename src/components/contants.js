@@ -1,5 +1,5 @@
 export const WEBSITE_NAME = 'LIKE68';
-export const WEBSITE_DOMAIN = 'like68.vn';
+export const WEBSITE_DOMAIN = 'Like68.vn';
 export const ROUTERS = {
   ROOT: '/',
   LOGIN: '/login',

@@ -32,7 +32,7 @@ import ForgotAccountPage from 'containers/Common/ForgotAccountPage/Loadable';
 import AccountInfoPage from 'containers/Common/AccountInfoPage/Loadable';
 
 import AccountAssetsPage from 'containers/User/AccountAssetsPage/Loadable';
-import UsersPage from 'containers/User/UsersPage/Loadable';
+import HomePage from 'containers/User/HomePage/Loadable';
 import OrdersHistoryPage from 'containers/User/OrdersHistoryPage/Loadable';
 import DepositsHistoryPage from 'containers/User/DepositsHistoryPage/Loadable';
 import DetailServicePage from 'containers/User/DetailServicePage/Loadable';
@@ -60,7 +60,7 @@ const AppWrapper = styled.div`
 
 const AppContent = (props) => (
   <Switch>
-    <Route exact path={ROUTERS.ROOT} component={UsersPage} />
+    <Route exact path={ROUTERS.ROOT} component={HomePage} />
     <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
     <Route exact path={ROUTERS.REGISTER} component={RegisterPage} />
     <Route exact path={ROUTERS.FORGOT_ACCOUNT} component={ForgotAccountPage} />
@@ -70,7 +70,6 @@ const AppContent = (props) => (
     <Route exact path={ROUTERS.DEPOSITS_HISTORY} component={DepositsHistoryPage} />
     <Route exact path={ROUTERS.DETAIL_SERVICE} component={DetailServicePage} />
     <Route exact path={ROUTERS.DETAIL_POSTS} component={DetailPostPage} />
-    <Route exact path="/guest" component={UsersPage} />
     <Route exact path="/cms" component={AdminsPage} />
   </Switch>
 )
