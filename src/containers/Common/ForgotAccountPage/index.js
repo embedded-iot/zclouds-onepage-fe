@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, notification, PageHeader, Row } from 'antd';
+import { Col, notification, Row } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';

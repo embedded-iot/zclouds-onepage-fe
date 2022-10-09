@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, notification, PageHeader, Row } from 'antd';
+import { Col, notification, Row } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -32,10 +32,6 @@ const RegisterPage = (props) => {
       <PageHeaderBar
         isHome
         goHome={() => props.push('/')}
-        title="Đăng ký tài khoản"
-      />
-      <PageHeader
-        onBack={() => props.goBack()}
         title="Đăng ký tài khoản"
       />
       <div className="page-contents">
