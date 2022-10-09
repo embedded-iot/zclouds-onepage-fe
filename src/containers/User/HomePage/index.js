@@ -30,7 +30,6 @@ function HomePage(props) {
           </Col>
           <Col>
             <p>SỬ DỤNG CÁC DỊCH VỤ NHIỀU NGƯỜI DÙNG NHẤT TẠI {WEBSITE_DOMAIN.toUpperCase()}</p>
-            <BannerBox />
             <br/>
             <ProductList products={props.products} redirectTo={props.push}/>
           </Col>
