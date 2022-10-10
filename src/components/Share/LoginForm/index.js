@@ -18,7 +18,7 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }
       >
         <Form.Item
           label="Tên đăng nhập"
-          name="userName"
+          name="loginId"
           rules={[
             {
               required: true,

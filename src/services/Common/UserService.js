@@ -2,7 +2,7 @@ import { makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'uti
 import { getBaseURL } from '../BaseService'
 
 function login(data, successCallback, failureCallback) {
-  const url = getBaseURL() + '/user/login';
+  const url = getBaseURL() + '/customers/authenticate';
   const config = {
     data
   };
@@ -10,7 +10,7 @@ function login(data, successCallback, failureCallback) {
 }
 
 function register(data, successCallback, failureCallback) {
-  const url = getBaseURL() + '/user/register';
+  const url = getBaseURL() + '/customers/register';
   const config = {
     data
   };
@@ -18,28 +18,28 @@ function register(data, successCallback, failureCallback) {
 }
 
 function logout(successCallback, failureCallback) {
-  const url = getBaseURL() + '/user/logout';
+  const url = getBaseURL() + '/customers/logout';
   makeGetWithConfigs(url, {}, successCallback, failureCallback)
 }
 
 function forgotPassword(data, successCallback, failureCallback) {
-  const url = getBaseURL() + '/user/forgot-password';
+  const url = getBaseURL() + '/customers/forgot-password';
   const config = {
     data
   };
   makePostWithConfigs(url, config, successCallback, failureCallback)
 }
 
-function changePassword(userId, data, successCallback, failureCallback) {
-  const url = getBaseURL() + `/user/change-password/${userId}`;
+function changePassword(customersId, data, successCallback, failureCallback) {
+  const url = getBaseURL() + `/customers/change-password/${customersId}`;
   const config = {
     data
   };
   makePutWithConfigs(url, config, successCallback, failureCallback)
 }
 
-function changeUserInfo(userId, data, successCallback, failureCallback) {
-  const url = getBaseURL() + `/user/info/${userId}`;
+function changeUserInfo(customersId, data, successCallback, failureCallback) {
+  const url = getBaseURL() + `/customers/info/${customersId}`;
   const config = {
     data
   };
@@ -47,7 +47,7 @@ function changeUserInfo(userId, data, successCallback, failureCallback) {
 }
 
 function getUserInfo(successCallback, failureCallback) {
-  const url = getBaseURL() + '/user/profile';
+  const url = getBaseURL() + '/customers/profile';
   makeGetWithConfigs(url, {}, successCallback, failureCallback)
 }
 

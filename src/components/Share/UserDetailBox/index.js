@@ -22,7 +22,7 @@ export default function UserDetailBox({ userInfo = {}}) {
         <Col span={20}>
           <Descriptions column={2}>
             <Descriptions.Item label="Họ và tên">{userInfo.fullName || "-"}</Descriptions.Item>
-            <Descriptions.Item label="Tên đăng nhập">{userInfo.userName || "VIP"}</Descriptions.Item>
+            <Descriptions.Item label="Tên đăng nhập">{userInfo.loginId || "VIP"}</Descriptions.Item>
             <Descriptions.Item label="Số dư">
               <Text type="danger">{userInfo.wallet || "0"} đ</Text>
             </Descriptions.Item>

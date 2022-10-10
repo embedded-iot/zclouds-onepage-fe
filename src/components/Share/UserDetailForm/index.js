@@ -44,7 +44,7 @@ export default function UserDetailForm({ initialValues = {}, onFinish = () => {}
         </Form.Item>
         <Form.Item
           label="Tên đăng nhập"
-          name="userName"
+          name="loginId"
           rules={[
             {
               required: true,

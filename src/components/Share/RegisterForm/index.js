@@ -18,7 +18,7 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
       >
         <Form.Item
           label="Họ và tên"
-          name="fullName"
+          name="name"
           rules={[
             {
               required: true,
@@ -30,7 +30,7 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
         </Form.Item>
         <Form.Item
           label="Tên đăng nhập"
-          name="userName"
+          name="loginId"
           rules={[
             {
               required: true,
@@ -42,7 +42,7 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
         </Form.Item>
         <Form.Item
           label="Số điện thoại"
-          name="numberPhone"
+          name="phoneNumber"
           rules={[
             {
               required: true,

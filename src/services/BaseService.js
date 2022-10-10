@@ -1,5 +1,5 @@
 const getBaseURL = () => {
-  return '/api';
+  return '/api/v2';
 }
 
 export {

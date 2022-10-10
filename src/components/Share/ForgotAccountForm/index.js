@@ -35,7 +35,7 @@ export default function ForgotAccountForm({ onFinish = () => {}, redirectTo = ()
 
         <Form.Item
           label="Họ và tên"
-          name="userName"
+          name="loginId"
         >
           <Input placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}/>
         </Form.Item>
