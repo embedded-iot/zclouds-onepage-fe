@@ -11,41 +11,36 @@ import { setGlobalStore } from 'containers/App/actions';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 const AccountInfoPage = (props) => {
-  const { id:userId, fullName, userName, phone, email, address, avatar } = props.currentUser;
+  const { id:userId, name, loginId, phoneNumber, email, address, avatar } = props.currentUser;
   const initialValues = {
-    fullName,
-    userName,
-    phone,
+    name,
+    loginId,
+    phoneNumber,
     email,
     address,
     avatar,
   }
 
   const onFinish = (values) => {
-    const { fullName, email, phone, address, avatar, oldPassword, newPassword } = values;
-    const changeUserInfoPromise = new Promise((resolve, reject) => {
-      UserService.changeUserInfo(userId, { fullName, email, phone, address, avatar }, resolve, reject)
-    });
-    const changePasswordPromise = !!oldPassword && !!newPassword ? new Promise((resolve, reject) => {
-      UserService.changePassword(userId, { oldPassword, newPassword }, resolve, reject)
-      }) : true;
-    Promise.all([changeUserInfoPromise, changePasswordPromise])
-      .then( ([changeUserInfoResponse, changePasswordResponse]) => {
-        props.setGlobalStore({
-          currentUser: {
-            ...props.currentUser,
-            ...changeUserInfoResponse.data
-          }
-        })
-        notification.success({
-          message: "Thay đổi thông tin tài khoản thành công!",
-        });
+    // eslint-disable-next-line
+    const { name, email, phoneNumber, address, avatar, oldPassword, newPassword } = values;
+    UserService.changeUserInfo(userId, {
+      email,
+      phoneNumber,
+      password: newPassword,
+      currentPassword: oldPassword,
+    }, response => {
+      props.setGlobalStore({
+        currentUser: {
+          ...props.currentUser,
+          ...response
+        }
       })
-      .catch(error => {
-        notification.error({
-          message: error.status && error.status.message ? error.status.message : "Thay đổi thông tin tài khoản thất bại. Vui lòng thử lại sau!",
-        });
-    })
+    }, error => {
+      notification.error({
+        message: error.status && error.status.message ? error.status.message : "Thay đổi thông tin tài khoản thất bại. Vui lòng thử lại sau!",
+      });
+    });
   }
   return (
     <div className="page-wrapper">

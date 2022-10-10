@@ -1,10 +1,8 @@
 import React from 'react';
-import { Col, Divider, Row, Typography } from 'antd';
+import { Col, Divider, Row } from 'antd';
 import { YoutubeOutlined } from '@ant-design/icons';
 
 import './style.scss';
-
-const { Text } = Typography;
 
 export default function ProductList({ products = [], redirectTo = () => {}}) {
   return (
@@ -27,7 +25,7 @@ export default function ProductList({ products = [], redirectTo = () => {}}) {
                           <Col span={18}>
                             <div className="service-item-title">{service.name}</div>
                             <Divider />
-                            <div>{service.description} (<Text className="service-item-price">{service.price} đ</Text>)</div>
+                            <div>{service.description || '-'}</div>
                           </Col>
                         </Row>
                       </Col>

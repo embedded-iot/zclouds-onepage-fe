@@ -32,7 +32,7 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
     },
     {
       label: 'Lịch sử đơn nạp',
-      key: ROUTERS.ACCOUNT_ASSETS_DEPOSITS_HISTORY,
+      key: ROUTERS.ACCOUNT_ASSETS_INVOICES_HISTORY,
       icon: <SwapOutlined />,
     }
   ] : [];
@@ -67,12 +67,12 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
       )}
       { isLogin && (
         <>
-          <span>Xin chào: <b>{currentUser.fullName || 'USER'}</b></span>
+          <span>Xin chào: <b>{currentUser.name || 'USER'}</b></span>
           <span>Số dư: </span>
           <Button type="primary" size="small" danger>
-            {currentUser.wallet || '0'}đ
+            {currentUser.credit || '0'}đ
           </Button>
-          <Button type="primary" size="small" icon={<DollarOutlined />} onClick={() => redirectTo(ROUTERS.ACCOUNT_ASSETS_DEPOSIT_METHODS)}>Nạp tiền</Button>
+          <Button type="primary" size="small" icon={<DollarOutlined />} onClick={() => redirectTo(ROUTERS.ACCOUNT_ASSETS_INVOICES_METHODS)}>Nạp tiền</Button>
           <Dropdown
             overlay={menu}
             placement="bottomRight"

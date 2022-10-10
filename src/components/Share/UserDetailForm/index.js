@@ -32,7 +32,7 @@ export default function UserDetailForm({ initialValues = {}, onFinish = () => {}
       >
         <Form.Item
           label="Họ và tên"
-          name="fullName"
+          name="name"
           rules={[
             {
               required: true,
@@ -56,7 +56,7 @@ export default function UserDetailForm({ initialValues = {}, onFinish = () => {}
         </Form.Item>
         <Form.Item
           label="Số điện thoại"
-          name="phone"
+          name="phoneNumber"
           rules={[
             {
               required: true,
@@ -80,13 +80,13 @@ export default function UserDetailForm({ initialValues = {}, onFinish = () => {}
             },
           ]}
         >
-          <Input placeholder={`Email ${WEBSITE_NAME}`}/>
+          <Input disabled placeholder={`Email ${WEBSITE_NAME}`}/>
         </Form.Item>
         <Form.Item
           label="Địa chỉ"
           name="address"
         >
-          <Input placeholder={`Địa chỉ ${WEBSITE_NAME}`}/>
+          <Input disabled placeholder={`Địa chỉ ${WEBSITE_NAME}`}/>
         </Form.Item>
         <Form.Item
           label="Đường đẫn ảnh đại diện"
@@ -98,7 +98,7 @@ export default function UserDetailForm({ initialValues = {}, onFinish = () => {}
             },
           ]}
         >
-          <Input placeholder={`https://.../image.jpg ${WEBSITE_NAME}`}/>
+          <Input disabled placeholder={`https://.../image.jpg ${WEBSITE_NAME}`}/>
         </Form.Item>
         <Text>* Để trống nếu không muốn thay đổi mật khẩu</Text>
         <Form.Item

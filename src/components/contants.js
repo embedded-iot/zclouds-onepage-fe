@@ -10,10 +10,10 @@ export const ROUTERS = {
   SERVICES: `/services`,
   DETAIL_SERVICE: `/services/:serviceKey/:serviceName`,
   ACCOUNT_ASSETS: '/account-assets/:tab',
-  ACCOUNT_ASSETS_DEPOSITS_HISTORY: '/account-assets/deposits-history',
-  ACCOUNT_ASSETS_DEPOSIT_METHODS: '/account-assets/deposit-methods',
+  ACCOUNT_ASSETS_INVOICES_HISTORY: '/account-assets/deposits-history',
+  ACCOUNT_ASSETS_INVOICES_METHODS: '/account-assets/deposit-methods',
   ACCOUNT_ASSETS_ORDERS_HISTORY: '/account-assets/orders-history',
-  DEPOSITS_HISTORY: '/deposits-history',
+  INVOICES_HISTORY: '/deposits-history',
   ORDERS_HISTORY: '/orders-history',
   PRICES: '/prices',
   PRICES_FOR_PARTNER: '/prices-for-partner',
@@ -42,12 +42,15 @@ export const ORDER_STATUS = [
   { value: 'Đang chạy' },
 ];
 
-export const SERVICE_KEYS = {
-  'VIEW_YOUTUBE' : 'view-youtube',
-  'LIKE_YOUTUBE' : 'like-youtube',
-  'COMMENT_YOUTUBE' : 'comment-youtube',
-  'SUB_YOUTUBE' : 'sub-youtube',
+export const PRODUCT_TYPES = {
+  YOUTUBE: 'YOUTUBE',
+  TIKTOK: 'TIKTOK',
+  SHOPPE: 'SHOPPE',
 };
+
+export const ACTIVE_PRODUCT_TYPES = [
+  PRODUCT_TYPES.YOUTUBE,
+];
 
 export const POST_KEYS = {
   BUFF_FB_LIKE: 'buff-fb-like',
@@ -56,3 +59,5 @@ export const POST_KEYS = {
   ICON_FB_2020: 'icon-fb-2020',
   VERIFY_FB_ACC: 'verify-fb-acc',
 };
+
+export const DATETIME_FORMAT = "DD/MM/YYYY HH:MM";

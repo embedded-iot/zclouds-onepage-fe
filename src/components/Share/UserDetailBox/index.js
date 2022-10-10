@@ -21,10 +21,10 @@ export default function UserDetailBox({ userInfo = {}}) {
         </Col>
         <Col span={20}>
           <Descriptions column={2}>
-            <Descriptions.Item label="Họ và tên">{userInfo.fullName || "-"}</Descriptions.Item>
+            <Descriptions.Item label="Họ và tên">{userInfo.name || "-"}</Descriptions.Item>
             <Descriptions.Item label="Tên đăng nhập">{userInfo.loginId || "VIP"}</Descriptions.Item>
             <Descriptions.Item label="Số dư">
-              <Text type="danger">{userInfo.wallet || "0"} đ</Text>
+              <Text type="danger">{userInfo.credit || "0"} đ</Text>
             </Descriptions.Item>
             <Descriptions.Item label="Quyền">{!!userInfo.type ? userInfo.type.toUpperCase() : "USER"}</Descriptions.Item>
           </Descriptions>

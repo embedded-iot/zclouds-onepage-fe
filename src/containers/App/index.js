@@ -15,6 +15,7 @@ import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { setGlobalStore } from './actions';
+import { authentication } from 'utils';
 
 
 import Header from 'components/Share/Layout/Header';
@@ -34,7 +35,7 @@ import AccountInfoPage from 'containers/Common/AccountInfoPage/Loadable';
 import AccountAssetsPage from 'containers/User/AccountAssetsPage/Loadable';
 import HomePage from 'containers/User/HomePage/Loadable';
 import OrdersHistoryPage from 'containers/User/OrdersHistoryPage/Loadable';
-import DepositsHistoryPage from 'containers/User/DepositsHistoryPage/Loadable';
+import InvoicesHistoryPage from 'containers/User/InvoicesHistoryPage/Loadable';
 import DetailServicePage from 'containers/User/DetailServicePage/Loadable';
 import DetailPostPage from 'containers/User/DetailPostPage/Loadable';
 
@@ -43,7 +44,6 @@ import AdminsPage from 'containers/Admin/AdminsPage/Loadable';
 
 
 import { ROUTERS, WEBSITE_NAME } from 'components/contants';
-import { UserService } from 'services';
 
 
 import 'scss/style.scss';
@@ -67,7 +67,7 @@ const AppContent = (props) => (
     <Route exact path={ROUTERS.ACCOUNT_INFO} component={AccountInfoPage} />
     <Route exact path={ROUTERS.ACCOUNT_ASSETS} component={AccountAssetsPage} />
     <Route exact path={ROUTERS.ORDERS_HISTORY} component={OrdersHistoryPage} />
-    <Route exact path={ROUTERS.DEPOSITS_HISTORY} component={DepositsHistoryPage} />
+    <Route exact path={ROUTERS.INVOICES_HISTORY} component={InvoicesHistoryPage} />
     <Route exact path={ROUTERS.DETAIL_SERVICE} component={DetailServicePage} />
     <Route exact path={ROUTERS.DETAIL_POSTS} component={DetailPostPage} />
     <Route exact path="/cms" component={AdminsPage} />
@@ -79,13 +79,12 @@ const App = (props) => {
     props.push(path);
   }
   const signOut = () => {
-    UserService.logout(() => {
-      props.setGlobalStore({
-        isLogin: false,
-        isAdmin: false,
-        currentUser: {},
-      })
-    });
+    authentication.clearToken();
+    props.setGlobalStore({
+      isLogin: false,
+      isAdmin: false,
+      currentUser: {},
+    })
   }
   const selectedRouters = [props.router.location.pathname];
   return (

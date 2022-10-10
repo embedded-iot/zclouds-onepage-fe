@@ -4,11 +4,11 @@ import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import DepositHistoryTable from 'components/User/DepositHistoryTable';
+import InvoicesHistoryTable from 'components/User/InvoicesHistoryTable';
 import ProtectedBox from 'components/Share/ProtectedBox';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
 
-function DepositsHistoryPage(props) {
+function InvoicesHistoryPage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
@@ -24,7 +24,7 @@ function DepositsHistoryPage(props) {
                       setGlobalStore={props.setGlobalStore}
                       isLogin={props.isLogin}
         >
-          <DepositHistoryTable />
+          <InvoicesHistoryTable />
         </ProtectedBox>
       </div>
     </div>
@@ -55,4 +55,4 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-)(DepositsHistoryPage);
+)(InvoicesHistoryPage);

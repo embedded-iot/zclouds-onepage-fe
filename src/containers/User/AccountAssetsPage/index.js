@@ -8,8 +8,8 @@ import { compose } from 'redux';
 import UserDetailBox from 'components/Share/UserDetailBox';
 import { DollarOutlined, OrderedListOutlined, SwapOutlined } from '@ant-design/icons';
 import { ROUTERS } from 'components/contants';
-import DepositMethodsList from 'components/User/DepositMethodsList';
-import DepositHistoryTable from 'components/User/DepositHistoryTable';
+import InvoicesMethodsList from 'components/User/InvoicesMethodsList';
+import InvoicesHistoryTable from 'components/User/InvoicesHistoryTable';
 import OrdersHistoryTable from 'components/User/OrdersHistoryTable';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
 
@@ -22,8 +22,8 @@ function AccountAssetsPage(props) {
           Phương thức nạp tiền
         </span>
       ),
-      key: ROUTERS.ACCOUNT_ASSETS_DEPOSIT_METHODS,
-      children: <DepositMethodsList userInfo={props.currentUser}/>,
+      key: ROUTERS.ACCOUNT_ASSETS_INVOICES_METHODS,
+      children: <InvoicesMethodsList userInfo={props.currentUser}/>,
     },
     {
       label: (
@@ -32,8 +32,8 @@ function AccountAssetsPage(props) {
           Lịch sử nạp tiền
         </span>
       ),
-      key: ROUTERS.ACCOUNT_ASSETS_DEPOSITS_HISTORY,
-      children: <DepositHistoryTable />,
+      key: ROUTERS.ACCOUNT_ASSETS_INVOICES_HISTORY,
+      children: <InvoicesHistoryTable />,
     },
     {
       label: (

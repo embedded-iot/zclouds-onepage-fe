@@ -17,25 +17,12 @@ function register(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback)
 }
 
-function logout(successCallback, failureCallback) {
-  const url = getBaseURL() + '/customers/logout';
-  makeGetWithConfigs(url, {}, successCallback, failureCallback)
-}
-
 function forgotPassword(data, successCallback, failureCallback) {
   const url = getBaseURL() + '/customers/forgot-password';
   const config = {
     data
   };
   makePostWithConfigs(url, config, successCallback, failureCallback)
-}
-
-function changePassword(customersId, data, successCallback, failureCallback) {
-  const url = getBaseURL() + `/customers/change-password/${customersId}`;
-  const config = {
-    data
-  };
-  makePutWithConfigs(url, config, successCallback, failureCallback)
 }
 
 function changeUserInfo(customersId, data, successCallback, failureCallback) {
@@ -55,8 +42,6 @@ export {
   login,
   register,
   getUserInfo,
-  logout,
   forgotPassword,
-  changePassword,
   changeUserInfo,
 }

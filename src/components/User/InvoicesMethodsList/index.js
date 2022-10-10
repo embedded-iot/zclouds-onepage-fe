@@ -6,7 +6,7 @@ import './style.scss';
 
 const { Text } = Typography;
 
-export default function DepositMethodsList({ userInfo = {}}) {
+export default function InvoicesMethodsList({ userInfo = {}}) {
   const items = [
     {
       title: "1. NẠP QUA NGÂN HÀNG",

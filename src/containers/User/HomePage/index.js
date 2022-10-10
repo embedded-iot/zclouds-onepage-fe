@@ -20,15 +20,15 @@ function HomePage(props) {
         <Row gutter={[20, 20]}>
           {
             props.isLogin && (
-              <Col>
+              <Col span={24}>
                 <UserDetailBox userInfo={props.currentUser} />
               </Col>
             )
           }
-          <Col>
+          <Col span={24}>
             <BannerBox />
           </Col>
-          <Col>
+          <Col span={24}>
             <p>SỬ DỤNG CÁC DỊCH VỤ NHIỀU NGƯỜI DÙNG NHẤT TẠI {WEBSITE_DOMAIN.toUpperCase()}</p>
             <br/>
             <ProductList products={props.products} redirectTo={props.push}/>

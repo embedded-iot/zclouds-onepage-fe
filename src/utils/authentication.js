@@ -8,6 +8,10 @@ class Authentication {
   getToken() {
     return this.accessToken;
   }
+
+  clearToken() {
+    this.accessToken = '';
+  }
 }
 
 const authentication = new Authentication();
