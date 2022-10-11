@@ -8,6 +8,7 @@ import { goBack, push } from 'connected-react-router';
 import RegisterForm from 'components/Share/RegisterForm';
 import { UserService } from 'services';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
+import { ROUTERS } from 'components/contants';
 
 const RegisterPage = (props) => {
   const onFinish = (values) => {
@@ -16,7 +17,7 @@ const RegisterPage = (props) => {
       notification.success({
         message: "Đăng ký thành công! Vui lòng kiểm tra email để kích hoạt tài khoản của bạn.",
       });
-      props.goBack();
+      props.push(ROUTERS.LOGIN);
     }, error => {
       notification.error({
         message: error.status && error.status.message ? error.status.message : "Không thể đăng ký tài khoản bây giờ. Vui lòng thử lại sau!",
