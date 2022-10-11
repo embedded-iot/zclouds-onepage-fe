@@ -4,7 +4,7 @@ import { Tabs } from 'antd';
 import ServiceOrdersHistoryTable from 'components/User/ServiceOrdersHistoryTable';
 import CreateServiceOrder from 'components/User/CreateServiceOrder';
 
-export default function DetailServiceBox(props) {
+export default function DetailServiceBox({ productType, serviceId, products }) {
   const tabItems = [
     {
       label: (
@@ -14,7 +14,7 @@ export default function DetailServiceBox(props) {
         </span>
       ),
       key: 1,
-      children: <CreateServiceOrder />,
+      children: <CreateServiceOrder productType={productType} serviceId={serviceId} products={products}/>,
     },
     {
       label: (
@@ -24,7 +24,7 @@ export default function DetailServiceBox(props) {
         </span>
       ),
       key: 2,
-      children: <ServiceOrdersHistoryTable products={props.products}/>,
+      children: <ServiceOrdersHistoryTable productType={productType} serviceId={serviceId} products={products}/>,
     },
   ]
 
