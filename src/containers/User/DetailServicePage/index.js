@@ -26,7 +26,10 @@ function DetailServicePage(props) {
                       setGlobalStore={props.setGlobalStore}
                       isLogin={props.isLogin}
                       >
-          <DetailServiceBox />
+          <DetailServiceBox productType={props.productType}
+                            serviceId={props.serviceId}
+                            products={props.products}
+          />
         </ProtectedBox>
         <Divider />
         <ViewYoutubePost />
@@ -41,7 +44,8 @@ function mapStateToProps(state, ownProps) {
     isLogin: state.global.isLogin,
     currentUser: state.global.currentUser || {},
     products: state.global.products,
-    serviceKey: ownProps.match.params.serviceKey,
+    productType: ownProps.match.params.productType,
+    serviceId: ownProps.match.params.serviceId,
     serviceName: ownProps.match.params.serviceName,
   }
 }
