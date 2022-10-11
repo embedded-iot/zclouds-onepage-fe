@@ -15,7 +15,6 @@ const convertCategoriesByType = (categories) => {
     type,
     services: groupByCategory[type].map(service => ({
       ...service,
-      key: service.id,
       description: service.note,
     })),
   }));
