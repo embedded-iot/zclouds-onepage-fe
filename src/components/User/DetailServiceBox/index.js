@@ -32,6 +32,7 @@ export default function DetailServiceBox({ productType, serviceId, products }) {
     <Tabs
       defaultActiveKey={1}
       items={tabItems}
+      destroyInactiveTabPane={true}
     />
   );
 }

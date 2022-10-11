@@ -5,7 +5,7 @@ function request(configs = {}, successCallback = () => {}, failCallback = () => 
   const accessToken = authentication.getToken();
   const defaultHeaders = {
     'Content-Type': 'application/json',
-    'Authorization': accessToken
+    'Authorization': `Bearer ${accessToken}`
   }
   const requestConfigs = {
     ...configs,

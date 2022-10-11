@@ -66,6 +66,7 @@ function AccountAssetsPage(props) {
         <Tabs
           defaultActiveKey={props.router.location.pathname}
           items={tabItems}
+          destroyInactiveTabPane={true}
         />
       </div>
     </div>

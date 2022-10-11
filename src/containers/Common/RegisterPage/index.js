@@ -20,7 +20,7 @@ const RegisterPage = (props) => {
       props.push(ROUTERS.LOGIN);
     }, error => {
       notification.error({
-        message: error.status && error.status.message ? error.status.message : "Không thể đăng ký tài khoản bây giờ. Vui lòng thử lại sau!",
+        message: error.title || "Không thể đăng ký tài khoản bây giờ. Vui lòng thử lại sau!",
       });
     });
   }

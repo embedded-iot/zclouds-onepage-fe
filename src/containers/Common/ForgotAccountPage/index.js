@@ -18,7 +18,7 @@ const ForgotAccountPage = (props) => {
       props.goBack();
     }, error => {
       notification.error({
-        message: error.status && error.status.message ? error.status.message : "Không thể lấy lại mật khẩu bây giờ. Vui lòng thử lại sau!",
+        message: error.title || "Không thể lấy lại mật khẩu bây giờ. Vui lòng thử lại sau!",
       });
     });
   }

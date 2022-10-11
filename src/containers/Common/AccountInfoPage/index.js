@@ -11,7 +11,8 @@ import { setGlobalStore } from 'containers/App/actions';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 const AccountInfoPage = (props) => {
-  const { id:userId, name, loginId, phoneNumber, email, address, avatar } = props.currentUser;
+  // eslint-disable-next-line
+  const { id, name, loginId, phoneNumber, email, address, avatar } = props.currentUser;
   const initialValues = {
     name,
     loginId,
@@ -24,8 +25,8 @@ const AccountInfoPage = (props) => {
   const onFinish = (values) => {
     // eslint-disable-next-line
     const { name, email, phoneNumber, address, avatar, oldPassword, newPassword } = values;
-    UserService.changeUserInfo(userId, {
-      email,
+    UserService.changeUserInfo( {
+      name,
       phoneNumber,
       password: newPassword,
       currentPassword: oldPassword,
@@ -33,12 +34,16 @@ const AccountInfoPage = (props) => {
       props.setGlobalStore({
         currentUser: {
           ...props.currentUser,
-          ...response
+          name,
+          phoneNumber,
         }
       })
+      notification.success({
+        message: "Thay đổi thông tin tài khoản thành công!",
+      });
     }, error => {
       notification.error({
-        message: error.status && error.status.message ? error.status.message : "Thay đổi thông tin tài khoản thất bại. Vui lòng thử lại sau!",
+        message: error.title || "Thay đổi thông tin tài khoản thất bại. Vui lòng thử lại sau!",
       });
     });
   }

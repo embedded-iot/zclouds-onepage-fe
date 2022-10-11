@@ -18,7 +18,7 @@ export default function CreateServiceOrder({ productType, serviceId, products })
       });
     }, error => {
       notification.error({
-        message: error.status && error.status.message ? error.status.message : "Không thể tạo đơn hàng bây giờ. Vui lòng thử lại sau!",
+        message: error.title || "Không thể tạo đơn hàng bây giờ. Vui lòng thử lại sau!",
       });
     })
   }

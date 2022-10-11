@@ -18,7 +18,7 @@ export default function TableGrid({
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [params, setParams] = useState({
     pageSize: 20,
-    pageNum: 1,
+    pageNum: 0,
     ...defaultParams
   });
   const [data, setData] = useState({

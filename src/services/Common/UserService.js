@@ -1,4 +1,4 @@
-import { makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
+import { makeGetWithConfigs, makePostWithConfigs } from 'utils';
 import { getBaseURL } from '../BaseService'
 
 function login(data, successCallback, failureCallback) {
@@ -25,12 +25,12 @@ function forgotPassword(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback)
 }
 
-function changeUserInfo(customersId, data, successCallback, failureCallback) {
-  const url = getBaseURL() + `/customers/info/${customersId}`;
+function changeUserInfo(data, successCallback, failureCallback) {
+  const url = getBaseURL() + `/customers/profile`;
   const config = {
     data
   };
-  makePutWithConfigs(url, config, successCallback, failureCallback)
+  makePostWithConfigs(url, config, successCallback, failureCallback)
 }
 
 function getUserInfo(successCallback, failureCallback) {

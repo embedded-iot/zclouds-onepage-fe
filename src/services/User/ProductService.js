@@ -25,9 +25,7 @@ function getProducts(successCallback, failureCallback) {
   makeGetWithConfigs(url, {}, successCallback, failureCallback, (response) => {
     const products = convertCategoriesByType(response);
     return {
-      data: {
-        products
-      }
+      products
     }
   })
 }

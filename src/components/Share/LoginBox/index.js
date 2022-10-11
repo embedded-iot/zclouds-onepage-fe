@@ -11,19 +11,19 @@ export default function LoginBox({ setGlobalStore = () => {}, redirectTo = () =>
         isLogin: true,
         isAdmin: false,
         currentUser: {
-          ...response.data
+          ...response
         }
       })
       callback();
     }, error => {
       notification.error({
-        message: error.status && error.status.message ? error.status.message : "Không thể lấy thông tin tài khoản bây giờ. Vui lòng thử lại sau!",
+        message: error.title || "Không thể lấy thông tin tài khoản bây giờ. Vui lòng thử lại sau!",
       });
     })
   }
   const handlerFinish = (values) => {
     UserService.login(values, response => {
-      authentication.setToken(response.data.token);
+      authentication.setToken(response.id_token);
       getUserInfo(() => {
         notification.success({
           message: "Đăng nhập thành công!",
@@ -32,7 +32,7 @@ export default function LoginBox({ setGlobalStore = () => {}, redirectTo = () =>
       })
     }, error => {
       notification.error({
-        message: error.status && error.status.message ? error.status.message : "Không thể đăng nhập tài khoản bây giờ. Vui lòng thử lại sau!",
+        message: error.title || "Tên đăng nhập hoặc mật khẩu không đúng."
       });
     });
   }

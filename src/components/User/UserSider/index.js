@@ -14,7 +14,7 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
   const [posts, setPosts] = useState(null);
   const getProducts = () => {
     ProductService.getProducts(response => {
-      const productList = response.data.products.map(product => {
+      const productList = response.products.map(product => {
         return {
           ...product,
           key: product.type,
@@ -34,7 +34,7 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
   }
   const getPosts = () => {
     PostService.getPosts(response => {
-      const postList = response.data.posts.map(post => {
+      const postList = response.posts.map(post => {
         return ({
           ...post,
           key: `${ROUTERS.POSTS}/${post.key}/${post.name}`,

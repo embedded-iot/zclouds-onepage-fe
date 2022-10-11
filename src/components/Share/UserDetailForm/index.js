@@ -82,7 +82,7 @@ export default function UserDetailForm({ initialValues = {}, onFinish = () => {}
         >
           <Input disabled placeholder={`Email ${WEBSITE_NAME}`}/>
         </Form.Item>
-        <Form.Item
+        {/*<Form.Item
           label="Địa chỉ"
           name="address"
         >
@@ -99,7 +99,7 @@ export default function UserDetailForm({ initialValues = {}, onFinish = () => {}
           ]}
         >
           <Input disabled placeholder={`https://.../image.jpg ${WEBSITE_NAME}`}/>
-        </Form.Item>
+        </Form.Item>*/}
         <Text>* Để trống nếu không muốn thay đổi mật khẩu</Text>
         <Form.Item
           label="Mật khẩu cũ"
