@@ -26,10 +26,9 @@ export default function TableGrid({
     totalCount: 0,
     ...defaultData
   });
-
-  const getDataFunc = useCallback(() => {
+  const getDataFunc = useCallback((newParams = {}) => {
     if (!tableConfig.getDataFunc) return;
-    tableConfig.getDataFunc(params, (response) => {
+    tableConfig.getDataFunc(newParams, (response) => {
       setData(response);
       tableConfig.successCallback(response);
     }, error => {
@@ -39,12 +38,13 @@ export default function TableGrid({
   }, []);
 
   useEffect(() => {
-    getDataFunc();
+    getDataFunc(params);
     let reloadListener = null;
     if (!!RELOAD_EVENT_KEY) {
-      reloadListener = events.subscribe(RELOAD_EVENT_KEY, (newParams = {}) => {
-        setParams(params => ({ ...params, ...newParams}));
-        getDataFunc();
+      reloadListener = events.subscribe(RELOAD_EVENT_KEY, (payload = {}) => {
+        const newParams = { ...params, ...payload };
+        setParams(newParams);
+        getDataFunc(newParams);
       })
     }
     return () => {
