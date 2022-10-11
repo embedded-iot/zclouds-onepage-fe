@@ -21,7 +21,7 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
           services: product.services.map((service, serviceIndex) => {
             return ({
               ...service,
-              key: `${ROUTERS.SERVICES}/${service.key}/${service.name}`,
+              key: `${ROUTERS.SERVICES}/${product.type}/${service.id}/${service.name}`,
             });
           })
         }
