@@ -9,6 +9,7 @@ import {
   OrderedListOutlined, SwapOutlined,
 } from '@ant-design/icons';
 import { ROUTERS } from 'components/contants';
+import { format } from 'utils';
 
 import './style.scss';
 
@@ -70,7 +71,7 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
           <span>Xin chào: <b>{currentUser.name || 'USER'}</b></span>
           <span>Số dư: </span>
           <Button type="primary" size="small" danger>
-            {currentUser.credit || '0'}đ
+            {format.formatCurrency(currentUser.credit)}
           </Button>
           <Button type="primary" size="small" icon={<DollarOutlined />} onClick={() => redirectTo(ROUTERS.ACCOUNT_ASSETS_INVOICES_METHODS)}>Nạp tiền</Button>
           <Dropdown
