@@ -4,6 +4,7 @@ import { makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs, makeDelete
 import authentication from './authentication';
 import events from './events';
 import * as datetime from './datetime';
+import * as format from './format';
 
 export {
   history,
@@ -15,4 +16,5 @@ export {
   makePostWithConfigs,
   makePutWithConfigs,
   makeDeleteWithConfigs,
+  format,
 }
