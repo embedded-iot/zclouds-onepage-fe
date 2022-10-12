@@ -1,16 +1,14 @@
 class Authentication {
-  accessToken = '';
-
   setToken(accessToken = '') {
-    this.accessToken = accessToken;
+    localStorage.setItem('accessToken', accessToken);
   }
 
   getToken() {
-    return this.accessToken;
+    return localStorage.getItem('accessToken');
   }
 
   clearToken() {
-    this.accessToken = '';
+    localStorage.removeItem('accessToken');
   }
 }
 
