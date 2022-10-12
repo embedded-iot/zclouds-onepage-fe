@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, Button, Card, Form, Input, InputNumber, Select } from 'antd';
+import { format } from 'utils';
 
 export default function CreateViewYoutube({ onFinish = () => {}, offersOptions = [], redirectTo = () => {} }) {
   const [totalCredit, setTotalCredit] = useState(0)
@@ -73,7 +74,7 @@ export default function CreateViewYoutube({ onFinish = () => {}, offersOptions =
         >
           <InputNumber min={0} placeholder="Số lượng" />
         </Form.Item>
-        <p>Thanh toán: {totalCredit} đ</p>
+        <p>Thanh toán: {format.formatCurrency(totalCredit)} đ</p>
         <Form.Item>
           <Button type="primary" size='large' htmlType="submit">
            ORDER NGAY
