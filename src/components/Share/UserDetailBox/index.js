@@ -2,6 +2,7 @@ import React from 'react';
 import { Avatar, Card, Col, Descriptions, Row } from 'antd';
 import { Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { format } from 'utils';
 const { Text } = Typography;
 
 
@@ -24,7 +25,7 @@ export default function UserDetailBox({ userInfo = {}}) {
             <Descriptions.Item label="Họ và tên">{userInfo.name || "-"}</Descriptions.Item>
             <Descriptions.Item label="Tên đăng nhập">{userInfo.loginId || "VIP"}</Descriptions.Item>
             <Descriptions.Item label="Số dư">
-              <Text type="danger">{userInfo.credit || "0"} đ</Text>
+              <Text type="danger">{format.formatCurrency(userInfo.credit)}</Text>
             </Descriptions.Item>
             <Descriptions.Item label="Quyền">{!!userInfo.type ? userInfo.type.toUpperCase() : "USER"}</Descriptions.Item>
           </Descriptions>
