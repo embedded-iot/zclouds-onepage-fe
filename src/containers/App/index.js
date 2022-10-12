@@ -6,7 +6,7 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route, withRouter } from 'react-router-dom';
@@ -45,6 +45,7 @@ import AdminsPage from 'containers/Admin/AdminsPage/Loadable';
 
 import { ROUTERS, WEBSITE_NAME } from 'components/contants';
 
+import { UserService } from 'services';
 
 import 'scss/style.scss';
 
@@ -75,6 +76,7 @@ const AppContent = (props) => (
 )
 
 const App = (props) => {
+  const [isLoadedCheckLogin, setIsLoadedCheckLogin] = useState(false);
   const redirectTo = path => {
     props.push(path);
   }
@@ -85,8 +87,31 @@ const App = (props) => {
       isAdmin: false,
       currentUser: {},
     })
+    props.push(ROUTERS.ROOT);
   }
+
+  const restoreLoginPreviousSection = () => {
+    UserService.getUserInfo(response => {
+      props.setGlobalStore({
+        isLogin: true,
+        isAdmin: false,
+        currentUser: {
+          ...response
+        }
+      })
+      setIsLoadedCheckLogin(true);
+    }, error => {
+      setIsLoadedCheckLogin(true);
+    })
+  }
+
+  useEffect(() => {
+    restoreLoginPreviousSection();
+    // eslint-disable-next-line
+  }, []);
+
   const selectedRouters = [props.router.location.pathname];
+  if (!isLoadedCheckLogin) return null;
   return (
     <AppWrapper>
       <Helmet
