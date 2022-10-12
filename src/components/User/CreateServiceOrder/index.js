@@ -2,13 +2,14 @@ import React from 'react';
 import { Col, notification, Row } from 'antd';
 import CreateViewYoutube from './CreateViewYoutube';
 import { OrderUserService } from 'services';
+import { format } from 'utils';
 
 export default function CreateServiceOrder({ productType, serviceId, products }) {
   const selectedProduct = products.find(product => product.type === productType) || {};
   const selectedService = (selectedProduct.services || []).find(service => service.id.toString() === serviceId) || {}
   const offersOptions = (selectedService.offers || []).map(offer => ({
     value: offer.id,
-    label: `${offer.name} (${offer.credit} đ)`,
+    label: `${offer.name} (${format.formatCurrency(offer.credit)})`,
     credit: offer.credit,
   }));
   const onFinish = (values) => {
