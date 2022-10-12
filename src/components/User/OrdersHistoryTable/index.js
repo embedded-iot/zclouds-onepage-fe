@@ -27,7 +27,7 @@ const columns = [
     dataIndex: 'amount',
   },
   {
-    title: 'Hóa đơn (đ)',
+    title: 'Hóa đơn',
     dataIndex: 'invoiceLabel',
   },
   {
