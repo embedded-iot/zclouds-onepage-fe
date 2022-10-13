@@ -9,7 +9,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { push } from 'connected-react-router';
 
 import { connect } from 'react-redux';
@@ -59,14 +59,28 @@ const AppWrapper = styled.div`
   flex-direction: column;
 `;
 
+const PrivateRoute = (props) => {
+  const { isAuthenticated, ...restProps } = props;
+  if (!isAuthenticated)
+    return (
+      <Redirect
+        to={{
+          pathname: ROUTERS.LOGIN,
+          search: `?redirect=${props.location.pathname}`,
+        }}
+      />
+    );
+  return (<Route {...restProps} />)
+}
+
 const AppContent = (props) => (
   <Switch>
     <Route exact path={ROUTERS.ROOT} component={HomePage} />
     <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
     <Route exact path={ROUTERS.REGISTER} component={RegisterPage} />
     <Route exact path={ROUTERS.FORGOT_ACCOUNT} component={ForgotAccountPage} />
-    <Route exact path={ROUTERS.ACCOUNT_INFO} component={AccountInfoPage} />
-    <Route exact path={ROUTERS.ACCOUNT_ASSETS} component={AccountAssetsPage} />
+    <PrivateRoute exact path={ROUTERS.ACCOUNT_INFO} component={AccountInfoPage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.ACCOUNT_ASSETS} component={AccountAssetsPage} isAuthenticated={props.isLogin}/>
     <Route exact path={ROUTERS.ORDERS_HISTORY} component={OrdersHistoryPage} />
     <Route exact path={ROUTERS.INVOICES_HISTORY} component={InvoicesHistoryPage} />
     <Route exact path={ROUTERS.DETAIL_SERVICE} component={DetailServicePage} />
@@ -130,7 +144,7 @@ const App = (props) => {
                         />
                       )}
                      sider={ props.isAdmin ? <AdminSider selectedRouters={selectedRouters}  redirectTo={redirectTo}/> : <UserSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/> }
-                     content={<AppContent />}
+                     content={<AppContent isLogin={props.isLogin}/>}
                      footer={<Footer />}
       />
     </AppWrapper>
