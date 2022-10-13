@@ -9,8 +9,14 @@ import LoginBox from 'components/Share/LoginBox';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
 
 const LoginPage = (props) => {
+  const queryParams = new URLSearchParams(props.location.search)
   const onFinish = () => {
-    props.goBack();
+    const redirect = queryParams.get("redirect")
+    if (!!redirect) {
+      props.push(redirect);
+    } else {
+      props.goBack();
+    }
   }
 
   return (
