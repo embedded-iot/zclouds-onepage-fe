@@ -11,6 +11,9 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { push } from 'connected-react-router';
+import { BackTop } from 'antd';
+import { UpCircleOutlined } from '@ant-design/icons';
+import { useMediaQuery } from 'react-responsive';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -43,11 +46,10 @@ import DetailPostPage from 'containers/User/DetailPostPage/Loadable';
 import AdminsPage from 'containers/Admin/AdminsPage/Loadable';
 
 
-import { ROUTERS, WEBSITE_NAME } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS, WEBSITE_NAME } from 'components/contants';
 
 import { UserService } from 'services';
 
-import 'scss/style.scss';
 
 import './style.scss';
 
@@ -91,6 +93,8 @@ const AppContent = (props) => (
 
 const App = (props) => {
   const [isLoadedCheckLogin, setIsLoadedCheckLogin] = useState(false);
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+  const backdropPosition = isMobile ? 40 : 23;
   const redirectTo = path => {
     props.push(path);
   }
@@ -146,7 +150,11 @@ const App = (props) => {
                      sider={ props.isAdmin ? <AdminSider selectedRouters={selectedRouters}  redirectTo={redirectTo}/> : <UserSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/> }
                      content={<AppContent isLogin={props.isLogin}/>}
                      footer={<Footer />}
+                     router={props.router}
       />
+      <BackTop style={{ right: backdropPosition, bottom: backdropPosition}}>
+        <UpCircleOutlined style={{ fontSize: 30, color: 'yellow'}}/>
+      </BackTop>
     </AppWrapper>
   );
 }

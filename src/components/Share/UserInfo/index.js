@@ -8,12 +8,14 @@ import {
   UserOutlined,
   OrderedListOutlined, SwapOutlined,
 } from '@ant-design/icons';
-import { ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import { format } from 'utils';
+import { useMediaQuery } from 'react-responsive';
 
 import './style.scss';
 
 export default function UserInfo({ isLogin = false, isAdmin = false, currentUser = {}, redirectTo = () => {}, signOut = () => {}}) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const handleMenuClick = (e) => {
     switch (e.key) {
       case ROUTERS.LOGOUT:
@@ -61,18 +63,30 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
     <div className="user-info-wrapper">
       { !isLogin && (
         <>
-          <Button icon={<UserAddOutlined />} onClick={() => redirectTo(ROUTERS.REGISTER)}>Đăng ký</Button>
-          <Button type="primary" icon={<LoginOutlined />} onClick={() => redirectTo(ROUTERS.LOGIN)}>Đăng nhập</Button>
-          <Button type="primary" danger icon={<DollarOutlined />} onClick={() => redirectTo(ROUTERS.PRICES)}>Bảng giá</Button>
+          <Button type="primary" danger icon={<DollarOutlined />} onClick={() => redirectTo(ROUTERS.PRICES)}>{!isMobile && 'Bảng giá' }</Button>
+          <Button icon={<UserAddOutlined />} onClick={() => redirectTo(ROUTERS.REGISTER)}>{!isMobile && 'Đăng ký' }</Button>
+          <Button type="primary" icon={<LoginOutlined />} onClick={() => redirectTo(ROUTERS.LOGIN)}>{!isMobile && 'Đăng nhập' }</Button>
         </>
       )}
       { isLogin && (
         <>
-          <span>Xin chào: <b>{currentUser.name || 'USER'}</b></span>
-          <span>Số dư: </span>
-          <Button type="primary" size="small" danger>
-            {format.formatCurrency(currentUser.credit)}
-          </Button>
+          {
+            !isMobile ? (
+              <>
+                <span>Xin chào: <b>{currentUser.name || 'USER'}</b></span>
+                <span>Số dư: </span>
+                <Button type="primary" size="small" danger>
+                  {format.formatCurrency(currentUser.credit)}
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button type="primary" size="small" danger>
+                  {format.formatCurrency(currentUser.credit)}
+                </Button>
+              </>
+            )
+          }
           <Button type="primary" size="small" icon={<DollarOutlined />} onClick={() => redirectTo(ROUTERS.ACCOUNT_ASSETS_INVOICES_METHODS)}>Nạp tiền</Button>
           <Dropdown
             overlay={menu}

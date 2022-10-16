@@ -7,14 +7,9 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
     <Card>
       <Form
         name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
         onFinish={onFinish}
         autoComplete="off"
+        layout="vertical"
       >
         <Form.Item
           label="Họ và tên"
@@ -103,22 +98,12 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
           <Input.Password placeholder={`Nhập lại mật khẩu ${WEBSITE_NAME}`}/>
         </Form.Item>
 
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
+        <Form.Item>
           <Button type="primary" size='large' htmlType="submit">
            Đăng ký
           </Button>
         </Form.Item>
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
+        <Form.Item>
           <p>
             Nếu bạn đã có tài khoản,
             <Button type="link" danger onClick={() => redirectTo("/login")}>Đăng nhập tại đây</Button>

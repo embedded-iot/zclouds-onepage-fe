@@ -79,3 +79,9 @@ export const POST_KEYS = {
 };
 
 export const DATETIME_FORMAT = "DD/MM/YYYY HH:MM";
+
+
+export const RESPONSIVE_MEDIAS = {
+  MOBILE: { query: '(max-width: 768px)' },
+  TABLET: { query: '(max-width: 1124px)' },
+}

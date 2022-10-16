@@ -1,12 +1,14 @@
 import React from 'react';
 import { Button, Card, Col, Row, Typography } from 'antd';
-import { WEBSITE_NAME } from 'components/contants';
+import { RESPONSIVE_MEDIAS, WEBSITE_NAME } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 
 import './style.scss';
 
 const { Text } = Typography;
 
 export default function InvoicesMethodsList({ userInfo = {}}) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const items = [
     {
       title: "1. NẠP QUA NGÂN HÀNG",
@@ -69,7 +71,7 @@ export default function InvoicesMethodsList({ userInfo = {}}) {
       <Row gutter={16}>
         {
           items.map((item, index) => (
-            <Col span={12} key={index} style={{marginBottom: '20px'}}>
+            <Col span={ isMobile ? 24 : 12 } key={index} style={{marginBottom: '20px'}}>
               <Card title={item.title.toUpperCase()} style={{ background: '#fafafa'}}>
                 {item.content}
               </Card>

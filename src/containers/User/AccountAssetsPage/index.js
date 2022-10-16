@@ -7,13 +7,15 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import UserDetailBox from 'components/Share/UserDetailBox';
 import { DollarOutlined, OrderedListOutlined, SwapOutlined } from '@ant-design/icons';
-import { ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import InvoicesMethodsList from 'components/User/InvoicesMethodsList';
 import InvoicesHistoryTable from 'components/User/InvoicesHistoryTable';
 import OrdersHistoryTable from 'components/User/OrdersHistoryTable';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
+import { useMediaQuery } from 'react-responsive';
 
 function AccountAssetsPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const tabItems = [
     {
       label: (
@@ -58,7 +60,7 @@ function AccountAssetsPage(props) {
       />
       <div className="page-contents">
         <Row>
-          <Col span={12}>
+          <Col span={ isMobile ? 24 : 12 }>
             <UserDetailBox userInfo={props.currentUser} />
           </Col>
         </Row>

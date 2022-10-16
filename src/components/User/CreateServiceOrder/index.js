@@ -3,8 +3,11 @@ import { Col, notification, Row } from 'antd';
 import CreateViewYoutube from './CreateViewYoutube';
 import { OrderUserService } from 'services';
 import { format } from 'utils';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 export default function CreateServiceOrder({ productType, serviceId, products }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const selectedProduct = products.find(product => product.type === productType) || {};
   const selectedService = (selectedProduct.services || []).find(service => service.id.toString() === serviceId) || {}
   const offersOptions = (selectedService.offers || []).map(offer => ({
@@ -26,7 +29,7 @@ export default function CreateServiceOrder({ productType, serviceId, products })
 
   return (
     <Row>
-      <Col span={12}>
+      <Col span={ isMobile ? 24 : 12 }>
         <CreateViewYoutube onFinish={onFinish} offersOptions={offersOptions} />
       </Col>
     </Row>

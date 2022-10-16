@@ -1,1 +1,20 @@
+.page-wrapper {
+  padding: 20px 20px 40px 20px;
+  .page-contents {
+    padding: 0 24px;
+  }
+}
+
+.title-page {
+  font-size: 24px;
+}
+
+.ant-layout--mobile {
+  .page-wrapper {
+    padding: 20px 0 40px;
+    .page-contents {
+      padding: 0 24px;
+    }
+  }
+}
 

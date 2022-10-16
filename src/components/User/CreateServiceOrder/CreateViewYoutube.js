@@ -22,12 +22,6 @@ export default function CreateViewYoutube({ onFinish = () => {}, offersOptions =
       <Alert message={message} type="info" style={{marginBottom: 20}}/>
       <Form
         name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
         onFinish={onFinish}
         onValuesChange={handlerValuesChange}
         autoComplete="off"

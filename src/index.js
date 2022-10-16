@@ -14,7 +14,8 @@ import configureStore from './configureStore';
 
 //import 'antd/dist/antd.css';
 import 'antd/dist/antd.min.css';
-import 'globalStyles.scss';
+// import 'globalStyles.scss';
+import './scss/style.scss';
 
 // Create redux store with history
 const initialState = {};

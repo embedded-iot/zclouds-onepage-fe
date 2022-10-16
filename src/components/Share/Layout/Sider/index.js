@@ -13,17 +13,15 @@ export function getItem(label, key, icon, children, type) {
   };
 }
 
-export default function Sider({ items = [], onClick = () => {}, defaultOpenKeys = [], defaultSelectedKeys = []}) {
+export default function Sider({ items = [], onClick = () => {}, defaultOpenKeys = [], defaultSelectedKeys = [], ...restProps}) {
   return (
     <Menu
-      style={{
-        width: 256,
-      }}
       defaultOpenKeys={defaultOpenKeys}
       defaultSelectedKeys={defaultSelectedKeys}
       mode="inline"
       items={items}
       onClick={onClick}
+      {...restProps}
     />
   );
 }

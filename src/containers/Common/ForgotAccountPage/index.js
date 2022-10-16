@@ -8,8 +8,11 @@ import { goBack, push } from 'connected-react-router';
 import ForgotAccountForm from 'components/Share/ForgotAccountForm';
 import { UserService } from 'services';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 const ForgotAccountPage = (props) => {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const onFinish = (values) => {
     UserService.forgotPassword(values, response => {
       notification.success({
@@ -35,7 +38,7 @@ const ForgotAccountPage = (props) => {
       />
       <div className="page-contents">
         <Row>
-          <Col span={12}>
+          <Col span={ isMobile ? 24 : 12 }>
             <ForgotAccountForm onFinish={onFinish} />
           </Col>
         </Row>

@@ -1,10 +1,14 @@
 import React from 'react';
 import { Col, Divider, Row } from 'antd';
 import { YoutubeOutlined } from '@ant-design/icons';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 import './style.scss';
 
 export default function ProductList({ products = [], redirectTo = () => {}}) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+  const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   return (
     <div className="product-list-wrapper">
       {
@@ -17,7 +21,8 @@ export default function ProductList({ products = [], redirectTo = () => {}}) {
                 {
                   product.services.map((service, serviceIndex) => {
                     return (
-                      <Col span={6} key={serviceIndex}>
+                      // eslint-disable-next-line
+                      <Col span={isMobile && 24 || isTablet && 12 || 6} key={serviceIndex}>
                         <Row className="service-item" onClick={() => redirectTo(service.key)}>
                           <Col span={6} className="service-item-icon">
                             <YoutubeOutlined style={{ fontSize: '45px', color: '#ffffff' }}/>

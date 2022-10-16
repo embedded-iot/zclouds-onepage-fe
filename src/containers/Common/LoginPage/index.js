@@ -7,9 +7,12 @@ import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import LoginBox from 'components/Share/LoginBox';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 const LoginPage = (props) => {
-  const queryParams = new URLSearchParams(props.location.search)
+  const queryParams = new URLSearchParams(props.location.search);
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const onFinish = () => {
     const redirect = queryParams.get("redirect")
     if (!!redirect) {
@@ -31,7 +34,7 @@ const LoginPage = (props) => {
       />
       <div className="page-contents">
         <Row>
-          <Col span={12}>
+          <Col span={isMobile ? 24 : 12}>
             <LoginBox onFinish={onFinish}
                       redirectTo={props.push}
                       setGlobalStore={props.setGlobalStore}

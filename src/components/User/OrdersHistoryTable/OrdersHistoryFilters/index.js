@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { Button, Col, Row } from 'antd';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
-import { ORDER_STATUS_OPTIONS } from 'components/contants';
+import { ORDER_STATUS_OPTIONS, RESPONSIVE_MEDIAS } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 
 export default function OrdersHistoryFilters({ productType = '', serviceId= '', products = [], onChange = () => {} }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+  const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
+  // eslint-disable-next-line
+  const spanCol = isMobile && 24 || isTablet && 8 || 6;
   const [filters, setFilters] = useState({});
   const [filtersInputValues, setFiltersInputValues] = useState({});
 
@@ -45,7 +50,7 @@ export default function OrdersHistoryFilters({ productType = '', serviceId= '', 
   }
 
   return (
-    <Row gutter={10}>
+    <Row gutter={[10, 10]}>
       {/*<Col span={4}>
         <InputText placeholder="Tìm theo mã đơn hàng"
                    value={filters.orderId}
@@ -62,7 +67,7 @@ export default function OrdersHistoryFilters({ productType = '', serviceId= '', 
       </Col>*/}
       {
         !productType && (
-          <Col span={4}>
+          <Col span={spanCol}>
             <AutoCompleteInput options={productsOptions}
                                placeholder="Tìm theo loại dịch vụ"
                                name="productType"
@@ -75,7 +80,7 @@ export default function OrdersHistoryFilters({ productType = '', serviceId= '', 
       }
       {
         !serviceId && (
-          <Col span={4}>
+          <Col span={spanCol}>
             <AutoCompleteInput options={filterServicesByProductType(filters.productType)}
                                value={filtersInputValues.serviceId}
                                placeholder="Tìm theo thể loại"
@@ -86,7 +91,7 @@ export default function OrdersHistoryFilters({ productType = '', serviceId= '', 
           </Col>
         )
       }
-      <Col span={4}>
+      <Col span={spanCol}>
         <AutoCompleteInput options={statusOptions}
                            value={filtersInputValues.status}
                            placeholder="Tìm theo trạng thái"
@@ -95,7 +100,7 @@ export default function OrdersHistoryFilters({ productType = '', serviceId= '', 
                            onSelect={onSelectInput}
         />
       </Col>
-      <Col span={4}>
+      <Col span={isTablet ? 24 : spanCol } style={{textAlign: (isMobile || isTablet) ? 'right' : ''}}>
         <Button type="primary" onClick={handlerSearch} style={{marginRight: '10px'}}>Tìm kiếm</Button>
         <Button onClick={handlerClear}>Xóa lọc</Button>
       </Col>

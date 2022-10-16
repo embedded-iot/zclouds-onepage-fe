@@ -9,8 +9,11 @@ import UserDetailForm from 'components/Share/UserDetailForm';
 import { UserService } from 'services';
 import { setGlobalStore } from 'containers/App/actions';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 const AccountInfoPage = (props) => {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   // eslint-disable-next-line
   const { id, name, loginId, phoneNumber, email, address, avatar } = props.currentUser;
   const initialValues = {
@@ -60,12 +63,12 @@ const AccountInfoPage = (props) => {
 
       <div className="page-contents">
         <Row>
-          <Col span={12}>
+          <Col span={ isMobile ? 24 : 12 }>
             <UserDetailBox userInfo={props.currentUser} />
           </Col>
         </Row>
         <Row>
-          <Col span={12}>
+          <Col span={ isMobile ? 24 : 12 }>
             <UserDetailForm initialValues={initialValues} onFinish={onFinish} />
           </Col>
         </Row>

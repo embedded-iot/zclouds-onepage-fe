@@ -18,12 +18,6 @@ export default function UserDetailForm({ initialValues = {}, onFinish = () => {}
       <Form
         form={form}
         name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
         initialValues={initialValues}
         onFinish={onFinish}
         onValuesChange={onValuesChange}

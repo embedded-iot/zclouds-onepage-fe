@@ -8,9 +8,11 @@ import { goBack, push } from 'connected-react-router';
 import RegisterForm from 'components/Share/RegisterForm';
 import { UserService } from 'services';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
-import { ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 
 const RegisterPage = (props) => {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const onFinish = (values) => {
     const { confirmPassword, ...data} = values;
     UserService.register(data, response => {
@@ -37,7 +39,7 @@ const RegisterPage = (props) => {
       />
       <div className="page-contents">
         <Row>
-          <Col span={12}>
+          <Col span={ isMobile ? 24 : 12 }>
             <RegisterForm onFinish={onFinish} redirectTo={props.push} />
           </Col>
         </Row>

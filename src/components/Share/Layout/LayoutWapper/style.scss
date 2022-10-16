@@ -1,3 +1,5 @@
+@import 'scss/style';
+
 .ant-layout {
   background: #fff !important;
   .ant-layout-header {
@@ -10,5 +12,33 @@
     color: #fff;
     background: #1890ff;
     padding: 15px 50px;
+  }
+
+  &--mobile {
+    position: relative;
+    .ant-layout-header {
+      position: sticky;
+      top: 0;
+    }
+    .ant-layout-sider {
+      position: sticky;
+      top: 66px;
+      z-index: 11;
+      .ant-layout-sider-children {
+        position: relative;
+        & > span {
+          position: absolute;
+          top: -45px;
+          left: 20px;
+        }
+        .sider-container {
+          overflow: auto;
+          height: calc(100vh - 66px);
+        }
+      }
+    }
+    .ant-layout-footer {
+      padding: 15px 20px;
+    }
   }
 }

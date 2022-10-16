@@ -7,14 +7,9 @@ export default function ForgotAccountForm({ onFinish = () => {}, redirectTo = ()
     <Card>
       <Form
         name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
         onFinish={onFinish}
         autoComplete="off"
+        layout="vertical"
       >
         <Form.Item
           label="Email"
@@ -39,12 +34,7 @@ export default function ForgotAccountForm({ onFinish = () => {}, redirectTo = ()
         >
           <Input placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}/>
         </Form.Item>
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
+        <Form.Item>
           <Button type="primary" size='large' htmlType="submit">
             Lấy lại mật khẩu
           </Button>
