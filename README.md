@@ -69,15 +69,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-Sui wallet
 
-0xda5a3a2dc99464eb37416e479549594e3d908bc7
-Quan1995@
-beyond bright income lounge hospital general spawn hurry evoke gold soda physical
-
-0x8facdd91f2e0bbc5fbecd22066f4f0fc37bc15cb
-Quan1995@
-digital portion bundle inhale seed gallery neglect hover myth aspect short slide
-
-Quan1995@
-pumpkin sniff violin goose law celery decrease ceiling job absent script mercy
