@@ -1,0 +1,64 @@
+@import 'scss/style';
+
+.public-layout__wrapper {
+  background: #fff !important;
+  .ant-layout-header {
+    position: relative;
+    z-index: 10;
+    background: #fff;
+    box-shadow: 0 2px 8px #f0f1f2;
+  }
+  .ant-layout-header {
+    position: sticky;
+    top: 0;
+  }
+  &--tablet {
+    .header__wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+  }
+  &--desktop {
+    .header__wrapper {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+  }
+  &--mobile {
+    .header__actions {
+      display: none;
+    }
+    .ant-layout-header {
+      .menu-icon {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+      }
+    }
+    &.show-menu {
+      .ant-layout-header {
+        .header__wrapper {
+          .header__actions {
+            background: #fff;
+            display: block;
+            position: absolute;
+            overflow: auto;
+            max-height: calc(100vh - 60px);
+            width: 100vw;
+            left: 0;
+            top: 66px;
+            box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%);
+            padding: 20px;
+            .header__menu {
+              min-width: auto;
+              width: 100%;
+              .ant-menu {
+                box-shadow: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
