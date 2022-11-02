@@ -18,7 +18,6 @@ export default function Sider({ items = [], onClick = () => {}, defaultOpenKeys 
     <Menu
       defaultOpenKeys={defaultOpenKeys}
       defaultSelectedKeys={defaultSelectedKeys}
-      mode="inline"
       items={items}
       onClick={onClick}
       {...restProps}
