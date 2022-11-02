@@ -1,0 +1,24 @@
+.header {
+  &__wrapper {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    .logo-portal a {
+      height: 64px;
+      color: #000000d9;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 64px;
+      letter-spacing: -.18px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+  }
+  &__actions {
+    display: flex;
+    flex-shrink: 0;
+  }
+  &__menu {
+    min-width: 300px;
+  }
+}
