@@ -1,11 +1,12 @@
-export const WEBSITE_NAME = 'LIKE68';
-export const WEBSITE_DOMAIN = 'Like68.vn';
+export const WEBSITE_NAME = 'Lenful';
+export const WEBSITE_DOMAIN = 'Lenful.com';
 export const ROUTERS = {
   ROOT: '/',
   LOGIN: '/login',
   REGISTER: '/register',
-  FORGOT_ACCOUNT: '/forgot-account',
   LOGOUT: '/logout',
+  CATEGORIES: '/categories',
+  SKU: '/sku',
   ACCOUNT_INFO: '/account-info',
   SERVICES: `/services`,
   DETAIL_SERVICE: `/services/:productType/:serviceId/:serviceName`,
@@ -84,4 +85,5 @@ export const DATETIME_FORMAT = "DD/MM/YYYY HH:MM";
 export const RESPONSIVE_MEDIAS = {
   MOBILE: { query: '(max-width: 768px)' },
   TABLET: { query: '(max-width: 1124px)' },
+  DESKTOP: { query: '(max-width: 4096px)' },
 }
