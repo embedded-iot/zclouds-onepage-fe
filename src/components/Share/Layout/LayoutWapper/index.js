@@ -10,7 +10,7 @@ import './style.scss';
 const { Header, Footer, Sider, Content } = Layout;
 
 const TabletAndDesktopLayout = props => (
-  <Layout>
+  <Layout className="layout__wrapper">
     <Header>
       {props.header}
     </Header>
@@ -22,9 +22,11 @@ const TabletAndDesktopLayout = props => (
         <Content>
           {props.content}
         </Content>
-        <Footer>
-          {props.footer}
-        </Footer>
+        { !!props.footer && (
+          <Footer>
+            {props.footer}
+          </Footer>
+        ) }
       </Layout>
     </Layout>
   </Layout>
@@ -38,7 +40,7 @@ const MobileLayout = props => {
     // eslint-disable-next-line
   }, [props.router.location])
   return (
-    <div className="ant-layout ant-layout--mobile">
+    <Layout className="layout__wrapper layout__wrapper--mobile">
       <Header>
         {props.header}
       </Header>
@@ -52,7 +54,7 @@ const MobileLayout = props => {
       <Footer>
         {props.footer}
       </Footer>
-    </div>
+    </Layout>
   )
 }
 
