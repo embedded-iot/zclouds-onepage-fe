@@ -1,13 +1,11 @@
 import * as  UserService from "./Common/UserService";
-import * as  ProductService from './User/ProductService';
-import * as  PostService from './User/PostService';
-import * as  OrderUserService from "./User/OrderUserService";
-import * as  InvoiceUserService from "./User/InvoiceUserService";
+import * as  CategoriesService from '../FrontUser/Public/CategoriesService';
+import * as  RolesService from './Admin/RolesService';
+import * as  ProductService from './Seller/ProductService';
 
 export {
   UserService,
-  OrderUserService,
-  InvoiceUserService,
+  CategoriesService,
+  RolesService,
   ProductService,
-  PostService,
 }

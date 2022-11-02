@@ -20,29 +20,26 @@ import { compose } from 'redux';
 import { setGlobalStore } from './actions';
 import { authentication } from 'utils';
 
-import Header from 'components/Share/Layout/Header';
-import Footer from 'components/Share/Layout/Footer';
+import Header from 'components/Share/Header';
+
 import LayoutWrapper from 'components/Share/Layout/LayoutWapper';
-import UserSider from 'components/User/UserSider';
-import AdminSider from 'components/Admin/AdminSider';
-
-
 import PublicLayoutWrapper from 'components/Share/Layout/PublicLayoutWapper';
-import PublicHeader from 'components/Share/Layout/PublicHeader';
-import PublicSider from 'components/Public/PublicSider';
+
+
+import FrontUserHeader from 'components/FrontUser/Header';
+import FrontUserFooter from 'components/FrontUser/Footer';
+import FrontUserSider from 'components/FrontUser/Sider';
+
+import SellerSider from 'components/Seller/Sider';
+import AdminSider from 'components/Admin/Sider';
 
 
 import LoginPage from 'containers/Common/LoginPage/Loadable';
 import RegisterPage from 'containers/Common/RegisterPage/Loadable';
-import AccountInfoPage from 'containers/Common/AccountInfoPage/Loadable';
 
-import AccountAssetsPage from 'containers/User/AccountAssetsPage/Loadable';
-import HomePage from 'containers/User/HomePage/Loadable';
-import OrdersHistoryPage from 'containers/User/OrdersHistoryPage/Loadable';
-import InvoicesHistoryPage from 'containers/User/InvoicesHistoryPage/Loadable';
-
-
-import AdminsPage from 'containers/Admin/AdminsPage/Loadable';
+import FrontUserHomePage from 'containers/FrontUser/HomePage/Loadable';
+import SellerHomePage from 'containers/Seller/HomePage/Loadable';
+import AdminHomePage from 'containers/Admin/HomePage/Loadable';
 
 
 import { RESPONSIVE_MEDIAS, ROUTERS, WEBSITE_NAME } from 'components/contants';
@@ -76,25 +73,21 @@ const PrivateRoute = (props) => {
 
 const PublicAppContent = (props) => (
   <Switch>
-    <Route exact path={ROUTERS.ROOT} component={HomePage} />
+    <Route exact path={ROUTERS.ROOT} component={FrontUserHomePage} />
     <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
     <Route exact path={ROUTERS.REGISTER} component={RegisterPage} />
-    <Route exact path={ROUTERS.CATEGORIES} component={OrdersHistoryPage} />
-    <Route exact path={ROUTERS.SKU} component={InvoicesHistoryPage} />
   </Switch>
 )
 
 const AppContent = (props) => (
   <Switch>
-    <PrivateRoute exact path={ROUTERS.ACCOUNT_INFO} component={AccountInfoPage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.ACCOUNT_ASSETS} component={AccountAssetsPage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.ROOT} component={SellerHomePage} isAuthenticated={props.isLogin}/>
   </Switch>
 )
 
 const AdminAppContent = (props) => (
   <Switch>
-    <PrivateRoute exact path={ROUTERS.ACCOUNT_INFO} component={AdminsPage} isAuthenticated={props.isLogin && props.isAdmin}/>
-    <PrivateRoute exact path={ROUTERS.ACCOUNT_ASSETS} component={AdminsPage} isAuthenticated={props.isLogin && props.isAdmin}/>
+    <PrivateRoute exact path={ROUTERS.ROOT} component={AdminHomePage} isAuthenticated={props.isLogin && props.isAdmin}/>
   </Switch>
 )
 
@@ -149,14 +142,14 @@ const App = (props) => {
         !ADMIN_MODE && !props.isLogin && (
           <PublicLayoutWrapper
             header={(
-              <PublicHeader
+              <FrontUserHeader
                 logoName={WEBSITE_NAME}
-                sider={<PublicSider selectedRouters={selectedRouters} redirectTo={redirectTo} />}
+                sider={<FrontUserSider selectedRouters={selectedRouters} redirectTo={redirectTo} />}
                 redirectTo={redirectTo}
               />
             )}
             content={<PublicAppContent isLogin={props.isLogin}/>}
-            footer={<Footer />}
+            footer={<FrontUserFooter />}
             router={props.router}
           />
         )
@@ -173,7 +166,7 @@ const App = (props) => {
                       signOut={signOut}
               />
             )}
-            sider={<UserSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/>}
+            sider={<SellerSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/>}
             content={<AppContent isLogin={props.isLogin}/>}
             // footer={<Footer />}
             router={props.router}
