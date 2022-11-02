@@ -1,15 +1,17 @@
-.page-wrapper {
-  padding: 20px 20px 40px 20px;
-  .page-contents {
-    padding: 0 24px;
+.layout {
+  .page-wrapper {
+    padding: 20px 20px 40px 20px;
+    .page-contents {
+      padding: 0 24px;
+    }
+  }
+
+  .title-page {
+    font-size: 24px;
   }
 }
 
-.title-page {
-  font-size: 24px;
-}
-
-.ant-layout--mobile {
+.layout__wrapper--mobile {
   .page-wrapper {
     padding: 20px 0 40px;
     .page-contents {
@@ -17,4 +19,34 @@
     }
   }
 }
+
+.public-layout__wrapper {
+  .page-wrapper {
+    padding: 20px 0 40px;
+  }
+}
+
+.public-layout__wrapper--tablet {
+  .page-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+}
+
+.public-layout__wrapper--desktop {
+  .page-wrapper {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+}
+
+.public-layout__wrapper--mobile {
+  .page-wrapper {
+    padding: 20px 0 40px;
+    .page-contents {
+      padding: 0 24px;
+    }
+  }
+}
+
 
