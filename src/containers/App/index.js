@@ -20,27 +20,26 @@ import { compose } from 'redux';
 import { setGlobalStore } from './actions';
 import { authentication } from 'utils';
 
-
 import Header from 'components/Share/Layout/Header';
 import Footer from 'components/Share/Layout/Footer';
 import LayoutWrapper from 'components/Share/Layout/LayoutWapper';
-
 import UserSider from 'components/User/UserSider';
-
 import AdminSider from 'components/Admin/AdminSider';
+
+
+import PublicLayoutWrapper from 'components/Share/Layout/PublicLayoutWapper';
+import PublicHeader from 'components/Share/Layout/PublicHeader';
+import PublicSider from 'components/Public/PublicSider';
 
 
 import LoginPage from 'containers/Common/LoginPage/Loadable';
 import RegisterPage from 'containers/Common/RegisterPage/Loadable';
-import ForgotAccountPage from 'containers/Common/ForgotAccountPage/Loadable';
 import AccountInfoPage from 'containers/Common/AccountInfoPage/Loadable';
 
 import AccountAssetsPage from 'containers/User/AccountAssetsPage/Loadable';
 import HomePage from 'containers/User/HomePage/Loadable';
 import OrdersHistoryPage from 'containers/User/OrdersHistoryPage/Loadable';
 import InvoicesHistoryPage from 'containers/User/InvoicesHistoryPage/Loadable';
-import DetailServicePage from 'containers/User/DetailServicePage/Loadable';
-import DetailPostPage from 'containers/User/DetailPostPage/Loadable';
 
 
 import AdminsPage from 'containers/Admin/AdminsPage/Loadable';
@@ -75,19 +74,27 @@ const PrivateRoute = (props) => {
   return (<Route {...restProps} />)
 }
 
-const AppContent = (props) => (
+const PublicAppContent = (props) => (
   <Switch>
     <Route exact path={ROUTERS.ROOT} component={HomePage} />
     <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
     <Route exact path={ROUTERS.REGISTER} component={RegisterPage} />
-    <Route exact path={ROUTERS.FORGOT_ACCOUNT} component={ForgotAccountPage} />
+    <Route exact path={ROUTERS.CATEGORIES} component={OrdersHistoryPage} />
+    <Route exact path={ROUTERS.SKU} component={InvoicesHistoryPage} />
+  </Switch>
+)
+
+const AppContent = (props) => (
+  <Switch>
     <PrivateRoute exact path={ROUTERS.ACCOUNT_INFO} component={AccountInfoPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.ACCOUNT_ASSETS} component={AccountAssetsPage} isAuthenticated={props.isLogin}/>
-    <Route exact path={ROUTERS.ORDERS_HISTORY} component={OrdersHistoryPage} />
-    <Route exact path={ROUTERS.INVOICES_HISTORY} component={InvoicesHistoryPage} />
-    <Route exact path={ROUTERS.DETAIL_SERVICE} component={DetailServicePage} />
-    <Route exact path={ROUTERS.DETAIL_POSTS} component={DetailPostPage} />
-    <Route exact path="/cms" component={AdminsPage} />
+  </Switch>
+)
+
+const AdminAppContent = (props) => (
+  <Switch>
+    <PrivateRoute exact path={ROUTERS.ACCOUNT_INFO} component={AdminsPage} isAuthenticated={props.isLogin && props.isAdmin}/>
+    <PrivateRoute exact path={ROUTERS.ACCOUNT_ASSETS} component={AdminsPage} isAuthenticated={props.isLogin && props.isAdmin}/>
   </Switch>
 )
 
@@ -127,7 +134,7 @@ const App = (props) => {
     restoreLoginPreviousSection();
     // eslint-disable-next-line
   }, []);
-
+  const ADMIN_MODE = process.env.REACT_APP_ADMIN_MODE === 'true';
   const selectedRouters = [props.router.location.pathname];
   if (!isLoadedCheckLogin) return null;
   return (
@@ -138,20 +145,60 @@ const App = (props) => {
       >
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
-      <LayoutWrapper header={(
-                        <Header logoName={WEBSITE_NAME}
-                                isLogin={props.isLogin}
-                                isAdmin={props.isAdmin}
-                                currentUser={props.currentUser}
-                                redirectTo={redirectTo}
-                                signOut={signOut}
-                        />
-                      )}
-                     sider={ props.isAdmin ? <AdminSider selectedRouters={selectedRouters}  redirectTo={redirectTo}/> : <UserSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/> }
-                     content={<AppContent isLogin={props.isLogin}/>}
-                     footer={<Footer />}
-                     router={props.router}
-      />
+      {
+        !ADMIN_MODE && !props.isLogin && (
+          <PublicLayoutWrapper
+            header={(
+              <PublicHeader
+                logoName={WEBSITE_NAME}
+                sider={<PublicSider selectedRouters={selectedRouters} redirectTo={redirectTo} />}
+                redirectTo={redirectTo}
+              />
+            )}
+            content={<PublicAppContent isLogin={props.isLogin}/>}
+            footer={<Footer />}
+            router={props.router}
+          />
+        )
+      }
+      {
+        !ADMIN_MODE && props.isLogin && (
+          <LayoutWrapper
+            header={(
+              <Header logoName={WEBSITE_NAME}
+                      isLogin={props.isLogin}
+                      isAdmin={props.isAdmin}
+                      currentUser={props.currentUser}
+                      redirectTo={redirectTo}
+                      signOut={signOut}
+              />
+            )}
+            sider={<UserSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/>}
+            content={<AppContent isLogin={props.isLogin}/>}
+            // footer={<Footer />}
+            router={props.router}
+          />
+        )
+      }
+      {
+        ADMIN_MODE && (
+          <LayoutWrapper
+            header={(
+              <Header logoName={WEBSITE_NAME}
+                      isLogin={props.isLogin}
+                      isAdmin={props.isAdmin}
+                      currentUser={props.currentUser}
+                      redirectTo={redirectTo}
+                      signOut={signOut}
+              />
+            )}
+            sider={<AdminSider selectedRouters={selectedRouters} redirectTo={redirectTo}/> }
+            content={(<AdminAppContent isLogin={props.isLogin} isAdmin={props.isAdmin} />)}
+            // footer={<Footer />}
+            router={props.router}
+          />
+        )
+      }
       <BackTop style={{ right: backdropPosition, bottom: backdropPosition}}>
         <UpCircleOutlined style={{ fontSize: 30, color: 'yellow'}}/>
       </BackTop>
