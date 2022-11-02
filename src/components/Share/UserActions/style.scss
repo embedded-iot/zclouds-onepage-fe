@@ -1,0 +1,17 @@
+.user-action {
+  &__wrapper {
+    button {
+      margin-left: 10px;
+    }
+    &--mobile {
+      display: flex;
+      flex-flow: column;
+      button {
+        margin: 15px 0 0;
+        &:last-of-type {
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+}
