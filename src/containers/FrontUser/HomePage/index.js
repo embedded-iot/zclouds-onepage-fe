@@ -1,13 +1,15 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-export default function HomePage() {
+export default function HomePage(props) {
   return (
-    <div>
+    <div className="page-wrapper--full-width">
       <Helmet>
-        <title>Admins Page</title>
+        <title>Home</title>
       </Helmet>
-      Admins Page
+      <div clssName="page-contents">
+        Home page
+      </div>
     </div>
   );
 }
