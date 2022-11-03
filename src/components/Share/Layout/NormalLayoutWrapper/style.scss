@@ -1,42 +1,9 @@
-.layout__wrapper {
-  background: #fff !important;
-  .ant-layout-header {
-    position: relative;
-    z-index: 10;
-    background: #fff;
-    box-shadow: 0 2px 8px #f0f1f2;
-  }
-  .ant-layout-footer {
-    color: #fff;
-    background: #1890ff;
-    padding: 15px 50px;
-  }
+.normal-layout__wrapper {
+  background: #fff;
 
-  &--mobile {
-    position: relative;
-    .ant-layout-header {
-      position: sticky;
-      top: 0;
-    }
-    .ant-layout-sider {
-      position: sticky;
-      top: 66px;
-      z-index: 11;
-      .ant-layout-sider-children {
-        position: relative;
-        & > span {
-          position: absolute;
-          top: -45px;
-          left: 20px;
-        }
-        .sider-container {
-          overflow: auto;
-          height: calc(100vh - 66px);
-        }
-      }
-    }
-    .ant-layout-footer {
-      padding: 15px 20px;
-    }
+  .ant-layout-header {
+    background: transparent;
+    height: 200px;
+    line-height: 200px;
   }
 }
