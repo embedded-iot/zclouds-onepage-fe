@@ -13,7 +13,8 @@ import configureStore from './configureStore';
 // import 'sanitize.css/sanitize.css';
 
 //import 'antd/dist/antd.css';
-import 'antd/dist/antd.min.css';
+// import 'antd/dist/antd.min.css';
+import 'antd/dist/antd.less';
 // import 'globalStyles.scss';
 import './scss/style.scss';
 
