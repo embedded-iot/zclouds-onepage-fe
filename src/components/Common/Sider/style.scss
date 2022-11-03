@@ -1,3 +1,7 @@
 .ant-menu {
   height: 100%;
+  font-weight: 600;
+  &.ant-menu-horizontal {
+    border-bottom: none;
+  }
 }
