@@ -1,12 +1,12 @@
-export const WEBSITE_NAME = 'Lenful';
-export const WEBSITE_DOMAIN = 'Lenful.com';
+export const WEBSITE_NAME = 'Fulfil';
+export const WEBSITE_DOMAIN = 'Fulfil.com';
 export const ROUTERS = {
   ROOT: '/',
   LOGIN: '/login',
   REGISTER: '/register',
   LOGOUT: '/logout',
-  CATEGORIES: '/categories',
-  SKU: '/sku',
+  FRONT_USER_ALL_PRODUCTS: '/categories',
+  FRONT_USER_SKU: '/sku',
   ACCOUNT_INFO: '/account-info',
   SERVICES: `/services`,
   DETAIL_SERVICE: `/services/:productType/:serviceId/:serviceName`,
@@ -52,32 +52,6 @@ export const ORDER_STATUS_OPTIONS = [
   { label: ORDER_STATUS_LABEL[ORDER_STATUS.REJECTED], value: ORDER_STATUS.REJECTED },
   { label: ORDER_STATUS_LABEL[ORDER_STATUS.CANCELED], value: ORDER_STATUS.CANCELED },
 ];
-
-export const PRODUCT_TYPES = {
-  YOUTUBE: 'YOUTUBE',
-  TIKTOK: 'TIKTOK',
-  SHOPPE: 'SHOPPE',
-};
-
-export const ACTIVE_PRODUCT_TYPES = [
-  PRODUCT_TYPES.YOUTUBE,
-  // PRODUCT_TYPES.TIKTOK,
-  // PRODUCT_TYPES.SHOPPE,
-];
-
-export const INVOICE_LABELS = {
-  TOP_UP: 'Nạp tiền',
-  DEDUCT: 'Rút tiền',
-  REFUND : 'Hoàn tiền',
-};
-
-export const POST_KEYS = {
-  BUFF_FB_LIKE: 'buff-fb-like',
-  UNLOCK_FB_ACC: 'unlock-fb-acc',
-  HOTLINE_FB_VN: 'hotline-fb-vn',
-  ICON_FB_2020: 'icon-fb-2020',
-  VERIFY_FB_ACC: 'verify-fb-acc',
-};
 
 export const DATETIME_FORMAT = "DD/MM/YYYY HH:MM";
 
