@@ -1,28 +1,24 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, Row } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { RESPONSIVE_MEDIAS } from 'components/contants';
 import PageHeaderBar from 'components/Common/PageHeaderBar';
-import { useMediaQuery } from 'react-responsive';
 
 function CategoriesPage(props) {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Sản phẩm</title>
+        <title>All Products</title>
       </Helmet>
       <PageHeaderBar
         isHome
         goHome={() => props.push('/')}
-        title="Sản phẩm"
+        title={'All Products'}
       />
       <div className="page-contents">
-
+        All Products
       </div>
     </div>
   );
