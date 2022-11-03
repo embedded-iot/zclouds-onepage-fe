@@ -21,10 +21,11 @@ import { setGlobalStore } from './actions';
 import { authentication } from 'utils';
 
 import Header from 'components/Share/Header';
+import NormalHeader from 'components/Share/NormalHeader';
 
 import LayoutWrapper from 'components/Share/Layout/LayoutWapper';
 import PublicLayoutWrapper from 'components/Share/Layout/PublicLayoutWapper';
-
+import NormalLayoutWrapper from 'components/Share/Layout/NormalLayoutWrapper';
 
 import FrontUserHeader from 'components/FrontUser/Header';
 import FrontUserFooter from 'components/FrontUser/Footer';
@@ -38,7 +39,12 @@ import LoginPage from 'containers/Common/LoginPage/Loadable';
 import RegisterPage from 'containers/Common/RegisterPage/Loadable';
 
 import FrontUserHomePage from 'containers/FrontUser/HomePage/Loadable';
+import FrontUserAllProducts from 'containers/FrontUser/CategoriesPage/Loadable';
+import FrontUserSKUPage from 'containers/FrontUser/SKUPage/Loadable';
+
 import SellerHomePage from 'containers/Seller/HomePage/Loadable';
+
+
 import AdminHomePage from 'containers/Admin/HomePage/Loadable';
 
 
@@ -49,6 +55,7 @@ import { UserService } from 'services';
 
 import './style.scss';
 
+const PUBLIC_ROUTERS = [ROUTERS.LOGIN, ROUTERS.REGISTER ];
 
 
 const AppWrapper = styled.div`
@@ -73,7 +80,16 @@ const PrivateRoute = (props) => {
 
 const PublicAppContent = (props) => (
   <Switch>
+    <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
+    <Route exact path={ROUTERS.REGISTER} component={RegisterPage} />
+  </Switch>
+);
+
+const FrontUserAppContent = (props) => (
+  <Switch>
     <Route exact path={ROUTERS.ROOT} component={FrontUserHomePage} />
+    <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS} component={FrontUserAllProducts} />
+    <Route exact path={ROUTERS.FRONT_USER_SKU} component={FrontUserSKUPage} />
     <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
     <Route exact path={ROUTERS.REGISTER} component={RegisterPage} />
   </Switch>
@@ -129,6 +145,7 @@ const App = (props) => {
   }, []);
   const ADMIN_MODE = process.env.REACT_APP_ADMIN_MODE === 'true';
   const selectedRouters = [props.router.location.pathname];
+  const currentRouter = props.router.location.pathname;
   if (!isLoadedCheckLogin) return null;
   return (
     <AppWrapper>
@@ -139,7 +156,15 @@ const App = (props) => {
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
       {
-        !ADMIN_MODE && !props.isLogin && (
+        !props.isLogin && PUBLIC_ROUTERS.indexOf(currentRouter) !== -1 && (
+          <NormalLayoutWrapper
+            header={<NormalHeader />}
+            content={<PublicAppContent />}
+          />
+        )
+      }
+      {
+        !ADMIN_MODE && !props.isLogin && PUBLIC_ROUTERS.indexOf(currentRouter) === -1 && (
           <PublicLayoutWrapper
             header={(
               <FrontUserHeader
@@ -148,7 +173,7 @@ const App = (props) => {
                 redirectTo={redirectTo}
               />
             )}
-            content={<PublicAppContent isLogin={props.isLogin}/>}
+            content={<FrontUserAppContent isLogin={props.isLogin}/>}
             footer={<FrontUserFooter />}
             router={props.router}
           />
