@@ -8,9 +8,9 @@ import "./style.scss";
 export default function PublicSider({ selectedRouters = [], redirectTo = () => {} }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const items = [
-    getItem('Trang chủ', ROUTERS.ROOT),
-    getItem('Sản phẩm', ROUTERS.CATEGORIES),
-    getItem( 'SKU', ROUTERS.SKU),
+    getItem('Home', ROUTERS.ROOT),
+    getItem('All Products', ROUTERS.FRONT_USER_ALL_PRODUCTS),
+    getItem( 'SKU', ROUTERS.FRONT_USER_SKU),
   ];
   const defaultOpenKeys = items.map(item => item.key);
 
