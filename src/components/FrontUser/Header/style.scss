@@ -2,23 +2,17 @@
   &__wrapper {
     flex-shrink: 0;
     display: flex;
-    justify-content: space-between;
-    .logo-portal a {
-      height: 64px;
-      color: #000000d9;
-      font-weight: 700;
-      font-size: 18px;
-      line-height: 64px;
-      letter-spacing: -.18px;
-      white-space: nowrap;
-      text-decoration: none;
+    .logo-portal {
+      margin-right: 74px;
     }
   }
   &__actions {
+    flex-grow: 1;
     display: flex;
-    flex-shrink: 0;
+    justify-content: space-between;
   }
   &__menu {
-    min-width: 300px;
+    flex-grow: 1;
+    flex-shrink: 0;
   }
 }
