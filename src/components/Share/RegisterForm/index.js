@@ -1,10 +1,14 @@
 import React from 'react';
 import { Button, Card, Form, Input } from 'antd';
-import { WEBSITE_NAME } from 'components/contants';
+import BoxHeader from 'components/Share/BoxHeader';
 
 export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {}}) {
+  // eslint-disable-next-line
   return (
     <Card>
+      <BoxHeader
+        title="Sign up"
+      />
       <Form
         name="basic"
         onFinish={onFinish}
@@ -12,102 +16,74 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
         layout="vertical"
       >
         <Form.Item
-          label="Họ và tên"
-          name="name"
+          name="userName"
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập họ tên của bạn!',
+              message: 'Please enter user name!',
             },
           ]}
         >
-          <Input placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}/>
+          <Input placeholder="User Name"  />
         </Form.Item>
         <Form.Item
-          label="Tên đăng nhập"
-          name="loginId"
-          rules={[
-            {
-              required: true,
-              message: 'Vui lòng nhập tên đăng nhập của bạn!',
-            },
-          ]}
-        >
-          <Input placeholder={`Tên đăng nhập ${WEBSITE_NAME}`}/>
-        </Form.Item>
-        <Form.Item
-          label="Số điện thoại"
-          name="phoneNumber"
-          rules={[
-            {
-              required: true,
-              message: 'Vui lòng nhập số điện thoại của bạn!',
-            },
-          ]}
-        >
-          <Input placeholder={`Số điện thoại ${WEBSITE_NAME}`}/>
-        </Form.Item>
-        <Form.Item
-          label="E-mail"
-          name="email"
-          rules={[
-            {
-              type: 'email',
-              message: 'Email không hợp lệ!',
-            },
-            {
-              required: true,
-              message: 'Vui lòng nhập email của bạn!',
-            },
-          ]}
-        >
-          <Input placeholder={`Email ${WEBSITE_NAME}`}/>
-        </Form.Item>
-
-        <Form.Item
-          label="Mật khẩu"
           name="password"
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập mật khẩu đăng nhập của bạn!',
+              message: 'Please enter password!',
             },
           ]}
         >
-          <Input.Password placeholder={`Mật khẩu ${WEBSITE_NAME}`}/>
+          <Input.Password placeholder="Password" />
         </Form.Item>
         <Form.Item
-          label="Nhập lại mật khẩu"
-          name="confirmPassword"
-          dependencies={['password']}
+          name="email"
+          rules={[
+            {
+              type: 'email',
+              message: 'Email is invalid!',
+            },
+            {
+              required: true,
+              message: 'Please enter email!',
+            },
+          ]}
+        >
+          <Input placeholder="Email"/>
+        </Form.Item>
+        <Form.Item
+          name="phoneNumber"
           rules={[
             {
               required: true,
-              message: 'Vui lòng nhập lại mật khẩu đăng nhập của bạn!',
+              message: 'Please enter phone!',
             },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('Mật khẩu không phù hợp!'));
-              },
-            }),
           ]}
         >
-          <Input.Password placeholder={`Nhập lại mật khẩu ${WEBSITE_NAME}`}/>
+          <Input placeholder="Phone" />
         </Form.Item>
 
+        <Form.Item
+          name="storeName"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter store name!',
+            },
+          ]}
+        >
+          <Input placeholder="Store Name"  />
+        </Form.Item>
         <Form.Item>
           <Button type="primary" size='large' htmlType="submit">
-           Đăng ký
+           Sign Up Now
           </Button>
         </Form.Item>
         <Form.Item>
-          <p>
-            Nếu bạn đã có tài khoản,
-            <Button type="link" danger onClick={() => redirectTo("/login")}>Đăng nhập tại đây</Button>
-          </p>
+          <div style={{ textAlign: 'center'}}>
+            Already have an account? <a onClick={() => redirectTo("/login")}>Log In</a>
+          </div>
         </Form.Item>
       </Form>
     </Card>
