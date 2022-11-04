@@ -1,18 +1,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, Row } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import LoginBox from 'components/Share/LoginBox';
-import PageHeaderBar from 'components/Common/PageHeaderBar';
-import { useMediaQuery } from 'react-responsive';
-import { RESPONSIVE_MEDIAS } from 'components/contants';
+import NormalContent from 'components/Share/NormalContent';
 
 const LoginPage = (props) => {
   const queryParams = new URLSearchParams(props.location.search);
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const onFinish = () => {
     const redirect = queryParams.get("redirect")
     if (!!redirect) {
@@ -25,22 +21,15 @@ const LoginPage = (props) => {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Đăng nhập</title>
+        <title>Sign in</title>
       </Helmet>
-      <PageHeaderBar
-        isHome
-        goHome={() => props.push('/')}
-        title={'Đăng nhập'}
-      />
       <div className="page-contents">
-        <Row>
-          <Col span={isMobile ? 24 : 12}>
-            <LoginBox onFinish={onFinish}
-                      redirectTo={props.push}
-                      setGlobalStore={props.setGlobalStore}
-            />
-          </Col>
-        </Row>
+        <NormalContent>
+          <LoginBox onFinish={onFinish}
+                    redirectTo={props.push}
+                    setGlobalStore={props.setGlobalStore}
+          />
+        </NormalContent>
       </div>
     </div>
   );
