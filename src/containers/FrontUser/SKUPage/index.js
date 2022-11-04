@@ -4,7 +4,7 @@ import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import PageHeaderBar from 'components/Common/PageHeaderBar';
+import PageHeader from 'components/Share/PageHeader';
 
 function SKUPage(props) {
   return (
@@ -12,7 +12,7 @@ function SKUPage(props) {
       <Helmet>
         <title>SKU</title>
       </Helmet>
-      <PageHeaderBar
+      <PageHeader
         isHome
         goHome={() => props.push('/')}
         title={'SKU'}
