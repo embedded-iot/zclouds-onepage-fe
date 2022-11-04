@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Pagination, Table } from 'antd';
-
-import './style.scss';
+import Grid from 'components/Common/Grid';
 import { events } from 'utils';
 
+import './style.scss';
+
 export default function TableGrid({
-                                    tableConfig = {},
+                                    type = 'table',
+                                    configs = {},
                                     paginationConfig = {},
                                     actionButtonList = [],
                                     defaultParams = {},
@@ -27,12 +29,12 @@ export default function TableGrid({
     ...defaultData
   });
   const getDataFunc = useCallback((newParams = {}) => {
-    if (!tableConfig.getDataFunc) return;
-    tableConfig.getDataFunc(newParams, (response) => {
+    if (!configs.getDataFunc) return;
+    configs.getDataFunc(newParams, (response) => {
       setData(response);
-      tableConfig.successCallback(response);
+      configs.successCallback(response);
     }, error => {
-      tableConfig.failureCallback(error);
+      configs.failureCallback(error);
     })
     // eslint-disable-next-line
   }, []);
@@ -89,11 +91,24 @@ export default function TableGrid({
       <div className="selected-item-label">
         { hasSelected && `Đã chọn ${selectedRowKeys.length} phần tử`}
       </div>
-      <Table rowSelection={isAllowSelection ? rowSelection : null}
-             columns={tableConfig.columns}
-             dataSource={data.items}
-             pagination={false}
-      />
+      {
+        type === 'table' && (
+          <Table rowSelection={isAllowSelection ? rowSelection : null}
+                 columns={configs.columns}
+                 dataSource={data.items}
+                 pagination={false}
+          />
+        )
+      }
+      {
+        type !== 'table' && (
+          <Grid gutter={configs.gutter}
+                colSpan={configs.colSpan}
+                dataSource={data.items}
+                gridItemTemplate={configs.gridItemTemplate}
+          />
+        )
+      }
       <br/>
       {
         isShowPagination && !!data.totalCount && (
