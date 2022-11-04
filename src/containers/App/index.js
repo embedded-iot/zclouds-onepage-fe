@@ -90,8 +90,6 @@ const FrontUserAppContent = (props) => (
     <Route exact path={ROUTERS.ROOT} component={FrontUserHomePage} />
     <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS} component={FrontUserAllProducts} />
     <Route exact path={ROUTERS.FRONT_USER_SKU} component={FrontUserSKUPage} />
-    <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
-    <Route exact path={ROUTERS.REGISTER} component={RegisterPage} />
   </Switch>
 )
 
@@ -105,6 +103,15 @@ const AdminAppContent = (props) => (
   <Switch>
     <PrivateRoute exact path={ROUTERS.ROOT} component={AdminHomePage} isAuthenticated={props.isLogin && props.isAdmin}/>
   </Switch>
+)
+
+const HelmetMeta = (props) => (
+  <Helmet
+    titleTemplate={`%s - ${WEBSITE_NAME}`}
+    defaultTitle={`${WEBSITE_NAME}`}
+  >
+    <meta name="description" content="A React.js Boilerplate application" />
+  </Helmet>
 )
 
 const App = (props) => {
@@ -143,28 +150,47 @@ const App = (props) => {
     restoreLoginPreviousSection();
     // eslint-disable-next-line
   }, []);
-  const ADMIN_MODE = process.env.REACT_APP_ADMIN_MODE === 'true';
+  const isAdminMode = process.env.REACT_APP_ADMIN_MODE === 'true';
+  const isPublicRouter = PUBLIC_ROUTERS.includes(props.router.location.pathname);
   const selectedRouters = [props.router.location.pathname];
-  const currentRouter = props.router.location.pathname;
   if (!isLoadedCheckLogin) return null;
+  if (isPublicRouter) {
+    return (
+      <AppWrapper>
+        <HelmetMeta />
+        <NormalLayoutWrapper
+          header={<NormalHeader />}
+          content={<PublicAppContent />}
+        />
+      </AppWrapper>
+    )
+  } else if (isAdminMode) {
+    return (
+      <AppWrapper>
+        <HelmetMeta />
+        <LayoutWrapper
+          header={(
+            <Header logoName={WEBSITE_NAME}
+                    isLogin={props.isLogin}
+                    isAdmin={props.isAdmin}
+                    currentUser={props.currentUser}
+                    redirectTo={redirectTo}
+                    signOut={signOut}
+            />
+          )}
+          sider={<AdminSider selectedRouters={selectedRouters} redirectTo={redirectTo}/> }
+          content={(<AdminAppContent isLogin={props.isLogin} isAdmin={props.isAdmin} />)}
+          // footer={<Footer />}
+          router={props.router}
+        />
+      </AppWrapper>
+    )
+  }
   return (
     <AppWrapper>
-      <Helmet
-        titleTemplate={`%s - ${WEBSITE_NAME}`}
-        defaultTitle={`${WEBSITE_NAME}`}
-      >
-        <meta name="description" content="A React.js Boilerplate application" />
-      </Helmet>
+      <HelmetMeta />
       {
-        !props.isLogin && PUBLIC_ROUTERS.indexOf(currentRouter) !== -1 && (
-          <NormalLayoutWrapper
-            header={<NormalHeader />}
-            content={<PublicAppContent />}
-          />
-        )
-      }
-      {
-        !ADMIN_MODE && !props.isLogin && PUBLIC_ROUTERS.indexOf(currentRouter) === -1 && (
+        !props.isLogin && (
           <PublicLayoutWrapper
             header={(
               <FrontUserHeader
@@ -180,7 +206,7 @@ const App = (props) => {
         )
       }
       {
-        !ADMIN_MODE && props.isLogin && (
+        props.isLogin && (
           <LayoutWrapper
             header={(
               <Header logoName={WEBSITE_NAME}
@@ -193,25 +219,6 @@ const App = (props) => {
             )}
             sider={<SellerSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/>}
             content={<AppContent isLogin={props.isLogin}/>}
-            // footer={<Footer />}
-            router={props.router}
-          />
-        )
-      }
-      {
-        ADMIN_MODE && (
-          <LayoutWrapper
-            header={(
-              <Header logoName={WEBSITE_NAME}
-                      isLogin={props.isLogin}
-                      isAdmin={props.isAdmin}
-                      currentUser={props.currentUser}
-                      redirectTo={redirectTo}
-                      signOut={signOut}
-              />
-            )}
-            sider={<AdminSider selectedRouters={selectedRouters} redirectTo={redirectTo}/> }
-            content={(<AdminAppContent isLogin={props.isLogin} isAdmin={props.isAdmin} />)}
             // footer={<Footer />}
             router={props.router}
           />
