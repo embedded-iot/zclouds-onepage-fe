@@ -4,7 +4,8 @@ import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import PageHeaderBar from 'components/Common/PageHeaderBar';
+import PageHeader from 'components/Share/PageHeader';
+import CategoriesGrid from 'components/FrontUser/CategoriesGrid';
 
 function CategoriesPage(props) {
   return (
@@ -12,13 +13,12 @@ function CategoriesPage(props) {
       <Helmet>
         <title>All Products</title>
       </Helmet>
-      <PageHeaderBar
-        isHome
-        goHome={() => props.push('/')}
-        title={'All Products'}
+      <PageHeader
+        title="Products List"
+        description="Lenful is a Print-on-demand solution that helps you build a profitable online business. Start a business, with everything you need all in one place."
       />
       <div className="page-contents">
-        All Products
+        <CategoriesGrid />
       </div>
     </div>
   );
