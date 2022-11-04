@@ -44,9 +44,9 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }
           </Button>
         </Form.Item>
         <Form.Item>
-          <div style={{ textAlign: 'center'}}>
-            Don't have an account? <a onClick={() => redirectTo("/register")}>Sign up</a>.
-          </div>
+          {/*<div style={{ textAlign: 'center'}}>*/}
+          {/*  Don't have an account? <a onClick={() => redirectTo("/register")}>Sign up</a>.*/}
+          {/*</div>*/}
         </Form.Item>
       </Form>
     </Card>

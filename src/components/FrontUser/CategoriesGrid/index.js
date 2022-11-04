@@ -57,6 +57,10 @@ export default function CategoriesGrid({ products, productType, serviceId }) {
 
   }
 
+  const onSelectGridItem = (selectItem) => {
+
+  }
+
   const reloadTable = (filters ={}) => {
     events.publish(RELOAD_EVENT_KEY, filters);
   }
@@ -79,6 +83,7 @@ export default function CategoriesGrid({ products, productType, serviceId }) {
                    defaultData={defaultData}
                    isShowPagination={true}
                    onSelectedItemsChange={onSelectedItemsChange}
+                   onSelectGridItem={onSelectGridItem}
                    RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
         />
       </Col>

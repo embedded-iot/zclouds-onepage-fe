@@ -1,12 +1,19 @@
 import React from 'react';
 import { Col, Row } from 'antd';
 
-export default function Grid({ dataSource = [], gridItemTemplate = () => {}, gutter = [20, 20], colSpan = 6 }) {
+const Grid = ({
+                dataSource = [],
+                gridItemTemplate = () => {},
+                onSelectGridItem = () => {},
+                isAllowSelection = false,
+                gutter = [20, 20],
+                colSpan = 6
+}) => {
   return (
     <Row gutter={gutter}>
       {
         dataSource.map((item, index) => (
-          <Col span={colSpan} key={index}>
+          <Col span={colSpan} key={index} onClick={ () => onSelectGridItem} >
             {
               gridItemTemplate({ item, index })
             }
@@ -16,3 +23,6 @@ export default function Grid({ dataSource = [], gridItemTemplate = () => {}, gut
     </Row>
   )
 }
+
+
+export default Grid;

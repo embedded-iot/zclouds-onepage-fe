@@ -13,6 +13,7 @@ export default function TableGrid({
                                     defaultParams = {},
                                     defaultData = {},
                                     onSelectedItemsChange = () => {},
+                                    onSelectGridItem = () => {},
                                     isShowPagination = false,
                                     isAllowSelection = false,
                                     RELOAD_EVENT_KEY = ''
@@ -88,9 +89,7 @@ export default function TableGrid({
           )
         }
       </div>
-      <div className="selected-item-label">
-        { hasSelected && `Đã chọn ${selectedRowKeys.length} phần tử`}
-      </div>
+      { hasSelected && <div className="selected-item-label">{`Đã chọn ${selectedRowKeys.length} phần tử`}</div>}
       {
         type === 'table' && (
           <Table rowSelection={isAllowSelection ? rowSelection : null}
@@ -104,8 +103,10 @@ export default function TableGrid({
         type !== 'table' && (
           <Grid gutter={configs.gutter}
                 colSpan={configs.colSpan}
+                isAllowSelection={isAllowSelection}
                 dataSource={data.items}
                 gridItemTemplate={configs.gridItemTemplate}
+                onSelectGridItem={onSelectGridItem}
           />
         )
       }
