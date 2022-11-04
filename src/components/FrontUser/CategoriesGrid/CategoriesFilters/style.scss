@@ -1,0 +1,12 @@
+@import "scss/style";
+
+.categories-filters {
+  &__item {
+    display: flex;
+    justify-content: space-between;
+
+    &--active {
+      background: $primary-color;
+    }
+  }
+}
