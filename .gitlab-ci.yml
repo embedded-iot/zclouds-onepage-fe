@@ -14,7 +14,7 @@ before_script:
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-  - ssh-keyscan 139.162.17.12 >> ~/.ssh/known_hosts
+  - ssh-keyscan 34.124.147.163 >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
   - git config --global user.email "huytd92@gmail.com"
   - git config --global user.name "Duc Huy Ta"
