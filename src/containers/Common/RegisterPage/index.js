@@ -1,18 +1,16 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Col, notification, Row } from 'antd';
+import { notification } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import RegisterForm from 'components/Share/RegisterForm';
 import { UserService } from 'services';
-import PageHeaderBar from 'components/Common/PageHeaderBar';
-import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
-import { useMediaQuery } from 'react-responsive';
+import { ROUTERS } from 'components/contants';
+import NormalContent from 'components/Share/NormalContent';
 
 const RegisterPage = (props) => {
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const onFinish = (values) => {
     const { confirmPassword, ...data} = values;
     UserService.register(data, response => {
@@ -32,17 +30,10 @@ const RegisterPage = (props) => {
       <Helmet>
         <title>Đăng ký</title>
       </Helmet>
-      <PageHeaderBar
-        isHome
-        goHome={() => props.push('/')}
-        title="Đăng ký tài khoản"
-      />
       <div className="page-contents">
-        <Row>
-          <Col span={ isMobile ? 24 : 12 }>
-            <RegisterForm onFinish={onFinish} redirectTo={props.push} />
-          </Col>
-        </Row>
+        <NormalContent>
+          <RegisterForm onFinish={onFinish} redirectTo={props.push} />
+        </NormalContent>
       </div>
     </div>
   );
