@@ -1,6 +1,6 @@
 import React from 'react';
 import TableGrid from 'components/Common/TableGrid';
-import { OrderUserService } from 'services';
+// import { OrderUserService } from 'services';
 import { Button } from 'antd';
 import { events } from 'utils';
 import OrdersHistoryFilters from 'components/FrontUser/OrdersHistoryTable/OrdersHistoryFilters';
@@ -43,7 +43,7 @@ export default function OrdersHistoryTable({ products, productType, serviceId })
     getDataFunc: (params, successCallback, failureCallback) => {
       console.log(params);
       const { pageSize: size, pageNum: page, productType: serviceType, serviceId: categoryId, ...restParams} = params || {};
-      OrderUserService.getOrders({ ...restParams, page, size, serviceType, categoryId }, successCallback, failureCallback)
+      // OrderUserService.getOrders({ ...restParams, page, size, serviceType, categoryId }, successCallback, failureCallback)
     },
     successCallback: (response) => {
       console.log(response);
