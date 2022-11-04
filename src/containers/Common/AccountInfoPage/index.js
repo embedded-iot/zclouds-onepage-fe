@@ -8,7 +8,7 @@ import UserDetailBox from 'components/Share/UserDetailBox';
 import UserDetailForm from 'components/Share/UserDetailForm';
 import { UserService } from 'services';
 import { setGlobalStore } from 'containers/App/actions';
-import PageHeaderBar from 'components/Common/PageHeaderBar';
+import PageHeader from 'components/Share/PageHeader';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 
@@ -55,7 +55,7 @@ const AccountInfoPage = (props) => {
       <Helmet>
         <title>Thông tin tài khoản</title>
       </Helmet>
-      <PageHeaderBar
+      <PageHeader
         isHome
         goHome={() => props.push('/')}
         title="Thông tin tài khoản"
