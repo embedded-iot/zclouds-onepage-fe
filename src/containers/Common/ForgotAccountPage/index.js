@@ -7,7 +7,7 @@ import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import ForgotAccountForm from 'components/Share/ForgotAccountForm';
 import { UserService } from 'services';
-import PageHeaderBar from 'components/Common/PageHeaderBar';
+import PageHeader from 'components/Share/PageHeader';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 
@@ -31,7 +31,7 @@ const ForgotAccountPage = (props) => {
       <Helmet>
         <title>Quên mật khẩu</title>
       </Helmet>
-      <PageHeaderBar
+      <PageHeader
         isHome
         goHome={() => props.push('/')}
         title="Quên mật khẩu"
