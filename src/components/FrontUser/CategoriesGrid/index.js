@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row } from 'antd';
 import { events } from 'utils';
 import { useMediaQuery } from 'react-responsive';
@@ -12,7 +12,7 @@ import product_ex from 'images/product_ex.svg';
 
 const items = [];
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 35; i++) {
   items.push({
     avatar: product_ex,
     name: 'Creative graphic assets',
@@ -32,16 +32,18 @@ const gridItemTemplate = ({ item, index }) => {
   return <CategoryItem {...item} />
 }
 
-export default function CategoriesGrid({ products, productType, serviceId }) {
+export default function CategoriesGrid({ searchTextKey = 'searchText', searchText }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-
+  const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const RELOAD_EVENT_KEY = 'RELOAD_ORDER_TABLE_EVENT_KEY';
   const gridConfig = {
-    colSpan: 6,
+    // eslint-disable-next-line
+    colSpan: isMobile && 24 || isTablet && 12 || 8,
+    searchPlaceholder: 'Search in Object Mockups',
     gridItemTemplate: gridItemTemplate,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize: size, pageNum: page, productType: serviceType, serviceId: categoryId, ...restParams} = params || {};
-      CategoriesService.getCategories({ ...restParams, page, size, serviceType, categoryId }, successCallback, failureCallback)
+      const { pageSize: size, pageNum: page, ...restParams} = params || {};
+      CategoriesService.getCategories({ ...restParams, page, size }, successCallback, failureCallback)
     },
     successCallback: (response) => {
       console.log(response);
@@ -68,7 +70,14 @@ export default function CategoriesGrid({ products, productType, serviceId }) {
   const onFiltersChange = filters => {
     reloadTable(filters);
   }
-  const defaultParams = { productType, serviceId };
+
+  useEffect(() => {
+    reloadTable({
+      [searchTextKey] : searchText
+    });
+  }, [searchText, searchTextKey]);
+
+  const defaultParams = {};
   return (
     <Row gutter={[10, 10]}>
       <Col span={ isMobile ? 24 : 6 }>
@@ -81,6 +90,7 @@ export default function CategoriesGrid({ products, productType, serviceId }) {
                    actionButtonList={{}}
                    defaultParams={defaultParams}
                    defaultData={defaultData}
+                   buttonListWrapperConfig={{}}
                    isShowPagination={true}
                    onSelectedItemsChange={onSelectedItemsChange}
                    onSelectGridItem={onSelectGridItem}

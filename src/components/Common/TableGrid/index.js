@@ -1,24 +1,39 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Pagination, Table } from 'antd';
+import { Button, Pagination, Table } from 'antd';
 import Grid from 'components/Common/Grid';
 import { events } from 'utils';
+import DropdownSelect from 'components/Common/DropdownSelect';
+import InputSearch from 'components/Common/InputSearch';
 
 import './style.scss';
+import ButtonListWrapper from 'components/Common/ButtonListWrapper';
+
+
+const defaultPageSizeOptions = [10, 20, 50, 100];
 
 export default function TableGrid({
                                     type = 'table',
                                     configs = {},
                                     paginationConfig = {},
-                                    actionButtonList = [],
+                                    buttonListWrapperConfig = {
+                                      buttonList: [],
+                                      actionItems: [],
+                                      onActionItemClick: () => {},
+                                    },
                                     defaultParams = {},
                                     defaultData = {},
                                     onSelectedItemsChange = () => {},
                                     onSelectGridItem = () => {},
+                                    isShowSearch = false,
+                                    isShowPageSize = false,
+                                    isShowPageNum = false,
                                     isShowPagination = false,
                                     isAllowSelection = false,
                                     RELOAD_EVENT_KEY = ''
                                   }) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [pageNumOptions, setPageNumOptions] = useState([]);
+  const [searchText, setSearchText] = useState([]);
   const [params, setParams] = useState({
     pageSize: 20,
     pageNum: 0,
@@ -29,6 +44,13 @@ export default function TableGrid({
     totalCount: 0,
     ...defaultData
   });
+
+  const pageSizeOptions = (paginationConfig.pageSizeOptions
+    || defaultPageSizeOptions).map(pageSize => ({
+    label: `${pageSize} per page`,
+    value: pageSize.toString(),
+  }))
+
   const getDataFunc = useCallback((newParams = {}) => {
     if (!configs.getDataFunc) return;
     configs.getDataFunc(newParams, (response) => {
@@ -56,6 +78,14 @@ export default function TableGrid({
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    const pageNumOptionList = [...Array(Math.round((data.totalCount || 0)/params.pageSize))].map((item, index) => ({
+      label: `Page ${index + 1}`,
+      value: index.toString(),
+    }));
+    setPageNumOptions(pageNumOptionList);
+  }, [params, data]);
+
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
     onSelectedItemsChange(newSelectedRowKeys);
@@ -68,24 +98,71 @@ export default function TableGrid({
   const hasSelected = selectedRowKeys.length > 0;
 
   const onPaginationChange = (page, pageSize) => {
-    setParams({
-      ...params,
-      pageSize,
-      pageNum: pageSize !== params.pageSize ? 1 : page,
-    });
-    getDataFunc();
+    const newParams = { ...params, pageNum: page };
+    setParams(newParams);
+    getDataFunc(newParams);
+  };
+
+  const onDropdownChange = (value, name) => {
+    const newParams = { ...params, [name]: +value };
+    setParams(newParams);
+    getDataFunc(newParams);
+  };
+
+  const onSearchChange = (value, name) => {
+    setSearchText(value);
+  };
+
+  const handleSearch = () => {
+    const newParams = { ...params, [configs.searchTextKey || "searchText"]: searchText };
+    setParams(newParams);
+    getDataFunc(newParams);
   };
 
   return (
     <div className="table-view-wrapper">
+      {
+        (isShowSearch || isShowPageSize || isShowPageNum) && (
+          <div className="">
+            {
+              isShowSearch && (
+                <InputSearch
+                  name={configs.searchTextKey || "searchText"}
+                  placeholder={configs.searchPlaceholder}
+                  onChange={onSearchChange}
+                />
+              )
+            }
+            {
+              isShowPageNum && (
+                <DropdownSelect
+                  name="pageNum"
+                  options={pageNumOptions}
+                  defaultValue={params.pageNum.toString()}
+                  onChange={onDropdownChange}
+                />
+              )
+            }
+            {
+              isShowPageSize && (
+                <DropdownSelect
+                  name="pageSize"
+                  options={pageSizeOptions}
+                  defaultValue={params.pageSize.toString()}
+                  onChange={onDropdownChange}
+                />
+              )
+            }
+            {
+              isShowSearch && (<Button type='primary' onClick={handleSearch}>Find</Button>)
+            }
+          </div>
+        )
+      }
       <div className="table-header">
         {
-          !!actionButtonList.length && (
-            <div className="additional-button-list">
-              {
-                actionButtonList.map(button => button)
-              }
-            </div>
+          (!!(buttonListWrapperConfig.buttonList || []).length || !!(buttonListWrapperConfig.actionItems || []).length) && (
+            <ButtonListWrapper {...buttonListWrapperConfig} />
           )
         }
       </div>
@@ -116,10 +193,8 @@ export default function TableGrid({
           <Pagination
             {...paginationConfig}
             total={data.totalCount}
-            showTotal={(total, range) => `${range[0]} - ${range[1]} trong ${total} phần tử.`}
-            defaultPageSize={params.pageSize}
-            defaultCurrent={params.pageNum}
-            showSizeChanger
+            pageSize={params.pageSize}
+            current={params.pageNum}
             onChange={onPaginationChange}
           />
         )

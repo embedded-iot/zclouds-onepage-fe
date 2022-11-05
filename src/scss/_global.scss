@@ -58,4 +58,13 @@ $primary-color: #0065FF;
   }
 }
 
+.link {
+  color: $primary-color;
+  text-decoration: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
 
