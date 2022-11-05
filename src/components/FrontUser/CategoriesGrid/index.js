@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 import CategoriesFilters from './CategoriesFilters';
 import TableGrid from 'components/Common/TableGrid';
-import { CategoriesService } from 'services';
+import { FrontUserCategoriesService } from 'services';
 import CategoryItem from './CategoryItem';
 
 import product_ex from 'images/product_ex.svg';
@@ -43,7 +43,7 @@ export default function CategoriesGrid({ searchTextKey = 'searchText', searchTex
     gridItemTemplate: gridItemTemplate,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize: size, pageNum: page, ...restParams} = params || {};
-      CategoriesService.getCategories({ ...restParams, page, size }, successCallback, failureCallback)
+      FrontUserCategoriesService.getCategories({ ...restParams, page, size }, successCallback, failureCallback)
     },
     successCallback: (response) => {
       console.log(response);

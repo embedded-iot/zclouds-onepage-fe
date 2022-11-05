@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CategoriesService } from 'services';
+import { FrontUserCategoriesService } from 'services';
 import "./style.scss";
 
 const items = [
@@ -17,7 +17,7 @@ export default function CategoriesFilters({ onChange = () => {} }) {
   const [selectedCategory, setSelectedCategory] = useState('');
 
   const getCategoriesFilter = () => {
-    CategoriesService.getCategoriesFilter(response => {
+    FrontUserCategoriesService.getCategoriesFilter(response => {
       setCategories(response);
     }, error => {
       setCategories(items);

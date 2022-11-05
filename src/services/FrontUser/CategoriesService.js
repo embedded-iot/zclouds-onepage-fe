@@ -1,16 +1,16 @@
-import { getBaseURL } from 'services/BaseService';
+import { getFrontUserBaseURL } from 'services/BaseService';
 import { makeGetWithConfigs } from 'utils';
 
 function getCategories(params, successCallback, failureCallback) {
   const config = {
     params
   };
-  const url = getBaseURL() + '/categories';
+  const url = getFrontUserBaseURL() + '/categories';
   makeGetWithConfigs(url, config, successCallback, failureCallback);
 }
 
 function getCategoriesFilter(successCallback, failureCallback) {
-  const url = getBaseURL() + '/getCategoriesFilter';
+  const url = getFrontUserBaseURL() + '/categories-filters';
   makeGetWithConfigs(url, {}, successCallback, failureCallback);
 }
 

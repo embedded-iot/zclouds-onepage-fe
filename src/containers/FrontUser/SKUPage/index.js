@@ -5,6 +5,7 @@ import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
+import SKUTable from 'components/FrontUser/SKUTable';
 
 function SKUPage(props) {
   return (
@@ -13,12 +14,11 @@ function SKUPage(props) {
         <title>SKU</title>
       </Helmet>
       <PageHeader
-        isHome
-        goHome={() => props.push('/')}
-        title={'SKU'}
+        title="Price List - SKU"
+        description="Lenful is a Print-on-demand solution that helps you build a profitable online business. Start a business, with everything you need all in one place."
       />
       <div className="page-contents">
-        SKU
+        <SKUTable />
       </div>
     </div>
   );
