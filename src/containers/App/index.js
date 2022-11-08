@@ -46,6 +46,7 @@ import SellerHomePage from 'containers/Seller/HomePage/Loadable';
 
 
 import AdminHomePage from 'containers/Admin/HomePage/Loadable';
+import AdminProductManagementPage from 'containers/Admin/ProductManagementPage';
 
 
 import { RESPONSIVE_MEDIAS, ROUTERS, WEBSITE_NAME } from 'components/contants';
@@ -55,7 +56,12 @@ import { UserService } from 'services';
 
 import './style.scss';
 
-const PUBLIC_ROUTERS = [ROUTERS.LOGIN, ROUTERS.REGISTER ];
+const FRONT_USER_ROUTER = [
+  ROUTERS.ROOT,
+  ROUTERS.FRONT_USER_ALL_PRODUCTS,
+  ROUTERS.FRONT_USER_SKU,
+  ROUTERS.FRONT_USER_REGISTER,
+];
 
 
 const AppWrapper = styled.div`
@@ -81,12 +87,12 @@ const PrivateRoute = (props) => {
 const PublicAppContent = (props) => (
   <Switch>
     <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
-    <Route exact path={ROUTERS.REGISTER} component={RegisterPage} />
   </Switch>
 );
 
 const FrontUserAppContent = (props) => (
   <Switch>
+    <Route exact path={ROUTERS.FRONT_USER_REGISTER} component={RegisterPage} />
     <Route exact path={ROUTERS.ROOT} component={FrontUserHomePage} />
     <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS} component={FrontUserAllProducts} />
     <Route exact path={ROUTERS.FRONT_USER_SKU} component={FrontUserSKUPage} />
@@ -102,6 +108,9 @@ const AppContent = (props) => (
 const AdminAppContent = (props) => (
   <Switch>
     <PrivateRoute exact path={ROUTERS.ROOT} component={AdminHomePage} isAuthenticated={props.isLogin && props.isAdmin}/>
+    <PrivateRoute exact path={ROUTERS.ADMIN_PRODUCTS_MANAGEMENT} component={AdminProductManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
+    <PrivateRoute exact path={ROUTERS.ADMIN_ADMINS_MANAGEMENT} component={AdminHomePage} isAuthenticated={props.isLogin && props.isAdmin}/>
+    <PrivateRoute exact path={ROUTERS.ADMIN_ROLES_MANAGEMENT} component={AdminHomePage} isAuthenticated={props.isLogin && props.isAdmin}/>
   </Switch>
 )
 
@@ -150,11 +159,12 @@ const App = (props) => {
     restoreLoginPreviousSection();
     // eslint-disable-next-line
   }, []);
-  const isAdminMode = process.env.REACT_APP_ADMIN_MODE === 'true';
-  const isPublicRouter = PUBLIC_ROUTERS.includes(props.router.location.pathname);
+  const isAdminMode = process.env.REACT_APP_ADMIN_MODE === 'true' || props.isAdmin;
+  const currentRouter = props.router.location.pathname;
+  const isFrontUserRouter = FRONT_USER_ROUTER.includes(currentRouter);
   const selectedRouters = [props.router.location.pathname];
   if (!isLoadedCheckLogin) return null;
-  if (isPublicRouter) {
+  if (currentRouter.startsWith(ROUTERS.LOGIN)) {
     return (
       <AppWrapper>
         <HelmetMeta />
@@ -190,7 +200,7 @@ const App = (props) => {
     <AppWrapper>
       <HelmetMeta />
       {
-        !props.isLogin && (
+        isFrontUserRouter && !props.isLogin && (
           <PublicLayoutWrapper
             header={(
               <FrontUserHeader
@@ -211,7 +221,6 @@ const App = (props) => {
             header={(
               <Header logoName={WEBSITE_NAME}
                       isLogin={props.isLogin}
-                      isAdmin={props.isAdmin}
                       currentUser={props.currentUser}
                       redirectTo={redirectTo}
                       signOut={signOut}
