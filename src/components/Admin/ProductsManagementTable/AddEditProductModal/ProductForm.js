@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input } from 'antd';
 import UploadBox from 'components/Common/UploadBox';
-import CheckboxGroupBox from 'components/Common/CheckboxGroup';
+import CheckboxGroupBox from 'components/Common/CheckboxGroupBox';
 import { SHIPPING_EXPRESSES_VALUES_OPTIONS, SIZES_VALUES_OPTIONS } from 'components/contants';
 
 export default function ProductForm({ form, initialValues, ...restProps }) {
