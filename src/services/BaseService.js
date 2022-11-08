@@ -1,5 +1,5 @@
 const getBaseURL = () => {
-  return '/api/v2';
+  return '/api1/v2';
 }
 
 const getFrontUserBaseURL = () => {
