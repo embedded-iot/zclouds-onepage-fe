@@ -22,6 +22,16 @@ export default function LoginBox({ setGlobalStore = () => {}, redirectTo = () =>
     })
   }
   const handlerFinish = (values) => {
+    setGlobalStore({
+      isLogin: true,
+      isAdmin: process.env.REACT_APP_ADMIN_MODE === 'true',
+    })
+    notification.success({
+      message: "Đăng nhập thành công!",
+    });
+    onFinish();
+    return;
+    // eslint-disable-next-line
     UserService.login(values, response => {
       authentication.setToken(response.id_token);
       getUserInfo(() => {
