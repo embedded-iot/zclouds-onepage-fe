@@ -1,5 +1,16 @@
-.user-info-wrapper {
-  & > span, & > button {
-    margin-left: 10px;
+.user-info {
+  &__wrapper, &__avatar {
+    display: flex;
+    align-items: center;
+    flex-flow: nowrap;
+    margin-left: 40px;
+  }
+  &__title {
+    display: flex;
+    flex-flow: column;
+    margin-left: 12px;
+    span {
+      line-height: normal;
+    }
   }
 }
