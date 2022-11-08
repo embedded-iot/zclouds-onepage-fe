@@ -1,14 +1,15 @@
 import React from 'react';
+import { DownOutlined } from '@ant-design/icons';
+import DropdownMenu from 'components/Common/DropdownMenu';
+import { Button } from 'antd';
 
 import './style.scss';
 
-import DropdownMenu from 'components/Common/DropdownMenu';
-import { Button } from 'antd';
 
 export default function ButtonListWrapper({
                                             buttonList = [],
                                             actionItems = [],
-                                            actionButton = <Button>Actions</Button>,
+                                            actionButton = '',
                                             onActionItemClick = () => {},
                                             align = '',
                                             ...restProps
@@ -24,7 +25,12 @@ export default function ButtonListWrapper({
                         onMenuClick={onActionItemClick}
           >
             {
-              actionButton
+              !!actionButton ? actionButton : (
+                <Button>
+                  Actions
+                  <DownOutlined />
+                </Button>
+              )
             }
           </DropdownMenu>
         )
