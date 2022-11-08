@@ -1,13 +1,15 @@
 import * as  UserService from "./Common/UserService";
 import * as  FrontUserCategoriesService from './FrontUser/CategoriesService';
 import * as  FrontUserSKUService from './FrontUser/SKUService';
-import * as  RolesService from './Admin/RolesService';
-import * as  ProductService from './Seller/ProductService';
+import * as  SellerProductService from './Seller/ProductService';
+import * as  AdminRolesService from './Admin/RolesService';
+import * as  AdminProductsService from './Admin/ProductsService';
 
 export {
   UserService,
   FrontUserCategoriesService,
   FrontUserSKUService,
-  RolesService,
-  ProductService,
+  AdminRolesService,
+  AdminProductsService,
+  SellerProductService,
 }
