@@ -121,6 +121,13 @@ export default function TableGrid({
 
   return (
     <div className="table-view-wrapper">
+      <div className="table-header">
+        {
+          (!!(buttonListWrapperConfig.buttonList || []).length || !!(buttonListWrapperConfig.actionItems || []).length) && (
+            <ButtonListWrapper {...buttonListWrapperConfig} />
+          )
+        }
+      </div>
       {
         (isShowSearch || isShowPageSize || isShowPageNum) && (
           <div className="">
@@ -159,14 +166,7 @@ export default function TableGrid({
           </div>
         )
       }
-      <div className="table-header">
-        {
-          (!!(buttonListWrapperConfig.buttonList || []).length || !!(buttonListWrapperConfig.actionItems || []).length) && (
-            <ButtonListWrapper {...buttonListWrapperConfig} />
-          )
-        }
-      </div>
-      { hasSelected && <div className="selected-item-label">{`Đã chọn ${selectedRowKeys.length} phần tử`}</div>}
+      { hasSelected && <div className="selected-item-label">{`Selected ${selectedRowKeys.length} items.`}</div>}
       {
         type === 'table' && (
           <Table rowSelection={isAllowSelection ? rowSelection : null}
@@ -196,6 +196,7 @@ export default function TableGrid({
             pageSize={params.pageSize}
             current={params.pageNum}
             onChange={onPaginationChange}
+            showSizeChanger={false}
           />
         )
       }
