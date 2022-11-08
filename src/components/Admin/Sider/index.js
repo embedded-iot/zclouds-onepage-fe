@@ -1,23 +1,24 @@
 import React from 'react';
-import { OrderedListOutlined, ProfileOutlined, SwapOutlined } from '@ant-design/icons';
 import Sider, { getItem } from 'components/Common/Sider';
+import { ROUTERS } from 'components/contants';
 
-export default function AdminSider(props) {
+export default function AdminSider({ selectedRouters = [], redirectTo = () => {}, }) {
   const items = [
-    getItem('Quản lý đơn hàng', 'tt1', <OrderedListOutlined />),
-    getItem('Quản lý sản phẩm', 'tt2', <ProfileOutlined />),
-    getItem('Quản lý đơn nạp', 'tt3', <SwapOutlined />),
+    getItem('Products', ROUTERS.ADMIN_PRODUCTS_MANAGEMENT),
+    getItem('Admins and Roles', ROUTERS.ADMIN_ADMINS_AND_ROLES_MANAGEMENT, undefined, [
+      getItem('Admins management', ROUTERS.ADMIN_ADMINS_MANAGEMENT),
+      getItem( 'Roles management', ROUTERS.ADMIN_ROLES_MANAGEMENT),
+    ]),
   ];
-  const defaultOpenKeys = ['facebook', 'tiktok']
-  const defaultSelectedKeys = ['fb1']
+  const defaultOpenKeys = items.map(item => item.key);
 
   const onClick = (e) => {
-    console.log('click ', e);
+    redirectTo(e.key);
   };
   return (
     <Sider items={items}
            defaultOpenKeys={defaultOpenKeys}
-           defaultSelectedKeys={defaultSelectedKeys}
+           defaultSelectedKeys={selectedRouters}
            onClick={onClick}
            mode="inline"
     />
