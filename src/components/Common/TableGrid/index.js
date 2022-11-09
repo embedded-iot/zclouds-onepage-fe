@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Pagination, Table } from 'antd';
-import Grid from 'components/Common/Grid';
+import { Button } from 'antd';
 import { events } from 'utils';
+import ButtonListWrapper from 'components/Common/ButtonListWrapper';
+import TableView from 'components/Common/TableView';
+import GridView from 'components/Common/GridView';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import InputSearch from 'components/Common/InputSearch';
+import PaginationBox from 'components/Common/PaginationBox';
 
 import './style.scss';
-import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 
 
 const defaultPageSizeOptions = [10, 20, 50, 100];
@@ -36,7 +38,7 @@ export default function TableGrid({
   const [searchText, setSearchText] = useState([]);
   const [params, setParams] = useState({
     pageSize: 20,
-    pageNum: 0,
+    pageNum: 1,
     ...defaultParams
   });
   const [data, setData] = useState({
@@ -121,7 +123,7 @@ export default function TableGrid({
 
   return (
     <div className="table-view-wrapper">
-      <div className="table-header">
+      <div className="table-buttons-action">
         {
           (!!(buttonListWrapperConfig.buttonList || []).length || !!(buttonListWrapperConfig.actionItems || []).length) && (
             <ButtonListWrapper {...buttonListWrapperConfig} />
@@ -130,7 +132,7 @@ export default function TableGrid({
       </div>
       {
         (isShowSearch || isShowPageSize || isShowPageNum) && (
-          <div className="">
+          <div className="table-header">
             {
               isShowSearch && (
                 <InputSearch
@@ -169,35 +171,39 @@ export default function TableGrid({
       { hasSelected && <div className="selected-item-label">{`Selected ${selectedRowKeys.length} items.`}</div>}
       {
         type === 'table' && (
-          <Table rowSelection={isAllowSelection ? rowSelection : null}
-                 columns={configs.columns}
-                 dataSource={data.items}
-                 pagination={false}
+          <TableView
+            rowSelection={isAllowSelection ? rowSelection : null}
+            columns={configs.columns}
+            dataSource={data.items}
+            pagination={false}
           />
         )
       }
       {
         type !== 'table' && (
-          <Grid gutter={configs.gutter}
-                colSpan={configs.colSpan}
-                isAllowSelection={isAllowSelection}
-                dataSource={data.items}
-                gridItemTemplate={configs.gridItemTemplate}
-                onSelectGridItem={onSelectGridItem}
+          <GridView
+            gutter={configs.gutter}
+            colSpan={configs.colSpan}
+            isAllowSelection={isAllowSelection}
+            dataSource={data.items}
+            gridItemTemplate={configs.gridItemTemplate}
+            onSelectGridItem={onSelectGridItem}
           />
         )
       }
       <br/>
       {
         isShowPagination && !!data.totalCount && (
-          <Pagination
-            {...paginationConfig}
-            total={data.totalCount}
-            pageSize={params.pageSize}
-            current={params.pageNum}
-            onChange={onPaginationChange}
-            showSizeChanger={false}
-          />
+          <div className="pagination-box">
+            <PaginationBox
+              {...paginationConfig}
+              total={data.totalCount}
+              pageSize={params.pageSize}
+              current={params.pageNum}
+              onChange={onPaginationChange}
+              showSizeChanger={false}
+            />
+          </div>
         )
       }
     </div>
