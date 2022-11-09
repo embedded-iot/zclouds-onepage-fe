@@ -4,4 +4,9 @@
   &.ant-menu-horizontal {
     border-bottom: none;
   }
+  .ant-menu-item {
+    &:after {
+      border-bottom: none !important;
+    }
+  }
 }
