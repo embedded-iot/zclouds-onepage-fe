@@ -35,6 +35,7 @@ const columns = [
 export default function SKUTable() {
   const RELOAD_EVENT_KEY = 'RELOAD_SKU_TABLE_EVENT_KEY';
   const tableConfig = {
+    searchPlaceholder: "Search in Object Mockups",
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize: size, pageNum: page, searchText, ...restParams} = params || {};
