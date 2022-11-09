@@ -1,16 +1,16 @@
 .table-view-wrapper {
   //overflow-y: auto;
   .table-header {
-    margin-bottom: 5px;
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
-    .additional-button-list {
-      button {
-        margin-right: 10px;
-      }
-    }
+    gap: 15px;
   }
   .selected-item-label {
     height: 25px;
+  }
+  .pagination-box {
+    display: flex;
+    justify-content: flex-end;
   }
 }
