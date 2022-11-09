@@ -2,41 +2,22 @@ import React, { useEffect } from 'react';
 import { Col, Row } from 'antd';
 import { events } from 'utils';
 import { useMediaQuery } from 'react-responsive';
-import { RESPONSIVE_MEDIAS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import CategoriesFilters from './CategoriesFilters';
 import TableGrid from 'components/Common/TableGrid';
 import { FrontUserCategoriesService } from 'services';
 import CategoryItem from './CategoryItem';
 
-import product_ex from 'images/product_ex.svg';
-
-const items = [];
-
-for (let i = 0; i < 35; i++) {
-  items.push({
-    avatar: product_ex,
-    name: 'Creative graphic assets',
-    price: 28,
-    sizeCount: 6,
-    colorCount: 12,
-    printCount: 5
-  })
-}
-
-const defaultData = {
-  items,
-  totalCount: items.length
-}
-
 const gridItemTemplate = ({ item, index }) => {
   return <CategoryItem {...item} />
 }
 
-export default function CategoriesGrid({ searchTextKey = 'searchText', searchText }) {
+export default function CategoriesGrid({ searchTextKey = 'searchText', searchText, redirectTo }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const RELOAD_EVENT_KEY = 'RELOAD_ORDER_TABLE_EVENT_KEY';
   const gridConfig = {
+    gutter: [17, 17],
     // eslint-disable-next-line
     colSpan: isMobile && 24 || isTablet && 12 || 8,
     searchPlaceholder: 'Search in Object Mockups',
@@ -60,7 +41,7 @@ export default function CategoriesGrid({ searchTextKey = 'searchText', searchTex
   }
 
   const onSelectGridItem = (selectItem) => {
-
+    redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS + `/${selectItem.category}/${selectItem.name}`);
   }
 
   const reloadTable = (filters ={}) => {
@@ -79,7 +60,7 @@ export default function CategoriesGrid({ searchTextKey = 'searchText', searchTex
 
   const defaultParams = {};
   return (
-    <Row gutter={[10, 10]}>
+    <Row gutter={[45, 0]}>
       <Col span={ isMobile ? 24 : 6 }>
         <CategoriesFilters onChange={onFiltersChange} />
       </Col>
@@ -89,7 +70,7 @@ export default function CategoriesGrid({ searchTextKey = 'searchText', searchTex
                    paginationConfig={paginationConfig}
                    actionButtonList={{}}
                    defaultParams={defaultParams}
-                   defaultData={defaultData}
+                   defaultData={{}}
                    buttonListWrapperConfig={{}}
                    isShowPagination={true}
                    onSelectedItemsChange={onSelectedItemsChange}
