@@ -1,0 +1,29 @@
+.category-item {
+  &__wrapper {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    .ant-card-cover {
+      img {
+        border-radius: 8px;
+      }
+    }
+    .ant-card-body {
+      padding: 8px 0 0;
+    }
+  }
+  &__title {
+    font-weight: 600;
+    color: #2C3E5D;
+    line-height: 22px;
+  }
+  &__description-1 {
+    font-size: 18px;
+    color: #22A06B;
+    line-height: 26px;
+  }
+  &__description-2 {
+    color: #B3B9C4;
+    line-height: 25px;
+  }
+}
