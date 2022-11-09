@@ -9,7 +9,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect, matchPath } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import { BackTop } from 'antd';
 import { UpCircleOutlined } from '@ant-design/icons';
@@ -39,7 +39,8 @@ import LoginPage from 'containers/Common/LoginPage/Loadable';
 import RegisterPage from 'containers/Common/RegisterPage/Loadable';
 
 import FrontUserHomePage from 'containers/FrontUser/HomePage/Loadable';
-import FrontUserAllProducts from 'containers/FrontUser/CategoriesPage/Loadable';
+import FrontUserAllProductsPage from 'containers/FrontUser/CategoriesPage/Loadable';
+import FrontUserProductDetailPage from 'containers/FrontUser/ProductDetailPage/Loadable';
 import FrontUserSKUPage from 'containers/FrontUser/SKUPage/Loadable';
 
 import SellerHomePage from 'containers/Seller/HomePage/Loadable';
@@ -59,6 +60,8 @@ import './style.scss';
 const FRONT_USER_ROUTER = [
   ROUTERS.ROOT,
   ROUTERS.FRONT_USER_ALL_PRODUCTS,
+  ROUTERS.FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY,
+  ROUTERS.FRONT_USER_PRODUCT_DETAIL,
   ROUTERS.FRONT_USER_SKU,
   ROUTERS.FRONT_USER_REGISTER,
 ];
@@ -94,7 +97,9 @@ const FrontUserAppContent = (props) => (
   <Switch>
     <Route exact path={ROUTERS.FRONT_USER_REGISTER} component={RegisterPage} />
     <Route exact path={ROUTERS.ROOT} component={FrontUserHomePage} />
-    <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS} component={FrontUserAllProducts} />
+    <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS} component={FrontUserAllProductsPage} />
+    <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY} component={FrontUserAllProductsPage} />
+    <Route exact path={ROUTERS.FRONT_USER_PRODUCT_DETAIL} component={FrontUserProductDetailPage} />
     <Route exact path={ROUTERS.FRONT_USER_SKU} component={FrontUserSKUPage} />
   </Switch>
 )
@@ -161,7 +166,13 @@ const App = (props) => {
   }, []);
   const isAdminMode = process.env.REACT_APP_ADMIN_MODE === 'true' || props.isAdmin;
   const currentRouter = props.router.location.pathname;
-  const isFrontUserRouter = FRONT_USER_ROUTER.includes(currentRouter);
+  const isFrontUserRouter = FRONT_USER_ROUTER.find(path => {
+    return (path === currentRouter) || matchPath(currentRouter, {
+      path,
+      exact: true,
+      strict: false
+    });
+  });
   const selectedRouters = [props.router.location.pathname];
   if (!isLoadedCheckLogin) return null;
   if (currentRouter.startsWith(ROUTERS.LOGIN)) {
