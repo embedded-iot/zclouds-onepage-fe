@@ -7,6 +7,7 @@ const items = [];
 
 for (let i = 0; i < 20; i++) {
   items.push({
+    key: i,
     id: 1450,
     avatar: shirt_sku,
     name: 'Kids\' Sweater 3D',
