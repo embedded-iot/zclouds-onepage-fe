@@ -6,6 +6,8 @@ export const ROUTERS = {
   LOGOUT: '/logout',
   FRONT_USER_REGISTER: '/register',
   FRONT_USER_ALL_PRODUCTS: '/categories',
+  FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY: '/categories/:category',
+  FRONT_USER_PRODUCT_DETAIL: '/categories/:category/:productName',
   FRONT_USER_SKU: '/sku',
   SELLER_ORDERS: '/orders',
   SELLER_DESIGN_LIBRARY: '/design-library',
