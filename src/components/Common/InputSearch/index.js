@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
 
 import './style.scss';
 
@@ -10,7 +9,7 @@ export default function InputSearch({ name, value, onChange, placeholder, ...res
   return (
     <div className="input-search">
       <Input allowClear
-              prefix={<SearchOutlined  className="site-form-item-icon" />}
+              prefix={<span className="search-icon" />}
               placeholder={placeholder}
               value={value}
               onChange={handlerOnchange}
