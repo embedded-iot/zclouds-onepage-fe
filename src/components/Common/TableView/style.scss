@@ -1,0 +1,26 @@
+.table-view__wrapper {
+  .ant-table-thead {
+    tr th {
+      background: #8993A5;
+      font-weight: 600;
+      color: #FFFFFF;
+      padding: 7px 13px 9px 13px;
+      &:before {
+        display: none;
+      }
+    }
+  }
+  .ant-table-tbody {
+    tr {
+      td {
+        padding: 11px 13px 9px 11px;
+      }
+      &:nth-child(odd) {
+        background: #F1F2F4;
+      }
+      &:nth-child(even) {
+        background: #F5F5F5;
+      }
+    }
+  }
+}
