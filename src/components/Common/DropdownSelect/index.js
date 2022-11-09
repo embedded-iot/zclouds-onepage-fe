@@ -17,6 +17,7 @@ export default function DropdownSelect({ name, defaultValue, value, options, onC
       onChange={handlerOnChange}
       options={options}
       placeholder={placeholder}
+      suffixIcon={<span className="arrow-down-left-icon" />}
     />
   )
 }
