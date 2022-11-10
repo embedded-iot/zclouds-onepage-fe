@@ -1,5 +1,5 @@
 const getBaseURL = () => {
-  return '/api/v1';
+  return process.env.REACT_APP_API + '/api/v1';
 }
 
 const getFrontUserBaseURL = () => {
