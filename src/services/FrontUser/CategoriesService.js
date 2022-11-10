@@ -1,5 +1,5 @@
 import { getFrontUserBaseURL } from 'services/BaseService';
-import { makeGetWithConfigs } from 'utils';
+import { format, makeGetWithConfigs } from 'utils';
 
 
 import product_ex from 'images/product_ex.svg';
@@ -18,43 +18,67 @@ for (let i = 0; i < 35; i++) {
   })
 }
 
-const categoriesResponse = {
-  items,
-  totalCount: items.length
+const transformProduct = product => {
+  return {
+    ...product,
+    key: product.id,
+    categoryId: product.categoryId,
+    categoryName: product.categoryName || 'categoryName',
+    productName: product.name,
+    productId: product.id,
+    avatar: product.featureImage || product_ex,
+    price: format.formatCurrency(product.price),
+    sizes: 6, // @todo chưa rõ productOptions field
+    colors: 12,
+    print: 5,
+    images: product.images || [product_ex, product_ex, product_ex, product_ex, product_ex],
+  }
 }
 
 function getCategories(params, successCallback, failureCallback) {
-  successCallback(categoriesResponse);
-  return;
-  // eslint-disable-next-line
   const config = {
     params
   };
+  const url = getFrontUserBaseURL() + '/products';
+  makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
+    const items = response.content.map(transformProduct)
+    return {
+      items: items,
+      totalCount: response.totalElement,
+      pageNum: response.currentPage,
+      totalPage: response.totalPage,
+    };
+  });
+}
+
+const transformCategory = item => {
+  return {
+    label: item.category ? item.category.name : '-',
+    value: item.category ? item.category.id : '-',
+    count: item.productCount || 0,
+  }
+}
+
+function getCategoriesFilter(successCallback, failureCallback) {
   const url = getFrontUserBaseURL() + '/categories';
-  makeGetWithConfigs(url, config, successCallback, failureCallback);
+  makeGetWithConfigs(url, {}, successCallback, failureCallback, response => {
+    const categories = response.map(transformCategory);
+    const totalCount = categories.reduce((previousValue, currentValue) => previousValue + currentValue.count, 0);
+    return [
+      { label: 'All products', count: totalCount, value: '' },
+      ...categories
+    ];
+  });
 }
 
 
-const categoriesFilterResponse = [
-  { label: 'All products', count: 293, value: '' },
-  { label: 'Apparel', count: 12, value: 'Apparel' },
-  { label: 'Gift & Accessories38', count: 21, value: 'Gift & Accessories38' },
-  { label: 'Home & Decorations', count: 23, value: 'All Over Print' },
-  { label: 'Canvas & Poster', count: 23, value: 'Canvas & Poster' },
-  { label: 'Shoes', count: 2, value: 'Shoes' },
-  { label: 'US 2D Printing', count: 23, value: 'US 2D Printing' },
-]
-
-
-function getCategoriesFilter(successCallback, failureCallback) {
-  successCallback(categoriesFilterResponse);
-  return;
-  // eslint-disable-next-line
-  const url = getFrontUserBaseURL() + '/categories-filters';
-  makeGetWithConfigs(url, {}, successCallback, failureCallback);
+function getProductDetail(productId, successCallback, failureCallback) {
+  const url = getFrontUserBaseURL() + '/products/' + productId;
+  makeGetWithConfigs(url, {}, successCallback, failureCallback, transformProduct);
 }
 
 export {
   getCategoriesFilter,
   getCategories,
+  getProductDetail,
 }
