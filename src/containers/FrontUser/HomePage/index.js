@@ -7,7 +7,7 @@ export default function HomePage(props) {
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <div clssName="page-contents">
+      <div className="page-contents">
         Home page
       </div>
     </div>
