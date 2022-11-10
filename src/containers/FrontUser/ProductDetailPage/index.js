@@ -10,15 +10,15 @@ import './style.scss';
 import ProductDetailBox from 'components/FrontUser/ProductDetailBox';
 
 function ProductDetailPage(props) {
-  const { category, productName } = props.match ? props.match.params : {};
+  const { categoryName, categoryId, productName, productId } = props.match ? props.match.params : {};
   const breadcrumbRoutes = [
     {
       path: ROUTERS.FRONT_USER_ALL_PRODUCTS,
       breadcrumbName: 'All products',
     },
     {
-      path: `${category}`,
-      breadcrumbName: category,
+      path: `${categoryName}/${categoryId}`,
+      breadcrumbName: categoryName,
     },
     {
       breadcrumbName: productName,
@@ -32,7 +32,7 @@ function ProductDetailPage(props) {
       <div className="page-contents">
         <BreadcrumbBox routes={breadcrumbRoutes} />
         <ProductDetailBox
-          category={category}
+          productId={productId}
           productName={productName}
         />
       </div>
