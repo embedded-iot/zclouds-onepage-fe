@@ -1,24 +1,32 @@
 import { makeGetWithConfigs, makePostWithConfigs } from 'utils';
-import { getBaseURL } from '../BaseService'
+import { getFrontUserBaseURL } from '../BaseService';
 
 function login(data, successCallback, failureCallback) {
-  const url = getBaseURL() + '/customers/authenticate';
+  const url = getFrontUserBaseURL() + '/users/authenticate';
+  const { userName:username, ...rest } = data;
   const config = {
-    data
+    data: {
+      ...rest,
+      username,
+    }
   };
   makePostWithConfigs(url, config, successCallback, failureCallback)
 }
 
 function register(data, successCallback, failureCallback) {
-  const url = getBaseURL() + '/customers/register';
+  const { userName:username, ...rest } = data;
+  const url = getFrontUserBaseURL() + '/users/register';
   const config = {
-    data
+    data: {
+      ...rest,
+      username,
+    }
   };
   makePostWithConfigs(url, config, successCallback, failureCallback)
 }
 
 function forgotPassword(data, successCallback, failureCallback) {
-  const url = getBaseURL() + '/customers/forgot-password';
+  const url = getFrontUserBaseURL() + '/users/forgot-password';
   const config = {
     data
   };
@@ -26,7 +34,7 @@ function forgotPassword(data, successCallback, failureCallback) {
 }
 
 function changeUserInfo(data, successCallback, failureCallback) {
-  const url = getBaseURL() + `/customers/profile`;
+  const url = getFrontUserBaseURL() + `/users/me`;
   const config = {
     data
   };
@@ -34,7 +42,7 @@ function changeUserInfo(data, successCallback, failureCallback) {
 }
 
 function getUserInfo(successCallback, failureCallback) {
-  const url = getBaseURL() + '/customers/profile';
+  const url = getFrontUserBaseURL() + '/users/me';
   makeGetWithConfigs(url, {}, successCallback, failureCallback)
 }
 
