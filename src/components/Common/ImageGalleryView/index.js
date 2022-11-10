@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from 'embla-carousel-react'
 import { Thumb } from "./Thumb";
-import { mediaByIndex } from "./Media";
-import "./style.scss";
 import ReactImageZoom from "react-image-zoom";
 
-const ImageGalleryView = ({ slides }) => {
+import "./style.scss";
+
+const ImageGalleryView = ({ images }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [mainViewportRef, embla] = useEmblaCarousel({ skipSnaps: false });
   const [thumbViewportRef, emblaThumbs] = useEmblaCarousel({
@@ -34,20 +34,20 @@ const ImageGalleryView = ({ slides }) => {
     embla.on("select", onSelect);
   }, [embla, onSelect]);
 
-  const props = { width: 400, height: 250, zoomWidth: 500, img: "1.jpg" };
+  const props = { width: 470, height: 470, zoomWidth: 500, img: "1.jpg" };
 
   return (
     <>
       <div className="embla">
         <div className="embla__viewport" ref={mainViewportRef}>
           <div className="embla__container">
-            {slides.map((index) => (
+            {images.map((img, index) => (
               <div className="embla__slide" key={index}>
                 <div className="embla__slide__inner">
                   <ReactImageZoom {...props} />
                   <img
                     className="embla__slide__img"
-                    src={mediaByIndex(index)}
+                    src={img}
                     alt="A cool cat."
                   />
                 </div>
@@ -60,11 +60,11 @@ const ImageGalleryView = ({ slides }) => {
       <div className="embla embla--thumb">
         <div className="embla__viewport" ref={thumbViewportRef}>
           <div className="embla__container embla__container--thumb">
-            {slides.map((index) => (
+            {images.map((img, index) => (
               <Thumb
                 onClick={() => onThumbClick(index)}
                 selected={index === selectedIndex}
-                imgSrc={mediaByIndex(index)}
+                imgSrc={img}
                 key={index}
               />
             ))}

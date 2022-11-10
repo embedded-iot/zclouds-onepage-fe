@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import BreadcrumbBox from 'components/Common/BreadcrumbBox';
 import { ROUTERS } from 'components/contants';
+import ProductDetailBox from 'components/FrontUser/ProductDetailBox';
+import RelatedProductForProductDetail from 'components/FrontUser/RelatedProductForProductDetail';
 
 import './style.scss';
-import ProductDetailBox from 'components/FrontUser/ProductDetailBox';
+
 
 function ProductDetailPage(props) {
   const { categoryName, categoryId, productName, productId } = props.match ? props.match.params : {};
@@ -34,6 +36,11 @@ function ProductDetailPage(props) {
         <ProductDetailBox
           productId={productId}
           productName={productName}
+        />
+        <RelatedProductForProductDetail
+          categoryId={categoryId}
+          categoryName={categoryName}
+          redirectTo={props.push}
         />
       </div>
     </div>

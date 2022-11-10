@@ -1,5 +1,17 @@
 .breadcrumb-box {
   &__wrapper {
-
+    li {
+      line-height: 16px;
+    }
+    li:not(:last-child) {
+      .ant-breadcrumb-link {
+        color: #626F86;
+      }
+    }
+    li:last-child {
+      .ant-breadcrumb-link {
+        color: #0065FF;
+      }
+    }
   }
 }
