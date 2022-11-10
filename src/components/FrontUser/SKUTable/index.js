@@ -1,7 +1,6 @@
 import React from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { FrontUserSKUService } from 'services';
-import { format } from 'utils';
 
 const columns = [
   {
@@ -28,7 +27,6 @@ const columns = [
   {
     title: 'Price',
     dataIndex: 'price',
-    render: (price) => format.formatCurrency(price),
   },
 ];
 
