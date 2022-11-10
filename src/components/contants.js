@@ -5,9 +5,9 @@ export const ROUTERS = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   FRONT_USER_REGISTER: '/register',
-  FRONT_USER_ALL_PRODUCTS: '/categories',
-  FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY: '/categories/:category',
-  FRONT_USER_PRODUCT_DETAIL: '/categories/:category/:productName',
+  FRONT_USER_ALL_PRODUCTS: '/products',
+  FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY: '/products/:categoryName/:categoryId',
+  FRONT_USER_PRODUCT_DETAIL: '/products/:categoryName/:productName/:categoryId/:productId',
   FRONT_USER_SKU: '/sku',
   SELLER_ORDERS: '/orders',
   SELLER_DESIGN_LIBRARY: '/design-library',
@@ -79,3 +79,29 @@ export const RESPONSIVE_MEDIAS = {
   TABLET: { query: '(max-width: 1124px)' },
   DESKTOP: { query: '(max-width: 4096px)' },
 }
+
+export const STATE_VALUES = {
+  ACTIVATED: 'ACTIVATED',
+  BLOCKED: 'BLOCKED',
+};
+
+export const STATE_LABELS = {
+  [STATE_VALUES.ACTIVATED]: 'Activated',
+  [STATE_VALUES.BLOCKED]: 'Blocked',
+};
+
+export const ROLE_VALUES = {
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  ADMIN: 'ADMIN',
+  RESELLER: 'RESELLER',
+  USER: 'USER',
+};
+
+export const ADMIN_ROLES = [ROLE_VALUES.SUPER_ADMIN, ROLE_VALUES.ADMIN];
+
+export const ROLE_LABELS = {
+  [ROLE_VALUES.SUPER_ADMIN]: 'Supper Admin',
+  [ROLE_VALUES.ADMIN]: 'Admin',
+  [ROLE_VALUES.RESELLER]: 'Reseller',
+  [ROLE_VALUES.USER]: 'User',
+};
