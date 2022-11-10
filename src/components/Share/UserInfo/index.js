@@ -5,7 +5,7 @@ import {
   UserOutlined,
   BellOutlined,
 } from '@ant-design/icons';
-import { ROUTERS } from 'components/contants';
+import { ROLE_LABELS, ROUTERS } from 'components/contants';
 
 import './style.scss';
 
@@ -26,12 +26,12 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
       onClick={handleMenuClick}
       items={[
         {
-          label: 'Thông tin tài khoản',
+          label: 'My account',
           key: ROUTERS.ACCOUNT_INFO,
           icon: <UserOutlined />,
         },
         {
-          label: 'Đăng xuất',
+          label: 'Logout',
           key: ROUTERS.LOGOUT,
           icon: <LogoutOutlined />,
         },
@@ -61,8 +61,8 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
             icon={<UserOutlined />}
           />
           <div className="user-info__title">
-            <span>{currentUser.name || 'User name'}</span>
-            <span className="link">{currentUser.role || (isAdmin ? 'Admin' : 'Seller')}</span>
+            <span>{currentUser.username || 'User name'}</span>
+            <span className="link">{ROLE_LABELS[currentUser.role] || (isAdmin ? 'Admin' : 'Seller')}</span>
           </div>
         </div>
       </Dropdown>
