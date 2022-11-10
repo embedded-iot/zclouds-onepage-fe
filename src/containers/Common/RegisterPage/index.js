@@ -15,12 +15,12 @@ const RegisterPage = (props) => {
     const { confirmPassword, ...data} = values;
     UserService.register(data, response => {
       notification.success({
-        message: "Đăng ký thành công! Vui lòng kiểm tra email để kích hoạt tài khoản của bạn.",
+        message: "Register successful!",
       });
       props.push(ROUTERS.LOGIN);
     }, error => {
       notification.error({
-        message: error.title || "Không thể đăng ký tài khoản bây giờ. Vui lòng thử lại sau!",
+        message: error && error.title ? error.title : "Register failure!",
       });
     });
   }
