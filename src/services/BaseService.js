@@ -1,17 +1,17 @@
 const getBaseURL = () => {
-  return '/api1/v2';
+  return '/api/v1';
 }
 
 const getFrontUserBaseURL = () => {
-  return getBaseURL() + '/front-user';
+  return getBaseURL() + '/public';
 }
 
 const getSellerBaseURL = () => {
-  return getBaseURL() + '/front-user';
+  return getBaseURL() + '/reseller';
 }
 
 const getAdminBaseURL = () => {
-  return getBaseURL() + '/front-user';
+  return getBaseURL() + '/admin';
 }
 
 export {
