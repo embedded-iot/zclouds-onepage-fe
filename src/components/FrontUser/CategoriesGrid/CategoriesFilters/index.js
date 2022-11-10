@@ -19,7 +19,7 @@ export default function CategoriesFilters({ onChange = () => {} }) {
   const onSelectFilter = (value) => {
     setSelectedCategory(value);
     onChange({
-      category: value
+      categoryId: value
     });
   }
 
