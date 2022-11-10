@@ -81,9 +81,11 @@ export default function TableGrid({
   }, []);
 
   useEffect(() => {
-    const pageNumOptionList = [...Array(Math.round((data.totalCount || 0)/params.pageSize))].map((item, index) => ({
+    const calculatorTotalPage = Math.floor(data.totalCount/params.pageSize) + (data.totalCount % params.pageSize ? 1 : 0 );
+    const totalPage = data.totalPage || calculatorTotalPage;
+    const pageNumOptionList = [...Array(totalPage)].map((item, index) => ({
       label: `Page ${index + 1}`,
-      value: index.toString(),
+      value: (index + 1).toString(),
     }));
     setPageNumOptions(pageNumOptionList);
   }, [params, data]);
