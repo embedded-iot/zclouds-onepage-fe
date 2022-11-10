@@ -50,7 +50,7 @@ import AdminHomePage from 'containers/Admin/HomePage/Loadable';
 import AdminProductManagementPage from 'containers/Admin/ProductManagementPage';
 
 
-import { RESPONSIVE_MEDIAS, ROUTERS, WEBSITE_NAME } from 'components/contants';
+import { ADMIN_ROLES, RESPONSIVE_MEDIAS, ROUTERS, WEBSITE_NAME } from 'components/contants';
 
 import { UserService } from 'services';
 
@@ -149,7 +149,7 @@ const App = (props) => {
     UserService.getUserInfo(response => {
       props.setGlobalStore({
         isLogin: true,
-        isAdmin: false,
+        isAdmin: ADMIN_ROLES.includes(response.role),
         currentUser: {
           ...response
         }
@@ -164,7 +164,7 @@ const App = (props) => {
     restoreLoginPreviousSection();
     // eslint-disable-next-line
   }, []);
-  const isAdminMode = process.env.REACT_APP_ADMIN_MODE === 'true' || props.isAdmin;
+  const isAdminMode = process.env.REACT_APP_ADMIN_MODE === 'true' || props.isAdminMode;
   const currentRouter = props.router.location.pathname;
   const isFrontUserRouter = FRONT_USER_ROUTER.find(path => {
     return (path === currentRouter) || matchPath(currentRouter, {
@@ -252,8 +252,9 @@ const App = (props) => {
 }
 
 function mapStateToProps(state) {
-  const { isLogin, isAdmin, currentUser, products } = state.global;
+  const { isAdminMode, isLogin, isAdmin, currentUser, products } = state.global;
   return {
+    isAdminMode,
     isLogin,
     isAdmin,
     currentUser,
