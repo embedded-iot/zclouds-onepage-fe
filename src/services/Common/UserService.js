@@ -14,11 +14,12 @@ function login(data, successCallback, failureCallback) {
 }
 
 function register(data, successCallback, failureCallback) {
-  const { userName:username, ...rest } = data;
+  const { userName:username, phoneNumber: phone, ...rest } = data;
   const url = getFrontUserBaseURL() + '/users/register';
   const config = {
     data: {
       ...rest,
+      phone,
       username,
     }
   };
