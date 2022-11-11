@@ -1,6 +1,6 @@
 import React from 'react';
 import bannerImg21 from 'images/banner-img-2-1.svg';
-import bannerImg22 from 'images/banner-img-2-2.svg';
+import bannerImg22 from 'images/banner-img-2-2.png';
 import { Button, Col, Row } from 'antd';
 
 import './style.scss';
