@@ -17,7 +17,7 @@ export default function ProductDetailBox({ productId, productName }) {
   useEffect(() => {
     getProductDetail();
     // eslint-disable-next-line
-  }, []);
+  }, [productId]);
 
   return (
     <div className='product-detail-box__wrapper'>
