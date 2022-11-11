@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { FrontUserCategoriesService } from 'services';
 import "./style.scss";
 
-export default function CategoriesFilters({ onChange = () => {} }) {
+export default function CategoriesFilters({ onChange = () => {}, categoryId = '' }) {
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
-
+  const [selectedCategory, setSelectedCategory] = useState(categoryId);
   const getCategoriesFilter = () => {
     FrontUserCategoriesService.getCategoriesFilter(response => {
       setCategories(response);
-    })
+    }, () => {}, true)
   }
 
   useEffect(() => {
@@ -29,7 +28,7 @@ export default function CategoriesFilters({ onChange = () => {} }) {
       <div className='categories-filters__list'>
         {
           categories.map((category, index) => (
-            <div className={`categories-filters__item ${ selectedCategory === category.value && 'categories-filters__item--active'}`}
+            <div className={`categories-filters__item ${ selectedCategory.toString() === category.value.toString() && 'categories-filters__item--active'}`}
                  key={index}
                  onClick={() => onSelectFilter(category.value)}
             >
