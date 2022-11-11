@@ -12,7 +12,7 @@ const gridItemTemplate = ({ item, index }) => {
   return <CategoryItem {...item} />
 }
 
-export default function CategoriesGrid({ searchTextKey = 'searchText', searchText, redirectTo }) {
+export default function CategoriesGrid({ searchTextKey = 'searchText', searchText, categoryId, redirectTo }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const RELOAD_EVENT_KEY = 'RELOAD_ORDER_TABLE_EVENT_KEY';
@@ -59,11 +59,13 @@ export default function CategoriesGrid({ searchTextKey = 'searchText', searchTex
     });
   }, [searchText, searchTextKey]);
 
-  const defaultParams = {};
+  const defaultParams = {
+    categoryId
+  };
   return (
     <Row gutter={[45, 0]}>
       <Col span={ isMobile ? 24 : 6 }>
-        <CategoriesFilters onChange={onFiltersChange} />
+        <CategoriesFilters categoryId={categoryId} onChange={onFiltersChange} />
       </Col>
       <Col span={ isMobile ? 24 : 18 }>
         <TableGrid type='grid'
