@@ -27,8 +27,11 @@ $primary-color: #0065FF;
 }
 
 .public-layout__wrapper {
-  .page-wrapper, .page-wrapper--full-width {
+  .page-wrapper {
     padding: 32px 0 40px;
+  }
+  .page-wrapper--full-width {
+    padding: 0;
   }
 }
 
@@ -71,6 +74,9 @@ $primary-color: #0065FF;
   outline: none;
   cursor: pointer;
   transition: color 0.3s;
+  &--text {
+    cursor: default;
+  }
 }
 
 
