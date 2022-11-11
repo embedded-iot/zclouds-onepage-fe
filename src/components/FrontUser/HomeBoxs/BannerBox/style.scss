@@ -1,0 +1,19 @@
+.banner-box {
+  &__wrapper {
+    background: url("~images/banner-bg.svg") center center no-repeat;
+    background-size: cover;
+  }
+  &__contents {
+    max-width: 391px;
+  }
+
+  &__img {
+    margin-left: 107px;
+    img {
+      width: 100%;
+      height: 100%;
+      max-width: 389px;
+      max-height: 389px;
+    }
+  }
+}
