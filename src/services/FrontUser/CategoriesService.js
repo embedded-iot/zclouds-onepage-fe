@@ -53,21 +53,24 @@ function getCategories(params, successCallback, failureCallback) {
 
 const transformCategory = item => {
   return {
+    categoryId: item.category.id,
+    categoryName: item.category.name || 'categoryName',
     label: item.category ? item.category.name : '-',
     value: item.category ? item.category.id : '-',
     count: item.productCount || 0,
   }
 }
 
-function getCategoriesFilter(successCallback, failureCallback) {
+function getCategoriesFilter(successCallback, failureCallback, isAddAll = false) {
   const url = getFrontUserBaseURL() + '/categories';
   makeGetWithConfigs(url, {}, successCallback, failureCallback, response => {
     const categories = response.map(transformCategory);
     const totalCount = categories.reduce((previousValue, currentValue) => previousValue + currentValue.count, 0);
-    return [
+    const newCategories = isAddAll ? [
       { label: 'All products', count: totalCount, value: '' },
       ...categories
-    ];
+    ] : categories;
+    return newCategories;
   });
 }
 
