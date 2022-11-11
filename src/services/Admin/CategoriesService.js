@@ -1,10 +1,9 @@
 import { getAdminBaseURL } from 'services/BaseService';
 import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
-import shirt_sku from 'images/t-shirt_sku.svg';
 import { STATE_LABELS } from 'components/contants';
+import shirt_sku from 'images/t-shirt_sku.svg';
 
-
-const transformProduct = item => {
+const transformCategory = item => {
   return {
     ...item,
     avatar: item.featureImage || shirt_sku ,
@@ -12,13 +11,13 @@ const transformProduct = item => {
   }
 }
 
-function getProducts(params, successCallback, failureCallback) {
+function getCategories(params, successCallback, failureCallback) {
   const config = {
     params
   };
   const url = getAdminBaseURL() + '/categories';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
-    const items = response.content.map(transformProduct)
+    const items = response.content.map(transformCategory)
     return {
       items: items,
       totalCount: response.totalElement,
@@ -28,7 +27,7 @@ function getProducts(params, successCallback, failureCallback) {
   });
 }
 
-function createProduct(data, successCallback, failureCallback) {
+function createCategory(data, successCallback, failureCallback) {
   const config = {
     data
   };
@@ -36,7 +35,7 @@ function createProduct(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
-function updateProduct(id, data, successCallback, failureCallback) {
+function updateCategory(id, data, successCallback, failureCallback) {
   const config = {
     data
   };
@@ -44,14 +43,14 @@ function updateProduct(id, data, successCallback, failureCallback) {
   makePutWithConfigs(url, config, successCallback, failureCallback);
 }
 
-function deleteProduct(id, successCallback, failureCallback) {
+function deleteCategory(id, successCallback, failureCallback) {
   const url = getAdminBaseURL() + '/categories/' + id;
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
 export {
-  getProducts,
-  createProduct,
-  updateProduct,
-  deleteProduct,
+  getCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
 }

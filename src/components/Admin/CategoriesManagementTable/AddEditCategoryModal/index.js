@@ -1,49 +1,48 @@
 import React from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import { Form, notification } from 'antd';
-import ProductForm from './ProductForm';
-import { AdminProductsService } from 'services';
+import CategoryForm from './CategoryForm';
+import { AdminCategoriesService } from 'services';
 
-export default function AddEditProductModal({ open, data, onOk, onCancel }) {
+export default function AddEditCategoryModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
   const handleOk = (values) => {
     if (isEdit) {
-      AdminProductsService.updateProduct(data.id, values, response => {
+      AdminCategoriesService.updateCategory(data.id, values, response => {
         notification.success({
-          message: "Update product successful!",
+          message: "Update category successful!",
         });
         onOk();
       }, error => {
         notification.error({
-          message: error && error.title ? error.title : "Update product failure!",
+          message: error && error.title ? error.title : "Update category failure!",
         });
       })
     } else {
-      AdminProductsService.createProduct(values, response => {
+      AdminCategoriesService.createCategory(values, response => {
         notification.success({
-          message: "Create product successful!",
+          message: "Create category successful!",
         });
         onOk();
       }, error => {
         notification.error({
-          message: error && error.title ? error.title : "Create product failure!",
+          message: error && error.title ? error.title : "Create category failure!",
         });
       })
     }
 
   }
-
   return (
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                form={form}
                open={open}
-               title={isEdit ? "Edit product" : "Add product"}
+               title={isEdit ? "Edit category" : "Add category"}
                okText={isEdit ? "Save" : "Add"}
                onOk={handleOk}
                onCancel={onCancel}
     >
-      <ProductForm
+      <CategoryForm
         form={form}
         initialValues={data}
       />

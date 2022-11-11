@@ -62,6 +62,8 @@ export default function ProductsManagementTable() {
   };
 
   const reloadTable = (filters ={}) => {
+    setOpenDeleteProduct(false);
+    setOpenDeleteProduct(false);
     events.publish(RELOAD_EVENT_KEY, filters);
   }
 

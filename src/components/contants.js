@@ -20,6 +20,7 @@ export const ROUTERS = {
   SELLER_CHAT_WITH_ME: '/chat-with-me',
   SELLER_CREATOR_COMMUNITY: '/creator-community',
   ADMIN_PRODUCTS_MANAGEMENT: '/products-management',
+  ADMIN_CATEGORIES_MANAGEMENT: '/categories-management',
   ADMIN_ADMINS_AND_ROLES_MANAGEMENT: '/admins-and-roles-management',
   ADMIN_ADMINS_MANAGEMENT: '/admins-management',
   ADMIN_ROLES_MANAGEMENT: '/roles-management',
@@ -89,6 +90,13 @@ export const STATE_LABELS = {
   [STATE_VALUES.ACTIVATED]: 'Activated',
   [STATE_VALUES.BLOCKED]: 'Blocked',
 };
+
+export const STATE_LABEL_VALUE_OPTIONS = [
+  { label: 'Select state', value: '' },
+  { label: STATE_LABELS[STATE_VALUES.ACTIVATED], value: STATE_VALUES.ACTIVATED },
+  { label: STATE_LABELS[STATE_VALUES.BLOCKED], value: STATE_VALUES.BLOCKED },
+];
+
 
 export const ROLE_VALUES = {
   SUPER_ADMIN: 'SUPER_ADMIN',

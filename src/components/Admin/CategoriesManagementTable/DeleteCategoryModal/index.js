@@ -1,30 +1,30 @@
 import React from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
-import { AdminProductsService } from 'services';
+import { AdminCategoriesService } from 'services';
 import { notification } from 'antd';
 
-export default function DeleteProductModal({ open, data, onOk, onCancel }) {
+export default function DeleteCategoryModal({ open, data, onOk, onCancel }) {
   const handleOk = () => {
-    AdminProductsService.deleteProduct(data.id, response => {
+    AdminCategoriesService.deleteCategory(data.id, response => {
       notification.success({
-        message: "Delete product successful!",
+        message: "Delete category successful!",
       });
       onOk();
     }, error => {
       notification.error({
-        message: error && error.title ? error.title : "Delete product failure!",
+        message: error && error.title ? error.title : "Delete category failure!",
       });
     })
   }
   return (
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                open={open}
-               title={"Delete product"}
+               title={"Delete category"}
                okText={"Delete"}
                onOk={handleOk}
                onCancel={onCancel}
     >
-    <div>Delete {data ? data.name : 'Product name'}</div>
+    <div>Delete {data ? data.name : 'Category name'}</div>
     </ModalView>
   )
 }

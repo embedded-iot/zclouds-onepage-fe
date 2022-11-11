@@ -1,5 +1,5 @@
 import React from 'react';
-import bannerImg from 'images/banner-img.svg';
+import bannerImg from 'images/banner-img.png';
 import { Button, Col, Row } from 'antd';
 import { ROUTERS } from 'components/contants';
 
