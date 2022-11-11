@@ -10,6 +10,7 @@ import InputSearch from 'components/Common/InputSearch';
 import './style.scss';
 
 function CategoriesPage(props) {
+  const { categoryId } = props.match ? props.match.params : {};
   const [searchText, setSearchText] = useState('');
 
   const onSearchChange = (value) => {
@@ -34,6 +35,7 @@ function CategoriesPage(props) {
       <div className="page-contents">
         <CategoriesGrid searchTextKey='searchText'
                         searchText={searchText}
+                        categoryId={categoryId}
                         redirectTo={props.push}
         />
       </div>
