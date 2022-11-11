@@ -10,6 +10,7 @@ export default function LoginBox({ setGlobalStore = () => {}, redirectTo = () =>
     UserService.getUserInfo(response => {
       setGlobalStore({
         isLogin: true,
+        isAdminMode: ADMIN_ROLES.includes(response.role),
         isAdmin: ADMIN_ROLES.includes(response.role),
         currentUser: {
           ...response
