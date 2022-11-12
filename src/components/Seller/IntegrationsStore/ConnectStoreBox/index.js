@@ -17,7 +17,9 @@ export default function ConnectStoreBox({ title, description, videoSrc, children
         Connect your store now!
       </div>
       <div className='connect-store__form-contents'>
-
+        {
+          children
+        }
       </div>
     </Card>
   )
