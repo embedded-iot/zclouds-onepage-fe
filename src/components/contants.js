@@ -116,6 +116,13 @@ export const ROLE_LABELS = {
   [ROLE_VALUES.USER]: 'User',
 };
 
+export const PERMISSIONS_VALUES_OPTIONS = [
+  'Permission 1',
+  'Permission 2',
+  'Permission 3',
+  'Permission 4',
+  'Permission 5',
+]
 
 export const DESIGN_VALUES = {
   _2D: '2D',
