@@ -1,19 +1,21 @@
 import React from 'react';
 import Sider, { getItem } from 'components/Common/Sider';
-import { ROUTERS } from 'components/contants';
+import { ROUTERS, STORE_TYPE_LABELS, STORE_TYPE_VALUES } from 'components/contants';
 
 import "./style.scss";
 
 export default function UserSider({ selectedRouters = [], redirectTo = () => {}, setGlobalStore = () => {} }) {
   const items = [
-    getItem('DASHBOARD', ROUTERS.ROOT),
+    // getItem('DASHBOARD', ROUTERS.ROOT),
     getItem('Functions', 'functions', undefined, [
-      getItem('Orders', ROUTERS.SELLER_ORDERS),
+      // getItem('Orders', ROUTERS.SELLER_ORDERS),
       getItem( 'Designs library', ROUTERS.SELLER_DESIGN_LIBRARY),
-      getItem('My Account', ROUTERS.SELLER_MY_ACCOUNT),
+      // getItem('My Account', ROUTERS.SELLER_MY_ACCOUNT),
       getItem('Stores', ROUTERS.SELLER_STORES),
-      getItem('Wallet', ROUTERS.SELLER_WALLET),
-      getItem('Integrations', ROUTERS.SELLER_INTEGRATIONS),
+      // getItem('Wallet', ROUTERS.SELLER_WALLET),
+      getItem('Integrations', ROUTERS.SELLER_INTEGRATIONS, undefined, [
+        getItem(STORE_TYPE_LABELS[STORE_TYPE_VALUES.SHOPIFY], ROUTERS.SELLER_INTEGRATIONS + '/' + STORE_TYPE_VALUES.SHOPIFY),
+      ]),
     ]),
     getItem('Help', 'help', undefined, [
       getItem('Product category', ROUTERS.SELLER_PRODUCT_CATEGORY),

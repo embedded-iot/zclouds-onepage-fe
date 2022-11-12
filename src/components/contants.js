@@ -13,8 +13,10 @@ export const ROUTERS = {
   SELLER_DESIGN_LIBRARY: '/design-library',
   SELLER_MY_ACCOUNT: '/my-account',
   SELLER_STORES: '/stores',
+  SELLER_DETAIL_STORE: '/stores/:storeId',
   SELLER_WALLET: '/wallet',
   SELLER_INTEGRATIONS: '/integration',
+  SELLER_INTEGRATIONS_WITH_VENDOR: '/integration/:vendorId',
   SELLER_PRODUCT_CATEGORY: '/product-category',
   SELLER_TICKETS: '/tickets',
   SELLER_CHAT_WITH_ME: '/chat-with-me',
@@ -129,3 +131,17 @@ export const DESIGN_LABEL_VALUE_OPTIONS = [
   { label: DESIGN_LABELS[DESIGN_VALUES._2D], value: DESIGN_VALUES._2D },
   { label: DESIGN_LABELS[DESIGN_VALUES._3D], value: DESIGN_VALUES._3D },
 ];
+
+export const STORE_TYPE_VALUES = {
+  SHOPIFY: 'Shopify',
+};
+
+export const STORE_TYPE_LABELS = {
+  [STORE_TYPE_VALUES.SHOPIFY]: 'Shopify',
+};
+
+export const STORE_TYPE_LABEL_VALUE_OPTIONS = [
+  { label: 'All type', value: '' },
+  { label: STORE_TYPE_LABELS[STORE_TYPE_VALUES.SHOPIFY], value: STORE_TYPE_VALUES.SHOPIFY },
+];
+

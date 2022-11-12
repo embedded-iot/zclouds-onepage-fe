@@ -46,7 +46,7 @@ const ACTION_KEYS = {
   IMPORT_DESIGNS: "IMPORT_DESIGNS",
 }
 
-export default function DesignsManagementTable() {
+export default function DesignsTable() {
   const [openAddDesign, setOpenAddDesign] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [openDeleteDesign, setOpenDeleteDesign] = useState(false);
