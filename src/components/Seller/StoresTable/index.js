@@ -22,11 +22,7 @@ const columns = [
     dataIndex: 'name',
   },
   {
-    title: 'Owner',
-    dataIndex: 'owner',
-  },
-  {
-    title: 'Secret',
+    title: 'Domain',
     dataIndex: 'domain',
   },
 ];
@@ -80,6 +76,7 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
       },
       {
         type: 'searchText',
+        requiredSelection: false,
       },
       {
         type: 'custom',
@@ -89,16 +86,20 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
             defaultValue={type || ''}
             onChange={onStoreTypeChange}
           />
-        )
+        ),
+        requiredSelection: false,
       },
       {
         type: 'pageNum',
+        requiredSelection: false,
       },
       {
         type: 'pageSize',
+        requiredSelection: false,
       },
       {
         type: 'searchButton',
+        requiredSelection: false,
       },
     ],
   }

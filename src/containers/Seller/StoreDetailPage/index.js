@@ -22,8 +22,7 @@ function StoresPage(props) {
         <Row gutter={[20, 20]}>
           <Col span={12}>
             <EditStoreBox id={storeId}
-                          onFinish={() => {}}
-                          onCancel={() => {}}
+                          redirectTo={props.push}
             />
           </Col>
         </Row>
