@@ -84,8 +84,6 @@ export default function CategoriesManagementTable() {
 
   const onSelectedItemsChange = (keys) => {
     const newSelectedCategory = ref.current.items.find(item => item.id === keys[0]);
-    console.log(keys);
-    console.log(newSelectedCategory);
     setSelectedCategory(newSelectedCategory);
   }
 

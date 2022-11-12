@@ -89,7 +89,7 @@ export default function TableGrid({
   }, [params, data]);
 
   const onSelectChange = (newSelectedRowKey = []) => {
-    const selectedKeys = isSingleSelection ? ( newSelectedRowKey.length && [newSelectedRowKey[newSelectedRowKey.length - 1]] ) : newSelectedRowKey;
+    const selectedKeys = isSingleSelection ? ( newSelectedRowKey.length ? [newSelectedRowKey[newSelectedRowKey.length - 1]]: []) : newSelectedRowKey;
     setSelectedRowKeys(selectedKeys);
     onSelectedItemsChange(selectedKeys);
   };

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminProductsService } from 'services';
-import { events, format } from 'utils';
+import { events } from 'utils';
 import { Button } from 'antd';
 import AddEditProductModal from './AddEditProductModal';
 import DeleteProductModal from './DeleteProductModal';
+import { CloseCircleOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons';
 
 const columns = [
   {
@@ -21,17 +22,21 @@ const columns = [
     dataIndex: 'name',
   },
   {
+    title: 'Slug',
+    dataIndex: 'slug',
+  },
+  {
     title: 'Variant',
     dataIndex: 'offerName',
   },
   {
-    title: 'SKU',
-    dataIndex: 'id',
+    title: 'Price',
+    dataIndex: 'convertedPrice',
+    render: (convertedPrice) => <span>{convertedPrice}</span>,
   },
   {
-    title: 'Price',
-    dataIndex: 'price',
-    render: (price) => format.formatCurrency(price),
+    title: 'State',
+    dataIndex: 'convertedState',
   },
 ];
 
@@ -46,7 +51,8 @@ export default function ProductsManagementTable() {
   const [isEdit, setIsEdit] = useState(false);
   const [openDeleteProduct, setOpenDeleteProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const RELOAD_EVENT_KEY = 'RELOAD_ORDER_TABLE_EVENT_KEY';
+  const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_PRODUCTS_TABLE_EVENT_KEY';
+  let ref = useRef({});
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -54,7 +60,7 @@ export default function ProductsManagementTable() {
       AdminProductsService.getProducts({ ...restParams, page, size, searchText }, successCallback, failureCallback)
     },
     successCallback: (response) => {
-      console.log(response);
+      ref.current.items = response.items;
     },
     failureCallback: (error) => {
       console.log(error);
@@ -62,7 +68,7 @@ export default function ProductsManagementTable() {
   };
 
   const reloadTable = (filters ={}) => {
-    setOpenDeleteProduct(false);
+    setOpenAddProduct(false);
     setOpenDeleteProduct(false);
     events.publish(RELOAD_EVENT_KEY, filters);
   }
@@ -72,47 +78,64 @@ export default function ProductsManagementTable() {
     setOpenAddProduct(true);
   }
 
-  const onActionItemClick = (key) => {
-    switch (key) {
-      case ACTION_KEYS.DELETE_PRODUCT:
-        setOpenDeleteProduct(true);
-        break;
-      default:
-        setIsEdit(true);
-        setOpenAddProduct(true);
-    }
+  const editProduct = () => {
+    setIsEdit(true);
+    setOpenAddProduct(true);
+  }
+
+  const deleteProduct = () => {
+    setOpenDeleteProduct(true);
   }
 
   const onSelectedItemsChange = (keys) => {
-    setSelectedProduct({});
+    const newSelectedCategory = ref.current.items.find(item => item.id === keys[0]);
+    setSelectedProduct(newSelectedCategory);
   }
 
   const headerActionsConfig = {
     buttonList: [
-      <Button key={ACTION_KEYS.ADD_PRODUCT} onClick={addProduct}>Add product</Button>
-    ],
-    actionItems: [
       {
-        key: ACTION_KEYS.EDIT_PRODUCT,
-        label: 'Edit product',
+        type: 'custom',
+        render: <Button key={ACTION_KEYS.EDIT_PRODUCT} icon={<EditOutlined />} onClick={editProduct}>Edit product</Button>,
+        requiredSelection: true,
+      },      {
+        type: 'custom',
+        render: <Button key={ACTION_KEYS.DELETE_PRODUCT} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteProduct}>Delete product</Button>,
+        requiredSelection: true,
       },
       {
-        key: ACTION_KEYS.DELETE_PRODUCT,
-        label: 'Delete products',
+        type: 'searchText',
+        requiredSelection: false,
       },
+      {
+        type: 'pageNum',
+        requiredSelection: false,
+      },
+      {
+        type: 'pageSize',
+        requiredSelection: false,
+      },
+      {
+        type: 'searchButton',
+        requiredSelection: false,
+      },
+      {
+        type: 'custom',
+        render: <Button key={ACTION_KEYS.ADD_PRODUCT} type="primary" icon={<PlusCircleOutlined />} onClick={addProduct}>Add product</Button>,
+        align: 'right',
+      }
     ],
-    onActionItemClick,
-    align: 'right',
   }
 
   return (
     <>
       <TableGrid configs={tableConfig}
-                 paginationConfig={{}}
                  headerActionsConfig={headerActionsConfig}
+                 paginationConfig={{}}
                  defaultParams={{}}
                  defaultData={{}}
                  isShowPagination={true}
+                 isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}

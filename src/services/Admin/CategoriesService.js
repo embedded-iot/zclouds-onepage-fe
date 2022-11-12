@@ -35,6 +35,13 @@ function createCategory(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
+function getCategoriesOptions(categories) {
+  return [
+    { label: 'Select state', value: '' },
+    ...(categories.map(category => ({ label: category.name, value: category.id })))
+  ]
+}
+
 function updateCategory(id, data, successCallback, failureCallback) {
   const config = {
     data
@@ -53,4 +60,5 @@ export {
   createCategory,
   updateCategory,
   deleteCategory,
+  getCategoriesOptions,
 }

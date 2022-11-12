@@ -12,7 +12,10 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
       name="basic"
       form={form}
       autoComplete="off"
-      initialValues={initialValues}
+      initialValues={{
+        state: '',
+        ...initialValues,
+      }}
       layout="vertical"
       {...restProps}
     >
