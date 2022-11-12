@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
 
-export default function ShopifyForm({ onFinish }) {
+export default function WooCommerceForm({ onFinish }) {
   return (
     <Form
       name="basic"

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
 
-export default function ShopifyForm({ onFinish }) {
+export default function ShopBaseForm({ onFinish }) {
   return (
     <Form
       name="basic"
@@ -35,7 +35,7 @@ export default function ShopifyForm({ onFinish }) {
           },
         ]}
       >
-        <Input placeholder={`https://...`}/>
+        <Input placeholder={`https://*.onshopbase.com`}/>
       </Form.Item>
       <Form.Item
         label="API Key:"

@@ -4,6 +4,7 @@ import * as  FrontUserSKUService from './FrontUser/SKUService';
 import * as  SellerProductService from './Seller/ProductService';
 import * as  SellerDesignsService from './Seller/DesignsService';
 import * as  SellerStoresService from './Seller/StoresService';
+import * as  SellerIntegrationsService from './Seller/IntegrationsService';
 import * as  AdminRolesService from './Admin/RolesService';
 import * as  AdminProductsService from './Admin/ProductsService';
 import * as  AdminCategoriesService from './Admin/CategoriesService';
@@ -18,4 +19,5 @@ export {
   SellerProductService,
   SellerDesignsService,
   SellerStoresService,
+  SellerIntegrationsService,
 }

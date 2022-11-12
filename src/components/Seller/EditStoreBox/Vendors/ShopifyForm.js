@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Input, Switch } from 'antd';
 
-export default function ShopifyForm({ onFinish, initialValues }) {
+export default function ShopifyForm({ onFinish, onCancel, onReconnect, initialValues }) {
   return (
     <Form
       name="basic"
@@ -11,8 +11,32 @@ export default function ShopifyForm({ onFinish, initialValues }) {
       initialValues={initialValues}
     >
       <Form.Item
-        label="Domain:"
+        label="Platform:"
+        name="platform"
+        rules={[
+          {
+            required: true,
+            message: 'Please enter API key!',
+          },
+        ]}
+      >
+        <Input disabled placeholder={`...`}/>
+      </Form.Item>
+      <Form.Item
+        label="Store name:"
         name="name"
+        rules={[
+          {
+            required: true,
+            message: 'Please enter store name!',
+          },
+        ]}
+      >
+        <Input placeholder={`Store name`}/>
+      </Form.Item>
+      <Form.Item
+        label="Domain:"
+        name="domain"
         rules={[
           {
             required: true,
@@ -24,7 +48,7 @@ export default function ShopifyForm({ onFinish, initialValues }) {
           },
         ]}
       >
-        <Input placeholder={`https://...`}/>
+        <Input disabled placeholder={`https://...`}/>
       </Form.Item>
       <Form.Item
         label="API Key:"
@@ -40,7 +64,7 @@ export default function ShopifyForm({ onFinish, initialValues }) {
       </Form.Item>
       <Form.Item
         label="API Pass"
-        name="apiPass"
+        name="password"
         rules={[
           {
             required: true,
@@ -52,29 +76,37 @@ export default function ShopifyForm({ onFinish, initialValues }) {
       </Form.Item>
       <Form.Item
         label="Auto sync orders"
-        name="autoSyncOrders"
+        name="autoSyncOrder"
+        valuePropName="checked"
       >
-        <Switch defaultChecked />;
+        <Switch />;
       </Form.Item>
       <Form.Item
         label="Auto approve orders"
-        name="autoApproveOrders"
+        name="autoApproveOrder"
+        valuePropName="checked"
       >
-        <Switch defaultChecked />;
+        <Switch />;
       </Form.Item>
       <Form.Item
         label="Auto sync tracking"
         name="autoSyncTracking"
+        valuePropName="checked"
       >
-        <Switch defaultChecked />;
+        <Switch />;
       </Form.Item>
       <Form.Item>
-        <Button>
-          Cancel
-        </Button>
-        <Button type="primary" htmlType="submit">
-          Save Changes
-        </Button>
+        <div className='edit-store__button-list'>
+          <Button onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button onClick={onReconnect}>
+            Reconnect
+          </Button>
+          <Button type="primary" htmlType="submit">
+            Save Changes
+          </Button>
+        </div>
       </Form.Item>
     </Form>
   )

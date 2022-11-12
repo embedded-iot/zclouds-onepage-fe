@@ -1,12 +1,19 @@
 import React from 'react';
 import { notification } from 'antd';
-import ShopifyForm from './Vendors/ShopifyForm';
-import { SellerStoresService } from 'services';
+import { ShopBaseForm, ShopifyForm, WooCommerceForm } from './Vendors';
+import { SellerIntegrationsService } from 'services';
 import ConnectStoreBox from './ConnectStoreBox';
+import { STORE_TYPE_VALUES } from 'components/contants';
+
+const CONNECT_FORMS = {
+  [STORE_TYPE_VALUES.SHOPIFY]: ShopifyForm,
+  [STORE_TYPE_VALUES.SHOP_BASE]: ShopBaseForm,
+  [STORE_TYPE_VALUES.WOO_COMMERCE]: WooCommerceForm,
+}
 
 export default function IntegrationsStore({ type, onFinish }) {
   const handleConnect = (values) => {
-    SellerStoresService.createStore({ type, ...values }, response => {
+    SellerIntegrationsService.connectStore(type, values, response => {
       notification.success({
         message: "Connect store successful!",
       });
@@ -17,12 +24,15 @@ export default function IntegrationsStore({ type, onFinish }) {
       });
     })
   }
+
+  const ConnectForm = CONNECT_FORMS[type];
+
   return (
     <ConnectStoreBox
         description={"You need to setting on your Shopify first. Watch video instructions to sync orders with Shopify."}
        videoSrc={'https://www.youtube.com/watch?v=XO-n9U-UwSk&feature=emb_title'}
     >
-      <ShopifyForm onFinish={handleConnect}/>
+      <ConnectForm onFinish={handleConnect}/>
     </ConnectStoreBox>
   )
 }

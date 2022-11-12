@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerStoresService } from 'services';
 import { events } from 'utils';
@@ -66,6 +66,11 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
     redirectTo(ROUTERS.SELLER_STORES + `/${selectedStore.id}`);
   }
 
+  useEffect(() => {
+    reloadTable({ type });
+    // eslint-disable-next-line
+  }, [type]);
+
   const headerActionsConfig = {
     buttonList: [
       {
@@ -97,11 +102,22 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
       },
     ],
   }
+  if (!!type) {
+    headerActionsConfig.buttonList.splice(2, 1);
+  }
 
   const actionItems = [
     {
       key: STORE_TYPE_VALUES.SHOPIFY,
       label: STORE_TYPE_LABELS[STORE_TYPE_VALUES.SHOPIFY],
+    },
+    {
+      key: STORE_TYPE_VALUES.SHOP_BASE,
+      label: STORE_TYPE_LABELS[STORE_TYPE_VALUES.SHOP_BASE],
+    },
+    {
+      key: STORE_TYPE_VALUES.WOO_COMMERCE,
+      label: STORE_TYPE_LABELS[STORE_TYPE_VALUES.WOO_COMMERCE],
     },
   ];
 

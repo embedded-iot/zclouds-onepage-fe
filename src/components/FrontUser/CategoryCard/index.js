@@ -4,9 +4,9 @@ import categoryImg from 'images/product_ex.svg'
 import './style.scss';
 
 export default function CategoryCard({ onClick = () => {}, ...restProps }) {
-  const { name, avatar } = restProps;
+  const { name, avatar, id } = restProps;
   return (
-    <div className='category-card__wrapper' onClick={() => onClick(restProps)}>
+    <div className='category-card__wrapper' key={id} onClick={() => onClick(restProps)}>
       <div className='category-card__contents'>
         <div className='category-card__title'>{name}</div>
         <div className='category-card__arrow-icon' />

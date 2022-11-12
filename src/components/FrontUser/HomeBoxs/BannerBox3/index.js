@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Col, Row } from 'antd';
+import CategoriesBox from 'components/FrontUser/CategoriesBox';
 
 import './style.scss';
-import CategoriesBox from 'components/FrontUser/CategoriesBox';
 
 export default function BannerBox3({ customClass, redirectTo }) {
   return (

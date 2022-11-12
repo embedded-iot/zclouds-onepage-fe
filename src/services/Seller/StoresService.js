@@ -1,11 +1,11 @@
 import { getSellerBaseURL } from 'services/BaseService';
-import { makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
+import { makeGetWithConfigs, makePutWithConfigs } from 'utils';
 import { STORE_TYPE_LABELS } from 'components/contants';
 
 const transformStore = item => {
   return {
     ...item,
-    convertedType: STORE_TYPE_LABELS[item.type] || item.type,
+    convertedType: STORE_TYPE_LABELS[item.platform.toLowerCase()] || item.type,
   }
 }
 
@@ -15,7 +15,8 @@ function getStores(params, successCallback, failureCallback) {
   };
   const url = getSellerBaseURL() + '/stores';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
-    const items = response.content.map(transformStore)
+    const items = response.content.map(transformStore);
+    console.log(items);
     return {
       items: items,
       totalCount: response.totalElement,
@@ -23,14 +24,6 @@ function getStores(params, successCallback, failureCallback) {
       totalPage: response.totalPage,
     };
   });
-}
-
-function createStore(data, successCallback, failureCallback) {
-  const config = {
-    data
-  };
-  const url = getSellerBaseURL() + '/stores';
-  makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
 function updateStore(id, data, successCallback, failureCallback) {
@@ -41,14 +34,13 @@ function updateStore(id, data, successCallback, failureCallback) {
   makePutWithConfigs(url, config, successCallback, failureCallback);
 }
 
-function getStore(id, data, successCallback, failureCallback) {
+function getStore(id, successCallback, failureCallback) {
   const url = getSellerBaseURL() + '/stores/' + id;
   makeGetWithConfigs(url, {}, successCallback, failureCallback);
 }
 
 export {
   getStores,
-  createStore,
   updateStore,
   getStore,
 }

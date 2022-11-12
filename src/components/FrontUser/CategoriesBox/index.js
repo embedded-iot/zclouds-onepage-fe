@@ -9,7 +9,6 @@ export default function CategoriesBox({ redirectTo }) {
   const [categories, setCategories] = useState([]);
   const getCategories = () => {
     FrontUserCategoriesService.getCategoriesFilter(response => {
-      console.log(response);
       setCategories(response);
     })
   }
@@ -23,14 +22,24 @@ export default function CategoriesBox({ redirectTo }) {
     const { categoryName, categoryId } = category;
     redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS + `/${categoryName}/${categoryId}`);
   }
-  return !!categories.length ? (
+  return (
     <MultiCarouselView
       deviceType="desktop"
     >
       {
-        // categories.map((category) => <CategoryCard {...category} onClick={handleClick} />)
-        categories.map((category, index) => (<div key={index}>2323</div>))
+        categories.map((category) => <CategoryCard {...category} onClick={handleClick} />)
+        // categories.map((category, index) => {
+        //   return <div key={index}>{category.id}</div>
+        // })
       }
+      {/*<div>Item 1</div>*/}
+      {/*<div>Item 2</div>*/}
+      {/*<div>Item 3</div>*/}
+      {/*<div>Item 4</div>*/}
+      {/*<div>Item 1</div>*/}
+      {/*<div>Item 2</div>*/}
+      {/*<div>Item 3</div>*/}
+      {/*<div>Item 4</div>*/}
     </MultiCarouselView>
-  ) : null;
+  )
 }

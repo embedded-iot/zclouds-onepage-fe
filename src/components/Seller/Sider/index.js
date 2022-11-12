@@ -15,6 +15,8 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
       // getItem('Wallet', ROUTERS.SELLER_WALLET),
       getItem('Integrations', ROUTERS.SELLER_INTEGRATIONS, undefined, [
         getItem(STORE_TYPE_LABELS[STORE_TYPE_VALUES.SHOPIFY], ROUTERS.SELLER_INTEGRATIONS + '/' + STORE_TYPE_VALUES.SHOPIFY),
+        getItem(STORE_TYPE_LABELS[STORE_TYPE_VALUES.SHOP_BASE], ROUTERS.SELLER_INTEGRATIONS + '/' + STORE_TYPE_VALUES.SHOP_BASE),
+        getItem(STORE_TYPE_LABELS[STORE_TYPE_VALUES.WOO_COMMERCE], ROUTERS.SELLER_INTEGRATIONS + '/' + STORE_TYPE_VALUES.WOO_COMMERCE),
       ]),
     ]),
     getItem('Help', 'help', undefined, [

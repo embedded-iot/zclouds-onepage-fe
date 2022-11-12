@@ -140,15 +140,21 @@ export const DESIGN_LABEL_VALUE_OPTIONS = [
 ];
 
 export const STORE_TYPE_VALUES = {
-  SHOPIFY: 'Shopify',
+  SHOPIFY: 'shopify',
+  SHOP_BASE: 'shopbase',
+  WOO_COMMERCE: 'woocommerce',
 };
 
 export const STORE_TYPE_LABELS = {
   [STORE_TYPE_VALUES.SHOPIFY]: 'Shopify',
+  [STORE_TYPE_VALUES.SHOP_BASE]: 'ShopBase',
+  [STORE_TYPE_VALUES.WOO_COMMERCE]: 'WooCommerce',
 };
 
 export const STORE_TYPE_LABEL_VALUE_OPTIONS = [
   { label: 'All type', value: '' },
   { label: STORE_TYPE_LABELS[STORE_TYPE_VALUES.SHOPIFY], value: STORE_TYPE_VALUES.SHOPIFY },
+  { label: STORE_TYPE_LABELS[STORE_TYPE_VALUES.SHOP_BASE], value: STORE_TYPE_VALUES.SHOP_BASE },
+  { label: STORE_TYPE_LABELS[STORE_TYPE_VALUES.WOO_COMMERCE], value: STORE_TYPE_VALUES.WOO_COMMERCE },
 ];
 
