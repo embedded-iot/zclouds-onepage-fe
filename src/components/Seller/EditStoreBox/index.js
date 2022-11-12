@@ -12,6 +12,7 @@ export default function EditStoreBox({ id, onFinish, onCancel }) {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line
     getCategoriesFilter();
   }, []);
 
