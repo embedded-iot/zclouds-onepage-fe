@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminCategoriesService } from 'services';
 import { events } from 'utils';
 import { Button } from 'antd';
+import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import AddEditCategoryModal from './AddEditCategoryModal';
 import DeleteCategoryModal from './DeleteCategoryModal';
 
@@ -25,6 +26,10 @@ const columns = [
     dataIndex: 'slug',
   },
   {
+    title: 'Display order',
+    dataIndex: 'displayOrder',
+  },
+  {
     title: 'State',
     dataIndex: 'convertedState',
   },
@@ -42,6 +47,7 @@ export default function CategoriesManagementTable() {
   const [openDeleteCategory, setOpenDeleteCategory] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_CATEGORIES_TABLE_EVENT_KEY';
+  let ref = useRef({});
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -49,7 +55,7 @@ export default function CategoriesManagementTable() {
       AdminCategoriesService.getCategories({ ...restParams, pageSize, pageNum, searchText }, successCallback, failureCallback)
     },
     successCallback: (response) => {
-      console.log(response);
+      ref.current.items = response.items;
     },
     failureCallback: (error) => {
       console.log(error);
@@ -67,50 +73,66 @@ export default function CategoriesManagementTable() {
     setOpenAddCategory(true);
   }
 
-  const onActionItemClick = (key) => {
-    switch (key) {
-      case ACTION_KEYS.DELETE_CATEGORY:
-        setOpenDeleteCategory(true);
-        break;
-      default:
-        setIsEdit(true);
-        setOpenAddCategory(true);
-    }
+  const editCategory = () => {
+    setIsEdit(true);
+    setOpenAddCategory(true);
+  }
+
+  const deleteCategory = () => {
+    setOpenDeleteCategory(true);
   }
 
   const onSelectedItemsChange = (keys) => {
-    setSelectedCategory({});
+    const newSelectedCategory = ref.current.items.find(item => item.id === keys[0]);
+    console.log(keys);
+    console.log(newSelectedCategory);
+    setSelectedCategory(newSelectedCategory);
   }
 
-  const buttonListWrapperConfig = {
+  const headerActionsConfig = {
     buttonList: [
-      <Button key={ACTION_KEYS.ADD_CATEGORY} onClick={addCategory}>Add category</Button>
-    ],
-    actionItems: [
       {
-        key: ACTION_KEYS.EDIT_CATEGORY,
-        label: 'Edit category',
+        type: 'custom',
+        render: <Button key={ACTION_KEYS.EDIT_CATEGORY} icon={<EditOutlined />} onClick={editCategory}>Edit category</Button>,
+        requiredSelection: true,
+      },      {
+        type: 'custom',
+        render: <Button key={ACTION_KEYS.DELETE_CATEGORY} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteCategory}>Delete category</Button>,
+        requiredSelection: true,
       },
       {
-        key: ACTION_KEYS.DELETE_CATEGORY,
-        label: 'Delete category',
+        type: 'searchText',
+        requiredSelection: false,
       },
+      {
+        type: 'pageNum',
+        requiredSelection: false,
+      },
+      {
+        type: 'pageSize',
+        requiredSelection: false,
+      },
+      {
+        type: 'searchButton',
+        requiredSelection: false,
+      },
+      {
+        type: 'custom',
+        render: <Button key={ACTION_KEYS.ADD_CATEGORY} type="primary" icon={<PlusCircleOutlined />} onClick={addCategory}>Add category</Button>,
+        align: 'right',
+      }
     ],
-    onActionItemClick,
-    align: 'right',
   }
 
   return (
     <>
       <TableGrid configs={tableConfig}
+                 headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
-                 buttonListWrapperConfig={buttonListWrapperConfig}
                  defaultParams={{}}
                  defaultData={{}}
                  isShowPagination={true}
-                 isShowSearch={true}
-                 isShowPageNum={true}
-                 isShowPageSize={true}
+                 isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}

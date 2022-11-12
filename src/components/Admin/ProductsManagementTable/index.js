@@ -87,7 +87,7 @@ export default function ProductsManagementTable() {
     setSelectedProduct({});
   }
 
-  const buttonListWrapperConfig = {
+  const headerActionsConfig = {
     buttonList: [
       <Button key={ACTION_KEYS.ADD_PRODUCT} onClick={addProduct}>Add product</Button>
     ],
@@ -109,13 +109,10 @@ export default function ProductsManagementTable() {
     <>
       <TableGrid configs={tableConfig}
                  paginationConfig={{}}
-                 buttonListWrapperConfig={buttonListWrapperConfig}
+                 headerActionsConfig={headerActionsConfig}
                  defaultParams={{}}
                  defaultData={{}}
                  isShowPagination={true}
-                 isShowSearch={true}
-                 isShowPageNum={true}
-                 isShowPageSize={true}
                  onSelectedItemsChange={onSelectedItemsChange}
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}

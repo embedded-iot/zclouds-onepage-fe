@@ -140,6 +140,7 @@ const App = (props) => {
   const signOut = () => {
     authentication.clearToken();
     props.setGlobalStore({
+      isAdminMode: false,
       isLogin: false,
       isAdmin: false,
       currentUser: {},
@@ -150,6 +151,7 @@ const App = (props) => {
   const restoreLoginPreviousSection = () => {
     UserService.getUserInfo(response => {
       props.setGlobalStore({
+        isAdminMode: ADMIN_ROLES.includes(response.role),
         isLogin: true,
         isAdmin: ADMIN_ROLES.includes(response.role),
         currentUser: {

@@ -21,7 +21,6 @@ for (let i = 0; i < 35; i++) {
 const transformProduct = product => {
   return {
     ...product,
-    key: product.id,
     categoryId: product.categoryId,
     categoryName: product.categoryName || 'categoryName',
     productName: product.name,

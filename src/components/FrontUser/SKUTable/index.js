@@ -47,17 +47,30 @@ export default function SKUTable() {
     },
   };
 
+  const headerActionsConfig = {
+    buttonList: [
+      {
+        type: 'searchText',
+      },
+      {
+        type: 'pageNum',
+      },
+      {
+        type: 'pageSize',
+      },
+      {
+        type: 'searchButton',
+      },
+    ],
+  }
 
   return (
     <TableGrid configs={tableConfig}
+               headerActionsConfig={headerActionsConfig}
                paginationConfig={{}}
-               actionButtonList={{}}
                defaultParams={{}}
                defaultData={{}}
                isShowPagination={true}
-               isShowSearch={true}
-               isShowPageNum={true}
-               isShowPageSize={true}
                onSelectedItemsChange={() => {}}
                RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
     />

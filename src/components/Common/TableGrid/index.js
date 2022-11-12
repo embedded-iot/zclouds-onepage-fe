@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { events } from 'utils';
-import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import TableView from 'components/Common/TableView';
 import GridView from 'components/Common/GridView';
 import DropdownSelect from 'components/Common/DropdownSelect';
@@ -17,18 +16,16 @@ export default function TableGrid({
                                     type = 'table',
                                     configs = {},
                                     paginationConfig = {},
-                                    buttonListWrapperConfig = {
+                                    headerActionsConfig = {
                                       buttonList: [],
                                       actionItems: [],
                                       onActionItemClick: () => {},
                                     },
                                     defaultParams = {},
                                     defaultData = {},
+                                    isSingleSelection = false,
                                     onSelectedItemsChange = () => {},
                                     onSelectGridItem = () => {},
-                                    isShowSearch = false,
-                                    isShowPageSize = false,
-                                    isShowPageNum = false,
                                     isShowPagination = false,
                                     isAllowSelection = false,
                                     RELOAD_EVENT_KEY = ''
@@ -69,6 +66,7 @@ export default function TableGrid({
     let reloadListener = null;
     if (!!RELOAD_EVENT_KEY) {
       reloadListener = events.subscribe(RELOAD_EVENT_KEY, (payload = {}) => {
+        setSelectedRowKeys([]);
         const newParams = { ...params, ...payload };
         setParams(newParams);
         getDataFunc(newParams);
@@ -90,9 +88,10 @@ export default function TableGrid({
     setPageNumOptions(pageNumOptionList);
   }, [params, data]);
 
-  const onSelectChange = (newSelectedRowKeys) => {
-    setSelectedRowKeys(newSelectedRowKeys);
-    onSelectedItemsChange(newSelectedRowKeys);
+  const onSelectChange = (newSelectedRowKey = []) => {
+    const selectedKeys = isSingleSelection ? ( newSelectedRowKey.length && [newSelectedRowKey[newSelectedRowKey.length - 1]] ) : newSelectedRowKey;
+    setSelectedRowKeys(selectedKeys);
+    onSelectedItemsChange(selectedKeys);
   };
 
   const rowSelection = {
@@ -123,54 +122,75 @@ export default function TableGrid({
     getDataFunc(newParams);
   };
 
+  const ACTION_TYPES = {
+    'searchText': (
+      <InputSearch
+        name={configs.searchTextKey || "searchText"}
+        placeholder={configs.searchPlaceholder}
+        onChange={onSearchChange}
+      />
+    ),
+    'pageNum': (
+      <DropdownSelect
+        name="pageNum"
+        options={pageNumOptions}
+        defaultValue={params.pageNum.toString()}
+        onChange={onDropdownChange}
+      />
+    ),
+    'pageSize': (
+      <DropdownSelect
+        name="pageSize"
+        options={pageSizeOptions}
+        defaultValue={params.pageSize.toString()}
+        onChange={onDropdownChange}
+      />
+    ),
+    'searchButton': (
+      <Button type='primary' onClick={handleSearch}>Find</Button>
+    ),
+  }
+
+  const filteredHeaderActions = headerActionsConfig.buttonList ? headerActionsConfig.buttonList.filter(item => {
+    return item.requiredSelection === undefined
+      || (item.requiredSelection === true && selectedRowKeys.length)
+      || (item.requiredSelection === false && selectedRowKeys.length === 0)
+  }) : [];
+
+  const leftFilteredHeaderActions = filteredHeaderActions.filter(item => item.align !== 'right');
+  const rightFilteredHeaderActions = filteredHeaderActions.filter(item => item.align === 'right');
+
   return (
     <div className="table-view-wrapper">
-      <div className="table-buttons-action">
-        {
-          (!!(buttonListWrapperConfig.buttonList || []).length || !!(buttonListWrapperConfig.actionItems || []).length) && (
-            <ButtonListWrapper {...buttonListWrapperConfig} />
-          )
-        }
-      </div>
       {
-        (isShowSearch || isShowPageSize || isShowPageNum) && (
+        !!filteredHeaderActions.length && (
           <div className="table-header">
             {
-              isShowSearch && (
-                <InputSearch
-                  name={configs.searchTextKey || "searchText"}
-                  placeholder={configs.searchPlaceholder}
-                  onChange={onSearchChange}
-                />
+              !!leftFilteredHeaderActions.length && (
+                <div className="table-header__left-block">
+                  {
+                    leftFilteredHeaderActions.map((item) => {
+                      return ACTION_TYPES[item.type] || item.render;
+                    })
+                  }
+                </div>
               )
             }
             {
-              isShowPageNum && (
-                <DropdownSelect
-                  name="pageNum"
-                  options={pageNumOptions}
-                  defaultValue={params.pageNum.toString()}
-                  onChange={onDropdownChange}
-                />
+              !!rightFilteredHeaderActions.length && (
+                <div className="table-header__right-block">
+                  {
+                    rightFilteredHeaderActions.map(item => {
+                      return ACTION_TYPES[item.type] || item.render;
+                    })
+                  }
+                </div>
               )
-            }
-            {
-              isShowPageSize && (
-                <DropdownSelect
-                  name="pageSize"
-                  options={pageSizeOptions}
-                  defaultValue={params.pageSize.toString()}
-                  onChange={onDropdownChange}
-                />
-              )
-            }
-            {
-              isShowSearch && (<Button type='primary' onClick={handleSearch}>Find</Button>)
             }
           </div>
         )
       }
-      { hasSelected && <div className="selected-item-label">{`Selected ${selectedRowKeys.length} items.`}</div>}
+      <div className="selected-item-label">{ hasSelected && `Selected ${selectedRowKeys.length} items.`} </div>
       {
         type === 'table' && (
           <TableView
@@ -178,6 +198,7 @@ export default function TableGrid({
             columns={configs.columns}
             dataSource={data.items}
             pagination={false}
+            rowKey={record => record.id}
           />
         )
       }

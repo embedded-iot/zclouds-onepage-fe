@@ -12,7 +12,7 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
       name="basic"
       form={form}
       autoComplete="off"
-      initialValues
+      initialValues={initialValues}
       layout="vertical"
       {...restProps}
     >
@@ -71,7 +71,6 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
       >
         <DropdownSelect
           options={STATE_LABEL_VALUE_OPTIONS}
-          defaultValue={''}
         />
       </Form.Item>
     </Form>
