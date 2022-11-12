@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Switch } from 'antd';
 
 export default function ShopifyForm({ onFinish, initialValues }) {
   return (
@@ -49,6 +49,24 @@ export default function ShopifyForm({ onFinish, initialValues }) {
         ]}
       >
         <Input placeholder={`...`}/>
+      </Form.Item>
+      <Form.Item
+        label="Auto sync orders"
+        name="autoSyncOrders"
+      >
+        <Switch defaultChecked />;
+      </Form.Item>
+      <Form.Item
+        label="Auto approve orders"
+        name="autoApproveOrders"
+      >
+        <Switch defaultChecked />;
+      </Form.Item>
+      <Form.Item
+        label="Auto sync tracking"
+        name="autoSyncTracking"
+      >
+        <Switch defaultChecked />;
       </Form.Item>
       <Form.Item>
         <Button>
