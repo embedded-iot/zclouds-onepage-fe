@@ -113,3 +113,19 @@ export const ROLE_LABELS = {
   [ROLE_VALUES.RESELLER]: 'Reseller',
   [ROLE_VALUES.USER]: 'User',
 };
+
+
+export const DESIGN_VALUES = {
+  _2D: '2D',
+  _3D: '3D',
+};
+
+export const DESIGN_LABELS = {
+  [DESIGN_VALUES._2D]: '2D product',
+  [DESIGN_VALUES._3D]: '3D product',
+};
+
+export const DESIGN_LABEL_VALUE_OPTIONS = [
+  { label: DESIGN_LABELS[DESIGN_VALUES._2D], value: DESIGN_VALUES._2D },
+  { label: DESIGN_LABELS[DESIGN_VALUES._3D], value: DESIGN_VALUES._3D },
+];

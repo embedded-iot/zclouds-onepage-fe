@@ -44,6 +44,7 @@ import FrontUserProductDetailPage from 'containers/FrontUser/ProductDetailPage/L
 import FrontUserSKUPage from 'containers/FrontUser/SKUPage/Loadable';
 
 import SellerHomePage from 'containers/Seller/HomePage/Loadable';
+import SellerDesignsPage from 'containers/Seller/DesignsPage/Loadable';
 
 
 import AdminHomePage from 'containers/Admin/HomePage/Loadable';
@@ -108,6 +109,9 @@ const FrontUserAppContent = (props) => (
 const AppContent = (props) => (
   <Switch>
     <PrivateRoute exact path={ROUTERS.ROOT} component={SellerHomePage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_DESIGN_LIBRARY} component={SellerDesignsPage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_STORES} component={SellerHomePage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS} component={SellerHomePage} isAuthenticated={props.isLogin}/>
   </Switch>
 )
 
