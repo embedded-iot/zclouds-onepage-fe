@@ -24,7 +24,7 @@ export default function ModalView({ type = MODAL_TYPES.CONFIRM_MODAL, open, form
         form
           .validateFields()
           .then((values) => {
-            form.resetFields();
+            // form.resetFields();
             onOk(values);
           })
           .catch((info) => {

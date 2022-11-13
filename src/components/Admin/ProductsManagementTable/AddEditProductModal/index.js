@@ -4,8 +4,10 @@ import { Form, notification } from 'antd';
 import ProductForm from './ProductForm';
 import { AdminCategoriesService, AdminProductsService } from 'services';
 import { getCategoriesOptions } from 'services/Admin/CategoriesService';
+import ProductOptionsForm from './ProductOptionsForm';
 
 export default function AddEditProductModal({ open, data, onOk, onCancel }) {
+  const [isAddOptionsProduct, setIsAddOptionsProduct] = useState(false);
   const [form] = Form.useForm();
   const isEdit = !!data;
   const [categoriesOptions, setCategoriesOptions] = useState([]);
@@ -19,13 +21,17 @@ export default function AddEditProductModal({ open, data, onOk, onCancel }) {
     getCategoriesFilter();
   }, []);
 
+  const goProductOptions = (show) => {
+    setIsAddOptionsProduct(show)
+  }
+
   const handleOk = (values) => {
     if (isEdit) {
       AdminProductsService.updateProduct(data.id, values, response => {
         notification.success({
           message: "Update product successful!",
         });
-        onOk();
+        goProductOptions(true);
       }, error => {
         notification.error({
           message: error && error.title ? error.title : "Update product failure!",
@@ -36,7 +42,7 @@ export default function AddEditProductModal({ open, data, onOk, onCancel }) {
         notification.success({
           message: "Create product successful!",
         });
-        onOk();
+        goProductOptions(true);
       }, error => {
         notification.error({
           message: error && error.title ? error.title : "Create product failure!",
@@ -46,18 +52,31 @@ export default function AddEditProductModal({ open, data, onOk, onCancel }) {
 
   }
 
-  return (
+  return !isAddOptionsProduct ? (
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                form={form}
                open={open}
                title={isEdit ? "Edit product" : "Add product"}
-               okText={isEdit ? "Save" : "Add"}
+               okText={"Continue"}
                onOk={handleOk}
                onCancel={onCancel}
     >
       <ProductForm
         form={form}
         categoriesOptions={categoriesOptions}
+        initialValues={data}
+      />
+    </ModalView>
+  ) : (
+    <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
+               open={open}
+               title={"Add product options"}
+               cancelText={"Back"}
+               onCancel={() => goProductOptions(false)}
+               onOk={onCancel}
+    >
+      <ProductOptionsForm
+        productId={data.id}
         initialValues={data}
       />
     </ModalView>

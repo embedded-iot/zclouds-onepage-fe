@@ -50,9 +50,20 @@ function deleteProduct(id, successCallback, failureCallback) {
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function getUploadProductImageUrl(productId) {
+  return getAdminBaseURL() + '/products/' + productId + '/images';
+}
+
+function deleteProductImage(productId, imageId, successCallback, failureCallback) {
+  const url = getAdminBaseURL() + '/products/' + productId + '/images/' + imageId;
+  makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
+}
+
 export {
   getProducts,
   createProduct,
   updateProduct,
   deleteProduct,
+  getUploadProductImageUrl,
+  deleteProductImage,
 }

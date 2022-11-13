@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Modal, Upload } from 'antd';
+import { getAuthorizationHeaders } from 'utils';
 
 const getBase64 = (file) => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -9,7 +10,7 @@ const getBase64 = (file) => new Promise((resolve, reject) => {
     reader.onerror = (error) => reject(error);
 });
 
-export default function UploadBox({ action,defaultFileList = [], ...restProps }) {
+export default function UploadBox({ action, onRemove, headers, ...restProps }) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -37,15 +38,21 @@ export default function UploadBox({ action,defaultFileList = [], ...restProps })
   );
 
   const handleCancel = () => setPreviewOpen(false);
+  const handleRemove = (file) => {
+    onRemove(file.response);
+    return true;
+  };
   return (
     <>
       <Upload
         {...restProps}
-        action={action || 'https://www.mocky.io/v2/5cc8019d300000980a055e76'}
+        headers={getAuthorizationHeaders()}
+        action={action}
         listType="picture-card"
         // // fileList={fileList}
         onPreview={handlePreview}
         // onChange={handleChange}
+        onRemove={handleRemove}
       >
         { uploadButton }
       </Upload>
