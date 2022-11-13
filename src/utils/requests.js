@@ -69,6 +69,9 @@ function makeDeleteWithConfigs(url, configs = {}, successCallback = () => {}, fa
   }
   return request(requestConfigs, successCallback, failCallback, transformFunc);
 }
+function download(url, target = '_blank') {
+  window.open(url, target);
+}
 
 export {
   makeGetWithConfigs,
@@ -76,4 +79,5 @@ export {
   makePutWithConfigs,
   makeDeleteWithConfigs,
   getAuthorizationHeaders,
+  download,
 }

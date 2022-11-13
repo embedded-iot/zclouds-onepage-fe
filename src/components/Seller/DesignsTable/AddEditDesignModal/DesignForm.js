@@ -1,11 +1,9 @@
 import React from 'react';
 import { Form, Input } from 'antd';
-import UploadBox from 'components/Common/UploadBox';
 import {
   DESIGN_LABEL_VALUE_OPTIONS, DESIGN_VALUES,
 } from 'components/contants';
 import RadioSelect from 'components/Common/RadioSelect';
-import { upload } from 'utils';
 
 export default function DesignForm({ form, initialValues, ...restProps }) {
   return (
@@ -15,8 +13,6 @@ export default function DesignForm({ form, initialValues, ...restProps }) {
       autoComplete="off"
       initialValues={{
         type: DESIGN_VALUES._2D,
-        designFileList: upload.getFileListFromList(initialValues && initialValues.design),
-        mockFileList: upload.getFileListFromList(initialValues && initialValues.mock),
         ...initialValues,
       }}
       layout="vertical"
@@ -24,7 +20,7 @@ export default function DesignForm({ form, initialValues, ...restProps }) {
     >
       <Form.Item
         label="Design name"
-        name="name"
+        name="slug"
         rules={[
           {
             required: true,
@@ -47,22 +43,6 @@ export default function DesignForm({ form, initialValues, ...restProps }) {
         <RadioSelect
           options={DESIGN_LABEL_VALUE_OPTIONS}
         />
-      </Form.Item>
-      <Form.Item
-        label="Mockup"
-        name="mockFileList"
-        valuePropName="fileList"
-        getValueFromEvent={upload.getValueFromEvent}
-      >
-        <UploadBox />
-      </Form.Item>
-      <Form.Item
-        label="Design"
-        name="designFileList"
-        valuePropName="fileList"
-        getValueFromEvent={upload.getValueFromEvent}
-      >
-        <UploadBox />
       </Form.Item>
     </Form>
   )

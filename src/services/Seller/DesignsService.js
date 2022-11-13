@@ -1,12 +1,18 @@
-import { getSellerBaseURL } from 'services/BaseService';
+import { getAdminBaseURL, getFrontUserUrl, getSellerBaseURL } from 'services/BaseService';
 import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
+import { DESIGN_DETAIL_TYPE_VALUES } from 'components/contants';
 
 const transformDesign = item => {
+  const mockup = item.designDetails && item.designDetails.filter(designDetail => designDetail.type === DESIGN_DETAIL_TYPE_VALUES.MOCKUP)
+    .map(design => getFrontUserUrl() + design.url);
+  const design = item.designDetails && item.designDetails.filter(designDetail => designDetail.type === DESIGN_DETAIL_TYPE_VALUES.MOCKUP)
+    .map(design => getFrontUserUrl() + design.url);
   return {
     ...item,
-    mockup: item.mockup || [shirt_sku] ,
-    design: item.design || [shirt_sku] ,
+    name: item.slug,
+    mockup: mockup || [shirt_sku],
+    design: design || [shirt_sku] ,
   }
 }
 
@@ -15,13 +21,7 @@ function getDesigns(params, successCallback, failureCallback) {
     params
   };
   const url = getSellerBaseURL() + '/designs';
-  makeGetWithConfigs(url, config, successCallback, error => {
-    successCallback({
-      items: [{"id": 1, "name":"asdas","type":"2D","mock":["https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"],"design":["https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"]}],
-      totalCount: 1,
-    });
-    failureCallback();
-  }, response => {
+  makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     const items = response.content.map(transformDesign)
     return {
       items: items,
@@ -53,8 +53,13 @@ function deleteDesign(id, successCallback, failureCallback) {
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
-function downloadDesign(url, successCallback, failureCallback) {
-
+function downloadDesign(id, successCallback, failureCallback) {
+  const url = getSellerBaseURL() + '/designs/' + id + '/download';
+  makeGetWithConfigs(url, {}, successCallback, failureCallback, response => {
+    return {
+      url: getFrontUserUrl() + response.url,
+    }
+  });
 }
 
 function importDesigns(data, successCallback, failureCallback) {
@@ -65,6 +70,15 @@ function importDesigns(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
+function getDesignDetailImageUrl(designId, type) {
+  return getAdminBaseURL() + '/designs/' + designId + '/details?type=' + type;
+}
+
+function deleteProductImage(designId, designDetailId, successCallback, failureCallback) {
+  const url = getAdminBaseURL() + '/designs/' + designId + '/details/' + designDetailId;
+  makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
+}
+
 export {
   getDesigns,
   createDesign,
@@ -72,4 +86,6 @@ export {
   deleteDesign,
   downloadDesign,
   importDesigns,
+  getDesignDetailImageUrl,
+  deleteProductImage,
 }

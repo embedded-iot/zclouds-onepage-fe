@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerDesignsService } from 'services';
-import { events, fileHelper } from 'utils';
-import { Button } from 'antd';
+import { download, events, fileHelper } from 'utils';
+import { Button, notification } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined, DownloadOutlined, ImportOutlined, FileExcelOutlined } from '@ant-design/icons';
 import AddEditDesignModal from './AddEditDesignModal';
 import DeleteDesignModal from './DeleteDesignModal';
@@ -24,13 +24,13 @@ const columns = [
   },
   {
     title: 'Mockup',
-    dataIndex: 'mock',
-    render: (mock, record) => mock.length ? <img className="table-img__icon table-img__icon--circle" src={mock[0]} alt={record.name} /> : null,
+    dataIndex: 'mockup',
+    render: (mockup, record) => <img className="table-img__icon table-img__icon--circle" src={mockup[0]} alt={record.name} />,
   },
   {
     title: 'Design',
     dataIndex: 'design',
-    render: (design, record) => design.length ? <img className="table-img__icon table-img__icon--circle" src={design[0]} alt={record.name} /> : null,
+    render: (design, record) => <img className="table-img__icon table-img__icon--circle" src={design[0]} alt={record.name} />,
   },
 ];
 
@@ -87,13 +87,22 @@ export default function DesignsTable() {
   }
 
   const downloadDesign = () => {
-    SellerDesignsService.downloadDesign(selectedDesign.url);
+    SellerDesignsService.downloadDesign(selectedDesign.id, response => {
+      notification.success({
+        message: "Download design successful!",
+      });
+      download(response.url);
+    }, error => {
+      notification.error({
+        message: error && error.title ? error.title : "Download design failure!",
+      });
+    });
   }
 
   const exportDesigns = () => {
     const selectedDesigns = ref.current.items.filter(item => selectedKeys.includes(item.id)).map(design => ({
       ...design,
-      mock: design.mock.join(','),
+      mockup: design.mockup.join(','),
       design: design.design.join(','),
     }));
     fileHelper.exportToExcel(selectedDesigns, 'designs')
