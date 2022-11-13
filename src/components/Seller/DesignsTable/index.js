@@ -3,7 +3,7 @@ import TableGrid from 'components/Common/TableGrid';
 import { SellerDesignsService } from 'services';
 import { download, events, fileHelper } from 'utils';
 import { Button, notification } from 'antd';
-import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined, DownloadOutlined, ImportOutlined, FileExcelOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, EditOutlined, DownloadOutlined, ImportOutlined, FileExcelOutlined } from '@ant-design/icons';
 import AddEditDesignModal from './AddEditDesignModal';
 import DeleteDesignModal from './DeleteDesignModal';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
@@ -81,7 +81,7 @@ export default function DesignsTable() {
     setIsEdit(true);
     setOpenAddDesign(true);
   }
-
+// eslint-disable-next-line
   const deleteDesign = () => {
     setOpenDeleteDesign(true);
   }
@@ -125,11 +125,11 @@ export default function DesignsTable() {
         render: <Button key={ACTION_KEYS.EDIT_DESIGN} icon={<EditOutlined />} onClick={editDesign}>Edit design</Button>,
         requiredSelection: true,
       },
-      {
-        type: 'custom',
-        render: <Button key={ACTION_KEYS.DELETE_DESIGN} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteDesign}>Delete design</Button>,
-        requiredSelection: true,
-      },
+      // {
+      //   type: 'custom',
+      //   render: <Button key={ACTION_KEYS.DELETE_DESIGN} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteDesign}>Delete design</Button>,
+      //   requiredSelection: true,
+      // },
       {
         type: 'custom',
         render: <Button key={ACTION_KEYS.DOWNLOAD_DESIGN} icon={<DownloadOutlined />} onClick={downloadDesign}>Download design</Button>,
