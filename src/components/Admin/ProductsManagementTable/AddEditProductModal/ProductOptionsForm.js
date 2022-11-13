@@ -1,25 +1,23 @@
 import React from 'react';
 import { Form } from 'antd';
 import UploadBox from 'components/Common/UploadBox';
-import CheckboxGroupBox from 'components/Common/CheckboxGroupBox';
-import {
-  SHIPPING_EXPRESSES_VALUES_OPTIONS,
-  SIZES_VALUES_OPTIONS,
-} from 'components/contants';
 import { upload } from 'utils';
 import { AdminProductsService } from 'services';
+import ProductOptionsBox from './ProductOptionsBox';
 
 export default function ProductOptionsForm({ form, productId, initialValues, ...restProps }) {
   const action = AdminProductsService.getUploadProductImageUrl(productId);
   const handleRemoveImage = (file) => {
     AdminProductsService.deleteProductImage(productId, file.id);
   }
+
   return (
     <Form
       name="basic"
       form={form}
       autoComplete="off"
       initialValues={{
+        options: [],
         ...initialValues,
       }}
       layout="vertical"
@@ -34,16 +32,10 @@ export default function ProductOptionsForm({ form, productId, initialValues, ...
         <UploadBox action={action} onRemove={handleRemoveImage}/>
       </Form.Item>
       <Form.Item
-        label="Shipping"
-        name="shipping"
+        label="Product options"
+        name="options"
       >
-        <CheckboxGroupBox options={SHIPPING_EXPRESSES_VALUES_OPTIONS} />
-      </Form.Item>
-      <Form.Item
-        label="Sizes"
-        name="sizes"
-      >
-        <CheckboxGroupBox options={SIZES_VALUES_OPTIONS} />
+        <ProductOptionsBox />
       </Form.Item>
     </Form>
   )
