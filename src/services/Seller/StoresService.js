@@ -16,7 +16,6 @@ function getStores(params, successCallback, failureCallback) {
   const url = getSellerBaseURL() + '/stores';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     const items = response.content.map(transformStore);
-    console.log(items);
     return {
       items: items,
       totalCount: response.totalElement,

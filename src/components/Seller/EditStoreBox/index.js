@@ -23,6 +23,7 @@ export default function EditStoreBox({ id, redirectTo }) {
   }
 
   const handleConnect = (values) => {
+    console.log(values);
     const { name, domain, apiKey, password, autoApproveOrder, autoSyncOrder, autoSyncTracking } = values;
     SellerStoresService.updateStore(id, { name, domain, apiKey, password, autoApproveOrder, autoSyncOrder, autoSyncTracking }, response => {
       notification.success({

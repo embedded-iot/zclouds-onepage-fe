@@ -79,21 +79,21 @@ export default function ShopifyForm({ onFinish, onCancel, onReconnect, initialVa
         name="autoSyncOrder"
         valuePropName="checked"
       >
-        <Switch />;
+        <Switch />
       </Form.Item>
       <Form.Item
         label="Auto approve orders"
         name="autoApproveOrder"
         valuePropName="checked"
       >
-        <Switch />;
+        <Switch />
       </Form.Item>
       <Form.Item
         label="Auto sync tracking"
         name="autoSyncTracking"
         valuePropName="checked"
       >
-        <Switch />;
+        <Switch />
       </Form.Item>
       <Form.Item>
         <div className='edit-store__button-list'>
