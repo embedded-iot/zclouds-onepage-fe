@@ -111,7 +111,7 @@ export default function ProductForm({ form, initialValues, categoriesOptions, ..
         rules={[
           {
             required: true,
-            message: 'Please enter state!',
+            message: 'Please select state!',
           },
         ]}
       >

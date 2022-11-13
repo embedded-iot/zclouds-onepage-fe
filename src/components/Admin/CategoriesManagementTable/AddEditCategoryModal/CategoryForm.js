@@ -68,7 +68,7 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
         rules={[
           {
             required: true,
-            message: 'Please enter state!',
+            message: 'Please select state!',
           },
         ]}
       >

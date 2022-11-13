@@ -1,33 +1,33 @@
 import React from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import { Form, notification } from 'antd';
-import RoleForm from './RoleForm';
-import { AdminRolesService } from 'services';
+import UserForm from './UserForm';
+import { AdminUsersService } from 'services';
 
-export default function AddEditRoleModal({ open, data, onOk, onCancel }) {
+export default function AddEditUserModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
   const handleOk = (values) => {
     if (isEdit) {
-      AdminRolesService.updateRole(data.id, values, response => {
+      AdminUsersService.updateUser(data.id, values, response => {
         notification.success({
-          message: "Update role successful!",
+          message: "Update user successful!",
         });
         onOk();
       }, error => {
         notification.error({
-          message: error && error.title ? error.title : "Update role failure!",
+          message: error && error.title ? error.title : "Update user failure!",
         });
       })
     } else {
-      AdminRolesService.createRole(values, response => {
+      AdminUsersService.createUser(values, response => {
         notification.success({
-          message: "Create role successful!",
+          message: "Create user successful!",
         });
         onOk();
       }, error => {
         notification.error({
-          message: error && error.title ? error.title : "Create role failure!",
+          message: error && error.title ? error.title : "Create user failure!",
         });
       })
     }
@@ -37,12 +37,12 @@ export default function AddEditRoleModal({ open, data, onOk, onCancel }) {
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                form={form}
                open={open}
-               title={isEdit ? "Edit role" : "Add role"}
+               title={isEdit ? "Edit user" : "Add user"}
                okText={isEdit ? "Save" : "Add"}
                onOk={handleOk}
                onCancel={onCancel}
     >
-      <RoleForm
+      <UserForm
         form={form}
         initialValues={data}
       />

@@ -103,7 +103,9 @@ export const STATE_LABEL_VALUE_OPTIONS = [
 export const ROLE_VALUES = {
   SUPER_ADMIN: 'SUPER_ADMIN',
   ADMIN: 'ADMIN',
+  PARTNER: 'PARTNER',
   RESELLER: 'RESELLER',
+  DESIGNER: 'DESIGNER',
   USER: 'USER',
 };
 
@@ -112,17 +114,22 @@ export const ADMIN_ROLES = [ROLE_VALUES.SUPER_ADMIN, ROLE_VALUES.ADMIN];
 export const ROLE_LABELS = {
   [ROLE_VALUES.SUPER_ADMIN]: 'Supper Admin',
   [ROLE_VALUES.ADMIN]: 'Admin',
+  [ROLE_VALUES.PARTNER]: 'Partner',
   [ROLE_VALUES.RESELLER]: 'Reseller',
+  [ROLE_VALUES.DESIGNER]: 'Designer',
   [ROLE_VALUES.USER]: 'User',
 };
 
-export const PERMISSIONS_VALUES_OPTIONS = [
-  'Permission 1',
-  'Permission 2',
-  'Permission 3',
-  'Permission 4',
-  'Permission 5',
-]
+export const ROLES_LABEL_VALUE_OPTIONS = [
+  { label: 'Select role', value: '' },
+  { label: ROLE_LABELS[ROLE_VALUES.SUPER_ADMIN], value: ROLE_VALUES.SUPER_ADMIN },
+  { label: ROLE_LABELS[ROLE_VALUES.ADMIN], value: ROLE_VALUES.ADMIN },
+  { label: ROLE_LABELS[ROLE_VALUES.PARTNER], value: ROLE_VALUES.PARTNER },
+  { label: ROLE_LABELS[ROLE_VALUES.RESELLER], value: ROLE_VALUES.RESELLER },
+  { label: ROLE_LABELS[ROLE_VALUES.DESIGNER], value: ROLE_VALUES.DESIGNER },
+  { label: ROLE_LABELS[ROLE_VALUES.USER], value: ROLE_VALUES.USER },
+];
+
 
 export const DESIGN_VALUES = {
   _2D: '2D',

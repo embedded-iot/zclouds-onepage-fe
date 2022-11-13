@@ -5,19 +5,19 @@ import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
-import RolesManagementTable from 'components/Admin/RolesManagementTable';
+import UsersManagementTable from 'components/Admin/UsersManagementTable';
 
-function RolesManagementPage(props) {
+function UsersManagementPage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Roles management</title>
+        <title>Users management</title>
       </Helmet>
       <PageHeader
-        title="Roles management"
+        title="Users management"
       />
       <div className="page-contents">
-        <RolesManagementTable />
+        <UsersManagementTable />
       </div>
     </div>
   );
@@ -46,4 +46,4 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-)(RolesManagementPage);
+)(UsersManagementPage);
