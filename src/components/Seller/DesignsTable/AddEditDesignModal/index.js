@@ -3,13 +3,20 @@ import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import { Form, notification } from 'antd';
 import DesignForm from './DesignForm';
 import { SellerDesignsService } from 'services';
+import { upload } from 'utils';
 
 export default function AddEditDesignModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
   const handleOk = (values) => {
+    const { designFileList, mockFileList, ...rest } = values;
+    const data = {
+      ...rest,
+      mock: upload.getListFromFileList(mockFileList),
+      design: upload.getListFromFileList(designFileList),
+    }
     if (isEdit) {
-      SellerDesignsService.updateDesign(data.id, values, response => {
+      SellerDesignsService.updateDesign(data.id, data, response => {
         notification.success({
           message: "Update design successful!",
         });
@@ -20,7 +27,7 @@ export default function AddEditDesignModal({ open, data, onOk, onCancel }) {
         });
       })
     } else {
-      SellerDesignsService.createDesign(values, response => {
+      SellerDesignsService.createDesign(data, response => {
         notification.success({
           message: "Create design successful!",
         });

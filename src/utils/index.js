@@ -5,6 +5,8 @@ import authentication from './authentication';
 import events from './events';
 import * as datetime from './datetime';
 import * as format from './format';
+import * as upload from './upload';
+import * as fileHelper from 'utils/fileHelper';
 
 export {
   history,
@@ -17,4 +19,6 @@ export {
   makePutWithConfigs,
   makeDeleteWithConfigs,
   format,
+  upload,
+  fileHelper,
 }

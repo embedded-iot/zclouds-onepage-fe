@@ -79,4 +79,11 @@ $primary-color: #0065FF;
   }
 }
 
+.table-img__icon {
+  width: 64px;
+  height: 64px;
+  &--circle {
+    border-radius: 64px;
+  }
+}
 

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Form } from 'antd';
-import UploadBox from 'components/Common/UploadBox';
 import {
   DESIGN_LABEL_VALUE_OPTIONS, DESIGN_VALUES,
 } from 'components/contants';
 import RadioSelect from 'components/Common/RadioSelect';
+import DraggerUploadBox from 'components/Common/DraggerUploadBox';
+import { upload } from 'utils';
 
 export default function ImportDesignsForm({ form, initialValues, ...restProps }) {
   return (
@@ -37,6 +38,7 @@ export default function ImportDesignsForm({ form, initialValues, ...restProps })
         label="File"
         name="file"
         valuePropName="fileList"
+        getValueFromEvent={upload.getValueFromEvent}
         rules={[
           {
             required: true,
@@ -44,7 +46,7 @@ export default function ImportDesignsForm({ form, initialValues, ...restProps })
           },
         ]}
       >
-        <UploadBox />
+        <DraggerUploadBox />
       </Form.Item>
     </Form>
   )

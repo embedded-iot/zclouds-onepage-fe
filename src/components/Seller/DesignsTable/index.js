@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerDesignsService } from 'services';
-import { events } from 'utils';
+import { events, fileHelper } from 'utils';
 import { Button } from 'antd';
-import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined, DownloadOutlined, ImportOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined, DownloadOutlined, ImportOutlined, FileExcelOutlined } from '@ant-design/icons';
 import AddEditDesignModal from './AddEditDesignModal';
 import DeleteDesignModal from './DeleteDesignModal';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
@@ -23,18 +23,14 @@ const columns = [
     dataIndex: 'type',
   },
   {
-    title: 'Owner',
-    dataIndex: 'owner',
-  },
-  {
     title: 'Mockup',
-    dataIndex: 'mockup',
-    render: (mockup, record) => <img src={mockup} alt={record.name} />,
+    dataIndex: 'mock',
+    render: (mock, record) => mock.length ? <img className="table-img__icon table-img__icon--circle" src={mock[0]} alt={record.name} /> : null,
   },
   {
     title: 'Design',
     dataIndex: 'design',
-    render: (mockup, record) => <img src={mockup} alt={record.name} />,
+    render: (design, record) => design.length ? <img className="table-img__icon table-img__icon--circle" src={design[0]} alt={record.name} /> : null,
   },
 ];
 
@@ -44,6 +40,7 @@ const ACTION_KEYS = {
   DELETE_DESIGN: "DELETE_DESIGN",
   DOWNLOAD_DESIGN: "DOWNLOAD_DESIGN",
   IMPORT_DESIGNS: "IMPORT_DESIGNS",
+  EXPORT_DESIGNS: "EXPORT_DESIGNS",
 }
 
 export default function DesignsTable() {
@@ -52,6 +49,7 @@ export default function DesignsTable() {
   const [openDeleteDesign, setOpenDeleteDesign] = useState(false);
   const [openImportDesigns, setOpenImportDesigns] = useState(false);
   const [selectedDesign, setSelectedDesign] = useState(null);
+  const [selectedKeys, setSelectedKeys] = useState([]);
   const RELOAD_EVENT_KEY = 'RELOAD_Seller_DESIGNS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
@@ -89,7 +87,16 @@ export default function DesignsTable() {
   }
 
   const downloadDesign = () => {
-    SellerDesignsService.downloadDesign();
+    SellerDesignsService.downloadDesign(selectedDesign.url);
+  }
+
+  const exportDesigns = () => {
+    const selectedDesigns = ref.current.items.filter(item => selectedKeys.includes(item.id)).map(design => ({
+      ...design,
+      mock: design.mock.join(','),
+      design: design.design.join(','),
+    }));
+    fileHelper.exportToExcel(selectedDesigns, 'designs')
   }
 
   const importDesigns = () => {
@@ -97,6 +104,7 @@ export default function DesignsTable() {
   }
 
   const onSelectedItemsChange = (keys) => {
+    setSelectedKeys(keys);
     const newSelectedDesign = ref.current.items.find(item => item.id === keys[0]);
     setSelectedDesign(newSelectedDesign);
   }
@@ -115,7 +123,7 @@ export default function DesignsTable() {
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.DOWNLOAD_DESIGN} icon={<DownloadOutlined />} onClick={downloadDesign}>Delete design</Button>,
+        render: <Button key={ACTION_KEYS.DOWNLOAD_DESIGN} icon={<DownloadOutlined />} onClick={downloadDesign}>Download design</Button>,
         requiredSelection: true,
       },
       {
@@ -138,6 +146,7 @@ export default function DesignsTable() {
   }
 
   const buttonList = [
+      ...(selectedKeys.length ? [<Button key={ACTION_KEYS.EXPORT_DESIGNS} icon={<FileExcelOutlined />} onClick={exportDesigns}>Export</Button>] : []),
     <Button key={ACTION_KEYS.IMPORT_DESIGNS} icon={<ImportOutlined />} onClick={importDesigns}>Upload multi design</Button>,
     <Button key={ACTION_KEYS.ADD_DESIGN} type="primary" icon={<PlusCircleOutlined />} onClick={addDesign}>Add design</Button>
   ]
@@ -152,7 +161,7 @@ export default function DesignsTable() {
                  defaultParams={{}}
                  defaultData={{}}
                  isShowPagination={true}
-                 isSingleSelection={true}
+                 // isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}

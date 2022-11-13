@@ -5,8 +5,8 @@ import shirt_sku from 'images/t-shirt_sku.svg';
 const transformDesign = item => {
   return {
     ...item,
-    mockup: item.mockup || shirt_sku ,
-    design: item.design || shirt_sku ,
+    mockup: item.mockup || [shirt_sku] ,
+    design: item.design || [shirt_sku] ,
   }
 }
 
@@ -15,7 +15,13 @@ function getDesigns(params, successCallback, failureCallback) {
     params
   };
   const url = getSellerBaseURL() + '/designs';
-  makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
+  makeGetWithConfigs(url, config, successCallback, error => {
+    successCallback({
+      items: [{"id": 1, "name":"asdas","type":"2D","mock":["https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"],"design":["https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"]}],
+      totalCount: 1,
+    });
+    failureCallback();
+  }, response => {
     const items = response.content.map(transformDesign)
     return {
       items: items,

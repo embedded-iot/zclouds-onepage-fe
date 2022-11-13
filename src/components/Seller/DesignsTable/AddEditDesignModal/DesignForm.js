@@ -5,6 +5,7 @@ import {
   DESIGN_LABEL_VALUE_OPTIONS, DESIGN_VALUES,
 } from 'components/contants';
 import RadioSelect from 'components/Common/RadioSelect';
+import { upload } from 'utils';
 
 export default function DesignForm({ form, initialValues, ...restProps }) {
   return (
@@ -14,6 +15,8 @@ export default function DesignForm({ form, initialValues, ...restProps }) {
       autoComplete="off"
       initialValues={{
         type: DESIGN_VALUES._2D,
+        designFileList: upload.getFileListFromList(initialValues && initialValues.design),
+        mockFileList: upload.getFileListFromList(initialValues && initialValues.mock),
         ...initialValues,
       }}
       layout="vertical"
@@ -47,15 +50,17 @@ export default function DesignForm({ form, initialValues, ...restProps }) {
       </Form.Item>
       <Form.Item
         label="Mockup"
-        name="mock"
+        name="mockFileList"
         valuePropName="fileList"
+        getValueFromEvent={upload.getValueFromEvent}
       >
         <UploadBox />
       </Form.Item>
       <Form.Item
         label="Design"
-        name="design"
+        name="designFileList"
         valuePropName="fileList"
+        getValueFromEvent={upload.getValueFromEvent}
       >
         <UploadBox />
       </Form.Item>
