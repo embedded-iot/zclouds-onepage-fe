@@ -10,15 +10,21 @@ export default function ProductOptionsForm({ form, productId, initialValues, ...
   const handleRemoveImage = (file) => {
     AdminProductsService.deleteProductImage(productId, file.id);
   }
+  const handleProductOptionsChange = (options) => {
+    form.setFieldsValue({
+      productOptions: options,
+    });
+  }
 
   return (
     <Form
       name="basic"
       form={form}
       autoComplete="off"
+      // onValuesChange={onValuesChange}
       initialValues={{
-        options: [],
         ...initialValues,
+        productOptions: AdminProductsService.buildProductOptions(initialValues.productOptions || []),
       }}
       layout="vertical"
       {...restProps}
@@ -33,9 +39,10 @@ export default function ProductOptionsForm({ form, productId, initialValues, ...
       </Form.Item>
       <Form.Item
         label="Product options"
-        name="options"
+        name="productOptions"
+        valuePropName="productOptions"
       >
-        <ProductOptionsBox />
+        <ProductOptionsBox onChange={handleProductOptionsChange}/>
       </Form.Item>
     </Form>
   )
