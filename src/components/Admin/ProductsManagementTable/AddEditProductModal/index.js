@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import { Form, notification } from 'antd';
 import ProductForm from './ProductForm';
-import { AdminCategoriesService, AdminProductsService } from 'services';
+import { AdminCategoriesService, AdminProductsService, BaseService } from 'services';
 import { getCategoriesOptions } from 'services/Admin/CategoriesService';
 import ProductOptionsForm from './ProductOptionsForm';
 
@@ -11,6 +11,7 @@ export default function AddEditProductModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
   const [categoriesOptions, setCategoriesOptions] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(data);
   const getCategoriesFilter = () => {
     AdminCategoriesService.getCategories({ pageNum: 1, pageSize: 10000 }, response => {
       setCategoriesOptions(getCategoriesOptions(response.items));
@@ -34,7 +35,7 @@ export default function AddEditProductModal({ open, data, onOk, onCancel }) {
         goProductOptions(true);
       }, error => {
         notification.error({
-          message: error && error.title ? error.title : "Update product failure!",
+          message: BaseService.getErrorMessage(error,"Update product failure!"),
         });
       })
     } else {
@@ -42,14 +43,28 @@ export default function AddEditProductModal({ open, data, onOk, onCancel }) {
         notification.success({
           message: "Create product successful!",
         });
+        setSelectedProduct(response);
         goProductOptions(true);
       }, error => {
         notification.error({
-          message: error && error.title ? error.title : "Create product failure!",
+          message: BaseService.getErrorMessage(error,"Create product failure!" ),
         });
       })
     }
+  }
 
+  const saveProductOptions = () => {
+    const { productOptions = [] } = form.getFieldsValue();
+    AdminProductsService.updateProductOptions(selectedProduct.id, productOptions, response => {
+      notification.success({
+        message: "Update product options successful!",
+      });
+      onOk();
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error,"Update product options failure!" ),
+      });
+    })
   }
 
   return !isAddOptionsProduct ? (
@@ -64,7 +79,7 @@ export default function AddEditProductModal({ open, data, onOk, onCancel }) {
       <ProductForm
         form={form}
         categoriesOptions={categoriesOptions}
-        initialValues={data}
+        initialValues={selectedProduct}
       />
     </ModalView>
   ) : (
@@ -72,12 +87,14 @@ export default function AddEditProductModal({ open, data, onOk, onCancel }) {
                open={open}
                title={"Add product options"}
                cancelText={"Back"}
+               okText={"Save"}
                onCancel={() => goProductOptions(false)}
-               onOk={onCancel}
+               onOk={saveProductOptions}
     >
       <ProductOptionsForm
-        productId={data.id}
-        initialValues={data}
+        form={form}
+        productId={selectedProduct.id}
+        initialValues={selectedProduct}
       />
     </ModalView>
   )
