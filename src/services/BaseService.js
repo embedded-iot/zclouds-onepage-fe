@@ -18,10 +18,16 @@ const getAdminBaseURL = () => {
   return getBaseURL() + '/admin';
 }
 
+const getErrorMessage = (error, defaultMessage) => {
+  const message = !!error && !!error.errors && Object.entries(error.errors).map(([key, value]) => value).join(',');
+  return !!message ? message : defaultMessage;
+}
+
 export {
   getFrontUserUrl,
   getBaseURL,
   getFrontUserBaseURL,
   getSellerBaseURL,
   getAdminBaseURL,
+  getErrorMessage,
 }
