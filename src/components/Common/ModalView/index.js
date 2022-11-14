@@ -6,7 +6,7 @@ export const MODAL_TYPES = {
   CONFIRM_MODAL: 'CONFIRM_MODAL',
 }
 
-export default function ModalView({ type = MODAL_TYPES.CONFIRM_MODAL, open, form, children, title, okText, cancelText, onCancel, onOk, ...restProps }) {
+export default function ModalView({ type = MODAL_TYPES.CONFIRM_MODAL, open, form, children, title, hideCancelBtn = false, hideOklBtn = false, okText, cancelText, onCancel, onOk, ...restProps }) {
   return (
     <Modal
       open={open}
@@ -16,6 +16,16 @@ export default function ModalView({ type = MODAL_TYPES.CONFIRM_MODAL, open, form
       cancelText={ cancelText || "Cancel"}
       onCancel={onCancel}
       width={612}
+      okButtonProps={{
+        style: {
+          display: hideOklBtn && 'none'
+        }
+      }}
+      cancelButtonProps={{
+        style: {
+          display: hideCancelBtn && 'none'
+        }
+      }}
       onOk={() => {
         if (!form) {
           onOk();
