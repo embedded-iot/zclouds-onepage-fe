@@ -1,6 +1,7 @@
 import React from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { FrontUserSKUService } from 'services';
+import ProductOptionsView from 'components/Share/ProductOptionsView';
 
 const columns = [
   {
@@ -18,7 +19,8 @@ const columns = [
   },
   {
     title: 'Variant',
-    dataIndex: 'offerName',
+    dataIndex: 'productOptions',
+    render: (productOptions, record) => <ProductOptionsView productOptions={productOptions} />,
   },
   {
     title: 'SKU',
