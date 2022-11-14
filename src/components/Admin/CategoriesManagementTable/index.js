@@ -14,8 +14,8 @@ const columns = [
   },
   {
     title: 'Image',
-    dataIndex: 'avatar',
-    render: (avatar, record) => <img src={avatar} alt={record.name} />,
+    dataIndex: 'featureImage',
+    render: (featureImage, record) => <img className="table-img__icon table-img__icon--circle" src={featureImage} alt={record.name} />,
   },
   {
     title: 'Category Name',
@@ -51,8 +51,8 @@ export default function CategoriesManagementTable() {
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize, pageNum, searchText, ...restParams} = params || {};
-      AdminCategoriesService.getCategories({ ...restParams, pageSize, pageNum, searchText }, successCallback, failureCallback)
+      const { pageSize, pageNum, ...restParams} = params || {};
+      AdminCategoriesService.getCategories({ ...restParams, pageSize, pageNum }, successCallback, failureCallback)
     },
     successCallback: (response) => {
       ref.current.items = response.items;
@@ -135,18 +135,26 @@ export default function CategoriesManagementTable() {
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
-      <AddEditCategoryModal
-        open={openAddCategory}
-        data={isEdit ? selectedCategory : null}
-        onOk={reloadTable}
-        onCancel={() => { setOpenAddCategory(false); }}
-      />
-      <DeleteCategoryModal
-        open={openDeleteCategory}
-        data={selectedCategory}
-        onOk={reloadTable}
-        onCancel={() => { setOpenDeleteCategory(false); }}
-      />
+      {
+        openAddCategory && (
+          <AddEditCategoryModal
+            open={openAddCategory}
+            data={isEdit ? selectedCategory : null}
+            onOk={reloadTable}
+            onCancel={() => { setOpenAddCategory(false); }}
+          />
+        )
+      }
+      {
+        openDeleteCategory && (
+          <DeleteCategoryModal
+            open={openDeleteCategory}
+            data={selectedCategory}
+            onOk={reloadTable}
+            onCancel={() => { setOpenDeleteCategory(false); }}
+          />
+        )
+      }
     </>
   );
 }
