@@ -1,18 +1,18 @@
 import { getAdminBaseURL, getFrontUserUrl, getSellerBaseURL } from 'services/BaseService';
-import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
+import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
 import { DESIGN_DETAIL_TYPE_VALUES } from 'components/contants';
 
 const transformDesign = item => {
   const mockup = item.designDetails && item.designDetails.filter(designDetail => designDetail.type === DESIGN_DETAIL_TYPE_VALUES.MOCKUP)
     .map(design => getFrontUserUrl() + design.url);
-  const design = item.designDetails && item.designDetails.filter(designDetail => designDetail.type === DESIGN_DETAIL_TYPE_VALUES.MOCKUP)
+  const design = item.designDetails && item.designDetails.filter(designDetail => designDetail.type === DESIGN_DETAIL_TYPE_VALUES.DESIGN)
     .map(design => getFrontUserUrl() + design.url);
   return {
     ...item,
     name: item.slug,
-    mockup: mockup || [shirt_sku],
-    design: design || [shirt_sku] ,
+    mockup: mockup.length ? mockup : [shirt_sku],
+    design: design.length ? design : [shirt_sku] ,
   }
 }
 
@@ -38,14 +38,6 @@ function createDesign(data, successCallback, failureCallback) {
   };
   const url = getSellerBaseURL() + '/designs';
   makePostWithConfigs(url, config, successCallback, failureCallback);
-}
-
-function updateDesign(id, data, successCallback, failureCallback) {
-  const config = {
-    data
-  };
-  const url = getSellerBaseURL() + '/designs/' + id;
-  makePutWithConfigs(url, config, successCallback, failureCallback);
 }
 
 function deleteDesign(id, successCallback, failureCallback) {
@@ -82,7 +74,6 @@ function deleteProductImage(designId, designDetailId, successCallback, failureCa
 export {
   getDesigns,
   createDesign,
-  updateDesign,
   deleteDesign,
   downloadDesign,
   importDesigns,
