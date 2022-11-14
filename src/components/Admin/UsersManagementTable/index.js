@@ -48,8 +48,8 @@ export default function UsersManagementTable() {
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize, pageNum, searchText, ...restParams} = params || {};
-      AdminUsersService.getUsers({ ...restParams, pageSize, pageNum, searchText }, successCallback, failureCallback)
+      const { pageSize, pageNum, ...restParams} = params || {};
+      AdminUsersService.getUsers({ ...restParams, pageSize, pageNum }, successCallback, failureCallback)
     },
     successCallback: (response) => {
       ref.current.items = response.items;
@@ -147,18 +147,26 @@ export default function UsersManagementTable() {
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
-      <AddEditUserModal
-        open={openAddUser}
-        data={isEdit ? selectedUser : null}
-        onOk={reloadTable}
-        onCancel={() => { setOpenAddUser(false); }}
-      />
-      <DeleteUserModal
-        open={openDeleteUser}
-        data={selectedUser}
-        onOk={reloadTable}
-        onCancel={() => { setOpenDeleteUser(false); }}
-      />
+      {
+        openAddUser && (
+          <AddEditUserModal
+            open={openAddUser}
+            data={isEdit ? selectedUser : null}
+            onOk={reloadTable}
+            onCancel={() => { setOpenAddUser(false); }}
+          />
+        )
+      }
+      {
+        openDeleteUser && (
+          <DeleteUserModal
+            open={openDeleteUser}
+            data={selectedUser}
+            onOk={reloadTable}
+            onCancel={() => { setOpenDeleteUser(false); }}
+          />
+        )
+      }
     </>
   );
 }
