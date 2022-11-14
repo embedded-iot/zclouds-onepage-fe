@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
-import { SellerDesignsService } from 'services';
+import { BaseService, SellerDesignsService } from 'services';
 import { notification } from 'antd';
 
 export default function DeleteDesignModal({ open, data, onOk, onCancel }) {
@@ -12,7 +12,7 @@ export default function DeleteDesignModal({ open, data, onOk, onCancel }) {
       onOk();
     }, error => {
       notification.error({
-        message: error && error.title ? error.title : "Delete design failure!",
+        message: BaseService.getErrorMessage(error,"Delete design failure!"),
       });
     })
   }
