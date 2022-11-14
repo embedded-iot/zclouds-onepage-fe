@@ -55,8 +55,8 @@ export default function DesignsTable() {
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize, pageNum, searchText, ...restParams} = params || {};
-      SellerDesignsService.getDesigns({ ...restParams, pageSize, pageNum, searchText }, successCallback, failureCallback)
+      const { pageSize, pageNum, ...restParams} = params || {};
+      SellerDesignsService.getDesigns({ ...restParams, pageSize, pageNum }, successCallback, failureCallback)
     },
     successCallback: (response) => {
       ref.current.items = response.items;
@@ -175,23 +175,35 @@ export default function DesignsTable() {
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
-      <AddEditDesignModal
-        open={openAddDesign}
-        data={isEdit ? selectedDesign : null}
-        onOk={reloadTable}
-        onCancel={() => { setOpenAddDesign(false); }}
-      />
-      <DeleteDesignModal
-        open={openDeleteDesign}
-        data={selectedDesign}
-        onOk={reloadTable}
-        onCancel={() => { setOpenDeleteDesign(false); }}
-      />
-      <ImportDesignsModal
-        open={openImportDesigns}
-        onOk={reloadTable}
-        onCancel={() => { setOpenImportDesigns(false); }}
-      />
+      {
+        openAddDesign && (
+          <AddEditDesignModal
+            open={openAddDesign}
+            data={isEdit ? selectedDesign : null}
+            onOk={reloadTable}
+            onCancel={() => { setOpenAddDesign(false); }}
+          />
+        )
+      }
+      {
+        openDeleteDesign && (
+          <DeleteDesignModal
+            open={openDeleteDesign}
+            data={selectedDesign}
+            onOk={reloadTable}
+            onCancel={() => { setOpenDeleteDesign(false); }}
+          />
+        )
+      }
+      {
+        openImportDesigns && (
+          <ImportDesignsModal
+            open={openImportDesigns}
+            onOk={reloadTable}
+            onCancel={() => { setOpenImportDesigns(false); }}
+          />
+        )
+      }
     </>
   );
 }
