@@ -2,7 +2,7 @@ import React from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import { Form, notification } from 'antd';
 import ImportDesignsForm from 'components/Seller/DesignsTable/ImportDesignsModal/ImportDesignsForm';
-import { SellerDesignsService } from 'services';
+import { BaseService, SellerDesignsService } from 'services';
 
 export default function ImportDesignsModal({ open, onOk, onCancel }) {
   const [form] = Form.useForm();
@@ -14,7 +14,7 @@ export default function ImportDesignsModal({ open, onOk, onCancel }) {
       onOk();
     }, error => {
       notification.error({
-        message: error && error.title ? error.title : "Import designs failure!",
+        message: BaseService.getErrorMessage(error,"Import designs failure!"),
       });
     })
   }
