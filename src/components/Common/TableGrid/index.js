@@ -117,7 +117,7 @@ export default function TableGrid({
   };
 
   const handleSearch = () => {
-    const newParams = { ...params, [configs.searchTextKey || "searchText"]: searchText };
+    const newParams = { ...params, [configs.searchTextKey || "keyword"]: searchText };
     setParams(newParams);
     getDataFunc(newParams);
   };
@@ -125,7 +125,7 @@ export default function TableGrid({
   const ACTION_TYPES = {
     'searchText': (
       <InputSearch
-        name={configs.searchTextKey || "searchText"}
+        name={configs.searchTextKey || "keyword"}
         placeholder={configs.searchPlaceholder}
         onChange={onSearchChange}
       />
