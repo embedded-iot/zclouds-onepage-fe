@@ -5,6 +5,7 @@ import {
   STATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
+import { upload } from 'utils';
 
 export default function CategoryForm({ form, initialValues, ...restProps }) {
   return (
@@ -14,6 +15,7 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
       autoComplete="off"
       initialValues={{
         state: '',
+        avatarFileList: upload.getFileListFromList(initialValues && initialValues.featureImage ? [initialValues.featureImage] : []),
         ...initialValues,
       }}
       layout="vertical"
@@ -33,10 +35,11 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
       </Form.Item>
       <Form.Item
         label="Upload"
-        name="featureImage"
+        name="avatarFileList"
         valuePropName="fileList"
+        getValueFromEvent={upload.getValueFromEvent}
       >
-        <UploadBox />
+        <UploadBox maxFileUpload={1}/>
       </Form.Item>
       <Form.Item
         label="Slug"
@@ -60,7 +63,7 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
           },
         ]}
       >
-        <InputNumber min={0} max={10} placeholder="Display order"  />
+        <InputNumber min={0} placeholder="Display order"  />
       </Form.Item>
       <Form.Item
         label="State"
