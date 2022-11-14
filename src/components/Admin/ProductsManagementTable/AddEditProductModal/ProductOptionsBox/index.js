@@ -5,12 +5,35 @@ import InputText from 'components/Common/InputText';
 
 import './style.scss';
 
-export default function ProductOptionsBox({ defaultOptions = [], onChange }) {
-  const [options, setOptions] = useState(defaultOptions);
+export default function ProductOptionsBox({ productOptions = [], onChange }) {
+  const [options, setOptions] = useState(productOptions);
+  const getNextOptionDisplayOrder = () => {
+    let maxDisplayOrder = 0;
+    options.forEach(option => {
+      if (option.displayOrder > maxDisplayOrder) {
+        maxDisplayOrder = option.displayOrder;
+      }
+    })
+    return maxDisplayOrder + 1;
+  }
+
+  const getNextOptionValueDisplayOrder = (optionId) => {
+    let maxDisplayOrder = 0;
+    const selectedOption = options.find((option, optionIndex) => optionIndex === optionId);
+    selectedOption.productOptionValues.forEach(optionValue => {
+      if (optionValue.displayOrder > maxDisplayOrder) {
+        maxDisplayOrder = optionValue.displayOrder;
+      }
+    })
+    return maxDisplayOrder + 1;
+  }
+
   const addOption = () => {
     setOptions([...options, {
+      id: '',
       name: '',
-      optionValues: [],
+      displayOrder: getNextOptionDisplayOrder(),
+      productOptionValues: [],
     }]);
   }
 
@@ -36,8 +59,10 @@ export default function ProductOptionsBox({ defaultOptions = [], onChange }) {
     const newOptions = options.map((option, optionIndex) => {
       return optionIndex !== optionId ? option : ({
         ...option,
-        optionValues: [...(option.optionValues || []), {
+        productOptionValues: [...(option.productOptionValues || []), {
+          id: '',
           value: '',
+          displayOrder: getNextOptionValueDisplayOrder(optionId),
           priceAdjustment: 0,
         }]
       })
@@ -49,7 +74,7 @@ export default function ProductOptionsBox({ defaultOptions = [], onChange }) {
     const newOptions = options.map((option, optionIndex) => {
       return optionIndex !== optionId ? option : ({
         ...option,
-        optionValues: [...(option.optionValues || [])].map((optionValue, optionValueIndex) => {
+        productOptionValues: [...(option.productOptionValues || [])].map((optionValue, optionValueIndex) => {
           return optionValueIndex !== optionValueId ? optionValue : {
             ...optionValue,
             [name]: value,
@@ -64,12 +89,12 @@ export default function ProductOptionsBox({ defaultOptions = [], onChange }) {
     const newOptions = options.map((option, optionIndex) => {
       return optionIndex !== optionId ? option : ({
         ...option,
-        optionValues: [...(option.optionValues || [])].filter((optionValue, optionValueIndex) => optionValueIndex !== optionValueId),
+        productOptionValues: [...(option.productOptionValues || [])].filter((optionValue, optionValueIndex) => optionValueIndex !== optionValueId),
       })
     })
     updateOptions(newOptions);
   }
-
+  
   return (
     <div className='product-options-box__wrapper'>
       <Row gutter={[20, 20]}>
@@ -92,7 +117,7 @@ export default function ProductOptionsBox({ defaultOptions = [], onChange }) {
                 </div>
                 <div className='product-options-box__option-values'>
                   {
-                    (option.optionValues || []).map((optionValue, optionValueId) => (
+                    (option.productOptionValues || []).map((optionValue, optionValueId) => (
                       <div className='product-options-box__option-value' key={optionValueId}>
                         <div className='product-options-box__option-value-title'>
                           Option value ({optionValueId + 1})
@@ -103,8 +128,9 @@ export default function ProductOptionsBox({ defaultOptions = [], onChange }) {
                                      name={'value'}
                                      onChange={(value, name) => updateOptionValue(value, name, optionId, optionValueId)}
                           />
-                          <InputNumber min={0} max={10}
+                          <InputNumber min={0}
                                        placeholder="Price"
+                                       value={optionValue.priceAdjustment}
                                        onChange={(value) => updateOptionValue(value, 'priceAdjustment', optionId, optionValueId)}
                           />
                           <div className='product-options-box__option-value-remove'>
