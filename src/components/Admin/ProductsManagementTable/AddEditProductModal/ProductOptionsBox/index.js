@@ -30,7 +30,7 @@ export default function ProductOptionsBox({ productOptions = [], onChange }) {
 
   const addOption = () => {
     setOptions([...options, {
-      id: '',
+      id: 0,
       name: '',
       displayOrder: getNextOptionDisplayOrder(),
       productOptionValues: [],
@@ -60,7 +60,7 @@ export default function ProductOptionsBox({ productOptions = [], onChange }) {
       return optionIndex !== optionId ? option : ({
         ...option,
         productOptionValues: [...(option.productOptionValues || []), {
-          id: '',
+          id: 0,
           value: '',
           displayOrder: getNextOptionValueDisplayOrder(optionId),
           priceAdjustment: 0,
@@ -94,7 +94,7 @@ export default function ProductOptionsBox({ productOptions = [], onChange }) {
     })
     updateOptions(newOptions);
   }
-  
+
   return (
     <div className='product-options-box__wrapper'>
       <Row gutter={[20, 20]}>

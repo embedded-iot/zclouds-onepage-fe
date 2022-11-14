@@ -24,6 +24,7 @@ export default function ProductOptionsForm({ form, productId, initialValues, ...
       // onValuesChange={onValuesChange}
       initialValues={{
         ...initialValues,
+        imageFiles: upload.getFileListFromList((initialValues.convertedProductImages)),
         productOptions: AdminProductsService.buildProductOptions(initialValues.productOptions || []),
       }}
       layout="vertical"

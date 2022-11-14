@@ -1,13 +1,15 @@
-import { getAdminBaseURL } from 'services/BaseService';
+import { getAdminBaseURL, getFrontUserUrl } from 'services/BaseService';
 import { format, makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
 import { STATE_LABELS } from 'components/contants';
 
 
 const transformProduct = item => {
+  const convertedProductImages = (item.productImages || []).map(image => (getFrontUserUrl() + image.fullSizePath));
   return {
     ...item,
-    avatar: item.featureImage || shirt_sku ,
+    avatar: !!convertedProductImages.length ? convertedProductImages[0] : (item.featureImage || shirt_sku) ,
+    convertedProductImages: convertedProductImages,
     convertedState: STATE_LABELS[item.state] || item.state,
     convertedPrice: format.formatCurrency(item.price),
   }

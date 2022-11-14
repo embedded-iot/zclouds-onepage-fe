@@ -39,7 +39,8 @@ export default function UploadBox({ action, onRemove, headers, maxFileUpload = 5
 
   const handleCancel = () => setPreviewOpen(false);
   const handleRemove = (file) => {
-    onRemove && onRemove(file.response);
+    console.log(file);
+    !!onRemove && onRemove(file.response);
     return true;
   };
   return (

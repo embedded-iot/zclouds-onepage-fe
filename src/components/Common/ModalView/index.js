@@ -16,16 +16,16 @@ export default function ModalView({ type = MODAL_TYPES.CONFIRM_MODAL, open, form
       cancelText={ cancelText || "Cancel"}
       onCancel={onCancel}
       width={612}
-      okButtonProps={{
-        style: {
-          display: hideOklBtn && 'none'
-        }
-      }}
-      cancelButtonProps={{
-        style: {
-          display: hideCancelBtn && 'none'
-        }
-      }}
+      // okButtonProps={{
+      //   style: {
+      //     display: hideOklBtn && 'none'
+      //   }
+      // }}
+      // cancelButtonProps={{
+      //   style: {
+      //     display: hideCancelBtn && 'none'
+      //   }
+      // }}
       onOk={() => {
         if (!form) {
           onOk();
