@@ -10,7 +10,7 @@ const getBase64 = (file) => new Promise((resolve, reject) => {
     reader.onerror = (error) => reject(error);
 });
 
-export default function UploadBox({ action, onRemove, headers, ...restProps }) {
+export default function UploadBox({ action, onRemove, headers, maxFileUpload = 50, ...restProps }) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -39,7 +39,7 @@ export default function UploadBox({ action, onRemove, headers, ...restProps }) {
 
   const handleCancel = () => setPreviewOpen(false);
   const handleRemove = (file) => {
-    onRemove(file.response);
+    onRemove && onRemove(file.response);
     return true;
   };
   return (
@@ -47,14 +47,14 @@ export default function UploadBox({ action, onRemove, headers, ...restProps }) {
       <Upload
         {...restProps}
         headers={getAuthorizationHeaders()}
-        action={action}
+        action={action || 'https://www.mocky.io/v2/5cc8019d300000980a055e76'}
         listType="picture-card"
         // // fileList={fileList}
         onPreview={handlePreview}
         // onChange={handleChange}
         onRemove={handleRemove}
       >
-        { uploadButton }
+        { restProps.fileList && restProps.fileList.length >= maxFileUpload ? null : uploadButton }
       </Upload>
       <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
         <img
