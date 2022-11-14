@@ -6,6 +6,7 @@ import { Button } from 'antd';
 import AddEditProductModal from './AddEditProductModal';
 import DeleteProductModal from './DeleteProductModal';
 import { CloseCircleOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import ProductOptionsView from 'components/Share/ProductOptionsView';
 
 const columns = [
   {
@@ -27,7 +28,8 @@ const columns = [
   },
   {
     title: 'Variant',
-    dataIndex: 'offerName',
+    dataIndex: 'productOptions',
+    render: (productOptions, record) => <ProductOptionsView productOptions={productOptions} />,
   },
   {
     title: 'Price',
@@ -54,6 +56,7 @@ export default function ProductsManagementTable() {
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_PRODUCTS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
+    searchTextKey: 'keyword',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize: size, pageNum: page, searchText, ...restParams} = params || {};
@@ -140,18 +143,26 @@ export default function ProductsManagementTable() {
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
-      <AddEditProductModal
-        open={openAddProduct}
-        data={isEdit ? selectedProduct : null}
-        onOk={reloadTable}
-        onCancel={() => { setOpenAddProduct(false); }}
-      />
-      <DeleteProductModal
-        open={openDeleteProduct}
-        data={selectedProduct}
-        onOk={reloadTable}
-        onCancel={() => { setOpenDeleteProduct(false); }}
-      />
+      {
+        openAddProduct && (
+          <AddEditProductModal
+            open={openAddProduct}
+            data={isEdit ? selectedProduct : null}
+            onOk={reloadTable}
+            onCancel={() => { setOpenAddProduct(false); }}
+          />
+        )
+      }
+      {
+        openDeleteProduct && (
+          <DeleteProductModal
+            open={openDeleteProduct}
+            data={selectedProduct}
+            onOk={reloadTable}
+            onCancel={() => { setOpenDeleteProduct(false); }}
+          />
+        )
+      }
     </>
   );
 }
