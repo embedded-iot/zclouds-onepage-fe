@@ -2,7 +2,7 @@ import React from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import { Form, notification } from 'antd';
 import UserForm from './UserForm';
-import { AdminUsersService } from 'services';
+import { AdminUsersService, BaseService } from 'services';
 
 export default function AddEditUserModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
@@ -16,7 +16,7 @@ export default function AddEditUserModal({ open, data, onOk, onCancel }) {
         onOk();
       }, error => {
         notification.error({
-          message: error && error.title ? error.title : "Update user failure!",
+          message: BaseService.getErrorMessage(error,"Update user failure!"),
         });
       })
     } else {
@@ -27,7 +27,7 @@ export default function AddEditUserModal({ open, data, onOk, onCancel }) {
         onOk();
       }, error => {
         notification.error({
-          message: error && error.title ? error.title : "Create user failure!",
+          message: BaseService.getErrorMessage(error,"Create user failure!" ),
         });
       })
     }
