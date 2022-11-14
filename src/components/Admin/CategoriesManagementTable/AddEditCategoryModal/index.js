@@ -2,32 +2,37 @@ import React from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import { Form, notification } from 'antd';
 import CategoryForm from './CategoryForm';
-import { AdminCategoriesService } from 'services';
+import { AdminCategoriesService, BaseService } from 'services';
 
 export default function AddEditCategoryModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
   const handleOk = (values) => {
+    const { displayOrder, name, slug, state, avatarFileList } = values;
+    const featureImage = !!avatarFileList.length ? avatarFileList[0].response.url : null;
+    const categoryData = {
+      displayOrder, name, slug, state, featureImage
+    }
     if (isEdit) {
-      AdminCategoriesService.updateCategory(data.id, values, response => {
+      AdminCategoriesService.updateCategory(data.id, categoryData, response => {
         notification.success({
           message: "Update category successful!",
         });
         onOk();
       }, error => {
         notification.error({
-          message: error && error.title ? error.title : "Update category failure!",
+          message: BaseService.getErrorMessage(error,"Update category failure!" ),
         });
       })
     } else {
-      AdminCategoriesService.createCategory(values, response => {
+      AdminCategoriesService.createCategory(categoryData, response => {
         notification.success({
           message: "Create category successful!",
         });
         onOk();
       }, error => {
         notification.error({
-          message: error && error.title ? error.title : "Create category failure!",
+          message: BaseService.getErrorMessage(error, "Create category failure!"),
         });
       })
     }
