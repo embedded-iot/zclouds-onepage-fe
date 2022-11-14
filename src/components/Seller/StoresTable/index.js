@@ -34,8 +34,8 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize, pageNum, searchText, type, ...restParams} = params || {};
-      SellerStoresService.getStores({ ...restParams, pageSize, pageNum, searchText, type }, successCallback, failureCallback)
+      const { pageSize, pageNum, type, ...restParams} = params || {};
+      SellerStoresService.getStores({ ...restParams, pageSize, pageNum, type }, successCallback, failureCallback)
     },
     successCallback: (response) => {
       ref.current.items = response.items;
