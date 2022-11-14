@@ -59,6 +59,28 @@ function deleteProductImage(productId, imageId, successCallback, failureCallback
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function updateProductOptions(productId, data, successCallback, failureCallback) {
+  const url = getAdminBaseURL() + '/products/' + productId + '/options';
+  const config = {
+    data
+  };
+  makePutWithConfigs(url, config, successCallback, failureCallback);
+}
+
+function buildProductOptions(productOptions) {
+  return productOptions.map(option => ({
+    id: option.id,
+    name: option.name,
+    displayOrder: option.displayOrder,
+    productOptionValues: (option.productOptionValues || []).map(optionValue => ({
+      id: optionValue.id,
+      value: optionValue.value,
+      priceAdjustment: optionValue.priceAdjustment,
+      displayOrder: optionValue.displayOrder,
+    }))
+  }))
+}
+
 export {
   getProducts,
   createProduct,
@@ -66,4 +88,6 @@ export {
   deleteProduct,
   getUploadProductImageUrl,
   deleteProductImage,
+  updateProductOptions,
+  buildProductOptions,
 }
