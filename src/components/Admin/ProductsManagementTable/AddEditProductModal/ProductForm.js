@@ -53,7 +53,7 @@ export default function ProductForm({ form, initialValues, categoriesOptions, ..
           },
         ]}
       >
-        <InputNumber min={0} max={10} placeholder="Price"  />
+        <InputNumber min={0} placeholder="Price"  />
       </Form.Item>
       <Form.Item
         label="Note"
