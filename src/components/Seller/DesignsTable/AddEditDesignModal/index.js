@@ -1,15 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import { Form, notification } from 'antd';
 import DesignForm from './DesignForm';
-import { SellerDesignsService } from 'services';
+import { BaseService, SellerDesignsService } from 'services';
 import DesignDetailForm from './DesignDetailForm';
 
 export default function AddEditDesignModal({ open, data, onOk, onCancel }) {
-  const [isDesignDetail, setIsDesignDetail] = useState(true);
-  const [form] = Form.useForm();
   const isEdit = !!data;
-  let ref = useRef({});
+  const [isDesignDetail, setIsDesignDetail] = useState(isEdit);
+  const [form] = Form.useForm();
+  const [selectedDesign, setSelectedDesign] = useState(data);
   const goDesignDetail = (show) => {
     setIsDesignDetail(show)
   }
@@ -20,58 +20,60 @@ export default function AddEditDesignModal({ open, data, onOk, onCancel }) {
       slug, type
     }
     if (isEdit) {
-      SellerDesignsService.updateDesign(data.id, newData, response => {
-        notification.success({
-          message: "Update design successful!",
-        });
-        goDesignDetail(true);
-      }, error => {
-        notification.error({
-          message: error && error.title ? error.title : "Update design failure!",
-        });
-      })
+      goDesignDetail(true);
     } else {
       SellerDesignsService.createDesign(newData, response => {
-        ref.current.designId = response.id;
         notification.success({
           message: "Create design successful!",
         });
+        // onOk();
+        setSelectedDesign(response);
         goDesignDetail(true);
       }, error => {
         notification.error({
-          message: error && error.title ? error.title : "Create design failure!",
+          message: BaseService.getErrorMessage(error,"Create design failure!"),
         });
       })
     }
-
   }
-  return !isDesignDetail ? (
-    <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
-               form={form}
-               open={open}
-               title={isEdit ? "Edit design" : "Add design"}
-               okText={"Continue"}
-               onOk={handleOk}
-               onCancel={onCancel}
-    >
+
+  const onCancelDesignDetail = () => {
+    onOk();
+    onCancel();
+  }
+
+  const modalProps = isDesignDetail ? {
+    title: "Add design detail",
+    onCancel: onCancelDesignDetail,
+    footer: null,
+    children: (
+      <DesignDetailForm
+        designId={selectedDesign.id}
+        initialValues={data}
+      />
+    )
+  } : {
+    form: form,
+    title: isEdit ? "Edit design" : "Add design",
+    okText: "Continue",
+    onOk: handleOk,
+    onCancel: onCancel,
+    children: (
       <DesignForm
         form={form}
         initialValues={data}
       />
-    </ModalView>
-  ) : (
+    )
+  }
+
+  return (
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                open={open}
-               title={"Add design detail"}
-               cancelText={"Back"}
-               okText={"Close"}
-               onCancel={() => goDesignDetail(false)}
-               onOk={onCancel}
+               {...modalProps}
     >
-      <DesignDetailForm
-        designId={ref.current && ref.current.designId ? ref.current.designId : !!data && data.id}
-        initialValues={data}
-      />
+      {
+        modalProps.children
+      }
     </ModalView>
   )
 }
