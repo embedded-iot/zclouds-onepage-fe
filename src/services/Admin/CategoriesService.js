@@ -6,7 +6,7 @@ import shirt_sku from 'images/t-shirt_sku.svg';
 const transformCategory = item => {
   return {
     ...item,
-    avatar: item.featureImage || shirt_sku ,
+    featureImage: item.featureImage || shirt_sku ,
     convertedState: STATE_LABELS[item.state] || item.state,
   }
 }
