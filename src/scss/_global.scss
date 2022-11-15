@@ -37,14 +37,14 @@ $primary-color: #0065FF;
 
 .public-layout__wrapper--tablet {
   .page-wrapper {
-    max-width: 926px;
+    max-width: 100%;
     margin: 0 auto;
   }
 }
 
 .public-layout__wrapper--desktop {
   .page-wrapper {
-    max-width: 1200px;
+    max-width: 956px;
     margin: 0 auto;
   }
 }
@@ -85,5 +85,9 @@ $primary-color: #0065FF;
   &--circle {
     border-radius: 64px;
   }
+}
+
+.table-img__price-text {
+  color: #22A06B;
 }
 
