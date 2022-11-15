@@ -1,7 +1,7 @@
 import React from 'react';
 import TableGrid from 'components/Common/TableGrid';
-import { FrontUserSKUService } from 'services';
 import ProductOptionsView from 'components/Share/ProductOptionsView';
+import { FrontUserCategoriesService } from 'services';
 
 const columns = [
   {
@@ -11,7 +11,7 @@ const columns = [
   {
     title: 'Image',
     dataIndex: 'avatar',
-    render: (avatar, record) => <img src={avatar} alt={record.name} />,
+    render: (avatar, record) => <img className="table-img__icon" src={avatar} alt={record.name} />,
   },
   {
     title: 'Product Name',
@@ -20,15 +20,16 @@ const columns = [
   {
     title: 'Variant',
     dataIndex: 'productOptions',
-    render: (productOptions, record) => <ProductOptionsView productOptions={productOptions} />,
+    render: (productOptions) => <ProductOptionsView productOptions={productOptions} />,
   },
   {
     title: 'SKU',
-    dataIndex: 'id',
+    dataIndex: 'sku',
   },
   {
     title: 'Price',
-    dataIndex: 'price',
+    dataIndex: 'convertedPrice',
+    render: (convertedPrice) => <span className="table-img__price-text">{convertedPrice}</span>,
   },
 ];
 
@@ -38,11 +39,9 @@ export default function SKUTable() {
     searchPlaceholder: "Search in Object Mockups",
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize: size, pageNum: page, searchText, ...restParams} = params || {};
-      FrontUserSKUService.getSKUs({ ...restParams, page, size, searchText }, successCallback, failureCallback)
+      FrontUserCategoriesService.getCategories(params, successCallback, failureCallback)
     },
     successCallback: (response) => {
-      console.log(response);
     },
     failureCallback: (error) => {
       console.log(error);
