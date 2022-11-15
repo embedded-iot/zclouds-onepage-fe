@@ -6,7 +6,8 @@ import events from './events';
 import * as datetime from './datetime';
 import * as format from './format';
 import * as upload from './upload';
-import * as fileHelper from 'utils/fileHelper';
+import * as fileHelper from './fileHelper';
+import * as cui from './cui';
 
 export {
   history,
@@ -23,4 +24,5 @@ export {
   format,
   upload,
   fileHelper,
+  cui,
 }
