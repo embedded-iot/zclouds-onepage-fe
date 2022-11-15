@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DropdownSelect from 'components/Common/DropdownSelect';
 
 import "./style.scss";
 
-export default function ProductOptionsView({ productOptions = []}) {
+export default function ProductOptionsView({ productOptions = [], onProductOptionsChange }) {
+  const [selectedProductOptions, setProductOptions] = useState({});
   const getOptionList = (option => {
     return ([
       { label : option.name, value: '' },
@@ -11,7 +12,16 @@ export default function ProductOptionsView({ productOptions = []}) {
         label : optionValue.value, value: optionValue.id
       })))
     ])
-  })
+  });
+// eslint-disable-next-line
+  const onOptionsChange = (name, value) => {
+    const newSelectedProductOptions = {
+      ...selectedProductOptions,
+      [name]: value,
+    }
+    setProductOptions(newSelectedProductOptions);
+  }
+
   return (
     <div className='product-options-view__wrapper'>
       {
