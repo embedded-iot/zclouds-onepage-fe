@@ -7,7 +7,7 @@ import ProductInfo from './ProductInfo';
 import './style.scss';
 
 export default function ProductDetailBox({ productId, productName }) {
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState(null);
 
   const getProductDetail = () => {
     FrontUserCategoriesService.getProductDetail(productId, response => {
@@ -19,6 +19,9 @@ export default function ProductDetailBox({ productId, productName }) {
     // eslint-disable-next-line
   }, [productId]);
 
+  if (!product) {
+    return null;
+  }
   return (
     <div className='product-detail-box__wrapper'>
       <Row gutter={[65, 46]}>
