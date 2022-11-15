@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from 'embla-carousel-react'
 import { Thumb } from "./Thumb";
+// eslint-disable-next-line
 import ReactImageZoom from "react-image-zoom";
 
 import "./style.scss";
@@ -33,7 +34,7 @@ const ImageGalleryView = ({ images }) => {
     onSelect();
     embla.on("select", onSelect);
   }, [embla, onSelect]);
-
+  // eslint-disable-next-line
   const props = { width: 470, height: 470, zoomWidth: 500, img: "1.jpg" };
 
   return (
@@ -44,7 +45,7 @@ const ImageGalleryView = ({ images }) => {
             {images.map((img, index) => (
               <div className="embla__slide" key={index}>
                 <div className="embla__slide__inner">
-                  <ReactImageZoom {...props} />
+                  {/*<ReactImageZoom {...props} />*/}
                   <img
                     className="embla__slide__img"
                     src={img}
