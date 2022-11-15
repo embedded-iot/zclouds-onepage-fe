@@ -23,11 +23,10 @@ export default function CategoriesGrid({ searchTextKey = 'searchText', searchTex
     searchPlaceholder: 'Search in Object Mockups',
     gridItemTemplate: gridItemTemplate,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize, pageNum, ...restParams} = params || {};
-      FrontUserCategoriesService.getCategories({ ...restParams, pageSize, pageNum }, successCallback, failureCallback)
+      const { pageSize, pageNum, categoryId, ...restParams} = params || {};
+      FrontUserCategoriesService.getCategories({ ...restParams, pageSize, pageNum, categoryId: !!categoryId ? categoryId : -1 }, successCallback, failureCallback)
     },
     successCallback: (response) => {
-      console.log(response);
     },
     failureCallback: (error) => {
       console.log(error);
