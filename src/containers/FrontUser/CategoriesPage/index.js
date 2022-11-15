@@ -8,6 +8,7 @@ import CategoriesGrid from 'components/FrontUser/CategoriesGrid';
 import InputSearch from 'components/Common/InputSearch';
 
 import './style.scss';
+import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
 
 function CategoriesPage(props) {
   const { categoryId } = props.match ? props.match.params : {};
@@ -43,6 +44,7 @@ function CategoriesPage(props) {
                         categoryId={categoryId}
                         redirectTo={props.push}
         />
+        <SignUpBannerBox />
       </div>
     </div>
   );

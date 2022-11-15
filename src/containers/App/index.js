@@ -100,14 +100,17 @@ const PublicAppContent = (props) => (
 );
 
 const FrontUserAppContent = (props) => (
-  <Switch>
-    <Route exact path={ROUTERS.FRONT_USER_REGISTER} component={RegisterPage} />
-    <Route exact path={ROUTERS.ROOT} component={FrontUserHomePage} />
-    <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS} component={FrontUserAllProductsPage} />
-    <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY} component={FrontUserAllProductsPage} />
-    <Route exact path={ROUTERS.FRONT_USER_PRODUCT_DETAIL} component={FrontUserProductDetailPage} />
-    <Route exact path={ROUTERS.FRONT_USER_SKU} component={FrontUserSKUPage} />
-  </Switch>
+  <>
+    <Switch>
+      <Route exact path={ROUTERS.FRONT_USER_REGISTER} component={RegisterPage} />
+      <Route exact path={ROUTERS.ROOT} component={FrontUserHomePage} />
+      <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS} component={FrontUserAllProductsPage} />
+      <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY} component={FrontUserAllProductsPage} />
+      <Route exact path={ROUTERS.FRONT_USER_PRODUCT_DETAIL} component={FrontUserProductDetailPage} />
+      <Route exact path={ROUTERS.FRONT_USER_SKU} component={FrontUserSKUPage} />
+    </Switch>
+  </>
+
 )
 
 const AppContent = (props) => (

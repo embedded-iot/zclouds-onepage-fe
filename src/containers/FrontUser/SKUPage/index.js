@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import SKUTable from 'components/FrontUser/SKUTable';
+import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
 
 function SKUPage(props) {
   return (
@@ -19,6 +20,7 @@ function SKUPage(props) {
       />
       <div className="page-contents">
         <SKUTable />
+        <SignUpBannerBox />
       </div>
     </div>
   );

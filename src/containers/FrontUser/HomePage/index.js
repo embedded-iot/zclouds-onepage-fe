@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
+import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
+
+import './style.scss';
 
 function HomePage(props) {
   const isDesktop = useMediaQuery(RESPONSIVE_MEDIAS.DESKTOP);
@@ -14,7 +17,7 @@ function HomePage(props) {
   const customClass = !!isTablet && 'home-box__wrapper--tablet' || !!isDesktop && 'home-box__wrapper--desktop';
 
   return (
-    <div className="page-wrapper--full-width">
+    <div className="page-wrapper--full-width home-page__wrapper">
       <Helmet>
         <title>Home</title>
       </Helmet>
@@ -35,6 +38,7 @@ function HomePage(props) {
           customClass={customClass}
           redirectTo={props.push}
         />
+        <SignUpBannerBox />
       </div>
     </div>
   );

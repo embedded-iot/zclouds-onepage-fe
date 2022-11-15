@@ -9,6 +9,7 @@ import ProductDetailBox from 'components/FrontUser/ProductDetailBox';
 import RelatedProductForProductDetail from 'components/FrontUser/RelatedProductForProductDetail';
 
 import './style.scss';
+import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
 
 
 function ProductDetailPage(props) {
@@ -42,6 +43,7 @@ function ProductDetailPage(props) {
           categoryName={categoryName}
           redirectTo={props.push}
         />
+        <SignUpBannerBox />
       </div>
     </div>
   );
