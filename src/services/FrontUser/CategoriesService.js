@@ -1,36 +1,23 @@
-import { getFrontUserBaseURL } from 'services/BaseService';
+import { getFrontUserBaseURL, getFullPathImage } from 'services/BaseService';
 import { format, makeGetWithConfigs } from 'utils';
-
 
 import product_ex from 'images/product_ex.svg';
 
-const items = [];
-
-for (let i = 0; i < 35; i++) {
-  items.push({
-    avatar: product_ex,
-    category: 'Apparel',
-    name: 'Creative graphic assets',
-    price: '$ 28',
-    sizes: 6,
-    colors: 12,
-    print: 5
-  })
-}
-
 const transformProduct = product => {
+  const featureImage = product.featureImage || product_ex;
+  const images = [featureImage, ...(product.productImages.map(image => getFullPathImage(image.fullSizePath))), ...(product.productImages.map(image => getFullPathImage(image.fullSizePath)))];
   return {
     ...product,
+    key: product.id,
+    sku: product.id,
     categoryId: product.categoryId,
     categoryName: product.categoryName || 'categoryName',
     productName: product.name,
     productId: product.id,
-    avatar: product.featureImage || product_ex,
-    price: format.formatCurrency(product.price),
-    sizes: 6, // @todo chưa rõ productOptions field
-    colors: 12,
-    print: 5,
-    images: product.images || [product_ex, product_ex, product_ex, product_ex, product_ex],
+    avatar: featureImage,
+    convertedPrice: format.formatCurrency(product.price),
+    productOptionsLabel: product.productOptions.map(option => `${option.productOptionValues.length} ${option.name.toLowerCase()}`).join(" "),
+    images,
   }
 }
 
