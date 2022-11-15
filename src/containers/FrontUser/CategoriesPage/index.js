@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
@@ -12,9 +12,14 @@ import './style.scss';
 function CategoriesPage(props) {
   const { categoryId } = props.match ? props.match.params : {};
   const [searchText, setSearchText] = useState('');
-
+  let ref = useRef({});
   const onSearchChange = (value) => {
-    setSearchText(value);
+    if (!!ref.current.searchTimeout) {
+      clearTimeout(ref.current.searchTimeout);
+    }
+    ref.current.searchTimeout = setTimeout(() => {
+      setSearchText(value);
+    }, 500)
   };
   return (
     <div className="page-wrapper categories-page__wrapper">
@@ -33,7 +38,7 @@ function CategoriesPage(props) {
         description="Lenful is a Print-on-demand solution that helps you build a profitable online business. Start a business, with everything you need all in one place."
       />
       <div className="page-contents">
-        <CategoriesGrid searchTextKey='searchText'
+        <CategoriesGrid searchTextKey='keyword'
                         searchText={searchText}
                         categoryId={categoryId}
                         redirectTo={props.push}
