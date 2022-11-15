@@ -23,8 +23,11 @@ const getErrorMessage = (error, defaultMessage) => {
   return !!message ? message : defaultMessage;
 }
 
+const getFullPathImage = (imageUrl = '') => getFrontUserUrl() + imageUrl;
+
 export {
   getFrontUserUrl,
+  getFullPathImage,
   getBaseURL,
   getFrontUserBaseURL,
   getSellerBaseURL,
