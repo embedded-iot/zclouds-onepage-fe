@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import MultiCarouselView from 'components/Common/MultiCarouselView';
 import { FrontUserCategoriesService } from 'services';
 import { ROUTERS } from 'components/contants';
-// eslint-disable-next-line
 import CategoryCard from 'components/FrontUser/CategoryCard';
 
 export default function CategoriesBox({ redirectTo }) {
@@ -25,21 +24,15 @@ export default function CategoriesBox({ redirectTo }) {
   return (
     <MultiCarouselView
       deviceType="desktop"
+      responsive={{
+        desktop: {
+          items: 3,
+        }
+      }}
     >
       {
-        categories.map((category) => <CategoryCard {...category} onClick={handleClick} />)
-        // categories.map((category, index) => {
-        //   return <div key={index}>{category.id}</div>
-        // })
+        categories.map((category) => <CategoryCard {...category} />)
       }
-      {/*<div>Item 1</div>*/}
-      {/*<div>Item 2</div>*/}
-      {/*<div>Item 3</div>*/}
-      {/*<div>Item 4</div>*/}
-      {/*<div>Item 1</div>*/}
-      {/*<div>Item 2</div>*/}
-      {/*<div>Item 3</div>*/}
-      {/*<div>Item 4</div>*/}
     </MultiCarouselView>
   )
 }

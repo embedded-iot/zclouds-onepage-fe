@@ -3,25 +3,27 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './style.scss';
 
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 4,
-    slidesToSlide: 1 // optional, default to 1.
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 3,
-    slidesToSlide: 1 // optional, default to 1.
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    slidesToSlide: 1 // optional, default to 1.
-  }
-};
-
-export default function MultiCarouselView({ children, deviceType,...restProps }) {
+export default function MultiCarouselView({ children, deviceType, responsive, ...restProps }) {
+  const responsiveProps = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+      slidesToSlide: 1, // optional, default to 1.
+      ...(responsive && responsive.desktop ? responsive.desktop : {})
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 3,
+      slidesToSlide: 1, // optional, default to 1.
+      ...(responsive && responsive.tablet ? responsive.tablet : {})
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+      ...(responsive && responsive.mobile ? responsive.mobile : {})
+    }
+  };
   return (
     <Carousel
       additionalTransfrom={0}
@@ -41,7 +43,7 @@ export default function MultiCarouselView({ children, deviceType,...restProps })
       renderArrowsWhenDisabled={false}
       renderButtonGroupOutside={false}
       renderDotsOutside={false}
-      responsive={responsive}
+      responsive={responsiveProps}
       rewind={false}
       rewindWithAnimation={false}
       rtl={false}

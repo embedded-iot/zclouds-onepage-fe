@@ -36,10 +36,8 @@ export default function BannerBox3({ customClass, redirectTo }) {
             <div className='home-box__buttons'>
               <Button>View all our products</Button>
             </div>
+            <CategoriesBox redirectTo={redirectTo} />
           </div>
-        </Col>
-        <Col span={24} className="home-box__img-box">
-          <CategoriesBox redirectTo={redirectTo} />
         </Col>
       </Row>
     </div>

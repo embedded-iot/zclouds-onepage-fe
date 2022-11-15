@@ -1,16 +1,12 @@
-.category-item {
+.category-card {
   &__wrapper {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    .ant-card-cover {
-      img {
-        border-radius: 8px;
-      }
-    }
-    .ant-card-body {
-      padding: 8px 0 0;
-    }
+    box-shadow: 0px 4px 4px rgba(29, 41, 106, 0.25);
+    border-radius: 16px;
+    background: #F6F6F8;
+
+  }
+  &__contents {
+
   }
   &__title {
     font-weight: 600;
