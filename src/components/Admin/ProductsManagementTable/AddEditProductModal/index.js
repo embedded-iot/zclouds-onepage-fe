@@ -13,7 +13,7 @@ export default function AddEditProductModal({ open, data, onOk, onCancel }) {
   const [categoriesOptions, setCategoriesOptions] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(data);
   const getCategoriesFilter = () => {
-    AdminCategoriesService.getCategories({ pageNum: 1, pageSize: 10000 }, response => {
+    AdminCategoriesService.getCategories({ pageNum: 1, pageSize: 1000 }, response => {
       setCategoriesOptions(getCategoriesOptions(response.items));
     }, () => {}, true)
   }
