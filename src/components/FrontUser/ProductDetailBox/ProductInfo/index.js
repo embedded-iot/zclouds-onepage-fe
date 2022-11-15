@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 
 import './style.scss';
+import { format } from 'utils';
 
-export default function ProductInfo({ product = {}}) {
+export default function ProductInfo({ product = {}, onChange}) {
   const [productOptions, setProductOptions] = useState({});
+  const [productDetail, setProductDetail] = useState(product);
 
   const onOptionsChange = (name, value) => {
     const newProductOptions = {
@@ -15,22 +17,40 @@ export default function ProductInfo({ product = {}}) {
     setProductOptions(newProductOptions);
   }
 
+  useEffect(() => {
+    if (Object.entries(productOptions).length === 0) {
+      return;
+    }
+    let calcPrice = productDetail.price;
+    let calSku = productDetail.id;
+    for (const [, value] of Object.entries(productOptions)) {
+      calcPrice += value.priceAdjustment;
+      calSku += '|' + value.slug;
+    }
+    setProductDetail(productDetail => ({
+      ...productDetail,
+      convertedPrice: format.formatCurrency(calcPrice),
+      sku: calSku,
+    }))
+    // eslint-disable-next-line
+  }, [productOptions]);
+
   return (
     <div className='product-info__wrapper'>
-      <div className='product-info__title'>{product.name}</div>
-      <div className='product-info__description'>{product.subName || '-'}</div>
-      <div className='product-info__price'>From: {product.price}</div>
-      <div className='product-info__sku'>SKU: {product.id}</div>
+      <div className='product-info__title'>{productDetail.name}</div>
+      {/*<div className='product-info__description'>{product.subName || '-'}</div>*/}
+      <div className='product-info__price'>From: {productDetail.convertedPrice}</div>
+      <div className='product-info__sku'>SKU: {productDetail.sku}</div>
       <div className='product-info__divider'></div>
       {
-        product.productOptions && product.productOptions.map(productOption => (
+        productDetail.productOptions && productDetail.productOptions.map(productOption => (
           <div className='product-info__options-wrapper' key={productOption.id}>
             <div className='product-info__option-title'>{productOption.name}</div>
             <div className='product-info__option-list'>
               {
                 productOption.productOptionValues && productOption.productOptionValues.map(productOptionValue => (
-                  <span className={`product-info__option-item ${productOptions[productOption.name] === productOptionValue.value && 'product-info__option-item--selected' }`}
-                       key={productOptionValue.id} onClick={() => onOptionsChange(productOption.name, productOptionValue.value)}>
+                  <span className={`product-info__option-item ${productOptions[productOption.name] && productOptions[productOption.name].value === productOptionValue.value && 'product-info__option-item--selected' }`}
+                       key={productOptionValue.id} onClick={() => onOptionsChange(productOption.name, productOptionValue)}>
                     {productOptionValue.value}
                   </span>
                 ))
@@ -39,7 +59,7 @@ export default function ProductInfo({ product = {}}) {
           </div>
         ))
       }
-      <div className='product-info__note'>{product.note}</div>
+      { !!product.note && <div className='product-info__note'>{productDetail.note}</div> }
       <Button className="product-info__download-button" type='primary' icon={<DownloadOutlined />}>Download Mockup & Teamplate Design</Button>
     </div>
   )
