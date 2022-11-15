@@ -9,17 +9,29 @@ export default function ProductOptionsView({ productOptions = [], onProductOptio
     return ([
       { label : option.name, value: '' },
       ...((option.productOptionValues || []).map(optionValue => ({
-        label : optionValue.value, value: optionValue.id
+        ...optionValue,
+        label : optionValue.value,
+        value: optionValue.id
       })))
     ])
   });
 // eslint-disable-next-line
-  const onOptionsChange = (name, value) => {
-    const newSelectedProductOptions = {
-      ...selectedProductOptions,
-      [name]: value,
+  const onOptionsChange = (value, name, selectedOption) => {
+    let newSelectedProductOptions;
+    if (!value) {
+      newSelectedProductOptions = {
+        ...selectedProductOptions,
+      };
+      delete newSelectedProductOptions[name];
+    } else {
+      newSelectedProductOptions = {
+        ...selectedProductOptions,
+        [name]: selectedOption,
+      }
     }
+
     setProductOptions(newSelectedProductOptions);
+    onProductOptionsChange(newSelectedProductOptions);
   }
 
   return (
@@ -30,6 +42,8 @@ export default function ProductOptionsView({ productOptions = [], onProductOptio
             <DropdownSelect
               options={getOptionList(option)}
               defaultValue={''}
+              name={option.name}
+              onChange={onOptionsChange}
             />
           </div>
         ))

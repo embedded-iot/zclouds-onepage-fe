@@ -29,7 +29,6 @@ export default function TableGrid({
                                     isShowPagination = false,
                                     isAllowSelection = false,
                                     RELOAD_EVENT_KEY = '',
-                                    UPDATE_DATA_EVENT_KEY = ''
                                   }) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [pageNumOptions, setPageNumOptions] = useState([]);
@@ -62,23 +61,6 @@ export default function TableGrid({
     // eslint-disable-next-line
   }, []);
 
-  const updateDataListenerFunc = () => {
-    let updateDataListener = null;
-    if (!!UPDATE_DATA_EVENT_KEY) {
-      updateDataListener = events.subscribe(UPDATE_DATA_EVENT_KEY, (payload = {}) => {
-        const { key, record } = payload;
-        const newData = {
-          ...data,
-          items: data.items.map(item => item.key === key ? record : item),
-        }
-        setData(newData);
-      })
-    }
-    return () => {
-      updateDataListener && updateDataListener.remove();
-    };
-  }
-
   const reloadListenerFunc = () => {
     let reloadListener = null;
     if (!!RELOAD_EVENT_KEY) {
@@ -96,7 +78,6 @@ export default function TableGrid({
 
   useEffect(() => {
     getDataFunc(params);
-    updateDataListenerFunc();
     reloadListenerFunc();
     // eslint-disable-next-line
   }, []);

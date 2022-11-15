@@ -5,7 +5,7 @@ import './style.scss';
 
 export default function DropdownSelect({ name, defaultValue, value, options, onChange, placeholder, ...restProps }) {
   const handlerOnChange = (inputValue) => {
-    onChange(inputValue, name);
+    onChange(inputValue, name, options.find(option => option.value === inputValue));
   };
 
   return (
