@@ -1,7 +1,5 @@
 .embla {
   position: relative;
-  background-color: #f7f7f7;
-  padding: 20px;
   max-width: 670px;
   margin-left: auto;
   margin-right: auto;
@@ -10,6 +8,7 @@
 .embla__viewport {
   overflow: hidden;
   width: 100%;
+  border-radius: 8px;
 }
 
 .embla__viewport.is-draggable {
@@ -27,11 +26,10 @@
   -webkit-touch-callout: none;
   -khtml-user-select: none;
   -webkit-tap-highlight-color: transparent;
-  margin-left: -10px;
+  gap: 7px;
 }
 
 .embla__slide {
-  padding-left: 10px;
   min-width: 100%;
   position: relative;
 }
@@ -56,27 +54,30 @@
 
 .embla--thumb {
   padding-top: 0;
-  margin-top: -12px;
+  margin-top: 16px;
 }
 
 .embla__container--thumb {
   cursor: default;
-  margin-left: -8px;
 }
 
 .embla__slide--thumb {
-  padding-left: 8px;
   min-width: 20%;
+  flex-basis: 112px;
+  height: 112px;
+  flex-shrink: 0;
+  border-radius: 8px;
 }
 
 .embla__slide__inner--thumb {
+  border-radius: 8px;
   touch-action: manipulation;
   cursor: pointer;
   border: 0;
   outline: 0;
   margin: 0;
   padding: 0;
-  height: 100px;
+  height: 100%;
   width: 100%;
   background-color: transparent;
   position: relative;
@@ -86,7 +87,6 @@
 
 .embla__slide__thumbnail {
   position: absolute;
-  opacity: 0.2;
   top: 0;
   bottom: 0;
   left: -10000%;
@@ -97,8 +97,9 @@
   max-width: none;
   transform: scale(0.1);
   transition: opacity 0.2s;
+  border-radius: 8px;
 }
 
-.embla__slide--thumb.is-selected .embla__slide__thumbnail {
-  opacity: 1;
+.embla__slide--thumb.is-selected .embla__slide__inner {
+  border: 2px solid #0065FF !important;
 }
