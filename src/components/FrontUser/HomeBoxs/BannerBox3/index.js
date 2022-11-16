@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Row } from 'antd';
-import CategoriesBox from 'components/FrontUser/CategoriesBox';
+import CategoriesSlideBox from 'components/FrontUser/CategoriesSlideBox';
 
 import './style.scss';
+import CategorySlideItem from 'components/FrontUser/CategorySlideItem';
 
 export default function BannerBox3({ customClass, redirectTo }) {
+  const [category, setCategory] = useState({});
+
+  const getCategoriesCallback = (categories = []) => {
+    if (categories.length === 0) return;
+    setCategory(categories[0])
+  }
   return (
     <div className={`home-box__wrapper ${customClass} banner-box-3__wrapper`}>
       <Row>
@@ -36,7 +43,15 @@ export default function BannerBox3({ customClass, redirectTo }) {
             <div className='home-box__buttons'>
               <Button>View all our products</Button>
             </div>
-            <CategoriesBox redirectTo={redirectTo} />
+            <Row gutter={[20, 20]}>
+              <Col span={8}>
+                <CategorySlideItem {...category} customClass="first-category-slide" />
+              </Col>
+              <Col span={16}>
+                ádadasd
+              </Col>
+            </Row>
+            <CategoriesSlideBox redirectTo={redirectTo} successCallback={getCategoriesCallback} />
           </div>
         </Col>
       </Row>

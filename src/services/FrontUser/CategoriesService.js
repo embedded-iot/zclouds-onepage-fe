@@ -39,6 +39,7 @@ function getCategories(params, successCallback, failureCallback) {
 
 const transformCategory = item => {
   return {
+    ...item.category,
     categoryId: item.category.id,
     categoryName: item.category.name || 'categoryName',
     label: item.category ? item.category.name : '-',

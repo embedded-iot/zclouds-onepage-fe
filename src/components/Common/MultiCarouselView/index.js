@@ -3,7 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './style.scss';
 
-export default function MultiCarouselView({ children, deviceType, responsive, ...restProps }) {
+export default function MultiCarouselView({ children, deviceType, containerClass, responsive, ...restProps }) {
   const responsiveProps = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -31,7 +31,7 @@ export default function MultiCarouselView({ children, deviceType, responsive, ..
       autoPlaySpeed={3000}
       centerMode={false}
       className=""
-      containerClass="carousel-container"
+      containerClass={`carousel-container ${containerClass}`}
       dotListClass=""
       draggable
       focusOnSelect={false}
