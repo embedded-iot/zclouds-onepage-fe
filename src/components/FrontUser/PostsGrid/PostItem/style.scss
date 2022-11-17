@@ -1,0 +1,21 @@
+.post-item {
+  &__wrapper {
+    text-align: left;
+  }
+  &__content {
+    font-weight: 600;
+    color: #2C3E5D;
+    height: 100%;
+  }
+  &__avatar {
+    padding-right: 12px;
+    img {
+      width: 46px;
+      height: 46px;
+    }
+  }
+  &__user-info-wrapper {
+    margin-top: auto;
+    display: flex;
+  }
+}
