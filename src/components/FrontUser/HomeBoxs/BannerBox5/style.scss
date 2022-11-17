@@ -1,0 +1,19 @@
+.banner-box-5 {
+  &__wrapper {
+    background: #FFFFFF;
+  }
+  &__center-box {
+    display: flex;
+    justify-content: center;
+  }
+  &__contents {
+    max-width: 1170px;
+    text-align: center;
+  }
+  &__link {
+    color: #1D9AAA;
+  }
+  &__img {
+    margin-top: 34px;
+  }
+}

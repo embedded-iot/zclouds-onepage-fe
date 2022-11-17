@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { BannerBox, BannerBox1, BannerBox2, BannerBox3, BannerBox4 } from 'components/FrontUser/HomeBoxs';
+import { BannerBox, BannerBox1, BannerBox2, BannerBox3, BannerBox4, BannerBox5 } from 'components/FrontUser/HomeBoxs';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -39,6 +39,10 @@ function HomePage(props) {
           redirectTo={props.push}
         />
         <BannerBox4
+          customClass={customClass}
+          redirectTo={props.push}
+        />
+        <BannerBox5
           customClass={customClass}
           redirectTo={props.push}
         />
