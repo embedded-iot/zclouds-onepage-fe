@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Col, Row } from 'antd';
 import CategoriesSlideBox from 'components/FrontUser/CategoriesSlideBox';
+import CategorySlideItem from 'components/FrontUser/CategorySlideItem';
+import RelatedProductsBox from 'components/FrontUser/RelatedProductsBox';
 
 import './style.scss';
-import CategorySlideItem from 'components/FrontUser/CategorySlideItem';
 
 export default function BannerBox3({ customClass, redirectTo }) {
   const [category, setCategory] = useState({});
@@ -43,12 +44,22 @@ export default function BannerBox3({ customClass, redirectTo }) {
             <div className='home-box__buttons'>
               <Button>View all our products</Button>
             </div>
-            <Row gutter={[20, 20]}>
+            <Row gutter={[20, 0]} className="banner-box-3__first-category">
               <Col span={8}>
-                <CategorySlideItem {...category} customClass="first-category-slide" />
+                <CategorySlideItem {...category} customClass="banner-box-3__first-category-slide" />
               </Col>
               <Col span={16}>
-                ádadasd
+                <RelatedProductsBox
+                  containerClass="banner-box-3__related-products"
+                  itemClass="banner-box-3__related-product-item"
+                  redirectTo={redirectTo}
+                  categoryId={category.categoryId}
+                  responsive={{
+                    desktop: {
+                      items: 3,
+                    }
+                  }}
+                />
               </Col>
             </Row>
             <CategoriesSlideBox redirectTo={redirectTo} successCallback={getCategoriesCallback} />
