@@ -4,7 +4,7 @@ import PostsGrid from 'components/FrontUser/PostsGrid';
 
 import './style.scss';
 
-export default function BannerBox3({ customClass, redirectTo }) {
+export default function BannerBox4({ customClass, redirectTo }) {
 
   return (
     <div className={`home-box__wrapper ${customClass} banner-box-4__wrapper`}>
