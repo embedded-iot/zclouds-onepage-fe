@@ -1,6 +1,9 @@
 .post-item {
   &__wrapper {
     text-align: left;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
   }
   &__content {
     font-weight: 600;
@@ -15,7 +18,14 @@
     }
   }
   &__user-info-wrapper {
-    margin-top: auto;
+    justify-self: end;
+    margin-top: 30px;
     display: flex;
+  }
+  &__user-name {
+    color: #626F86;
+  }
+  &__user-work {
+    color: #B3B9C4;
   }
 }
