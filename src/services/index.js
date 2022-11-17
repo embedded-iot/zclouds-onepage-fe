@@ -1,6 +1,7 @@
 import * as  BaseService from "./BaseService";
 import * as  UserService from "./Common/UserService";
 import * as  FrontUserCategoriesService from './FrontUser/CategoriesService';
+import * as  FrontUserPostsService from './FrontUser/PostsService';
 import * as  SellerProductService from './Seller/ProductService';
 import * as  SellerDesignsService from './Seller/DesignsService';
 import * as  SellerStoresService from './Seller/StoresService';
@@ -13,6 +14,7 @@ export {
   BaseService,
   UserService,
   FrontUserCategoriesService,
+  FrontUserPostsService,
   AdminUsersService,
   AdminProductsService,
   AdminCategoriesService,
