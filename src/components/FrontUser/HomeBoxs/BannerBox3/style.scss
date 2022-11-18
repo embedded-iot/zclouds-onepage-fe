@@ -47,5 +47,21 @@
     .ant-card-cover {
       height: 270px !important;
     }
+    .ant-card-body {
+      text-align: left;
+      padding-top: 12px;
+      .category-item__title {
+        font-weight: 600;
+        font-size: 20px;
+      }
+      .category-item__description-1 {
+        font-weight: 400;
+        font-size: 18px;
+        margin-top: 6px;
+      }
+    }
+  }
+  &__link {
+    color: #8270DB;
   }
 }
