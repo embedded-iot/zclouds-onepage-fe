@@ -60,6 +60,9 @@ $primary-color: #0065FF;
 
 .ant-btn {
   font-weight: 600;
+  &--full-width {
+    width: 100%;
+  }
   &.ant-btn-default {
     background: #F7F8F9;
     border: none;
@@ -91,3 +94,8 @@ $primary-color: #0065FF;
   color: #22A06B;
 }
 
+.ant-form-item-explain-error {
+  font-size: 12px;
+  color: #E34935;
+  margin-top: 2px;
+}
