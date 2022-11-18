@@ -7,10 +7,12 @@ export default function InputText({ name, value, onChange, placeholder, ...restP
   const handlerOnchange = (e) => onChange(e.target.value, name);
 
   return (
-    <Input {...restProps}
-           placeholder={placeholder}
-           value={value}
-           onChange={handlerOnchange}
-    />
+    <div className='input-text'>
+      <Input {...restProps}
+             placeholder={placeholder}
+             value={value}
+             onChange={handlerOnchange}
+      />
+    </div>
   )
 }
