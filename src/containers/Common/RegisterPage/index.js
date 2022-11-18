@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { notification } from 'antd';
+import { Col, notification, Row } from 'antd';
 import { setGlobalStore } from 'containers/App/actions';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -9,6 +9,11 @@ import RegisterForm from 'components/Share/RegisterForm';
 import { UserService } from 'services';
 import { ROUTERS } from 'components/contants';
 import NormalContent from 'components/Share/NormalContent';
+import bannerImg from 'images/banner-img.png';
+import logoImg from 'images/logo.svg';
+import Logo from 'components/Share/Logo';
+
+import './style.scss'
 
 const RegisterPage = (props) => {
   const onFinish = (values) => {
@@ -26,15 +31,25 @@ const RegisterPage = (props) => {
   }
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper--full-width sign-up__wrapper">
       <Helmet>
-        <title>Đăng ký</title>
+        <title>Sign up</title>
       </Helmet>
-      <div className="page-contents">
-        <NormalContent>
-          <RegisterForm onFinish={onFinish} redirectTo={props.push} />
-        </NormalContent>
-      </div>
+      <Row className="page-contents sign-up__contents">
+        <Col span={14} >
+          <NormalContent>
+            <div>
+              <div className='sign-up__logo'>
+                <Logo src={logoImg} height={64}/>
+              </div>
+              <RegisterForm onFinish={onFinish} redirectTo={props.push} />
+            </div>
+          </NormalContent>
+        </Col>
+        <Col span={10} className="sign-up__img">
+          <img src={bannerImg} alt='sign-up' />
+        </Col>
+      </Row>
     </div>
   );
 }
