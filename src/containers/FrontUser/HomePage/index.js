@@ -1,12 +1,19 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { BannerBox, BannerBox1, BannerBox2, BannerBox3, BannerBox4, BannerBox5 } from 'components/FrontUser/HomeBoxs';
+import {
+  BannerBox,
+  BannerBox1,
+  BannerBox2,
+  BannerBox3,
+  BannerBox4,
+  BannerBox5,
+  BannerBox6,
+} from 'components/FrontUser/HomeBoxs';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
-import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
 
 import './style.scss';
 
@@ -46,7 +53,11 @@ function HomePage(props) {
           customClass={customClass}
           redirectTo={props.push}
         />
-        <SignUpBannerBox />
+        <BannerBox6
+          customClass={customClass}
+          redirectTo={props.push}
+        />
+
       </div>
     </div>
   );
