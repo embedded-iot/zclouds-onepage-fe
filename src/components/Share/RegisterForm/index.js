@@ -1,13 +1,19 @@
 import React from 'react';
-import { Button, Card, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
 import BoxHeader from 'components/Share/BoxHeader';
+import BoxCard from 'components/Share/BoxCard';
+import InputText from 'components/Common/InputText';
+import InputPassword from 'components/Common/InputPassword';
+
+import './style.scss';
 
 export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {}}) {
   // eslint-disable-next-line
   return (
-    <Card>
+    <BoxCard className="sign-up-form__wrapper">
       <BoxHeader
         title="Sign up"
+        description="Log in with your data that you entered during registration."
       />
       <Form
         name="basic"
@@ -24,7 +30,7 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
             },
           ]}
         >
-          <Input placeholder="User Name"  />
+          <InputText placeholder="User Name"  />
         </Form.Item>
         <Form.Item
           name="password"
@@ -35,7 +41,7 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
             },
           ]}
         >
-          <Input.Password placeholder="Password" />
+          <InputPassword placeholder="Password" />
         </Form.Item>
         <Form.Item
           name="email"
@@ -50,7 +56,7 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
             },
           ]}
         >
-          <Input placeholder="Email"/>
+          <InputText placeholder="Email"/>
         </Form.Item>
         <Form.Item
           name="phoneNumber"
@@ -61,7 +67,7 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
             },
           ]}
         >
-          <Input placeholder="Phone" />
+          <InputText placeholder="Phone" />
         </Form.Item>
 
         <Form.Item
@@ -73,19 +79,19 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
             },
           ]}
         >
-          <Input placeholder="Store Name"  />
+          <InputText placeholder="Store Name"  />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" size='large' htmlType="submit">
+          <Button type="primary" size='large' htmlType="submit" className="ant-btn--full-width">
            Sign Up Now
           </Button>
         </Form.Item>
         <Form.Item>
-          <div style={{ textAlign: 'center'}}>
+          <div className="sign-up-form__note">
             Already have an account? <span className="link" onClick={() => redirectTo("/login")}>Log In</span>
           </div>
         </Form.Item>
       </Form>
-    </Card>
+    </BoxCard>
   );
 }
