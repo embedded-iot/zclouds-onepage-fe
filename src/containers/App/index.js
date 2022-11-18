@@ -11,9 +11,9 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route, withRouter, Redirect, matchPath } from 'react-router-dom';
 import { push } from 'connected-react-router';
-import { BackTop } from 'antd';
-import { UpCircleOutlined } from '@ant-design/icons';
-import { useMediaQuery } from 'react-responsive';
+// import { BackTop } from 'antd';
+// import { UpCircleOutlined } from '@ant-design/icons';
+// import { useMediaQuery } from 'react-responsive';
 
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -56,7 +56,7 @@ import AdminCategoriesManagementPage from 'containers/Admin/CategoriesManagement
 import AdminUsersManagementPage from 'containers/Admin/UsersManagementPage';
 
 
-import { ADMIN_ROLES, RESPONSIVE_MEDIAS, ROUTERS, WEBSITE_NAME } from 'components/contants';
+import { ADMIN_ROLES, ROUTERS, WEBSITE_NAME } from 'components/contants';
 
 import { UserService } from 'services';
 
@@ -144,8 +144,8 @@ const HelmetMeta = (props) => (
 
 const App = (props) => {
   const [isLoadedCheckLogin, setIsLoadedCheckLogin] = useState(false);
-  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const backdropPosition = isMobile ? 40 : 23;
+  // const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+  // const backdropPosition = isMobile ? 40 : 23;
   const redirectTo = path => {
     props.push(path);
   }
@@ -189,7 +189,7 @@ const App = (props) => {
       strict: false
     });
   });
-  const selectedRouters = [props.router.location.pathname];
+  const selectedRouters = [currentRouter];
   if (!isLoadedCheckLogin) return null;
   if (currentRouter.startsWith(ROUTERS.LOGIN)) {
     return (
@@ -223,6 +223,7 @@ const App = (props) => {
       </AppWrapper>
     )
   }
+  const isFrontFooter = currentRouter !== ROUTERS.FRONT_USER_REGISTER;
   return (
     <AppWrapper>
       <HelmetMeta />
@@ -237,7 +238,7 @@ const App = (props) => {
               />
             )}
             content={<FrontUserAppContent isLogin={props.isLogin}/>}
-            footer={<FrontUserFooter />}
+            footer={isFrontFooter && <FrontUserFooter />}
             router={props.router}
           />
         )
@@ -260,9 +261,9 @@ const App = (props) => {
           />
         )
       }
-      <BackTop style={{ right: backdropPosition, bottom: backdropPosition}}>
-        <UpCircleOutlined style={{ fontSize: 30, color: 'yellow'}}/>
-      </BackTop>
+      {/*<BackTop style={{ right: backdropPosition, bottom: backdropPosition}}>*/}
+      {/*  <UpCircleOutlined style={{ fontSize: 30, color: 'yellow'}}/>*/}
+      {/*</BackTop>*/}
     </AppWrapper>
   );
 }
