@@ -2,6 +2,7 @@
   &__wrapper {
     background: url("~images/banner-bg.svg") center center no-repeat;
     background-size: cover;
+    min-height: 550px;
   }
   &__contents {
     max-width: 391px;
