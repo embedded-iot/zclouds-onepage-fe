@@ -22,7 +22,7 @@ export default function BannerBox3({ customClass, redirectTo }) {
               WHAT WE SELL
             </div>
             <div className='home-box__title'>
-              <span className="link link--text">300+ Custom Products</span> And More Are Frequently Added
+              <span className="link link--text banner-box-3__link">300+ Custom Products</span> And More Are Frequently Added
             </div>
             <div className='home-box__description'>
               We are a printing and manufacturing system that helps you sell POD products and deliver directly to customers around the world.
