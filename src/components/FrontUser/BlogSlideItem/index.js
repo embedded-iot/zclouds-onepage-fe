@@ -1,22 +1,17 @@
 import React from 'react';
-import categoryImg from 'images/product_ex.svg'
 
 import './style.scss';
 
 export default function BlogSlideItem({ onClick = () => {}, ...restProps }) {
-  const { image, }
+  const { image, headerTitle, title, content } = restProps;
   return (
     <div className={`blog-slide-item__wrapper ${restProps.customClass}`} onClick={() => onClick(restProps)}>
       <div className='blog-slide-item__image'>
-        <img src={img} alt='' />
+        <img src={image} alt={title} />
       </div>
-      <div className='blog-slide-item__title'>{categoryName}</div>
-      <div className='category-card__contents'>
-        <div className='category-card__arrow-icon' />
-      </div>
-      <div className='category-card__img'>
-        <img src={avatar || categoryImg} alt={categoryName} />
-      </div>
+      <div className='blog-slide-item__header-title'>{headerTitle}</div>
+      <div className='blog-slide-item__title'>{title}</div>
+      <div className='blog-slide-item__content'>{content}</div>
     </div>
   )
 }
