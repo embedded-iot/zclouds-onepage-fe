@@ -1,4 +1,5 @@
 import avatar from 'images/avatar.png';
+import post from 'images/post.png';
 
 const items = [
   {
@@ -28,6 +29,25 @@ function getPosts(params, successCallback, failureCallback) {
   });
 }
 
+const blogsItems = [];
+
+for (let i = 1; i < 20; i++) {
+  blogsItems.push( {
+    image: post,
+    headerTitle: 'Design and Trends - 10 minute read',
+    title: 'Must-Have Realistic Placeit Mockups That Will Boost Your Sales',
+    content: 'This article will show you the best types of Placeit mockups and where to find them.'
+  })
+}
+
+function getBlogs(params, successCallback, failureCallback) {
+  successCallback({
+    items: blogsItems,
+    totalCount: 30,
+  });
+}
+
 export {
   getPosts,
+  getBlogs,
 }
