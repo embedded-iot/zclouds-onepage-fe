@@ -1,3 +1,21 @@
-.auto-complete-input {
+.input-text {
   width: 100%;
+  input {
+    height: 36px;
+    padding: 0 16px;
+    color: #2C3E5D;
+    background: #F7F8F9;
+    border: 1px solid #DCDFE4;
+    border-radius: 4px;
+    box-shadow: none !important;
+    &::placeholder {
+      color: #758195;
+    }
+    &:focus {
+      border: 1px solid #0065FF;
+    }
+    &.ant-input-status-error {
+      border: 1px solid #E34935 !important;
+    }
+  }
 }
