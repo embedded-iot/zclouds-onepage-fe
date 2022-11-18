@@ -16,12 +16,20 @@ const TabletAndDesktopLayout = props => {
       <Header>
         {props.header}
       </Header>
-      <Content>
-        {props.content}
-      </Content>
-      <Footer>
-        {props.footer}
-      </Footer>
+      {
+        !!props.content && (
+          <Content>
+            {props.content}
+          </Content>
+        )
+      }
+      {
+        !!props.footer && (
+          <Footer>
+            {props.footer}
+          </Footer>
+        )
+      }
     </Layout>
   )
 }
@@ -39,12 +47,20 @@ const MobileLayout = props => {
         {props.header}
         <MenuIcon className="menu-icon" style={{ fontSize: 20}} onClick={() => setMenu(!isMenu)} />
       </Header>
-      <Content>
-        {props.content}
-      </Content>
-      <Footer>
-        {props.footer}
-      </Footer>
+      {
+        !!props.content && (
+          <Content>
+            {props.content}
+          </Content>
+        )
+      }
+      {
+        !!props.footer && (
+          <Footer>
+            {props.footer}
+          </Footer>
+        )
+      }
     </Layout>
   )
 }
