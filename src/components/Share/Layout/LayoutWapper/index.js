@@ -6,34 +6,45 @@ import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 import Logo from 'components/Share/Logo';
 import logo from 'images/logo.svg';
+import arrowLeft from 'images/arrow-left.png';
 
 import './style.scss';
 
 const { Header, Footer, Sider, Content } = Layout;
 
-const TabletAndDesktopLayout = props => (
-  <Layout className="layout__wrapper">
-    <Sider theme="light" width={239}>
-      <Logo src={logo} height={64} style={{ display: 'block', margin: '36px auto'}} />
-      {props.sider}
-    </Sider>
-    <Layout>
-      <Header>
-        {props.header}
-      </Header>
-      <Content>
-        {props.content}
-      </Content>
+const TabletAndDesktopLayout = props => {
+  const [isMenu, setMenu] = useState(true);
+  return (
+    <Layout className="layout__wrapper">
       {
-        !!props.footer && (
-          <Footer>
-            {props.footer}
-          </Footer>
+        isMenu && (
+          <Sider theme="light" width={239} >
+            <Logo src={logo} height={64} style={{ display: 'block', margin: '36px auto'}} />
+            {props.sider}
+          </Sider>
         )
       }
+      <Layout>
+        <Header>
+          {props.header}
+        </Header>
+        <Content>
+          <div className={`layout__sider-toggle-icon ${!isMenu && 'hide'}`} onClick={() => setMenu(!isMenu)}>
+            <img src={arrowLeft} alt='sider toggle' />
+          </div>
+          {props.content}
+        </Content>
+        {
+          !!props.footer && (
+            <Footer>
+              {props.footer}
+            </Footer>
+          )
+        }
+      </Layout>
     </Layout>
-  </Layout>
-)
+  )
+}
 
 const MobileLayout = props => {
   const [isMenu, setMenu] = useState(false);
