@@ -11,6 +11,8 @@
       position: fixed;
       height: 100vh;
       width: 239px;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
   }
   .ant-layout-header {
