@@ -6,7 +6,10 @@ import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import LoginBox from 'components/Share/LoginBox';
 import NormalContent from 'components/Share/NormalContent';
+import Logo from 'components/Share/Logo';
+import logoGray from 'images/logo_gray.svg';
 
+import './style.scss';
 const LoginPage = (props) => {
   const queryParams = new URLSearchParams(props.location.search);
   const onFinish = () => {
@@ -19,17 +22,24 @@ const LoginPage = (props) => {
   }
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper sign-in__wrapper">
       <Helmet>
         <title>Sign in</title>
       </Helmet>
-      <div className="page-contents">
+      <div className="page-contents sign-in__contents">
         <NormalContent>
-          <LoginBox onFinish={onFinish}
-                    redirectTo={props.push}
-                    setGlobalStore={props.setGlobalStore}
-          />
+          <div>
+            <LoginBox onFinish={onFinish}
+                      redirectTo={props.push}
+                      setGlobalStore={props.setGlobalStore}
+            />
+          </div>
         </NormalContent>
+        <div className='sign-in__image sign-in__image--left' />
+        <div className='sign-in__image sign-in__image--logo'>
+          <Logo src={logoGray} height={32} />
+        </div>
+        <div className='sign-in__image sign-in__image--right' />
       </div>
     </div>
   );

@@ -1,10 +1,14 @@
 import React from 'react';
-import { Button, Card, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
 import BoxHeader from 'components/Share/BoxHeader';
+import BoxCard from 'components/Share/BoxCard';
+import InputPassword from 'components/Common/InputPassword';
+import InputText from 'components/Common/InputText';
 
+import './style.scss';
 export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }) {
   return (
-    <Card>
+    <BoxCard className="sign-in-form__wrapper">
       <BoxHeader
         title="Sign in to Creative Space"
         description="Log in with your data that you entered during registration."
@@ -24,7 +28,7 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }
             },
           ]}
         >
-          <Input placeholder="User Name"  />
+          <InputText placeholder="User Name"  />
         </Form.Item>
 
         <Form.Item
@@ -36,19 +40,19 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }
             },
           ]}
         >
-          <Input.Password placeholder="Password" />
+          <InputPassword placeholder="Password" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" size='large' htmlType="submit">
+          <Button type="primary" size='large' htmlType="submit" className="ant-btn--full-width">
             Log in
           </Button>
         </Form.Item>
         <Form.Item>
-          <div style={{ textAlign: 'center'}}>
+          <div className="sign-in-form__note">
             Don't have an account? <span className="link" onClick={() => redirectTo("/register")}>Sign up</span>.
           </div>
         </Form.Item>
       </Form>
-    </Card>
+    </BoxCard>
   );
 }
