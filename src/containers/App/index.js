@@ -32,6 +32,8 @@ import FrontUserFooter from 'components/FrontUser/Footer';
 import FrontUserSider from 'components/FrontUser/Sider';
 
 import SellerSider from 'components/Seller/Sider';
+import SellerFooter from 'components/Seller/Footer';
+
 import AdminSider from 'components/Admin/Sider';
 
 
@@ -256,7 +258,7 @@ const App = (props) => {
             )}
             sider={<SellerSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/>}
             content={<AppContent isLogin={props.isLogin}/>}
-            // footer={<Footer />}
+            footer={<SellerFooter />}
             router={props.router}
           />
         )
