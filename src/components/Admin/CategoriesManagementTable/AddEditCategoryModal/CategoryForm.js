@@ -1,11 +1,12 @@
 import React from 'react';
-import { Form, Input, InputNumber } from 'antd';
+import { Form, InputNumber } from 'antd';
 import UploadBox from 'components/Common/UploadBox';
 import {
   STATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import { upload } from 'utils';
+import InputText from 'components/Common/InputText';
 
 export default function CategoryForm({ form, initialValues, ...restProps }) {
   return (
@@ -31,7 +32,7 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
           },
         ]}
       >
-        <Input placeholder="Category name"  />
+        <InputText placeholder="Category name"  />
       </Form.Item>
       <Form.Item
         label="Upload"
@@ -51,7 +52,7 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
           },
         ]}
       >
-        <Input placeholder="Slug" />
+        <InputText placeholder="Slug" />
       </Form.Item>
       <Form.Item
         label="Display order"

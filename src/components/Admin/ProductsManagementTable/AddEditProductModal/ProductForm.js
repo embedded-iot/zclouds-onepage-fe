@@ -1,9 +1,11 @@
 import React from 'react';
-import { Form, Input, InputNumber } from 'antd';
+import { Form } from 'antd';
 import {
   STATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
+import InputText from 'components/Common/InputText';
+import InputNumber from 'components/Common/InputNumber';
 
 export default function ProductForm({ form, initialValues, categoriesOptions, ...restProps }) {
   return (
@@ -29,7 +31,7 @@ export default function ProductForm({ form, initialValues, categoriesOptions, ..
           },
         ]}
       >
-        <Input placeholder="Product name"  />
+        <InputText placeholder="Product name"  />
       </Form.Item>
       <Form.Item
         label="Slug"
@@ -41,7 +43,7 @@ export default function ProductForm({ form, initialValues, categoriesOptions, ..
           },
         ]}
       >
-        <Input placeholder="Slug" />
+        <InputText placeholder="Slug" />
       </Form.Item>
       <Form.Item
         label="Price"
@@ -59,13 +61,13 @@ export default function ProductForm({ form, initialValues, categoriesOptions, ..
         label="Note"
         name="note"
       >
-        <Input placeholder="Note" />
+        <InputText placeholder="Note" />
       </Form.Item>
       <Form.Item
         label="Description"
         name="description"
       >
-        <Input placeholder="Note" />
+        <InputText placeholder="Note" />
       </Form.Item>
       <Form.Item
         label="Category"

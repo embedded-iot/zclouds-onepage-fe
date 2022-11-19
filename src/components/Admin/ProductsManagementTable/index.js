@@ -1,40 +1,80 @@
 import React, { useRef, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminProductsService } from 'services';
-import { events } from 'utils';
+import { events, format } from 'utils';
 import { Button } from 'antd';
 import AddEditProductModal from './AddEditProductModal';
 import DeleteProductModal from './DeleteProductModal';
 import { CloseCircleOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import ProductOptionsView from 'components/Share/ProductOptionsView';
+import TableCellView from 'components/Share/TableCellView';
+import BoxCard from 'components/Share/BoxCard';
+
+
+const UPDATE_DATA_EVENT_KEY = 'UPDATE_SKU_PRICE_TABLE_EVENT_KEY';
 
 const columns = [
   {
-    title: '#',
+    title: 'ID',
     dataIndex: 'id',
   },
   {
     title: 'Image',
     dataIndex: 'avatar',
-    render: (avatar, record) => <img src={avatar} alt={record.name} />,
+    render: (avatar, record) => <img className="table-img__icon" src={avatar} alt={record.name} />,
   },
   {
     title: 'Product Name',
     dataIndex: 'name',
   },
   {
-    title: 'Slug',
-    dataIndex: 'slug',
-  },
-  {
     title: 'Variant',
     dataIndex: 'productOptions',
-    render: (productOptions, record) => <ProductOptionsView productOptions={productOptions} />,
+    render: (productOptions, record) => {
+      const onProductOptionsChange = (selectedProductOptions) => {
+        let calcPrice = record.price;
+        let calSku = record.id;
+        for (const [, value] of Object.entries(selectedProductOptions)) {
+          calcPrice += value.priceAdjustment;
+          calSku += '|' + value.slug;
+        }
+        events.publish(UPDATE_DATA_EVENT_KEY + record.key, {
+          convertedPrice: format.formatCurrency(calcPrice),
+          sku: calSku,
+        })
+      }
+      return (
+        <ProductOptionsView productOptions={productOptions}
+                            onProductOptionsChange={onProductOptionsChange}
+        />
+      )
+    },
+  },
+  {
+    title: 'SKU',
+    dataIndex: 'sku',
+    width: '15%',
+    render: (sku, record) => (
+      <TableCellView
+        className="table-img__sku-text"
+        name="sku"
+        initialValue={sku}
+        UPDATE_VALUE_EVENT={UPDATE_DATA_EVENT_KEY + record.key}
+      />
+    )
   },
   {
     title: 'Price',
     dataIndex: 'convertedPrice',
-    render: (convertedPrice) => <span>{convertedPrice}</span>,
+    width: '12%',
+    render: (convertedPrice, record) => (
+      <TableCellView
+        className="table-img__price-text"
+        name="convertedPrice"
+        initialValue={convertedPrice}
+        UPDATE_VALUE_EVENT={UPDATE_DATA_EVENT_KEY + record.key}
+      />
+    )
   },
   {
     title: 'State',
@@ -131,7 +171,7 @@ export default function ProductsManagementTable() {
   }
 
   return (
-    <>
+    <BoxCard className="content-box__wrapper">
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -163,6 +203,6 @@ export default function ProductsManagementTable() {
           />
         )
       }
-    </>
+    </BoxCard>
   );
 }

@@ -8,6 +8,7 @@ import AddEditUserModal from './AddEditUserModal';
 import DeleteUserModal from './DeleteUserModal';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import { ROLES_LABEL_VALUE_OPTIONS } from 'components/contants';
+import BoxCard from 'components/Share/BoxCard';
 
 const columns = [
   {
@@ -135,7 +136,7 @@ export default function UsersManagementTable() {
   }
 
   return (
-    <>
+    <BoxCard className="content-box__wrapper">
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -167,6 +168,6 @@ export default function UsersManagementTable() {
           />
         )
       }
-    </>
+    </BoxCard>
   );
 }

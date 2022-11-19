@@ -4,6 +4,7 @@ import {
   ROLES_LABEL_VALUE_OPTIONS, STATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
+import InputText from 'components/Common/InputText';
 
 export default function UserForm({ form, initialValues, ...restProps }) {
   return (
@@ -28,7 +29,7 @@ export default function UserForm({ form, initialValues, ...restProps }) {
           },
         ]}
       >
-        <Input placeholder="User Name"  />
+        <InputText placeholder="User Name"  />
       </Form.Item>
       <Form.Item
         label="Password"
@@ -56,7 +57,7 @@ export default function UserForm({ form, initialValues, ...restProps }) {
           },
         ]}
       >
-        <Input placeholder="Email"/>
+        <InputText placeholder="Email"/>
       </Form.Item>
       <Form.Item
         label="Phone"
@@ -68,7 +69,7 @@ export default function UserForm({ form, initialValues, ...restProps }) {
           },
         ]}
       >
-        <Input placeholder="Phone" />
+        <InputText placeholder="Phone" />
       </Form.Item>
       <Form.Item
         label="Role"

@@ -6,6 +6,7 @@ import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import AddEditCategoryModal from './AddEditCategoryModal';
 import DeleteCategoryModal from './DeleteCategoryModal';
+import BoxCard from 'components/Share/BoxCard';
 
 const columns = [
   {
@@ -123,7 +124,7 @@ export default function CategoriesManagementTable() {
   }
 
   return (
-    <>
+    <BoxCard className="content-box__wrapper">
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -155,6 +156,6 @@ export default function CategoriesManagementTable() {
           />
         )
       }
-    </>
+    </BoxCard>
   );
 }

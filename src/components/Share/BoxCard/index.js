@@ -4,7 +4,7 @@ import './style.scss';
 
 export default function BoxCard({ children, className }) {
   return (
-    <div className={`box-card__wrapper ${className}`}>
+    <div className={`${className} box-card__wrapper`}>
       {
         children
       }

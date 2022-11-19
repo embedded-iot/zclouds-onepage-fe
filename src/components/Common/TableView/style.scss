@@ -1,4 +1,7 @@
 .table-view__wrapper {
+  .ant-table {
+    background: transparent;
+  }
   .ant-table-thead {
     tr th {
       background: #8993A5;
@@ -19,7 +22,7 @@
         background: #F1F2F4;
       }
       &:nth-child(even) {
-        background: #F5F5F5;
+        background: transparent;
       }
     }
   }

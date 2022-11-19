@@ -7,14 +7,16 @@ function getValueFromEvent(e) {
 };
 
 function getFileListFromList(list = []) {
-  return (list || []).map((url, index) => {
+  return (list || []).map((image, index) => {
+    const url = typeof image === 'string' ? image : image.url;
     const names = url.split('/');
     return (
       {
         uid: index,
         name: names[names.length - 1],
         status: 'done',
-        url,
+        url: url,
+        response: image
       }
     )
   })

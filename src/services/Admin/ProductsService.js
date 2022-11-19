@@ -5,10 +5,16 @@ import { STATE_LABELS } from 'components/contants';
 
 
 const transformProduct = item => {
-  const convertedProductImages = (item.productImages || []).map(image => (getFrontUserUrl() + image.fullSizePath));
+  const featureImage = item.featureImage || shirt_sku;
+  const convertedProductImages = (item.productImages || []).map(image => ({
+    ...image,
+    url: (getFrontUserUrl() + image.fullSizePath),
+  }));
   return {
     ...item,
-    avatar: !!convertedProductImages.length ? convertedProductImages[0] : (item.featureImage || shirt_sku) ,
+    key: item.id,
+    sku: item.id,
+    avatar: featureImage,
     convertedProductImages: convertedProductImages,
     convertedState: STATE_LABELS[item.state] || item.state,
     convertedPrice: format.formatCurrency(item.price),
