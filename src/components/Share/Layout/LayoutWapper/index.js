@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { useMediaQuery } from 'react-responsive';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
+import Logo from 'components/Share/Logo';
+import logo from 'images/logo.svg';
 
 import './style.scss';
 
@@ -11,23 +13,24 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const TabletAndDesktopLayout = props => (
   <Layout className="layout__wrapper">
-    <Header>
-      {props.header}
-    </Header>
+    <Sider theme="light" width={239}>
+      <Logo src={logo} height={64} style={{ display: 'block', margin: '36px auto'}} />
+      {props.sider}
+    </Sider>
     <Layout>
-      <Sider theme="light" width={256}>
-        {props.sider}
-      </Sider>
-      <Layout>
-        <Content>
-          {props.content}
-        </Content>
-        { !!props.footer && (
+      <Header>
+        {props.header}
+      </Header>
+      <Content>
+        {props.content}
+      </Content>
+      {
+        !!props.footer && (
           <Footer>
             {props.footer}
           </Footer>
-        ) }
-      </Layout>
+        )
+      }
     </Layout>
   </Layout>
 )

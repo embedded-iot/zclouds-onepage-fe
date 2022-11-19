@@ -1,4 +1,4 @@
-.ant-menu {
+.ant-menu-horizontal {
   height: 100%;
   font-weight: 600;
   &.ant-menu-horizontal {
@@ -10,3 +10,23 @@
     }
   }
 }
+
+.ant-menu-inline {
+  background: transparent !important;
+  border-right: none !important;
+  font-weight: 600;
+  .ant-menu-item, .ant-menu-submenu-title {
+    padding-left: 21px !important;
+    &:after {
+      border-right: none !important;
+    }
+    img {
+      margin-right: 24px;
+    }
+    &.ant-menu-item-selected {
+      color: #FFFFFF !important;
+      background-color: #0065FF !important;
+    }
+  }
+}
+

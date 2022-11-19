@@ -1,15 +1,8 @@
-.header-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .logo-portal a {
-    height: 64px;
-    color: #000000d9;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 64px;
-    letter-spacing: -.18px;
-    white-space: nowrap;
-    text-decoration: none;
+.header {
+  &__wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
   }
 }
