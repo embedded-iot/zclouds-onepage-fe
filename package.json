@@ -38,7 +38,7 @@
     "start": "craco start",
     "start:admin": "env-cmd -f .env.admin craco start",
     "build": "craco build",
-    "build:admin": "env-cmd -f .env.admin react-scripts build",
+    "build:admin": "env-cmd -f .env.admin craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

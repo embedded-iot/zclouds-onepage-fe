@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, notification } from 'antd';
 import ShopifyForm from './Vendors/ShopifyForm';
-import { SellerIntegrationsService, SellerStoresService } from 'services';
+import { BaseService, SellerIntegrationsService, SellerStoresService } from 'services';
 import { ROUTERS } from 'components/contants';
 import './style.scss';
 
@@ -31,7 +31,7 @@ export default function EditStoreBox({ id, redirectTo }) {
       });
     }, error => {
       notification.error({
-        message: error && error.title ? error.title : "Connect store failure!",
+        message: BaseService.getErrorMessage(error, "Update store failure!"),
       });
     })
   }
@@ -44,7 +44,7 @@ export default function EditStoreBox({ id, redirectTo }) {
       });
     }, error => {
       notification.error({
-        message: error && error.title ? error.title : "Connect store failure!",
+        message: BaseService.getErrorMessage(error, "Connect store failure!"),
       });
     })
   }

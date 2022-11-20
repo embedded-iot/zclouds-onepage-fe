@@ -21,7 +21,6 @@ import { setGlobalStore } from './actions';
 import { authentication } from 'utils';
 
 import Header from 'components/Share/Header';
-import NormalHeader from 'components/Share/NormalHeader';
 
 import LayoutWrapper from 'components/Share/Layout/LayoutWapper';
 import PublicLayoutWrapper from 'components/Share/Layout/PublicLayoutWapper';
@@ -182,7 +181,7 @@ const App = (props) => {
     restoreLoginPreviousSection();
     // eslint-disable-next-line
   }, []);
-  const isAdminMode = process.env.REACT_APP_ADMIN_MODE === 'true' || props.isAdminMode;
+  const isAdminMode = props.isAdminMode;
   const currentRouter = props.router.location.pathname;
   const isFrontUserRouter = FRONT_USER_ROUTER.find(path => {
     return (path === currentRouter) || matchPath(currentRouter, {
@@ -198,7 +197,7 @@ const App = (props) => {
       <AppWrapper>
         <HelmetMeta />
         <NormalLayoutWrapper
-          header={<NormalHeader />}
+          // header={<NormalHeader />}
           content={<PublicAppContent />}
         />
       </AppWrapper>

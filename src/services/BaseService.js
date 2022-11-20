@@ -6,6 +6,10 @@ const getFrontUserUrl = () => {
   return process.env.REACT_APP_FE;
 }
 
+const getFrontAdminUrl = () => {
+  return process.env.REACT_APP_ADMIN_FE;
+}
+
 const getFrontUserBaseURL = () => {
   return getBaseURL() + '/public';
 }
@@ -27,6 +31,7 @@ const getFullPathImage = (imageUrl = '') => getFrontUserUrl() + imageUrl;
 
 export {
   getFrontUserUrl,
+  getFrontAdminUrl,
   getFullPathImage,
   getBaseURL,
   getFrontUserBaseURL,

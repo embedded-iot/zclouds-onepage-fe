@@ -8,6 +8,8 @@ import LoginBox from 'components/Share/LoginBox';
 import NormalContent from 'components/Share/NormalContent';
 import Logo from 'components/Share/Logo';
 import logoGray from 'images/logo_gray.svg';
+import logoImg from 'images/logo.svg';
+import logoWhite from 'images/logo-white.svg';
 
 import './style.scss';
 const LoginPage = (props) => {
@@ -20,26 +22,48 @@ const LoginPage = (props) => {
       props.goBack();
     }
   }
-
+  const isAdminMode = props.isAdminMode;
   return (
-    <div className="page-wrapper sign-in__wrapper">
+    <div className={`page-wrapper sign-in__wrapper ${isAdminMode && 'sign-in-admin__wrapper'}`}>
       <Helmet>
         <title>Sign in</title>
       </Helmet>
       <div className="page-contents sign-in__contents">
-        <NormalContent>
-          <div>
-            <LoginBox onFinish={onFinish}
-                      redirectTo={props.push}
-                      setGlobalStore={props.setGlobalStore}
-            />
-          </div>
+        <NormalContent fullScreen={true}>
+          {
+            !isAdminMode && (
+              <div>
+                <div className='sign-in__image sign-in__image--top-logo'>
+                  <Logo src={logoImg} height={64}/>
+                </div>
+                <LoginBox onFinish={onFinish}
+                          redirectTo={props.push}
+                          setGlobalStore={props.setGlobalStore}
+                />
+
+                <div className='sign-in__image sign-in__image--left' />
+                <div className='sign-in__image sign-in__image--bottom-logo'>
+                  <Logo src={logoGray} height={32} />
+                </div>
+                <div className='sign-in__image sign-in__image--right' />
+              </div>
+            )
+          }
+          {
+            isAdminMode && (
+              <div className="sign-in-admin__login-form">
+                <div className='sign-in-admin__logo'>
+                  <Logo src={logoWhite} height={54}/>
+                </div>
+                <LoginBox onFinish={onFinish}
+                          redirectTo={props.push}
+                          setGlobalStore={props.setGlobalStore}
+                          isAdminMode={true}
+                />
+              </div>
+            )
+          }
         </NormalContent>
-        <div className='sign-in__image sign-in__image--left' />
-        <div className='sign-in__image sign-in__image--logo'>
-          <Logo src={logoGray} height={32} />
-        </div>
-        <div className='sign-in__image sign-in__image--right' />
       </div>
     </div>
   );
@@ -47,6 +71,7 @@ const LoginPage = (props) => {
 function mapStateToProps(state) {
   return {
     router: state.router,
+    isAdminMode: state.global.isAdminMode,
   }
 }
 

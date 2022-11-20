@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import RegisterForm from 'components/Share/RegisterForm';
-import { UserService } from 'services';
+import { BaseService, UserService } from 'services';
 import { ROUTERS } from 'components/contants';
 import NormalContent from 'components/Share/NormalContent';
 import bannerImg from 'images/banner-img.png';
@@ -25,7 +25,7 @@ const RegisterPage = (props) => {
       props.push(ROUTERS.LOGIN);
     }, error => {
       notification.error({
-        message: error && error.title ? error.title : "Register failure!",
+        message: BaseService.getErrorMessage(error, "Register failure!"),
       });
     });
   }

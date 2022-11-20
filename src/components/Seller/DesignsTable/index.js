@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
-import { SellerDesignsService } from 'services';
+import { BaseService, SellerDesignsService } from 'services';
 import { download, events, fileHelper } from 'utils';
 import { Button, notification } from 'antd';
 import { PlusCircleOutlined, EditOutlined, DownloadOutlined, ImportOutlined, FileExcelOutlined } from '@ant-design/icons';
@@ -94,7 +94,7 @@ export default function DesignsTable() {
       download(response.url);
     }, error => {
       notification.error({
-        message: error && error.title ? error.title : "Download design failure!",
+        message: BaseService.getErrorMessage(error, "Download design failure!"),
       });
     });
   }

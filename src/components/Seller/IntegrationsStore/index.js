@@ -1,7 +1,7 @@
 import React from 'react';
 import { notification } from 'antd';
 import { ShopBaseForm, ShopifyForm, WooCommerceForm } from './Vendors';
-import { SellerIntegrationsService } from 'services';
+import { BaseService, SellerIntegrationsService } from 'services';
 import ConnectStoreBox from './ConnectStoreBox';
 import { STORE_TYPE_VALUES } from 'components/contants';
 
@@ -20,7 +20,7 @@ export default function IntegrationsStore({ type, onFinish }) {
       onFinish();
     }, error => {
       notification.error({
-        message: error && error.title ? error.title : "Connect store failure!",
+        message: BaseService.getErrorMessage(error, "Connect store failure!"),
       });
     })
   }

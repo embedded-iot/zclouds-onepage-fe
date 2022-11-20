@@ -1,11 +1,11 @@
 import React from 'react';
-import { UserService } from 'services';
+import { BaseService, UserService } from 'services';
 import { notification } from 'antd';
 import { authentication } from 'utils';
 import LoginForm from 'components/Share/LoginForm';
 import { ADMIN_ROLES } from 'components/contants';
 
-export default function LoginBox({ setGlobalStore = () => {}, redirectTo = () => {}, onFinish = () => {}}) {
+export default function LoginBox({ setGlobalStore = () => {}, isAdminMode = false, redirectTo = () => {}, onFinish = () => {}}) {
   const getUserInfo = (callback) => {
     UserService.getUserInfo(response => {
       setGlobalStore({
@@ -19,7 +19,7 @@ export default function LoginBox({ setGlobalStore = () => {}, redirectTo = () =>
       callback();
     }, error => {
       notification.error({
-        message: error && error.title ? error.title : "Login failure!",
+        message: BaseService.getErrorMessage(error, "Login failure!"),
       });
     })
   }
@@ -34,11 +34,14 @@ export default function LoginBox({ setGlobalStore = () => {}, redirectTo = () =>
       })
     }, error => {
       notification.error({
-        message: error && error.title ? error.title : "Login failure!",
+        message: BaseService.getErrorMessage(error, "Login failure!"),
       });
     });
   }
   return (
-    <LoginForm onFinish={handlerFinish} redirectTo={redirectTo}/>
+    <LoginForm onFinish={handlerFinish}
+               redirectTo={redirectTo}
+               isAdminMode={isAdminMode}
+    />
   );
 }

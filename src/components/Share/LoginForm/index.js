@@ -6,7 +6,7 @@ import InputPassword from 'components/Common/InputPassword';
 import InputText from 'components/Common/InputText';
 
 import './style.scss';
-export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }) {
+export default function LoginForm({ onFinish = () => {}, redirectTo = () => {}, isAdminMode = false }) {
   return (
     <BoxCard className="sign-in-form__wrapper">
       <BoxHeader
@@ -47,11 +47,15 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {} }
             Log in
           </Button>
         </Form.Item>
-        <Form.Item>
-          <div className="sign-in-form__note">
-            Don't have an account? <span className="link" onClick={() => redirectTo("/register")}>Sign up</span>.
-          </div>
-        </Form.Item>
+        {
+          !isAdminMode && (
+            <Form.Item>
+              <div className="sign-in-form__note">
+                Don't have an account? <span className="link" onClick={() => redirectTo("/register")}>Sign up</span>.
+              </div>
+            </Form.Item>
+          )
+        }
       </Form>
     </BoxCard>
   );

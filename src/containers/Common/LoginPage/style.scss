@@ -1,6 +1,11 @@
 .sign-in {
   &__image {
     position: absolute;
+    &--top-logo {
+      top: 59px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
     &--left {
       background: url("~images/login-img-1.png") center center no-repeat;
       background-size: cover;
@@ -17,7 +22,7 @@
       right: 0;
       bottom: 0;
     }
-    &--logo {
+    &--bottom-logo {
       bottom: 54px;
       left: 50%;
       transform: translateX(-50%);
@@ -26,6 +31,30 @@
 
   &__contents {
     position: relative;
-    min-height: 870px;
+    min-height: calc(100vh - 200px);
+  }
+  &__logo {
+    text-align: center;
+    &--top {
+      margin: 59px 0 162px;
+    }
+    &--bottom {
+      margin: 162px 0 54px;
+    }
+  }
+}
+.sign-in-admin {
+  &__wrapper {
+    background: url("~images/sign-in-admin-bg.png") center center no-repeat;
+    background-size: cover;
+  }
+  &__login-form {
+    position: relative;
+  }
+  &__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -142px;
   }
 }

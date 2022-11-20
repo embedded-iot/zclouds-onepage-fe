@@ -9,9 +9,13 @@ const { Header, Content } = Layout;
 const NormalLayoutWrapper = props => {
   return (
     <Layout className="normal-layout__wrapper">
-      <Header>
-        {props.header}
-      </Header>
+      {
+        !!props.header && (
+          <Header>
+            {props.header}
+          </Header>
+        )
+      }
       <Content>
         {props.content}
       </Content>
