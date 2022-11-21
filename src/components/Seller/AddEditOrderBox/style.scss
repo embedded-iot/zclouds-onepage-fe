@@ -1,0 +1,42 @@
+.add-edit-order-box {
+  &__wrapper {
+    padding: 21px 57px 40px 25px;
+    width: 100%;
+  }
+  &__title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2C3E5D;
+    line-height: 23px;
+    margin-bottom: 17px;
+  }
+  &__divider {
+    border-bottom: 1px solid #DCDFE4;
+    margin: 16px 0;
+  }
+  &__description {
+    background: #F7F8F9;
+    border-radius: 8px;
+    padding: 12px;
+    color: #2C3E5D;
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+  &__sub-title {
+    font-size: 12px;
+    color: #2C3E5D;
+    margin-bottom: 16px;
+  }
+  &__note {
+    font-size: 12px;
+    color: #B38600;
+  }
+  &__button-list {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    button {
+      margin-left: 24px;
+    }
+  }
+}
