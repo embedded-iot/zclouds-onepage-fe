@@ -10,10 +10,10 @@ function OrdersPage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Stores</title>
+        <title>Orders</title>
       </Helmet>
       <PageHeader
-        title="Stores"
+        title="Orders"
       />
       <div className="page-contents">
         <OrdersTable redirectTo={props.push}/>
