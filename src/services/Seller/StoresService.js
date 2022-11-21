@@ -38,8 +38,16 @@ function getStore(id, successCallback, failureCallback) {
   makeGetWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function getStoresOptions(stores) {
+  return [
+    { label: 'Select store', value: '' },
+    ...(stores.map(store => ({ label: store.name, value: store.id })))
+  ]
+}
+
 export {
   getStores,
   updateStore,
   getStore,
+  getStoresOptions,
 }
