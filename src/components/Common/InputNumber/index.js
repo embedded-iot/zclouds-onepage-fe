@@ -4,7 +4,7 @@ import { InputNumber as AntdInputNumber } from 'antd';
 import './style.scss';
 
 export default function InputNumber({ name, value, onChange, placeholder, ...restProps }) {
-  const handlerOnchange = (e) => onChange(e.target.value, name);
+  const handlerOnchange = (value) => onChange(value, name);
 
   return (
     <div className='input-number'>
