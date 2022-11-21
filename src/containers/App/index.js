@@ -45,6 +45,8 @@ import FrontUserProductDetailPage from 'containers/FrontUser/ProductDetailPage/L
 import FrontUserSKUPage from 'containers/FrontUser/SKUPage/Loadable';
 
 import SellerHomePage from 'containers/Seller/HomePage/Loadable';
+import SellerOrdersPage from 'containers/Seller/OrdersPage/Loadable';
+import SellerOrderDetailPage from 'containers/Seller/OrderDetailPage/Loadable';
 import SellerDesignsPage from 'containers/Seller/DesignsPage/Loadable';
 import SellerStoresPage from 'containers/Seller/StoresPage/Loadable';
 import SellerIntegrationsPage from 'containers/Seller/IntegrationsPage/Loadable';
@@ -117,6 +119,8 @@ const FrontUserAppContent = (props) => (
 const AppContent = (props) => (
   <Switch>
     <PrivateRoute exact path={ROUTERS.ROOT} component={SellerHomePage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_ORDERS} component={SellerOrdersPage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER} component={SellerOrderDetailPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_DESIGN_LIBRARY} component={SellerDesignsPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_STORES} component={SellerStoresPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_STORE} component={SellerStoreDetailPage} isAuthenticated={props.isLogin}/>
