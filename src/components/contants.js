@@ -10,6 +10,7 @@ export const ROUTERS = {
   FRONT_USER_PRODUCT_DETAIL: '/products/:categoryName/:productName/:categoryId/:productId',
   FRONT_USER_SKU: '/sku',
   SELLER_ORDERS: '/orders',
+  SELLER_DETAIL_ORDER: '/orders/:orderId',
   SELLER_DESIGN_LIBRARY: '/design-library',
   SELLER_MY_ACCOUNT: '/my-account',
   SELLER_STORES: '/stores',
@@ -86,11 +87,19 @@ export const RESPONSIVE_MEDIAS = {
 export const STATE_VALUES = {
   ACTIVATED: 'ACTIVATED',
   BLOCKED: 'BLOCKED',
+  PENDING: 'PENDING',
+  PROCESS: 'PROCESS',
+  FULFILLED: 'FULFILLED',
+  CANCELED : 'CANCELED',
 };
 
 export const STATE_LABELS = {
   [STATE_VALUES.ACTIVATED]: 'Activated',
-  [STATE_VALUES.BLOCKED]: 'Blocked',
+  [STATE_VALUES.BLOCKED]: 'No Active',
+  [STATE_VALUES.PENDING]: 'Pending',
+  [STATE_VALUES.PROCESS]: 'Process',
+  [STATE_VALUES.FULFILLED]: 'Fulfilled',
+  [STATE_VALUES.CANCELED]: 'Canceled',
 };
 
 export const STATE_LABEL_VALUE_OPTIONS = [
