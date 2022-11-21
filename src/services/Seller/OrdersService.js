@@ -1,8 +1,19 @@
-import { getAdminBaseURL, getFrontUserUrl, getSellerBaseURL } from 'services/BaseService';
-import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
+import { getFrontUserUrl, getSellerBaseURL } from 'services/BaseService';
+import { format, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
+import shirt_sku from 'images/t-shirt_sku.svg';
+import { STATE_LABELS } from 'components/contants';
 
 const transformOrder = item => {
-  return item;
+  const convertedMockupUrl = !!item.mockupUrl && (getFrontUserUrl() + item.mockupUrl);
+  const convertedDesignUrl = !!item.designUrl && (getFrontUserUrl() + item.designUrl);
+  return {
+    ...item,
+    convertedMockupUrl: convertedMockupUrl || shirt_sku,
+    convertedDesignUrl: convertedDesignUrl || shirt_sku,
+    convertedProductPrice: format.formatCurrency(item.productPrice),
+    convertedStatus: STATE_LABELS[item.status] || item.status,
+    convertedShippingStatus: STATE_LABELS[item.shippingStatus] || item.shippingStatus,
+  };
 }
 
 function getOrders(params, successCallback, failureCallback) {
