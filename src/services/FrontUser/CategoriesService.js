@@ -67,8 +67,16 @@ function getProductDetail(productId, successCallback, failureCallback) {
   makeGetWithConfigs(url, {}, successCallback, failureCallback, transformProduct);
 }
 
+function getProductsOptions(products) {
+  return [
+    { label: 'Select product', value: '' },
+    ...(products.map(product => ({ label: product.name, value: product.id })))
+  ]
+}
+
 export {
   getCategoriesFilter,
   getCategories,
   getProductDetail,
+  getProductsOptions,
 }
