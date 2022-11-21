@@ -6,6 +6,7 @@ import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, ImportOutlined, FileExcelOutlined } from '@ant-design/icons';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportOrdersModal from 'components/Seller/OrdersTable/ImportOrdersModal';
+import { ROUTERS } from 'components/contants';
 
 const columns = [
   {
@@ -13,22 +14,39 @@ const columns = [
     dataIndex: 'id',
   },
   {
-    title: 'Order Name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Type',
-    dataIndex: 'type',
+    title: 'Order Number',
+    dataIndex: 'orderNumber',
   },
   {
     title: 'Mockup',
-    dataIndex: 'mockup',
-    render: (mockup, record) => <img className="table-img__icon table-img__icon--circle" src={mockup[0]} alt={record.name} />,
+    dataIndex: 'convertedMockupUrl',
+    render: (convertedMockupUrl, record) => <img className="table-img__icon table-img__icon--circle" src={convertedMockupUrl} alt={record.orderNumber} />,
   },
   {
     title: 'Order',
     dataIndex: 'order',
-    render: (order, record) => <img className="table-img__icon table-img__icon--circle" src={order[0]} alt={record.name} />,
+    render: (convertedDesignUrl, record) => <img className="table-img__icon table-img__icon--circle" src={convertedDesignUrl} alt={record.orderNumber} />,
+  },
+  {
+    title: 'Product Name',
+    dataIndex: 'productName',
+  },
+  {
+    title: 'Product Quantity',
+    dataIndex: 'quantity',
+  },
+  {
+    title: 'Product Price',
+    dataIndex: 'convertedProductPrice',
+    render: (convertedProductPrice) => <span className='table-img__price-text'>{convertedProductPrice}</span>
+  },
+  {
+    title: 'Shipping Status',
+    dataIndex: 'convertedShippingStatus',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'convertedStatus',
   },
 ];
 
@@ -39,7 +57,7 @@ const ACTION_KEYS = {
   EXPORT_ORDERS: "EXPORT_ORDERS",
 }
 
-export default function OrdersTable() {
+export default function OrdersTable({ redirectTo }) {
   const [openImportOrders, setOpenImportOrders] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const RELOAD_EVENT_KEY = 'RELOAD_Seller_ORDERS_TABLE_EVENT_KEY';
@@ -71,11 +89,9 @@ export default function OrdersTable() {
     setOpenImportOrders(true);
   }
 
-  const addEditOrder = (orderId) => {
-    console.log(orderId);
+  const addEditOrder = (orderId = 0) => {
+    redirectTo(ROUTERS.SELLER_ORDERS + '/' + orderId);
   }
-
-
 
   const onSelectedItemsChange = (keys) => {
     setSelectedKeys(keys);
@@ -85,7 +101,7 @@ export default function OrdersTable() {
     buttonList: [
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.EDIT_ORDER} icon={<EditOutlined />} onClick={addEditOrder}>Edit order</Button>,
+        render: <Button key={ACTION_KEYS.EDIT_ORDER} icon={<EditOutlined />} onClick={() => addEditOrder(selectedKeys[0])}>Edit order</Button>,
         requiredSelection: true,
       },
       // {
@@ -114,8 +130,8 @@ export default function OrdersTable() {
 
   const buttonList = [
       ...(selectedKeys.length ? [<Button key={ACTION_KEYS.EXPORT_ORDERS} icon={<FileExcelOutlined />} onClick={exportOrders}>Export</Button>] : []),
-    <Button key={ACTION_KEYS.IMPORT_ORDERS} icon={<ImportOutlined />} onClick={importOrders}>Upload multi order</Button>,
-    <Button key={ACTION_KEYS.ADD_ORDER} type="primary" icon={<PlusCircleOutlined />} onClick={addEditOrder}>Add order</Button>
+    <Button key={ACTION_KEYS.IMPORT_ORDERS} icon={<ImportOutlined />} onClick={importOrders}>Import orders</Button>,
+    <Button key={ACTION_KEYS.ADD_ORDER} type="primary" icon={<PlusCircleOutlined />} onClick={() => addEditOrder()}>Order</Button>
   ]
   return (
     <>
