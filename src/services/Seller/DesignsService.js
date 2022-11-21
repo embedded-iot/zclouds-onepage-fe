@@ -71,6 +71,13 @@ function deleteProductImage(designId, designDetailId, successCallback, failureCa
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function getDesignsOptions(designs) {
+  return [
+    { label: 'Select design', value: '' },
+    ...(designs.map(design => ({ label: design.name, value: design.id })))
+  ]
+}
+
 export {
   getDesigns,
   createDesign,
@@ -79,4 +86,5 @@ export {
   importDesigns,
   getDesignDetailImageUrl,
   deleteProductImage,
+  getDesignsOptions,
 }
