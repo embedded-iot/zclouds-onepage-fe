@@ -22,8 +22,8 @@ export default function ImportOrdersModal({ open, onOk, onCancel }) {
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                form={form}
                open={open}
-               title={"Upload multi order"}
-               okText={"Upload"}
+               title={"Import orders"}
+               okText={"Import"}
                onOk={handleOk}
                onCancel={onCancel}
     >
