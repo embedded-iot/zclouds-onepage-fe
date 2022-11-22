@@ -1,5 +1,6 @@
 import { getSellerBaseURL } from 'services/BaseService';
-import { makePostWithConfigs } from 'utils';
+import { datetime, makeGetWithConfigs, makePostWithConfigs } from 'utils';
+import { DATETIME_FORMAT } from 'components/contants';
 
 function connectStore(type, data, successCallback, failureCallback) {
   const config = {
@@ -15,7 +16,38 @@ function checkConnectStore(type, id, successCallback, failureCallback) {
   makePostWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+const transformOrder = item => {
+  return {
+    ...item,
+    convertedCreatedDate: !!item.createdAt ? datetime.convert(item.createdAt, DATETIME_FORMAT) : '-',
+    customerFullName: (item.customerFirstName || '') + ' ' + (item.customerLastName || ''),
+  };
+}
+
+function getIntegrationOrders(type, storeId, params, successCallback, failureCallback) {
+  const config = {
+    params
+  };
+  const url = getSellerBaseURL() + `/${type}/${storeId}`;
+  makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
+    const items = response.content.map(transformOrder)
+    return {
+      items: items,
+      totalCount: response.totalElement,
+      pageNum: response.currentPage,
+      totalPage: response.totalPage,
+    };
+  });
+}
+
+function cloneOrder(type, storeId, orderId, successCallback, failureCallback) {
+  const url = getSellerBaseURL() + `/${type}/${storeId}/${orderId}`;
+  makeGetWithConfigs(url, {}, successCallback, failureCallback);
+}
+
 export {
   connectStore,
   checkConnectStore,
+  getIntegrationOrders,
+  cloneOrder,
 }

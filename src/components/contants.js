@@ -18,6 +18,7 @@ export const ROUTERS = {
   SELLER_WALLET: '/wallet',
   SELLER_INTEGRATIONS: '/integration',
   SELLER_INTEGRATIONS_WITH_VENDOR: '/integration/:vendorId',
+  SELLER_INTEGRATION_ORDERS: '/integration/:vendorId/orders/:storeId',
   SELLER_PRODUCT_CATEGORY: '/product-category',
   SELLER_TICKETS: '/tickets',
   SELLER_CHAT_WITH_ME: '/chat-with-me',

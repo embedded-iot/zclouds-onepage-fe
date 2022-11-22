@@ -62,6 +62,10 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
     redirectTo(ROUTERS.SELLER_STORES + `/${selectedStore.id}`);
   }
 
+  const integrationOrders = () => {
+    redirectTo(ROUTERS.SELLER_INTEGRATIONS + `/${selectedStore.platform.toLowerCase()}/orders/${selectedStore.id}`);
+  }
+
   useEffect(() => {
     reloadTable({ type });
     // eslint-disable-next-line
@@ -72,6 +76,11 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
       {
         type: 'custom',
         render: <Button icon={<EditOutlined />} onClick={editStore}>Edit store</Button>,
+        requiredSelection: true,
+      },
+      {
+        type: 'custom',
+        render: <Button icon={<EditOutlined />} onClick={integrationOrders}>Manual sync orders</Button>,
         requiredSelection: true,
       },
       {
