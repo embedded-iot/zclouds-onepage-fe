@@ -126,33 +126,44 @@ export default function TableGrid({
     getDataFunc(newParams);
   };
 
-  const ACTION_TYPES = {
-    'searchText': (
-      <InputSearch
-        name={configs.searchTextKey || "keyword"}
-        placeholder={configs.searchPlaceholder}
-        onChange={onSearchChange}
-      />
-    ),
-    'pageNum': (
-      <DropdownSelect
-        name="pageNum"
-        options={pageNumOptions}
-        defaultValue={params.pageNum.toString()}
-        onChange={onDropdownChange}
-      />
-    ),
-    'pageSize': (
-      <DropdownSelect
-        name="pageSize"
-        options={pageSizeOptions}
-        defaultValue={params.pageSize.toString()}
-        onChange={onDropdownChange}
-      />
-    ),
-    'searchButton': (
-      <Button type='primary' onClick={handleSearch}>Find</Button>
-    ),
+  const getFilterActionComponent = (item) => {
+    const ACTION_TYPES = {
+      'searchText': (
+        <InputSearch
+          name={configs.searchTextKey || "keyword"}
+          placeholder={configs.searchPlaceholder}
+          onChange={onSearchChange}
+          {...item.props}
+        />
+      ),
+      'pageNum': (
+        <DropdownSelect
+          name="pageNum"
+          options={pageNumOptions}
+          defaultValue={params.pageNum.toString()}
+          onChange={onDropdownChange}
+          {...item.props}
+        />
+      ),
+      'pageSize': (
+        <DropdownSelect
+          name="pageSize"
+          options={pageSizeOptions}
+          defaultValue={params.pageSize.toString()}
+          onChange={onDropdownChange}
+          {...item.props}
+        />
+      ),
+      'searchButton': (
+        <Button type='primary'
+                onClick={handleSearch}
+                {...item.props}
+        >
+          Find
+        </Button>
+      ),
+    }
+    return ACTION_TYPES[item.type] || item.render;
   }
 
   const filteredHeaderActions = headerActionsConfig.buttonList ? headerActionsConfig.buttonList.filter(item => {
@@ -173,9 +184,7 @@ export default function TableGrid({
               !!leftFilteredHeaderActions.length && (
                 <div className="table-header__left-block">
                   {
-                    leftFilteredHeaderActions.map((item) => {
-                      return ACTION_TYPES[item.type] || item.render;
-                    })
+                    leftFilteredHeaderActions.map(getFilterActionComponent)
                   }
                 </div>
               )
@@ -184,9 +193,7 @@ export default function TableGrid({
               !!rightFilteredHeaderActions.length && (
                 <div className="table-header__right-block">
                   {
-                    rightFilteredHeaderActions.map(item => {
-                      return ACTION_TYPES[item.type] || item.render;
-                    })
+                    rightFilteredHeaderActions.map(getFilterActionComponent)
                   }
                 </div>
               )
