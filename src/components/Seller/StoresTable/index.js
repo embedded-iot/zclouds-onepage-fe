@@ -1,12 +1,38 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerStoresService } from 'services';
 import { events } from 'utils';
 import { Button } from 'antd';
-import { DownOutlined, EditOutlined } from '@ant-design/icons';
-import ButtonListWrapper from 'components/Common/ButtonListWrapper';
-import { ROUTERS, STORE_TYPE_LABEL_VALUE_OPTIONS, STORE_TYPE_LABELS, STORE_TYPE_VALUES } from 'components/contants';
+import {
+  ROUTERS,
+  STORE_TYPE_ICONS,
+  STORE_TYPE_LABEL_VALUE_OPTIONS,
+} from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
+import Icon from 'components/Common/Icon';
+
+import plusIcon from 'images/plus-icon.svg';
+import searchGreenIcon from 'images/search_green.svg';
+import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
+import CreateNewStoreModal from 'components/Seller/StoresTable/CreateNewStoreModal';
+
+const ACTION_KEYS = {
+  ACTION_EVENTS: "ACTION_EVENTS",
+  ADD_STORE: "ADD_STORE",
+  EDIT_STORE: "EDIT_STORE",
+  MANUAL_SYNC_ORDERS: "MANUAL_SYNC_ORDERS",
+}
+
+const actionItems = [
+  {
+    key: ACTION_KEYS.EDIT_STORE,
+    label: "Edit store",
+  },
+  {
+    key: ACTION_KEYS.MANUAL_SYNC_ORDERS,
+    label: 'Manual sync orders',
+  },
+];
 
 const columns = [
   {
@@ -14,22 +40,47 @@ const columns = [
     dataIndex: 'id',
   },
   {
+    title: 'ID/Number',
+    dataIndex: 'id',
+  },
+  {
     title: 'Type',
-    dataIndex: 'convertedType',
+    dataIndex: 'platform',
+    render: (platform) => <Icon src={STORE_TYPE_ICONS[platform.toLowerCase()]} height={60} />
+  },
+  {
+    title: 'Time',
+    dataIndex: 'convertedCreatedDate',
   },
   {
     title: 'Store Name',
     dataIndex: 'name',
   },
   {
+    title: 'Creator',
+    dataIndex: 'creator',
+  },
+  {
     title: 'Domain',
     dataIndex: 'domain',
+    render: (domain) => <span className="link link--text">{domain}</span>
+  },
+  {
+    title: 'Secret',
+    dataIndex: 'secret',
+  },
+  {
+    title: 'Action',
+    dataIndex: 'id',
+    render: (id, record) => {
+      return <ActionDropdownMenu items={actionItems} record={record} ACTION_EVENT_KEY={ACTION_KEYS.ACTION_EVENTS} />
+    }
   },
 ];
 
 export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELOAD_RESELLER_STORE_TABLE_EVENT_KEY' }) {
+  const [openCreateNewStore, setOpenCreateNewStore] = useState(false);
   // eslint-disable-next-line
-  const [selectedStore, setSelectedStore] = useState(null);
   let ref = useRef({});
   const tableConfig = {
     columns,
@@ -49,43 +100,51 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
     events.publish(RELOAD_EVENT_KEY, filters);
   }
 
-  const onSelectedItemsChange = (keys) => {
-    const newSelectedStore = ref.current.items.find(item => item.id === keys[0]);
-    setSelectedStore(newSelectedStore);
-  }
-
   const onStoreTypeChange = (type) => {
     reloadTable({ type })
   }
 
-  const editStore = () => {
+  const editStore = (selectedStore) => {
     redirectTo(ROUTERS.SELLER_STORES + `/${selectedStore.id}`);
   }
 
-  const integrationOrders = () => {
+  const createNewStore = () => {
+    setOpenCreateNewStore(true);
+  }
+
+  const integrationOrders = (selectedStore) => {
     redirectTo(ROUTERS.SELLER_INTEGRATIONS + `/${selectedStore.platform.toLowerCase()}/orders/${selectedStore.id}`);
+  }
+
+  const actionListenerFunc = () => {
+    let reloadListener = null;
+    reloadListener = events.subscribe(ACTION_KEYS.ACTION_EVENTS, ({ key, record }) => {
+      switch (key) {
+        case ACTION_KEYS.EDIT_STORE:
+          editStore(record);
+          break;
+        default:
+          integrationOrders(record);
+      }
+    });
+    return () => {
+      reloadListener && reloadListener.remove();
+    };
   }
 
   useEffect(() => {
     reloadTable({ type });
+    actionListenerFunc();
     // eslint-disable-next-line
   }, [type]);
 
   const headerActionsConfig = {
     buttonList: [
       {
-        type: 'custom',
-        render: <Button icon={<EditOutlined />} onClick={editStore}>Edit store</Button>,
-        requiredSelection: true,
-      },
-      {
-        type: 'custom',
-        render: <Button icon={<EditOutlined />} onClick={integrationOrders}>Manual sync orders</Button>,
-        requiredSelection: true,
-      },
-      {
         type: 'searchText',
-        requiredSelection: false,
+        props: {
+          placeholder: 'Search by name...',
+        }
       },
       {
         type: 'custom',
@@ -96,19 +155,23 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
             onChange={onStoreTypeChange}
           />
         ),
-        requiredSelection: false,
       },
       {
         type: 'pageNum',
-        requiredSelection: false,
       },
       {
         type: 'pageSize',
-        requiredSelection: false,
       },
       {
         type: 'searchButton',
-        requiredSelection: false,
+        props: {
+          ghost: true,
+          icon: <Icon src={searchGreenIcon} width={20} height={20} />
+        }
+      },
+      {
+        type: 'custom',
+        render: <Button type="primary" key={ACTION_KEYS.ADD_STORE} icon={<Icon src={plusIcon} width={24} height={24} />} onClick={createNewStore}>Create new store</Button>,
       },
     ],
   }
@@ -116,36 +179,12 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
     headerActionsConfig.buttonList.splice(2, 1);
   }
 
-  const actionItems = [
-    {
-      key: STORE_TYPE_VALUES.SHOPIFY,
-      label: STORE_TYPE_LABELS[STORE_TYPE_VALUES.SHOPIFY],
-    },
-    {
-      key: STORE_TYPE_VALUES.SHOP_BASE,
-      label: STORE_TYPE_LABELS[STORE_TYPE_VALUES.SHOP_BASE],
-    },
-    {
-      key: STORE_TYPE_VALUES.WOO_COMMERCE,
-      label: STORE_TYPE_LABELS[STORE_TYPE_VALUES.WOO_COMMERCE],
-    },
-  ];
-
-
-  const onActionItemClick = key => {
+  const integrationStore = ({ key }) => {
+    setOpenCreateNewStore(false);
     redirectTo(ROUTERS.SELLER_INTEGRATIONS + `/${key}`);
   }
   return (
     <>
-      {
-        !type && (
-          <ButtonListWrapper actionItems={actionItems}
-                             align="right"
-                             onActionItemClick={onActionItemClick}
-                             actionButton={<Button>New Store<DownOutlined /></Button>}
-          />
-        )
-      }
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -154,11 +193,18 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
                  }}
                  defaultData={{}}
                  isShowPagination={true}
-                 isSingleSelection={true}
-                 onSelectedItemsChange={onSelectedItemsChange}
-                 isAllowSelection={true}
+                 isAllowSelection={false}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
+      {
+        openCreateNewStore && (
+          <CreateNewStoreModal
+            open={openCreateNewStore}
+            onOk={integrationStore}
+            onCancel={() => { setOpenCreateNewStore(false); }}
+          />
+        )
+      }
     </>
   );
 }
