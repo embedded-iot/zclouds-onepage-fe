@@ -1,11 +1,12 @@
 import { getSellerBaseURL } from 'services/BaseService';
-import { makeGetWithConfigs, makePutWithConfigs } from 'utils';
-import { STORE_TYPE_LABELS } from 'components/contants';
+import { datetime, makeGetWithConfigs, makePutWithConfigs } from 'utils';
+import { DATE_FORMAT, STORE_TYPE_LABELS } from 'components/contants';
 
 const transformStore = item => {
   return {
     ...item,
     convertedType: STORE_TYPE_LABELS[item.platform.toLowerCase()] || item.type,
+    convertedCreatedDate: !!item.createdAt ? datetime.convert(item.createdAt, DATE_FORMAT) : '',
   }
 }
 
