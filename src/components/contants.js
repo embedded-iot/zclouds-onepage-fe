@@ -1,3 +1,7 @@
+import shopifyLogo from 'images/shopify_logo.svg'
+import shopBaseLogo from 'images/shopbase_logo.svg'
+import wooCommerceLogo from 'images/woocommerce_logo.svg'
+
 export const WEBSITE_NAME = 'Fulfil';
 export const WEBSITE_DOMAIN = 'Fulfil.com';
 export const ROUTERS = {
@@ -78,6 +82,7 @@ export const SIZES_LABEL_VALUE_OPTIONS = [
 ];
 
 export const DATETIME_FORMAT = "DD/MM/YYYY HH:MM";
+export const DATE_FORMAT = "DD/MM/YYYY";
 
 export const RESPONSIVE_MEDIAS = {
   MOBILE: { query: '(max-width: 768px)' },
@@ -166,6 +171,12 @@ export const STORE_TYPE_LABELS = {
   [STORE_TYPE_VALUES.SHOPIFY]: 'Shopify',
   [STORE_TYPE_VALUES.SHOP_BASE]: 'ShopBase',
   [STORE_TYPE_VALUES.WOO_COMMERCE]: 'WooCommerce',
+};
+
+export const STORE_TYPE_ICONS = {
+  [STORE_TYPE_VALUES.SHOPIFY]: shopifyLogo,
+  [STORE_TYPE_VALUES.SHOP_BASE]: shopBaseLogo,
+  [STORE_TYPE_VALUES.WOO_COMMERCE]: wooCommerceLogo,
 };
 
 export const STORE_TYPE_LABEL_VALUE_OPTIONS = [
