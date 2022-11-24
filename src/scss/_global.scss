@@ -69,6 +69,8 @@ $primary-color: #0065FF;
 
 .ant-btn {
   font-weight: 600;
+  display: flex;
+  align-items: center;
   &--full-width {
     width: 100%;
   }
@@ -124,5 +126,11 @@ $primary-color: #0065FF;
         font-size: 12px;
       }
     }
+  }
+}
+
+.ant-form-item-required {
+  &:before {
+    display: none !important;
   }
 }
