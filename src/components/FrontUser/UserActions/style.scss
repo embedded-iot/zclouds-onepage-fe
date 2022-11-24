@@ -1,7 +1,15 @@
 .user-action {
   &__wrapper {
+    display: flex;
+    flex-flow: nowrap;
+    align-items: center;
     button {
       margin-left: 24px;
+      &.ant-btn-default {
+        background: #F7F8F9;
+        border: none;
+        color: #44546F;
+      }
     }
     &--mobile {
       display: flex;

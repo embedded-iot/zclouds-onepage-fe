@@ -1,9 +1,10 @@
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 import {
   DESIGN_LABEL_VALUE_OPTIONS, DESIGN_VALUES,
 } from 'components/contants';
 import RadioSelect from 'components/Common/RadioSelect';
+import InputText from 'components/Common/InputText';
 
 export default function DesignForm({ form, initialValues, ...restProps }) {
   return (
@@ -28,7 +29,7 @@ export default function DesignForm({ form, initialValues, ...restProps }) {
           },
         ]}
       >
-        <Input placeholder="Design name"  />
+        <InputText placeholder="Design name"  />
       </Form.Item>
       <Form.Item
         label="Type"

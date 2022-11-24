@@ -1,13 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { BaseService, SellerDesignsService } from 'services';
 import { download, events, fileHelper } from 'utils';
 import { Button, notification } from 'antd';
-import { PlusCircleOutlined, EditOutlined, DownloadOutlined, ImportOutlined, FileExcelOutlined } from '@ant-design/icons';
+import { EditOutlined, DownloadOutlined, FileExcelOutlined } from '@ant-design/icons';
 import AddEditDesignModal from './AddEditDesignModal';
 import DeleteDesignModal from './DeleteDesignModal';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportDesignsModal from 'components/Seller/DesignsTable/ImportDesignsModal';
+import Icon from 'components/Common/Icon';
+import searchGreenIcon from 'images/search_green.svg';
+import downloadGreenIcon from 'images/download-green-icon.svg';
+import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
+import plusIcon from 'images/plus-icon.svg';
 
 const columns = [
   {
@@ -23,6 +28,10 @@ const columns = [
     dataIndex: 'type',
   },
   {
+    title: 'Owner',
+    dataIndex: 'owner',
+  },
+  {
     title: 'Mockup',
     dataIndex: 'mockup',
     render: (mockup, record) => <img className="table-img__icon table-img__icon--circle" src={mockup[0]} alt={record.name} />,
@@ -32,18 +41,38 @@ const columns = [
     dataIndex: 'design',
     render: (design, record) => <img className="table-img__icon table-img__icon--circle" src={design[0]} alt={record.name} />,
   },
+  {
+    title: 'Action',
+    dataIndex: 'id',
+    render: (id, record) => {
+      return <ActionDropdownMenu items={actionItems} record={record} ACTION_EVENT_KEY={ACTION_KEYS.ACTION_EVENTS} />
+    }
+  },
 ];
 
 const ACTION_KEYS = {
+  ACTION_EVENTS: "ACTION_EVENTS",
   ADD_DESIGN: "ADD_DESIGN",
   EDIT_DESIGN: "EDIT_DESIGN",
-  DELETE_DESIGN: "DELETE_DESIGN",
   DOWNLOAD_DESIGN: "DOWNLOAD_DESIGN",
   IMPORT_DESIGNS: "IMPORT_DESIGNS",
   EXPORT_DESIGNS: "EXPORT_DESIGNS",
 }
 
-export default function DesignsTable() {
+const actionItems = [
+  {
+    key: ACTION_KEYS.EDIT_DESIGN,
+    label: "Edit design",
+    icon: <EditOutlined />,
+  },
+  {
+    key: ACTION_KEYS.DOWNLOAD_DESIGN,
+    label: "Download design",
+    icon: <DownloadOutlined />,
+  },
+];
+
+export default function DesignsTable({ successCallback = () => {} }) {
   const [openAddDesign, setOpenAddDesign] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [openDeleteDesign, setOpenDeleteDesign] = useState(false);
@@ -59,6 +88,7 @@ export default function DesignsTable() {
       SellerDesignsService.getDesigns({ ...restParams, pageSize, pageNum }, successCallback, failureCallback)
     },
     successCallback: (response) => {
+      successCallback(response);
       ref.current.items = response.items;
     },
     failureCallback: (error) => {
@@ -73,11 +103,13 @@ export default function DesignsTable() {
   }
 
   const addDesign = () => {
+    setSelectedDesign(null);
     setIsEdit(false);
     setOpenAddDesign(true);
   }
 
-  const editDesign = () => {
+  const editDesign = (selectedDesign) => {
+    setSelectedDesign(selectedDesign);
     setIsEdit(true);
     setOpenAddDesign(true);
   }
@@ -86,7 +118,7 @@ export default function DesignsTable() {
     setOpenDeleteDesign(true);
   }
 
-  const downloadDesign = () => {
+  const downloadDesign = (selectedDesign) => {
     SellerDesignsService.downloadDesign(selectedDesign.id, response => {
       notification.success({
         message: "Download design successful!",
@@ -114,51 +146,61 @@ export default function DesignsTable() {
 
   const onSelectedItemsChange = (keys) => {
     setSelectedKeys(keys);
-    const newSelectedDesign = ref.current.items.find(item => item.id === keys[0]);
-    setSelectedDesign(newSelectedDesign);
   }
 
   const headerActionsConfig = {
     buttonList: [
       {
-        type: 'custom',
-        render: <Button key={ACTION_KEYS.EDIT_DESIGN} icon={<EditOutlined />} onClick={editDesign}>Edit design</Button>,
-        requiredSelection: true,
-      },
-      // {
-      //   type: 'custom',
-      //   render: <Button key={ACTION_KEYS.DELETE_DESIGN} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteDesign}>Delete design</Button>,
-      //   requiredSelection: true,
-      // },
-      {
-        type: 'custom',
-        render: <Button key={ACTION_KEYS.DOWNLOAD_DESIGN} icon={<DownloadOutlined />} onClick={downloadDesign}>Download design</Button>,
-        requiredSelection: true,
-      },
-      {
         type: 'searchText',
-        requiredSelection: false,
+        props: {
+          placeholder: 'Search by name, creator...',
+        }
       },
       {
         type: 'pageNum',
-        requiredSelection: false,
       },
       {
         type: 'pageSize',
-        requiredSelection: false,
       },
       {
         type: 'searchButton',
-        requiredSelection: false,
+        props: {
+          ghost: true,
+          icon: <Icon src={searchGreenIcon} width={20} height={20} />
+        }
       },
     ],
   }
 
   const buttonList = [
       ...(selectedKeys.length ? [<Button key={ACTION_KEYS.EXPORT_DESIGNS} icon={<FileExcelOutlined />} onClick={exportDesigns}>Export</Button>] : []),
-    <Button key={ACTION_KEYS.IMPORT_DESIGNS} icon={<ImportOutlined />} onClick={importDesigns}>Upload multi design</Button>,
-    <Button key={ACTION_KEYS.ADD_DESIGN} type="primary" icon={<PlusCircleOutlined />} onClick={addDesign}>Add design</Button>
+    <Button key={ACTION_KEYS.IMPORT_DESIGNS} type="primary" ghost icon={<Icon src={downloadGreenIcon} width={24} height={24} />} onClick={importDesigns}>Upload multi design</Button>,
+    <Button key={ACTION_KEYS.ADD_DESIGN} type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={addDesign}>Create design sku</Button>
   ]
+
+  const actionListenerFunc = () => {
+    let reloadListener = null;
+    reloadListener = events.subscribe(ACTION_KEYS.ACTION_EVENTS, ({ key, record }) => {
+      switch (key) {
+        case ACTION_KEYS.EDIT_DESIGN:
+          editDesign(record);
+          break;
+        case ACTION_KEYS.DOWNLOAD_DESIGN:
+          downloadDesign(record);
+          break;
+        default:
+      }
+    });
+    return () => {
+      reloadListener && reloadListener.remove();
+    };
+  }
+
+  useEffect(() => {
+    actionListenerFunc();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <>
       <ButtonListWrapper buttonList={buttonList}
@@ -182,6 +224,7 @@ export default function DesignsTable() {
             data={isEdit ? selectedDesign : null}
             onOk={reloadTable}
             onCancel={() => { setOpenAddDesign(false); }}
+            downloadDesign={downloadDesign}
           />
         )
       }

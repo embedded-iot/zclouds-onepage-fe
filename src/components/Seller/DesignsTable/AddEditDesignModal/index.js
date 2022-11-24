@@ -43,7 +43,7 @@ export default function AddEditDesignModal({ open, data, onOk, onCancel }) {
   }
 
   const modalProps = isDesignDetail ? {
-    title: "Add design detail",
+    title: `Update design sku: ${selectedDesign.slug}`,
     onCancel: onCancelDesignDetail,
     footer: null,
     children: (
@@ -54,7 +54,7 @@ export default function AddEditDesignModal({ open, data, onOk, onCancel }) {
     )
   } : {
     form: form,
-    title: isEdit ? "Edit design" : "Add design",
+    title: isEdit ? "Edit design sku" : "Create design sku",
     okText: "Continue",
     onOk: handleOk,
     onCancel: onCancel,

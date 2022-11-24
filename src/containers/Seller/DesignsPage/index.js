@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
@@ -6,18 +6,37 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import DesignsTable from 'components/Seller/DesignsTable';
+import { ROUTERS } from 'components/contants';
 
 function DesignsPage(props) {
+  const [totalCount, setTotalCount] = useState(0);
+  const breadcrumbRouters = [
+    {
+      path: ROUTERS.ROOT,
+      breadcrumbName: 'Dashboard',
+    },
+    {
+      breadcrumbName: 'Design library',
+    },
+    {
+      breadcrumbName: 'Design sku',
+    },
+  ];
+  const successCallback = (response) => {
+    setTotalCount(response.totalCount || 0);
+  }
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Designs library</title>
+        <title>Design Sku</title>
       </Helmet>
       <PageHeader
-        title="Designs library"
+        title="Design Sku"
+        description={`We found ${totalCount} results.`}
+        breadcrumbRouters={breadcrumbRouters}
       />
       <div className="page-contents">
-        <DesignsTable />
+        <DesignsTable successCallback={successCallback} />
       </div>
     </div>
   );
