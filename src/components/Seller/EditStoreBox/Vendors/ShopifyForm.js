@@ -99,6 +99,9 @@ export default function ShopifyForm({ onFinish, onCancel, onReconnect, initialVa
           label="Auto sync orders"
           name="autoSyncOrder"
           valuePropName="checked"
+          className="edit-store-form__switch"
+          labelCol={{ span: 8}}
+          wrapperCol={{ span: 16}}
         >
           <Switch />
         </Form.Item>
@@ -106,6 +109,9 @@ export default function ShopifyForm({ onFinish, onCancel, onReconnect, initialVa
           label="Auto approve orders"
           name="autoApproveOrder"
           valuePropName="checked"
+          className="edit-store-form__switch"
+          labelCol={{ span: 8}}
+          wrapperCol={{ span: 16}}
         >
           <Switch />
         </Form.Item>
@@ -113,6 +119,9 @@ export default function ShopifyForm({ onFinish, onCancel, onReconnect, initialVa
           label="Auto sync tracking"
           name="autoSyncTracking"
           valuePropName="checked"
+          className="edit-store-form__switch"
+          labelCol={{ span: 8}}
+          wrapperCol={{ span: 16}}
         >
           <Switch />
         </Form.Item>

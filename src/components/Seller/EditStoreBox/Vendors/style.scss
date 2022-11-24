@@ -17,4 +17,13 @@
   &__button-list {
     margin: 0;
   }
+  &__switch {
+    .ant-row {
+      flex-flow: nowrap;
+      align-items: center;
+      .ant-form-item-label {
+        padding: 0;
+      }
+    }
+  }
 }
