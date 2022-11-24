@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'antd';
-import { STORE_TYPE_LABEL_VALUE_OPTIONS } from 'components/contants';
 import RadioSelect from 'components/Common/RadioSelect';
+import { SellerStoresService } from 'services';
 import './style.scss';
 
 
@@ -12,7 +12,7 @@ export default function CreateNewStoreForm({ form, ...restProps }) {
       form={form}
       autoComplete="off"
       layout="vertical"
-      className="import-orders-form__wrapper1"
+      className="create-new-store-form__wrapper"
       {...restProps}
     >
       <Form.Item
@@ -24,7 +24,7 @@ export default function CreateNewStoreForm({ form, ...restProps }) {
           },
         ]}
       >
-        <RadioSelect options={STORE_TYPE_LABEL_VALUE_OPTIONS} />
+        <RadioSelect options={SellerStoresService.getStoresTypesOptions()} />
       </Form.Item>
     </Form>
   )
