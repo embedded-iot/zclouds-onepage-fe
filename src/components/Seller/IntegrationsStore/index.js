@@ -11,9 +11,24 @@ const CONNECT_FORMS = {
   [STORE_TYPE_VALUES.WOO_COMMERCE]: WooCommerceForm,
 }
 
-export default function IntegrationsStore({ type, onFinish }) {
+export default function IntegrationsStore({ type, storeTypeLabel, onFinish }) {
+  const getDomain = (type, domain) => {
+    switch (type) {
+      case STORE_TYPE_VALUES.SHOP_BASE:
+        return `https://${domain}.onshopbase.com`;
+      case STORE_TYPE_VALUES.SHOPIFY:
+        return `https://${domain}.myshopify.com`;
+      default:
+        return domain;
+    }
+  }
   const handleConnect = (values) => {
-    SellerIntegrationsService.connectStore(type, values, response => {
+    const { domain, ...rest } = values;
+    const data = {
+      ...rest,
+      domain: getDomain(type, domain),
+    }
+    SellerIntegrationsService.connectStore(type, data, response => {
       notification.success({
         message: "Connect store successful!",
       });
@@ -29,7 +44,7 @@ export default function IntegrationsStore({ type, onFinish }) {
 
   return (
     <ConnectStoreBox
-        description={"You need to setting on your Shopify first. Watch video instructions to sync orders with Shopify."}
+        description={`You need to setting on your ${storeTypeLabel} first. Watch video instructions to sync orders with ${storeTypeLabel}.`}
        videoSrc={'https://www.youtube.com/watch?v=XO-n9U-UwSk&feature=emb_title'}
     >
       <ConnectForm onFinish={handleConnect}/>

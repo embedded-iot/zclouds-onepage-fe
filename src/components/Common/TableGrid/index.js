@@ -172,8 +172,8 @@ export default function TableGrid({
       || (item.requiredSelection === false && selectedRowKeys.length === 0)
   }) : [];
 
-  const leftFilteredHeaderActions = filteredHeaderActions.filter(item => item.align !== 'right');
-  const rightFilteredHeaderActions = filteredHeaderActions.filter(item => item.align === 'right');
+  const leftFilteredHeaderActions = filteredHeaderActions.filter(item => item.align !== 'right' && (item.permission === undefined || item.permission === true));
+  const rightFilteredHeaderActions = filteredHeaderActions.filter(item => item.align === 'right' && (item.permission === undefined || item.permission === true));
 
   return (
     <div className="table-view-wrapper">

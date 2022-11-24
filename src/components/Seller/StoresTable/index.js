@@ -157,6 +157,7 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
             onChange={onStoreTypeChange}
           />
         ),
+        permission: !type
       },
       {
         type: 'pageNum',
@@ -174,11 +175,9 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
       {
         type: 'custom',
         render: <Button type="primary" key={ACTION_KEYS.ADD_STORE} icon={<Icon src={plusIcon} width={24} height={24} />} onClick={createNewStore}>Create new store</Button>,
+        permission: !type
       },
     ],
-  }
-  if (!!type) {
-    headerActionsConfig.buttonList.splice(2, 1);
   }
 
   const integrationStore = ({ key }) => {

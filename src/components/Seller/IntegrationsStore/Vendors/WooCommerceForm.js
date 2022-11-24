@@ -1,5 +1,8 @@
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
+import InputText from 'components/Common/InputText';
+import Icon from 'components/Common/Icon';
+import connectIcon from 'images/connect-icon.svg';
 
 export default function WooCommerceForm({ onFinish }) {
   return (
@@ -10,7 +13,7 @@ export default function WooCommerceForm({ onFinish }) {
       layout="vertical"
     >
       <Form.Item
-        label="Store Name"
+        label="Store Name:"
         name="name"
         rules={[
           {
@@ -19,7 +22,7 @@ export default function WooCommerceForm({ onFinish }) {
           },
         ]}
       >
-        <Input placeholder={`Store Name`}/>
+        <InputText placeholder={`Store Name`}/>
       </Form.Item>
       <Form.Item
         label="Domain:"
@@ -35,34 +38,13 @@ export default function WooCommerceForm({ onFinish }) {
           },
         ]}
       >
-        <Input placeholder={`https://...`}/>
-      </Form.Item>
-      <Form.Item
-        label="API Key:"
-        name="apiKey"
-        rules={[
-          {
-            required: true,
-            message: 'Please enter API key!',
-          },
-        ]}
-      >
-        <Input placeholder={`...`}/>
-      </Form.Item>
-      <Form.Item
-        label="API Pass"
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: 'Please enter API pass!',
-          },
-        ]}
-      >
-        <Input placeholder={`...`}/>
+        <InputText placeholder={`https://your-domain.com`}/>
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary"
+                htmlType="submit"
+                icon={<Icon src={connectIcon} width={12} height={20} />}
+        >
           Connect
         </Button>
       </Form.Item>

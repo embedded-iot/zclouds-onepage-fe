@@ -3,7 +3,7 @@ import { Dropdown } from 'antd';
 
 import './style.scss';
 
-export default function DropdownMenu({ items = [], onMenuClick, children, ...restProps }) {
+export default function DropdownMenu({ items = [], onMenuClick, children, className, ...restProps }) {
   const handleMenuClick = (e) => {
     onMenuClick(e.key);
   }
@@ -16,6 +16,7 @@ export default function DropdownMenu({ items = [], onMenuClick, children, ...res
     <Dropdown
       menu={menu}
       placement="bottomRight"
+      overlayClassName={`dropdown-menu__wrapper ${className}`}
       { ...restProps }
     >
       { children }

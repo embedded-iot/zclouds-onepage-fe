@@ -8,30 +8,49 @@ import StoresTable from 'components/Seller/StoresTable';
 import IntegrationsStore from 'components/Seller/IntegrationsStore';
 import { events } from 'utils';
 import { Col, Row } from 'antd';
-import { STORE_TYPE_LABELS } from 'components/contants';
+import { ROUTERS, STORE_TYPE_LABELS } from 'components/contants';
+
+import "./style.scss";
 
 function IntegrationsPage(props) {
   const { vendorId } = props.match ? props.match.params : {};
   const RELOAD_EVENT_KEY = 'RELOAD_RESELLER_INTEGRATION_STORES_TABLE_EVENT_KEY';
+  const storeTypeLabel = STORE_TYPE_LABELS[vendorId];
   const handleReloadStoresTable = () => {
     events.publish(RELOAD_EVENT_KEY, {});
   }
+  const breadcrumbRouters = [
+    {
+      path: ROUTERS.ROOT,
+      breadcrumbName: 'Dashboard',
+    },
+    {
+      path: ROUTERS.SELLER_STORES,
+      breadcrumbName: 'Stores',
+    },
+    {
+      breadcrumbName: storeTypeLabel,
+    },
+  ]
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper integrations-page__wrapper">
       <Helmet>
-        <title>{STORE_TYPE_LABELS[vendorId]}</title>
+        <title>{storeTypeLabel}</title>
       </Helmet>
       <PageHeader
-        title={`Connect your ${STORE_TYPE_LABELS[vendorId]} Store`}
+        title={`Connect your ${storeTypeLabel} Store`}
+        description={`You can import orders, products and customers automatic. Your ${storeTypeLabel} store content will constant.`}
+        breadcrumbRouters={breadcrumbRouters}
       />
       <div className="page-contents">
-        <Row gutter={[20, 20]}>
-          <Col span={8}>
+        <Row gutter={[16, 16]}>
+          <Col span={10}>
             <IntegrationsStore type={vendorId}
+                               storeTypeLabel={storeTypeLabel}
                                onFinish={handleReloadStoresTable}
             />
           </Col>
-          <Col span={16}>
+          <Col span={14} className="integrations-page__store-table">
             <StoresTable redirectTo={props.push}
                          type={vendorId}
                          RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}

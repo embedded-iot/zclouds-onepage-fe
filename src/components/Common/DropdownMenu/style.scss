@@ -1,3 +1,24 @@
-.dropdown-menu {
-  min-width: 140px;
+.dropdown-menu__wrapper {
+  .ant-dropdown-menu {
+    padding: 0;
+    border-radius: 8px;
+    .ant-dropdown-menu-item {
+      padding: 4px 18px;
+      color: #2C3E5D;
+      line-height: 25px;
+      background: #F1F2F4;
+      &:first-child {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+      &:last-child {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+      &:hover {
+        background: #0065FF;
+        color: #FFFFFF;
+      }
+    }
+  }
 }

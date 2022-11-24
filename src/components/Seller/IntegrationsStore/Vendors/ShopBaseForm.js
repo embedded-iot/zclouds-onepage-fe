@@ -1,5 +1,8 @@
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
+import InputText from 'components/Common/InputText';
+import Icon from 'components/Common/Icon';
+import connectIcon from 'images/connect-icon.svg';
 
 export default function ShopBaseForm({ onFinish }) {
   return (
@@ -10,7 +13,7 @@ export default function ShopBaseForm({ onFinish }) {
       layout="vertical"
     >
       <Form.Item
-        label="Store Name"
+        label="Store Name:"
         name="name"
         rules={[
           {
@@ -19,7 +22,7 @@ export default function ShopBaseForm({ onFinish }) {
           },
         ]}
       >
-        <Input placeholder={`Store Name`}/>
+        <InputText placeholder={`Store Name`}/>
       </Form.Item>
       <Form.Item
         label="Domain:"
@@ -29,13 +32,9 @@ export default function ShopBaseForm({ onFinish }) {
             required: true,
             message: 'Please enter domain!',
           },
-          {
-            type: 'url',
-            message: 'Url invalid!',
-          },
         ]}
       >
-        <Input placeholder={`https://*.onshopbase.com`}/>
+        <InputText addonBefore="https://" addonAfter=".onshopbase.com" placeholder={`...`}/>
       </Form.Item>
       <Form.Item
         label="API Key:"
@@ -47,10 +46,10 @@ export default function ShopBaseForm({ onFinish }) {
           },
         ]}
       >
-        <Input placeholder={`...`}/>
+        <InputText placeholder={`...`}/>
       </Form.Item>
       <Form.Item
-        label="API Pass"
+        label="API Pass:"
         name="password"
         rules={[
           {
@@ -59,10 +58,13 @@ export default function ShopBaseForm({ onFinish }) {
           },
         ]}
       >
-        <Input placeholder={`...`}/>
+        <InputText placeholder={`...`}/>
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary"
+                htmlType="submit"
+                icon={<Icon src={connectIcon} width={12} height={20} />}
+        >
           Connect
         </Button>
       </Form.Item>
