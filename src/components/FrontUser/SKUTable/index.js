@@ -64,7 +64,7 @@ const columns = [
     width: '12%',
     render: (convertedPrice, record) => (
       <TableCellView
-        className="table-img__price-text"
+        className="table-cell__price-text"
         name="convertedPrice"
         initialValue={convertedPrice}
         UPDATE_VALUE_EVENT={UPDATE_DATA_EVENT_KEY + record.key}

@@ -38,7 +38,7 @@ const columns = [
   {
     title: 'Product Price',
     dataIndex: 'convertedProductPrice',
-    render: (convertedProductPrice) => <span className='table-img__price-text'>{convertedProductPrice}</span>
+    render: (convertedProductPrice) => <span className='table-cell__price-text'>{convertedProductPrice}</span>
   },
   {
     title: 'Shipping Status',

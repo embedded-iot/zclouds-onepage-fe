@@ -1,5 +1,5 @@
 import { getSellerBaseURL } from 'services/BaseService';
-import { datetime, makeGetWithConfigs, makePostWithConfigs } from 'utils';
+import { datetime, format, makeGetWithConfigs, makePostWithConfigs } from 'utils';
 import { DATETIME_FORMAT } from 'components/contants';
 
 function connectStore(type, data, successCallback, failureCallback) {
@@ -19,8 +19,10 @@ function checkConnectStore(type, id, successCallback, failureCallback) {
 const transformOrder = item => {
   return {
     ...item,
+    sourceName: item.sourceName || item.type,
     convertedCreatedDate: !!item.createdAt ? datetime.convert(item.createdAt, DATETIME_FORMAT) : '-',
     customerFullName: (item.customerFirstName || '') + ' ' + (item.customerLastName || ''),
+    convertedTotalLineItemsPrice: format.formatCurrency(item.totalLineItemsPrice),
   };
 }
 
@@ -30,12 +32,12 @@ function getIntegrationOrders(type, storeId, params, successCallback, failureCal
   };
   const url = getSellerBaseURL() + `/${type}/${storeId}`;
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
-    const items = response.content.map(transformOrder)
+    const items = response.content.map(item => transformOrder({ ...item, type }))
     return {
       items: items,
-      totalCount: response.totalElement,
-      pageNum: response.currentPage,
-      totalPage: response.totalPage,
+      totalCount: response.totalElement || items.length,
+      pageNum: response.currentPage || 1,
+      totalPage: response.totalPage || 1,
     };
   });
 }

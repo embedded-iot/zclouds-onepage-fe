@@ -113,7 +113,7 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
   }
 
   const integrationOrders = (selectedStore) => {
-    redirectTo(ROUTERS.SELLER_INTEGRATIONS + `/${selectedStore.platform.toLowerCase()}/orders/${selectedStore.id}`);
+    redirectTo(ROUTERS.SELLER_INTEGRATIONS + `/${selectedStore.platform.toLowerCase()}/orders/${selectedStore.id}/${selectedStore.name}`);
   }
 
   const actionListenerFunc = () => {
@@ -123,8 +123,10 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
         case ACTION_KEYS.EDIT_STORE:
           editStore(record);
           break;
-        default:
+        case ACTION_KEYS.MANUAL_SYNC_ORDERS:
           integrationOrders(record);
+          break;
+        default:
       }
     });
     return () => {
