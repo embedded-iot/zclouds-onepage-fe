@@ -10,10 +10,12 @@ function StoresPage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Stores</title>
+        <title>All Stores</title>
       </Helmet>
       <PageHeader
-        title="Stores"
+        title="All Stores"
+        description="Connected stores"
+        currentBreadcrumb="Stores"
       />
       <div className="page-contents">
         <StoresTable redirectTo={props.push}/>
