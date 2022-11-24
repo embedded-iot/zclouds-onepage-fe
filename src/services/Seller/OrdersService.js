@@ -1,18 +1,19 @@
 import { getFrontUserUrl, getSellerBaseURL } from 'services/BaseService';
-import { format, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
+import { datetime, format, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
-import { STATE_LABELS } from 'components/contants';
+import { DATE_FORMAT, STATE_LABELS } from 'components/contants';
 
 const transformOrder = item => {
   const convertedMockupUrl = !!item.mockupUrl && (getFrontUserUrl() + item.mockupUrl);
   const convertedDesignUrl = !!item.designUrl && (getFrontUserUrl() + item.designUrl);
   return {
     ...item,
+    convertedCreatedDate: !!item.createdAt ? datetime.convert(item.createdAt, DATE_FORMAT) : '',
     convertedMockupUrl: convertedMockupUrl || shirt_sku,
     convertedDesignUrl: convertedDesignUrl || shirt_sku,
     convertedProductPrice: format.formatCurrency(item.productPrice),
+    convertedPriceTotal: format.formatCurrency(item.productPrice * item.quantity),
     convertedStatus: STATE_LABELS[item.status] || item.status,
-    convertedShippingStatus: STATE_LABELS[item.shippingStatus] || item.shippingStatus,
   };
 }
 
