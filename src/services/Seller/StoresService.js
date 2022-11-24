@@ -1,6 +1,7 @@
 import { getSellerBaseURL } from 'services/BaseService';
 import { datetime, makeGetWithConfigs, makePutWithConfigs } from 'utils';
-import { DATE_FORMAT, STORE_TYPE_LABELS } from 'components/contants';
+import { DATE_FORMAT, STORE_TYPE_ICONS, STORE_TYPE_LABELS, STORE_TYPE_VALUES } from 'components/contants';
+import Icon from 'components/Common/Icon';
 
 const transformStore = item => {
   return {
@@ -46,9 +47,27 @@ function getStoresOptions(stores) {
   ]
 }
 
+function getStoreTypeLabel(type) {
+  return (
+    <div className="create-new-store-form__type-select">
+      <Icon src={STORE_TYPE_ICONS[type]} />
+      <span>{STORE_TYPE_LABELS[type]}</span>
+    </div>
+  )
+}
+
+function getStoresTypesOptions() {
+  return  [
+    { label: getStoreTypeLabel(STORE_TYPE_VALUES.WOO_COMMERCE), value: STORE_TYPE_VALUES.WOO_COMMERCE },
+    { label: getStoreTypeLabel(STORE_TYPE_VALUES.SHOP_BASE), value: STORE_TYPE_VALUES.SHOP_BASE },
+    { label: getStoreTypeLabel(STORE_TYPE_VALUES.SHOPIFY), value: STORE_TYPE_VALUES.SHOPIFY },
+  ];
+}
+
 export {
   getStores,
   updateStore,
   getStore,
   getStoresOptions,
+  getStoresTypesOptions,
 }
