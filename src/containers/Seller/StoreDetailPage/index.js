@@ -5,27 +5,40 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import EditStoreBox from 'components/Seller/EditStoreBox';
-import { Col, Row } from 'antd';
+import { ROUTERS } from 'components/contants';
 
-function StoresPage(props) {
+import './style.scss';
+
+function StoreDetailPage(props) {
   const { storeId } = props.match ? props.match.params : {};
+  const breadcrumbRouters = [
+    {
+      path: ROUTERS.ROOT,
+      breadcrumbName: 'Dashboard',
+    },
+    {
+      path: ROUTERS.SELLER_STORES,
+      breadcrumbName: 'Integrations',
+    },
+    {
+      breadcrumbName: 'Store',
+    },
+  ]
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper store-detail__wrapper">
       <Helmet>
         <title>Edit Store</title>
       </Helmet>
       <PageHeader
-        title="Stores"
+        title="Edit Store"
         description={`Store ID: ${storeId}`}
+        breadcrumbRouters={breadcrumbRouters}
       />
       <div className="page-contents">
-        <Row gutter={[20, 20]}>
-          <Col span={12}>
-            <EditStoreBox id={storeId}
-                          redirectTo={props.push}
-            />
-          </Col>
-        </Row>
+        <div className="store-detail__description">Update and edit your store information. Contact Lenful IT department if there is a problem with the API connection to your store.Email: Fulfill@gmail.com</div>
+        <EditStoreBox id={storeId}
+                      redirectTo={props.push}
+        />
       </div>
     </div>
   );
@@ -50,4 +63,4 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-)(StoresPage);
+)(StoreDetailPage);
