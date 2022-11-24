@@ -1,15 +1,24 @@
-.import-orders-form {
-  &__label {
-    color: #2C3E5D;
-    margin-bottom: 5px;
-    &--red {
-      color: red;
+.create-new-store-form {
+  &__wrapper {
+    .ant-radio-group {
+      display: flex;
     }
-    &--green {
-      color: #0065FF;
+    .ant-radio-wrapper {
+      flex-basis: 33.33%;
+      align-items: center;
+      .ant-radio {
+        top: auto;
+      }
     }
-    &--link {
-      text-decoration: underline;
+    .ant-form-item {
+      margin-bottom: unset;
+    }
+  }
+  &__type-select {
+    display: flex;
+    justify-content: center;
+    img {
+      margin-right: 8px;
     }
   }
 }
