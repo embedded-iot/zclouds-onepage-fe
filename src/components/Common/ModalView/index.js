@@ -1,6 +1,8 @@
 import React from 'react';
 import { Modal } from 'antd';
 
+import './style.scss';
+
 export const MODAL_TYPES = {
   FULL_MODAL: 'FULL_MODAL',
   CONFIRM_MODAL: 'CONFIRM_MODAL',
@@ -12,6 +14,7 @@ export default function ModalView({ type = MODAL_TYPES.CONFIRM_MODAL, open, form
       open={open}
       title={title}
       centered
+      wrapClassName="modal-view__container"
       okText={okText || "Ok"}
       cancelText={ cancelText || "Cancel"}
       onCancel={onCancel}
