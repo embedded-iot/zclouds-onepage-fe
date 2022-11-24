@@ -11,7 +11,7 @@ export default function CreateNewStoreModal({ open, onOk, onCancel }) {
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                form={form}
                open={open}
-               title={<div><Icon src={storeIcon} width={24} height={24} /> New Store</div>}
+               title={<><Icon src={storeIcon} width={24} height={24} /> New Store</>}
                okText={"Continue"}
                onOk={onOk}
                onCancel={onCancel}
