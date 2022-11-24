@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import './style.scss';
 
-const BreadcrumbBox = ({ routes = [], absolutePath = true }) => {
+const BreadcrumbBox = ({ routes = [], absolutePath = true, className }) => {
 
   const itemRender = (route, params, routes, paths) => {
     const last = routes.indexOf(route) === routes.length - 1;
@@ -15,7 +15,7 @@ const BreadcrumbBox = ({ routes = [], absolutePath = true }) => {
     );
   }
   return (
-    <Breadcrumb className="breadcrumb-box__wrapper"
+    <Breadcrumb className={`breadcrumb-box__wrapper ${className}`}
                 itemRender={itemRender}
                 routes={routes}
     />
