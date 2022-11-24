@@ -12,10 +12,11 @@ export default function ButtonListWrapper({
                                             actionButton = '',
                                             onActionItemClick = () => {},
                                             align = '',
+                                            className = '',
                                             ...restProps
 }) {
   return (
-    <div className={`button-list__wrapper ${!!align && ('button-list__wrapper--' + align)}`}>
+    <div className={`button-list__wrapper ${className} ${!!align && ('button-list__wrapper--' + align)}`}>
       {
         !!buttonList.length && buttonList.map(button => button)
       }
