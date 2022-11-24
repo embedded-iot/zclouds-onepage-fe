@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Card, notification } from 'antd';
+import { notification } from 'antd';
 import ShopifyForm from './Vendors/ShopifyForm';
 import { BaseService, SellerIntegrationsService, SellerStoresService } from 'services';
 import { ROUTERS } from 'components/contants';
+import BoxCard from 'components/Share/BoxCard';
 import './style.scss';
 
 export default function EditStoreBox({ id, redirectTo }) {
@@ -50,12 +51,12 @@ export default function EditStoreBox({ id, redirectTo }) {
   }
   if (!store) return null;
   return (
-    <Card title={"General Settings"} className="edit-store__wrapper">
+    <BoxCard className="edit-store-box__wrapper">
       <ShopifyForm onFinish={handleConnect}
                    onCancel={handleCancel}
                    onReconnect={handleReConnect}
                    initialValues={store}
       />
-    </Card>
+    </BoxCard>
   )
 }
