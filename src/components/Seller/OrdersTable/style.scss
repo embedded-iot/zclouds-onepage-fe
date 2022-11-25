@@ -2,4 +2,12 @@
   &__status {
     padding: 3px 13px;
   }
+  &__status-checkbox-group {
+    background: #F1F2F4;
+    border-radius: 4px;
+    padding: 16px;
+    .ant-checkbox-group-item {
+      margin-right: 30px;
+    }
+  }
 }
