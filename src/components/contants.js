@@ -136,6 +136,17 @@ export const STATE_LABEL_VALUE_OPTIONS = [
   { label: STATE_LABELS[STATE_VALUES.BLOCKED], value: STATE_VALUES.BLOCKED },
 ];
 
+export const ORDER_STATE_VALUES = [
+  STATE_VALUES.PENDING,
+  STATE_VALUES.UPDATING,
+  STATE_VALUES.PICKED,
+  STATE_VALUES.PROCESS,
+  STATE_VALUES.FULFILLED,
+  STATE_VALUES.CANCELED,
+  STATE_VALUES.REFUND,
+  STATE_VALUES.HOLD,
+  STATE_VALUES.RESEND
+];
 
 export const ROLE_VALUES = {
   SUPER_ADMIN: 'SUPER_ADMIN',
@@ -212,5 +223,45 @@ export const DESIGN_DETAIL_TYPE_VALUES = {
   MOCKUP: 'MOCKUP',
   DESIGN: 'DESIGN',
 };
+
+export const TRACKING_STATUS_LABEL_VALUE_OPTIONS = [
+  { label: 'Shipping status All', value: '' },
+  { label: 'Have tracking', value: 'Yes' },
+  { label: 'No tracking', value: 'No' },
+];
+
+export const SHIPPING_STATUS_LABEL_VALUE_OPTIONS = [
+  { label: 'Shipping status All', value: '' },
+  { label: 'No Active', value: 'no_active' },
+  { label: 'Transit', value: 'transit' },
+  { label: 'Transit WW', value: 'transit_ww' },
+  { label: 'Delivered', value: 'delivered' },
+  { label: 'Pick up', value: 'pickup' },
+];
+
+export const HAVE_DESIGN_LABEL_VALUE_OPTIONS = [
+  { label: 'Have design All', value: '' },
+  { label: 'Yes', value: 'Yes' },
+  { label: 'No', value: 'No' },
+];
+
+export const CLONE_DESIGN_LABEL_VALUE_OPTIONS = [
+  { label: 'Clone design All', value: '' },
+  { label: 'Yes', value: 'Yes' },
+  { label: 'No', value: 'No' },
+];
+
+export const TYPE_DATE_LABEL_VALUE_OPTIONS = [
+  { label: 'Type date All', value: '' },
+  { label: 'Create date', value: 'create_date' },
+  { label: 'Upload tracking date', value: 'tracking_date' },
+];
+
+export const SORT_BY_LABEL_VALUE_OPTIONS = [
+  { label: 'Sort by', value: '' },
+  { label: 'Create date', value: 'create_date' },
+  { label: 'Upload tracking date', value: 'tracking_date' },
+];
+
 
 
