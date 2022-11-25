@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+// eslint-disable-next-line
 import { notification } from 'antd';
 import ShopifyForm from './Vendors/ShopifyForm';
 import { BaseService, SellerIntegrationsService, SellerStoresService } from 'services';
