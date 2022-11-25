@@ -54,7 +54,7 @@ export default function AddEditDesignModal({ open, data, onOk, onCancel }) {
     )
   } : {
     form: form,
-    title: isEdit ? "Edit design sku" : "Create design sku",
+    title: isEdit ? "Edit design sku" : "Create design SKU",
     okText: "Continue",
     onOk: handleOk,
     onCancel: onCancel,
