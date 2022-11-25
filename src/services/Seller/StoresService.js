@@ -40,9 +40,9 @@ function getStore(id, successCallback, failureCallback) {
   makeGetWithConfigs(url, {}, successCallback, failureCallback);
 }
 
-function getStoresOptions(stores) {
+function getStoresOptions(stores, isHasDefaultOption = true) {
   return [
-    { label: 'Select store', value: '' },
+    ...(isHasDefaultOption ? [{ label: 'Select store', value: '' }] : []),
     ...(stores.map(store => ({ label: store.name, value: store.id })))
   ]
 }
