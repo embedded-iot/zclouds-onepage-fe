@@ -6,6 +6,7 @@ import GridView from 'components/Common/GridView';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import InputSearch from 'components/Common/InputSearch';
 import PaginationBox from 'components/Common/PaginationBox';
+import InputText from 'components/Common/InputText';
 
 import './style.scss';
 
@@ -21,18 +22,20 @@ export default function TableGrid({
                                       actionItems: [],
                                       onActionItemClick: () => {},
                                     },
+                                    secondHeader = null,
                                     defaultParams = {},
                                     defaultData = {},
                                     isSingleSelection = false,
                                     onSelectedItemsChange = () => {},
                                     onSelectGridItem = () => {},
                                     isShowPagination = false,
+                                    isShowSelectedLabel = false,
                                     isAllowSelection = false,
                                     RELOAD_EVENT_KEY = '',
                                   }) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [pageNumOptions, setPageNumOptions] = useState([]);
-  const [searchText, setSearchText] = useState([]);
+  const [filters, setFilters] = useState({});
   const [params, setParams] = useState({
     pageSize: 20,
     pageNum: 1,
@@ -102,6 +105,7 @@ export default function TableGrid({
     selectedRowKeys,
     onChange: onSelectChange,
   };
+
   const hasSelected = selectedRowKeys.length > 0;
 
   const onPaginationChange = (page, pageSize) => {
@@ -116,12 +120,13 @@ export default function TableGrid({
     getDataFunc(newParams);
   };
 
-  const onSearchChange = (value, name) => {
-    setSearchText(value);
+  const onInputChange = (value, name) => {
+    const newFilters = { ...filters, [name]: value };
+    setFilters(newFilters);
   };
 
   const handleSearch = () => {
-    const newParams = { ...params, [configs.searchTextKey || "keyword"]: searchText };
+    const newParams = { ...params, ...filters };
     setParams(newParams);
     getDataFunc(newParams);
   };
@@ -130,9 +135,17 @@ export default function TableGrid({
     const ACTION_TYPES = {
       'searchText': (
         <InputSearch
-          name={configs.searchTextKey || "keyword"}
-          placeholder={configs.searchPlaceholder}
-          onChange={onSearchChange}
+          name={configs.searchTextKey || (item.props && item.props.name) || "keyword"}
+          placeholder={configs.searchPlaceholder || (item.props && item.props.name)}
+          onChange={onInputChange}
+          {...item.props}
+        />
+      ),
+      'inputText': (
+        <InputText
+          name={(item.props && item.props.name) || "inputText"}
+          placeholder={item.props && item.props.placeholder}
+          onChange={onInputChange}
           {...item.props}
         />
       ),
@@ -201,7 +214,8 @@ export default function TableGrid({
           </div>
         )
       }
-      <div className="selected-item-label">{ hasSelected && `Selected ${selectedRowKeys.length} items.`} </div>
+      { !!secondHeader && <div className="table-second-header">{secondHeader}</div>}
+      { !!isShowSelectedLabel && <div className="selected-item-label">{ hasSelected && `Selected ${selectedRowKeys.length} items.`} </div>}
       {
         type === 'table' && (
           <TableView
