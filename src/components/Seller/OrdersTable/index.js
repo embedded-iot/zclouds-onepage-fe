@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
-import { SellerOrdersService } from 'services';
-import { events, fileHelper } from 'utils';
+import { SellerOrdersService, SellerStoresService } from 'services';
+import { cui, events, fileHelper } from 'utils';
 import { Button, Tag } from 'antd';
 import {
   EditOutlined,
@@ -9,16 +9,26 @@ import {
 } from '@ant-design/icons';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportOrdersModal from 'components/Seller/OrdersTable/ImportOrdersModal';
-import { ROUTERS, STATE_COLORS } from 'components/contants';
+import {
+  CLONE_DESIGN_LABEL_VALUE_OPTIONS,
+  HAVE_DESIGN_LABEL_VALUE_OPTIONS,
+  ORDER_STATE_VALUES,
+  ROUTERS, SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
+  STATE_COLORS, STATE_LABELS, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
+} from 'components/contants';
 
-import './style.scss';
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import Icon from 'components/Common/Icon';
 import plusIcon from 'images/plus-icon.svg';
 import downloadGreenIcon from 'images/download-green-icon.svg';
 import searchGreenIcon from 'images/search_green.svg';
+import CheckboxGroupBox from 'components/Common/CheckboxGroupBox';
+import AutoCompleteInput from 'components/Common/AutoCompleteInput';
+import DatePickerSelect from 'components/Common/DatePickerSelect';
+import DropdownSelect from 'components/Common/DropdownSelect';
 
 
+import './style.scss';
 const ACTION_KEYS = {
   ACTION_EVENTS: "ACTION_EVENTS",
   ADD_ORDER: "ADD_ORDER",
@@ -101,13 +111,18 @@ const columns = [
 export default function OrdersTable({ redirectTo, successCallback = () => {}  }) {
   const [openImportOrders, setOpenImportOrders] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState([]);
+  const [filters, setFilters] = useState({});
+  const [storesInput, setStoresInput] = useState({
+    value: '',
+    options: [],
+  });
   const RELOAD_EVENT_KEY = 'RELOAD_Seller_ORDERS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
-      SellerOrdersService.getOrders({ ...restParams, pageSize, pageNum }, successCallback, failureCallback)
+      SellerOrdersService.getOrders(cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
     },
     successCallback: (response) => {
       successCallback(response);
@@ -139,19 +154,155 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     setSelectedKeys(keys);
   }
 
+  const handleFilterChange = (value, name) => {
+    const newFilters = {
+      ...filters,
+      ...(typeof value === 'object' ? value : { [name]: value })
+    }
+    setFilters(newFilters);
+    reloadTable(newFilters);
+  }
+
+  const handleStoreInputChange = (value, name) => {
+    setStoresInput({
+      ...storesInput,
+      value: value,
+    });
+    if (ref.current.timeoutStoreChange) {
+      clearTimeout(ref.current.timeoutStoreChange);
+    }
+    ref.current.timeoutStoreChange = setTimeout(() => {
+      getStoresOptions({ keyword: value });
+    }, 200);
+  }
+
+  const handleStoreInputSelect = (value, name) => {
+    handleFilterChange(value, name);
+  }
+
+  const handleDateChange = (date, dateString) => {
+    if (!!date) {
+      handleFilterChange({
+        fromDate: dateString[0],
+        toDate: dateString[1],
+      });
+    } else {
+      handleFilterChange({
+        fromDate: '',
+        toDate: '',
+      });
+    }
+  }
+
   const headerActionsConfig = {
     buttonList: [
       {
         type: 'searchText',
         props: {
           placeholder: 'Keyword...',
+          name: 'keyword'
         }
+      },
+      {
+        type: 'inputText',
+        props: {
+          placeholder: 'Keyword...',
+          name: 'id'
+        }
+      },
+      {
+        type: 'custom',
+        render: (
+          <AutoCompleteInput name="storeId"
+                             value={storesInput.value}
+                             onChange={handleStoreInputChange}
+                             onSelect={handleStoreInputSelect}
+                             placeholder={"All Stores"}
+                             options={storesInput.options}
+                             autoFilterOptions={false}
+          />
+        )
+      },
+      {
+        type: 'custom',
+        render: (
+          <DatePickerSelect name="date"
+                            value={storesInput.value}
+                            onChange={handleDateChange}
+          />
+        )
+      },
+      {
+        type: 'custom',
+        render: (
+          <DropdownSelect
+            name="haveTracking"
+            options={TRACKING_STATUS_LABEL_VALUE_OPTIONS}
+            defaultValue={''}
+            onChange={handleFilterChange}
+          />
+        ),
+      },
+      {
+        type: 'custom',
+        render: (
+          <DropdownSelect
+            name="shippingStatus"
+            options={SHIPPING_STATUS_LABEL_VALUE_OPTIONS}
+            defaultValue={''}
+            onChange={handleFilterChange}
+          />
+        ),
+      },
+      {
+        type: 'custom',
+        render: (
+          <DropdownSelect
+            name="haveDesign"
+            options={HAVE_DESIGN_LABEL_VALUE_OPTIONS}
+            defaultValue={''}
+            onChange={handleFilterChange}
+          />
+        ),
+      },
+      {
+        type: 'custom',
+        render: (
+          <DropdownSelect
+            name="cloneDesign"
+            options={CLONE_DESIGN_LABEL_VALUE_OPTIONS}
+            defaultValue={''}
+            onChange={handleFilterChange}
+          />
+        ),
       },
       {
         type: 'pageNum',
       },
       {
         type: 'pageSize',
+      },
+      {
+        type: 'custom',
+        render: (
+          <DropdownSelect
+            name="typeDate"
+            options={TYPE_DATE_LABEL_VALUE_OPTIONS}
+            defaultValue={''}
+            onChange={handleFilterChange}
+          />
+        ),
+      },
+      {
+        type: 'custom',
+        render: (
+          <DropdownSelect
+            name="orderBy"
+            options={SORT_BY_LABEL_VALUE_OPTIONS}
+            defaultValue={''}
+            onChange={handleFilterChange}
+          />
+        ),
       },
       {
         type: 'searchButton',
@@ -184,10 +335,39 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     };
   }
 
+  const getStoresOptions = (params = {}) => {
+    SellerStoresService.getStores( cui.removeEmpty({ pageNum: 1, pageSize: 100, ...params }), response => {
+      const newOptions = SellerStoresService.getStoresOptions(response.items, false);
+      setStoresInput((prevStoresInput) => {
+        return {
+          ...prevStoresInput,
+          options: newOptions,
+        }
+      });
+    }, () => {})
+  }
+
   useEffect(() => {
     actionListenerFunc();
+    getStoresOptions( {});
     // eslint-disable-next-line
   }, []);
+
+  const StatusCheckboxOptions = ORDER_STATE_VALUES.map(state => ({
+    label: <span style={{color: STATE_COLORS[state]}}>{STATE_LABELS[state]} (0)</span>,
+    value: state,
+  }));
+
+  const StatusCheckboxGroup = (
+    <div className="orders-table__status-checkbox-group">
+      <CheckboxGroupBox options={StatusCheckboxOptions}
+                        name="state"
+                        value={filters.state || []}
+                        onChange={handleFilterChange}
+      />
+    </div>
+  );
+
   return (
     <>
       <ButtonListWrapper buttonList={buttonList}
@@ -195,6 +375,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       />
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
+                 secondHeader={StatusCheckboxGroup}
                  paginationConfig={{}}
                  defaultParams={{}}
                  defaultData={{}}
