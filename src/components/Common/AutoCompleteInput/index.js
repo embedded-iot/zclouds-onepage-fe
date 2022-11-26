@@ -5,7 +5,7 @@ import closeIcon from "images/close-icon.svg";
 
 import './style.scss';
 
-export default function AutoCompleteInput({ name, value, options, onChange, onSelect, placeholder, autoFilterOptions = true, ...restProps }) {
+export default function AutoCompleteInput({ name, value, options, onChange, onSelect, placeholder, theme, autoFilterOptions = true, ...restProps }) {
   const filterOptions = (inputValue, option) => {
     return autoFilterOptions ? option.label.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1 : true;
   }
@@ -24,7 +24,7 @@ export default function AutoCompleteInput({ name, value, options, onChange, onSe
 
   return (
     <AutoComplete
-      className={`auto-complete-input`}
+      className={`auto-complete-input ${theme}`}
       value={value}
       options={options}
       placeholder={placeholder}

@@ -20,7 +20,6 @@ import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import Icon from 'components/Common/Icon';
 import plusIcon from 'images/plus-icon.svg';
 import downloadGreenIcon from 'images/download-green-icon.svg';
-import searchGreenIcon from 'images/search_green.svg';
 import CheckboxGroupBox from 'components/Common/CheckboxGroupBox';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DatePickerSelect from 'components/Common/DatePickerSelect';
@@ -195,13 +194,15 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   const headerActionsConfig = {
     allowRowLayout: true,
     gutter: [10, 10],
+    className: 'orders-table__filters-box',
     buttonList: [
       {
         type: 'searchText',
         span: defaultSpan,
         props: {
           placeholder: 'Keyword...',
-          name: 'keyword'
+          name: 'keyword',
+          theme: 'light',
         }
       },
       {
@@ -209,7 +210,8 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
         span: defaultSpan,
         props: {
           placeholder: 'Keyword...',
-          name: 'id'
+          name: 'id',
+          theme: 'light',
         }
       },
       {
@@ -223,6 +225,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
                              placeholder={"All Stores"}
                              options={storesInput.options}
                              autoFilterOptions={false}
+                             theme='light'
           />
         )
       },
@@ -233,6 +236,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
           <DatePickerSelect name="date"
                             value={storesInput.value}
                             onChange={handleDateChange}
+                            theme='light'
           />
         )
       },
@@ -245,6 +249,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             options={TRACKING_STATUS_LABEL_VALUE_OPTIONS}
             defaultValue={''}
             onChange={handleFilterChange}
+            theme='light'
           />
         ),
       },
@@ -257,6 +262,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             options={SHIPPING_STATUS_LABEL_VALUE_OPTIONS}
             defaultValue={''}
             onChange={handleFilterChange}
+            theme='light'
           />
         ),
       },
@@ -269,6 +275,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             options={HAVE_DESIGN_LABEL_VALUE_OPTIONS}
             defaultValue={''}
             onChange={handleFilterChange}
+            theme='light'
           />
         ),
       },
@@ -281,16 +288,23 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             options={CLONE_DESIGN_LABEL_VALUE_OPTIONS}
             defaultValue={''}
             onChange={handleFilterChange}
+            theme='light'
           />
         ),
       },
       {
         type: 'pageNum',
         span: defaultSpan,
+        props: {
+          theme: 'light',
+        }
       },
       {
         type: 'pageSize',
         span: 3,
+        props: {
+          theme: 'light',
+        }
       },
       {
         type: 'custom',
@@ -301,6 +315,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             options={TYPE_DATE_LABEL_VALUE_OPTIONS}
             defaultValue={''}
             onChange={handleFilterChange}
+            theme='light'
           />
         ),
       },
@@ -313,15 +328,12 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             options={SORT_BY_LABEL_VALUE_OPTIONS}
             defaultValue={''}
             onChange={handleFilterChange}
+            theme='light'
           />
         ),
       },
       {
         type: 'searchButton',
-        props: {
-          ghost: true,
-          icon: <Icon src={searchGreenIcon} width={20} height={20} />
-        }
       },
     ],
   }

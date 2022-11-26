@@ -1,5 +1,10 @@
 .input-text {
   width: 100%;
+  &.light {
+    input {
+      background: #FFFFFF;
+    }
+  }
   input {
     height: 36px;
     padding: 0 16px;

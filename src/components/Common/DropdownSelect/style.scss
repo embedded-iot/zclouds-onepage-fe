@@ -1,12 +1,20 @@
 .dropdown-select {
   width: 100%;
+  border-radius: 16px !important;
+  background: #F1F2F4;
+  &.light {
+    background: #FFFFFF;
+    .ant-select-selector {
+      border: 1px solid #DCDFE4;
+    }
+  }
   .ant-select-selector {
     display: flex;
     align-items: center;
     padding: 0 26px 0 20px !important;
     border-radius: 16px !important;
-    background: #F1F2F4 !important;
-    border: none !important;
+    background: transparent !important;
+    border: none;
     height: 35px !important;
     box-shadow: none !important;
     .ant-select-selection-item {

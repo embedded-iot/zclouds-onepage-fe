@@ -108,13 +108,20 @@ export default function IntegrationOrdersTable({ type, storeId, successCallback 
         type: 'searchText',
         props: {
           placeholder: 'Search...',
+          theme: 'light',
         }
       },
       {
         type: 'pageNum',
+        props: {
+          theme: 'light',
+        }
       },
       {
         type: 'pageSize',
+        props: {
+          theme: 'light',
+        }
       },
       {
         type: 'searchButton',

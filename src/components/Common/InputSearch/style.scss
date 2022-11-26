@@ -1,5 +1,11 @@
 .input-search {
   width: 100%;
+  &.light {
+    .ant-input-affix-wrapper {
+      background: #FFFFFF;
+      border: 1px solid #DCDFE4;
+    }
+  }
   .ant-input-affix-wrapper {
     height: 38px;
     background: #F1F2F4;

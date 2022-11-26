@@ -142,6 +142,7 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
         type: 'searchText',
         props: {
           placeholder: 'Search by name...',
+          theme: 'light',
         }
       },
       {
@@ -152,15 +153,22 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
             defaultValue={type || ''}
             onChange={onStoreTypeChange}
             style={{width: 'auto'}}
+            theme='light'
           />
         ),
         permission: !type
       },
       {
         type: 'pageNum',
+        props: {
+          theme: 'light',
+        }
       },
       {
         type: 'pageSize',
+        props: {
+          theme: 'light',
+        }
       },
       {
         type: 'searchButton',

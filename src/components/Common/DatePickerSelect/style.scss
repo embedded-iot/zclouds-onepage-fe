@@ -3,10 +3,17 @@
   height: 36px !important;
   padding: 0 16px !important;
   color: #2C3E5D !important;
-  background: #F7F8F9 !important;
-  border: 1px solid #DCDFE4 !important;
+  background: #F7F8F9;
+  border: none;
   border-radius: 4px !important;
   box-shadow: none !important;
+  &.light {
+    background: #FFFFFF;
+    border: 1px solid #DCDFE4;
+  }
+  &.ant-picker-focused {
+    border-color: #2986ff !important;
+  }
   .ant-picker-clear {
     background: #F7F8F9;
     right: 12px;

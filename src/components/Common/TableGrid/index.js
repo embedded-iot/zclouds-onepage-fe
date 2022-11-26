@@ -204,7 +204,7 @@ export default function TableGrid({
     <div className="table-view-wrapper">
       {
         !!filteredHeaderActions.length && (
-          <div className="table-header">
+          <div className={`table-header ${headerActionsConfig.className}`}>
             {
               !headerActionsConfig.allowRowLayout && !!leftFilteredHeaderActions.length && (
                 <div className="table-header__left-block">

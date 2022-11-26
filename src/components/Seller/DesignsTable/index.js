@@ -150,13 +150,20 @@ export default function DesignsTable({ successCallback = () => {} }) {
         type: 'searchText',
         props: {
           placeholder: 'Search by name, creator...',
+          theme: 'light',
         }
       },
       {
         type: 'pageNum',
+        props: {
+          theme: 'light',
+        }
       },
       {
         type: 'pageSize',
+        props: {
+          theme: 'light',
+        }
       },
       {
         type: 'searchButton',
