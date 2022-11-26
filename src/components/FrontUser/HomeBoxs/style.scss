@@ -46,6 +46,10 @@
   }
   &__buttons {
     margin-top: 24px;
+    display: flex;
+    &--center {
+      justify-content: center;
+    }
     button {
       margin-right: 16px;
     }

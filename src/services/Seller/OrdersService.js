@@ -8,12 +8,14 @@ const transformOrder = item => {
   const convertedDesignUrl = !!item.designUrl && (getFrontUserUrl() + item.designUrl);
   return {
     ...item,
-    convertedCreatedDate: !!item.createdAt ? datetime.convert(item.createdAt, DATE_FORMAT) : '',
+    convertedCreatedDate: !!item.dateOrder ? datetime.convert(item.dateOrder, DATE_FORMAT) : '',
+    quantity: item.quantity || 0,
     convertedMockupUrl: convertedMockupUrl || shirt_sku,
     convertedDesignUrl: convertedDesignUrl || shirt_sku,
-    convertedProductPrice: format.formatCurrency(item.productPrice),
-    convertedPriceTotal: format.formatCurrency(item.productPrice * item.quantity),
+    convertedProductPrice: format.formatCurrency(item.productPrice || 0),
+    convertedPriceTotal: format.formatCurrency(item.totalPrice || 0),
     convertedStatus: STATE_LABELS[item.status] || item.status,
+    customerFullName: item.orderShipping && item.orderShipping.fullName ,
   };
 }
 
@@ -56,8 +58,14 @@ function importOrders(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
+function getOrdersStatus(successCallback, failureCallback) {
+  const url = getSellerBaseURL() + '/orders/status';
+  makeGetWithConfigs(url, {}, successCallback, failureCallback);
+}
+
 export {
   getOrders,
+  getOrdersStatus,
   createOrder,
   updateOrder,
   importOrders,

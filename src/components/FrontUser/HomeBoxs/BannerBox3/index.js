@@ -41,7 +41,7 @@ export default function BannerBox3({ customClass, redirectTo }) {
                 <div className='home-box__item-label'>Automated tracking system. Minimize slow shipping of items.</div>
               </div>
             </div>
-            <div className='home-box__buttons'>
+            <div className='home-box__buttons home-box__buttons--center'>
               <Button>View all our products</Button>
             </div>
             <Row gutter={[20, 0]} className="banner-box-3__first-category">

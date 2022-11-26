@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Button } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { events } from 'utils';
 import TableView from 'components/Common/TableView';
 import GridView from 'components/Common/GridView';
@@ -20,6 +20,8 @@ export default function TableGrid({
                                     headerActionsConfig = {
                                       buttonList: [],
                                       actionItems: [],
+                                      allowRowLayout: false,
+                                      gutter: [20, 20],
                                       onActionItemClick: () => {},
                                     },
                                     secondHeader = null,
@@ -132,7 +134,7 @@ export default function TableGrid({
     getDataFunc(newParams);
   };
 
-  const getFilterActionComponent = (item) => {
+  const getFilterActionComponent = (item, index, hasCol = false) => {
     const ACTION_TYPES = {
       'searchText': (
         <InputSearch
@@ -147,6 +149,7 @@ export default function TableGrid({
           name={(item.props && item.props.name) || "inputText"}
           placeholder={item.props && item.props.placeholder}
           onChange={onInputChange}
+          style={{ width: !hasCol && 'auto'}}
           {...item.props}
         />
       ),
@@ -156,6 +159,7 @@ export default function TableGrid({
           options={pageNumOptions}
           defaultValue={params.pageNum.toString()}
           onChange={onDropdownChange}
+          style={{ width: !hasCol && 'auto'}}
           {...item.props}
         />
       ),
@@ -165,31 +169,36 @@ export default function TableGrid({
           options={pageSizeOptions}
           defaultValue={params.pageSize.toString()}
           onChange={onDropdownChange}
+          style={{ width: !hasCol && 'auto'}}
           {...item.props}
         />
       ),
       'searchButton': (
         <Button type='primary'
                 onClick={handleSearch}
+                style={{ width: !hasCol && 'auto'}}
                 {...item.props}
         >
           Find
         </Button>
       ),
     }
+    if (hasCol) {
+      return <Col span={item.span}>{ACTION_TYPES[item.type] || item.render}</Col>
+    }
     return ACTION_TYPES[item.type] || item.render;
   }
 
   const filteredHeaderActions = headerActionsConfig.buttonList ? headerActionsConfig.buttonList.filter(item => {
-    return item.requiredSelection === undefined
+    return (item.permission === undefined || item.permission === true) && (item.requiredSelection === undefined
       || (item.requiredSelection === true && selectedRowKeys.length)
-      || (item.requiredSelection === false && selectedRowKeys.length === 0)
+      || (item.requiredSelection === false && selectedRowKeys.length === 0))
   }) : [];
 
-  const leftFilteredHeaderActions = filteredHeaderActions.filter(item => item.align !== 'right' && (item.permission === undefined || item.permission === true));
-  const rightFilteredHeaderActions = filteredHeaderActions.filter(item => item.align === 'right' && (item.permission === undefined || item.permission === true));
+  const leftFilteredHeaderActions = filteredHeaderActions.filter(item => item.align !== 'right');
+  const rightFilteredHeaderActions = filteredHeaderActions.filter(item => item.align === 'right');
 
-  const columns = isShowIndex ? [{ title: '#', dataIndex: 'index', }, ...configs.columns ] : configs.columns;
+  const columns = isShowIndex ? [{ title: '#', dataIndex: 'index', }, ...(configs.columns || []) ] : (configs.columns || []);
   const items = data.items.map((item, index) => isShowIndex ? ({ index: index + 1, ...item }) : item);
   return (
     <div className="table-view-wrapper">
@@ -197,21 +206,30 @@ export default function TableGrid({
         !!filteredHeaderActions.length && (
           <div className="table-header">
             {
-              !!leftFilteredHeaderActions.length && (
+              !headerActionsConfig.allowRowLayout && !!leftFilteredHeaderActions.length && (
                 <div className="table-header__left-block">
                   {
-                    leftFilteredHeaderActions.map(getFilterActionComponent)
+                    leftFilteredHeaderActions.map((item, index) => getFilterActionComponent(item, index, false))
                   }
                 </div>
               )
             }
             {
-              !!rightFilteredHeaderActions.length && (
+              !headerActionsConfig.allowRowLayout && !!rightFilteredHeaderActions.length && (
                 <div className="table-header__right-block">
                   {
-                    rightFilteredHeaderActions.map(getFilterActionComponent)
+                    rightFilteredHeaderActions.map((item, index) => getFilterActionComponent(item, index, false))
                   }
                 </div>
+              )
+            }
+            {
+              headerActionsConfig.allowRowLayout && !!filteredHeaderActions.length && (
+                <Row className="table-header__row-block" gutter={headerActionsConfig.gutter}>
+                  {
+                    filteredHeaderActions.map((item, index) => getFilterActionComponent(item, index, true))
+                  }
+                </Row>
               )
             }
           </div>

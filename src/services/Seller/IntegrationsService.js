@@ -47,7 +47,7 @@ function getIntegrationOrders(type, storeId, params, successCallback, failureCal
 
 function cloneOrder(type, storeId, orderId, successCallback, failureCallback) {
   const url = getSellerBaseURL() + `/${type}/${storeId}/${orderId}`;
-  makeGetWithConfigs(url, {}, successCallback, failureCallback);
+  makePostWithConfigs(url, {}, successCallback, failureCallback);
 }
 
 export {

@@ -151,6 +151,7 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
             options={STORE_TYPE_LABEL_VALUE_OPTIONS}
             defaultValue={type || ''}
             onChange={onStoreTypeChange}
+            style={{width: 'auto'}}
           />
         ),
         permission: !type

@@ -11,8 +11,7 @@ import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportOrdersModal from 'components/Seller/OrdersTable/ImportOrdersModal';
 import {
   CLONE_DESIGN_LABEL_VALUE_OPTIONS,
-  HAVE_DESIGN_LABEL_VALUE_OPTIONS,
-  ORDER_STATE_VALUES,
+  HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES,
   ROUTERS, SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
   STATE_COLORS, STATE_LABELS, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
@@ -81,7 +80,7 @@ const columns = [
   },
   {
     title: 'Customer',
-    dataIndex: 'customer',
+    dataIndex: 'customerFullName',
   },
   {
     title: 'Tracking',
@@ -107,6 +106,7 @@ const columns = [
 export default function OrdersTable({ redirectTo, successCallback = () => {}  }) {
   const [openImportOrders, setOpenImportOrders] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState([]);
+  const [orderStatus, setOrderStatus] = useState([]);
   const [filters, setFilters] = useState({});
   const [storesInput, setStoresInput] = useState({
     value: '',
@@ -190,10 +190,15 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     }
   }
 
+  const defaultSpan = 4;
+
   const headerActionsConfig = {
+    allowRowLayout: true,
+    gutter: [10, 10],
     buttonList: [
       {
         type: 'searchText',
+        span: defaultSpan,
         props: {
           placeholder: 'Keyword...',
           name: 'keyword'
@@ -201,6 +206,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       },
       {
         type: 'inputText',
+        span: defaultSpan,
         props: {
           placeholder: 'Keyword...',
           name: 'id'
@@ -208,6 +214,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       },
       {
         type: 'custom',
+        span: defaultSpan,
         render: (
           <AutoCompleteInput name="storeId"
                              value={storesInput.value}
@@ -221,6 +228,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       },
       {
         type: 'custom',
+        span: defaultSpan,
         render: (
           <DatePickerSelect name="date"
                             value={storesInput.value}
@@ -230,6 +238,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       },
       {
         type: 'custom',
+        span: defaultSpan,
         render: (
           <DropdownSelect
             name="haveTracking"
@@ -241,6 +250,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       },
       {
         type: 'custom',
+        span: defaultSpan,
         render: (
           <DropdownSelect
             name="shippingStatus"
@@ -252,6 +262,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       },
       {
         type: 'custom',
+        span: defaultSpan,
         render: (
           <DropdownSelect
             name="haveDesign"
@@ -263,6 +274,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       },
       {
         type: 'custom',
+        span: defaultSpan,
         render: (
           <DropdownSelect
             name="cloneDesign"
@@ -274,12 +286,15 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       },
       {
         type: 'pageNum',
+        span: defaultSpan,
       },
       {
         type: 'pageSize',
+        span: 3,
       },
       {
         type: 'custom',
+        span: 3,
         render: (
           <DropdownSelect
             name="typeDate"
@@ -291,6 +306,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       },
       {
         type: 'custom',
+        span: 3,
         render: (
           <DropdownSelect
             name="orderBy"
@@ -343,16 +359,26 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     }, () => {})
   }
 
+  const getOrdersStatus = (params = {}) => {
+    SellerOrdersService.getOrdersStatus(response => {
+      setOrderStatus(response);
+    }, () => {})
+  }
+
   useEffect(() => {
     actionListenerFunc();
+    getOrdersStatus();
     getStoresOptions( {});
     // eslint-disable-next-line
   }, []);
 
-  const StatusCheckboxOptions = ORDER_STATE_VALUES.map(state => ({
-    label: <span style={{color: STATE_COLORS[state]}}>{STATE_LABELS[state]} (0)</span>,
-    value: state,
-  }));
+  const StatusCheckboxOptions = ORDER_STATE_VALUES.map(statusValue => {
+    const selectedOrderStatus = orderStatus.find(item => item.status === statusValue);
+    return ({
+      label: <span style={{color: STATE_COLORS[statusValue]}}>{STATE_LABELS[statusValue]} ({selectedOrderStatus ? selectedOrderStatus.orderCount : 0})</span>,
+      value: statusValue,
+    })
+  });
 
   const StatusCheckboxGroup = (
     <div className="orders-table__status-checkbox-group">
@@ -371,7 +397,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       />
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
-                 secondHeader={StatusCheckboxGroup}
+                 secondHeader={orderStatus.length && StatusCheckboxGroup}
                  paginationConfig={{}}
                  defaultParams={{}}
                  defaultData={{}}
