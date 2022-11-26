@@ -16,10 +16,6 @@ import plusIcon from 'images/plus-icon.svg';
 
 const columns = [
   {
-    title: '#',
-    dataIndex: 'id',
-  },
-  {
     title: 'Design Name',
     dataIndex: 'name',
   },

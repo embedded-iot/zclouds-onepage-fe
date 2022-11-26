@@ -17,11 +17,14 @@ function checkConnectStore(type, id, successCallback, failureCallback) {
 }
 
 const transformOrder = item => {
+  const { email = '', firstName = '', lastName = '' } = item.customer || {};
   return {
     ...item,
     sourceName: item.sourceName || item.type,
     convertedCreatedDate: !!item.createdAt ? datetime.convert(item.createdAt, DATETIME_FORMAT) : '-',
-    customerFullName: (item.customerFirstName || '') + ' ' + (item.customerLastName || ''),
+    customerFullName: `${firstName} ${lastName}`,
+    customerEmail: email,
+    shippingAddressCountry: item.shippingAddress && item.shippingAddress.country,
     convertedTotalLineItemsPrice: format.formatCurrency(item.totalLineItemsPrice),
   };
 }

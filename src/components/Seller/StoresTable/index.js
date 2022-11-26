@@ -36,10 +36,6 @@ const actionItems = [
 
 const columns = [
   {
-    title: '#',
-    dataIndex: 'id',
-  },
-  {
     title: 'ID/Number',
     dataIndex: 'id',
   },

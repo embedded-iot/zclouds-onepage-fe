@@ -10,10 +10,6 @@ import BoxCard from 'components/Share/BoxCard';
 
 const columns = [
   {
-    title: '#',
-    dataIndex: 'id',
-  },
-  {
     title: 'Image',
     dataIndex: 'featureImage',
     render: (featureImage, record) => <img className="table-img__icon table-img__icon--circle" src={featureImage} alt={record.name} />,

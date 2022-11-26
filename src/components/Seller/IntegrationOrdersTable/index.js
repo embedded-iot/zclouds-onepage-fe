@@ -25,10 +25,6 @@ const actionItems = [
 
 const columns = [
   {
-    title: '#',
-    dataIndex: 'id',
-  },
-  {
     title: 'Source',
     dataIndex: 'sourceName',
     render: (sourceName) => <Icon src={STORE_TYPE_ICONS[sourceName.toLowerCase()]} height={60} />
@@ -60,7 +56,7 @@ const columns = [
   },
   {
     title: 'Items',
-    dataIndex: 'totalLineItemsPrice',
+    dataIndex: 'totalQuantity',
   },
   {
     title: 'Total',

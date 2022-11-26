@@ -12,10 +12,6 @@ import BoxCard from 'components/Share/BoxCard';
 
 const columns = [
   {
-    title: '#',
-    dataIndex: 'id',
-  },
-  {
     title: 'User name',
     dataIndex: 'username',
   },

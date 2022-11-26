@@ -28,6 +28,7 @@ export default function TableGrid({
                                     isSingleSelection = false,
                                     onSelectedItemsChange = () => {},
                                     onSelectGridItem = () => {},
+                                    isShowIndex = true,
                                     isShowPagination = false,
                                     isShowSelectedLabel = false,
                                     isAllowSelection = false,
@@ -188,6 +189,8 @@ export default function TableGrid({
   const leftFilteredHeaderActions = filteredHeaderActions.filter(item => item.align !== 'right' && (item.permission === undefined || item.permission === true));
   const rightFilteredHeaderActions = filteredHeaderActions.filter(item => item.align === 'right' && (item.permission === undefined || item.permission === true));
 
+  const columns = isShowIndex ? [{ title: '#', dataIndex: 'index', }, ...configs.columns ] : configs.columns;
+  const items = data.items.map((item, index) => isShowIndex ? ({ index: index + 1, ...item }) : item);
   return (
     <div className="table-view-wrapper">
       {
@@ -220,8 +223,8 @@ export default function TableGrid({
         type === 'table' && (
           <TableView
             rowSelection={isAllowSelection ? rowSelection : null}
-            columns={configs.columns}
-            dataSource={data.items}
+            columns={columns}
+            dataSource={items}
             pagination={false}
             rowKey={record => record.id}
           />
@@ -233,7 +236,7 @@ export default function TableGrid({
             gutter={configs.gutter}
             colSpan={configs.colSpan}
             isAllowSelection={isAllowSelection}
-            dataSource={data.items}
+            dataSource={items}
             gridItemTemplate={configs.gridItemTemplate}
             onSelectGridItem={onSelectGridItem}
           />

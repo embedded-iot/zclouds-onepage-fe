@@ -47,10 +47,6 @@ const actionItems = [
 
 const columns = [
   {
-    title: '#',
-    dataIndex: 'id',
-  },
-  {
     title: 'ID/Number',
     dataIndex: 'id',
     render: (id, record) => <span>{id} - {record.orderNumber}</span>

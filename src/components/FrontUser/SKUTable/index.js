@@ -10,10 +10,6 @@ const UPDATE_DATA_EVENT_KEY = 'UPDATE_SKU_PRICE_TABLE_EVENT_KEY';
 
 const columns = [
   {
-    title: '#',
-    dataIndex: 'id',
-  },
-  {
     title: 'Image',
     dataIndex: 'avatar',
     render: (avatar, record) => <img className="table-img__icon" src={avatar} alt={record.name} />,
