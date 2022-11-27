@@ -1,14 +1,26 @@
 import React from 'react';
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Button, Col, Form, Row } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import DropdownSelect from 'components/Common/DropdownSelect';
 import InputNumber from 'components/Common/InputNumber';
+import InputText from 'components/Common/InputText';
 import { ROUTERS } from 'components/contants';
+import AutoCompleteInput from 'components/Common/AutoCompleteInput';
+import ProductSelectBox from 'components/Seller/AddEditOrderBox/ProductSelectBox';
+
 import './style.scss';
 
-export default function OrderForm({ form, onFinish, onCancel, initialValues, productsOptions, designsOptions, storesOptions, redirectTo, ...restProps }) {
+export default function OrderForm(
+    {
+      form, onFinish, onCancel, initialValues,
+      selectedProduct, productInputValue, productsOptions, onProductOptionsChange,
+      designsInputValue, designsOptions,
+      storesInputValue, storesOptions,
+      onInputChange, onInputSelect,
+      redirectTo, ...restProps
+    }
+  ) {
   const handleValuesChange = values => {
-    // console.log(values);
+    console.log(values);
   };
   return (
     <Form
@@ -31,16 +43,22 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
           <div className='add-edit-order-box__title'>1. Choose product</div>
           <Form.Item
             label="Product"
-            name="productId"
-            rules={[
-              {
-                required: true,
-                message: 'Please select product!',
-              },
-            ]}
+            name="productSelectBox"
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: 'Please select product!',
+            //   },
+            // ]}
           >
-            <DropdownSelect
+            <ProductSelectBox
+              name="productSelectBox"
               options={productsOptions}
+              value={productInputValue}
+              onChange={onInputChange}
+              onSelect={onInputSelect}
+              selectedProduct={selectedProduct}
+              onProductOptionsChange={onProductOptionsChange}
             />
           </Form.Item>
           <div className='add-edit-order-box__description'>
@@ -63,7 +81,7 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
                   },
                 ]}
               >
-                <Input placeholder="..."  />
+                <InputText placeholder="..."  />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -105,7 +123,7 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
                   },
                 ]}
               >
-                <Input placeholder="..."  />
+                <InputText placeholder="..."  />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -127,7 +145,7 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
                   },
                 ]}
               >
-                <Input placeholder="..."  />
+                <InputText placeholder="..."  />
               </Form.Item>
             </Col>
           </Row>
@@ -141,8 +159,13 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
                   icon: <InfoCircleOutlined />,
                 }}
               >
-                <DropdownSelect
-                  options={designsOptions}
+                <AutoCompleteInput name="designSKUAutoCompleteInput"
+                                   value={designsInputValue}
+                                   onChange={onInputChange}
+                                   onSelect={onInputSelect}
+                                   placeholder={"All design SKU"}
+                                   options={designsOptions}
+                                   autoFilterOptions={false}
                 />
               </Form.Item>
             </Col>
@@ -162,16 +185,30 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
             <Col span={12}>
               <Form.Item
                 label="Store"
-                name="storeId"
+                name="storeInput"
                 rules={[
                   {
                     required: true,
                     message: 'Please select store!',
                   },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      const existingStore = storesOptions.find(item => item.label === value || item.value === value);
+                      if (!value || existingStore) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('Store is not existing!'));
+                    },
+                  }),
                 ]}
               >
-                <DropdownSelect
-                  options={storesOptions}
+                <AutoCompleteInput name="storeAutoCompleteInput"
+                                   value={storesInputValue}
+                                   onChange={onInputChange}
+                                   onSelect={onInputSelect}
+                                   placeholder={"All Stores"}
+                                   options={storesOptions}
+                                   autoFilterOptions={false}
                 />
               </Form.Item>
             </Col>
@@ -186,7 +223,7 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
                   },
                 ]}
               >
-                <Input placeholder="..."  />
+                <InputText placeholder="..."  />
               </Form.Item>
             </Col>
           </Row>
@@ -200,7 +237,7 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
               },
             ]}
           >
-            <Input placeholder="..."  />
+            <InputText placeholder="..."  />
           </Form.Item>
           <div className='add-edit-order-box__divider' />
           <div className='add-edit-order-box__title'>3. Shipping Info</div>
@@ -216,7 +253,7 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
                   },
                 ]}
               >
-                <Input placeholder="..."  />
+                <InputText placeholder="..."  />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -224,7 +261,7 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
                 label="Phone Number (Optional)"
                 name="phoneNumber"
               >
-                <Input placeholder="..."  />
+                <InputText placeholder="..."  />
               </Form.Item>
             </Col>
           </Row>
@@ -238,13 +275,13 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
               },
             ]}
           >
-            <Input placeholder="..."  />
+            <InputText placeholder="..."  />
           </Form.Item>
           <Form.Item
             label="Address 2 (Optional)"
             name="address2"
           >
-            <Input placeholder="..."  />
+            <InputText placeholder="..."  />
           </Form.Item>
           <Row gutter={[24, 24]}>
             <Col span={12}>
@@ -258,7 +295,7 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
                   },
                 ]}
               >
-                <Input placeholder="..."  />
+                <InputText placeholder="..."  />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -266,7 +303,7 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
                 label="ZIP code (Postal code)"
                 name="zipCode"
               >
-                <Input placeholder="..."  />
+                <InputText placeholder="..."  />
               </Form.Item>
             </Col>
           </Row>
@@ -276,7 +313,7 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
                 label="State/Region (Optional)"
                 name="region"
               >
-                <Input placeholder="..."  />
+                <InputText placeholder="..."  />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -290,7 +327,7 @@ export default function OrderForm({ form, onFinish, onCancel, initialValues, pro
                   },
                 ]}
               >
-                <Input placeholder="..."  />
+                <InputText placeholder="..."  />
               </Form.Item>
             </Col>
           </Row>

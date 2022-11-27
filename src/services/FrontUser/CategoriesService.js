@@ -67,10 +67,10 @@ function getProductDetail(productId, successCallback, failureCallback) {
   makeGetWithConfigs(url, {}, successCallback, failureCallback, transformProduct);
 }
 
-function getProductsOptions(products) {
+function getProductsOptions(products, isHasDefaultOption = true) {
   return [
-    { label: 'Select product', value: '' },
-    ...(products.map(product => ({ label: product.name, value: product.id })))
+    ...(isHasDefaultOption ? [{ label: 'Select product', value: '' }] : []),
+    ...(products.map(product => ({...product, label: product.name, value: product.id })))
   ]
 }
 

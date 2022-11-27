@@ -15,11 +15,11 @@ export default function AutoCompleteInput({ name, value, options, onChange, onSe
   };
   const handlerOnSelect = (value, option) => {
     onChange(option.label, name);
-    onSelect(option.value, name);
+    onSelect(value, option, name);
   };
   const handlerClear = () => {
     onChange('', name);
-    onSelect('', name);
+    onSelect('', null, name);
   };
 
   return (

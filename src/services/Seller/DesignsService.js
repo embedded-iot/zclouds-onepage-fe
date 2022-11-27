@@ -71,10 +71,15 @@ function deleteProductImage(designId, designDetailId, successCallback, failureCa
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
-function getDesignsOptions(designs) {
+function getDesignsOptions(designs, isHasDefaultOption = true) {
+
   return [
-    { label: 'Select design', value: '' },
-    ...(designs.map(design => ({ label: design.name, value: design.id })))
+    ...(isHasDefaultOption ? [{ label: 'Select design', value: '' }] : []),
+    ...(designs.map(design => {
+      const convertedDesignUrl = !!design.design && !!design.design.length && (getFrontUserUrl() + design.design[0]);
+      const convertedMockupUrl = !!design.mockup && !!design.mockup.length && (getFrontUserUrl() + design.mockup[0]);
+      return ({ ...design, label: design.name, value: design.id, convertedDesignUrl, convertedMockupUrl });
+    }))
   ]
 }
 

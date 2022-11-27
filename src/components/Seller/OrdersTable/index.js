@@ -171,7 +171,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     }, 200);
   }
 
-  const handleStoreInputSelect = (value, name) => {
+  const handleStoreInputSelect = (value, options, name) => {
     handleFilterChange(value, name);
   }
 
