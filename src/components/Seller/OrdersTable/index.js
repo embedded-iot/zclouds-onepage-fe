@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
-import { SellerOrdersService, SellerStoresService } from 'services';
+import { BaseService, SellerOrdersService, SellerStoresService } from 'services';
 import { cui, events, fileHelper } from 'utils';
-import { Button, Tag } from 'antd';
+import { Button, notification, Tag } from 'antd';
 import {
   EditOutlined,
   FileExcelOutlined,
+  CopyOutlined
 } from '@ant-design/icons';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportOrdersModal from 'components/Seller/OrdersTable/ImportOrdersModal';
@@ -31,6 +32,7 @@ const ACTION_KEYS = {
   ACTION_EVENTS: "ACTION_EVENTS",
   ADD_ORDER: "ADD_ORDER",
   EDIT_ORDER: "EDIT_ORDER",
+  CLONE_ORDER: "CLONE_ORDER",
   IMPORT_ORDERS: "IMPORT_ORDERS",
   EXPORT_ORDERS: "EXPORT_ORDERS",
 }
@@ -40,6 +42,11 @@ const actionItems = [
     key: ACTION_KEYS.EDIT_ORDER,
     label: "Edit order",
     icon: <EditOutlined />,
+  },
+  {
+    key: ACTION_KEYS.CLONE_ORDER,
+    label: "Duplicate order",
+    icon: <CopyOutlined />
   },
 ];
 
@@ -338,6 +345,19 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     ],
   }
 
+  const cloneOrder = (selectedOrder) => {
+    SellerOrdersService.cloneOrder( selectedOrder.id, response => {
+      notification.success({
+        message: "Duplicate order successful!",
+      });
+      reloadTable();
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error,"Duplicate order failure!"),
+      });
+    })
+  }
+
   const buttonList = [
       ...(selectedKeys.length ? [<Button key={ACTION_KEYS.EXPORT_ORDERS} icon={<FileExcelOutlined />} onClick={exportOrders}>Export</Button>] : []),
     <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={downloadGreenIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
@@ -350,6 +370,9 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       switch (key) {
         case ACTION_KEYS.EDIT_ORDER:
           addEditOrder(record);
+          break;
+        case ACTION_KEYS.CLONE_ORDER:
+          cloneOrder(record);
           break;
         default:
       }

@@ -60,6 +60,7 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
     getProducts();
     getStores();
     getDesigns();
+    // eslint-disable-next-line
   }, []);
 
   const handleOk = (values) => {

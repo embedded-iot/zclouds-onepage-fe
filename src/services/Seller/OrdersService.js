@@ -72,6 +72,10 @@ function getOrder(id, successCallback, failureCallback) {
   });
 }
 
+function cloneOrder(id, successCallback, failureCallback) {
+  const url = getSellerBaseURL() + `/orders/${id}/clone`;
+  makePostWithConfigs(url, {}, successCallback, failureCallback);
+}
 
 export {
   getOrders,
@@ -80,4 +84,5 @@ export {
   updateOrder,
   importOrders,
   getOrder,
+  cloneOrder,
 }

@@ -6,7 +6,7 @@ import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import AddEditOrderBox from 'components/Seller/AddEditOrderBox';
 import { ROUTERS } from 'components/contants';
-import { FrontUserCategoriesService, SellerDesignsService, SellerOrdersService, SellerStoresService } from 'services';
+import { FrontUserCategoriesService, SellerOrdersService, SellerStoresService } from 'services';
 
 function OrderDetailPage(props) {
   const [data, setData] = useState(null);
