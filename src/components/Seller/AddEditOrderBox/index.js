@@ -16,13 +16,17 @@ import { format } from 'utils';
 import './style.scss';
 
 export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirectTo }) {
-  const [selectedProduct, setSelectedProduct] = useState({});
+  const defaultSelectedProduct = isEdit ? data.product : {};
+  const [selectedProduct, setSelectedProduct] = useState(defaultSelectedProduct);
   const [productInputValue, setProductInputValue] = useState('');
   const [productsOptions, setProductsOptions] = useState([]);
-  const [storeId, setStoreId] = useState('');
-  const [storesInputValue, setStoreInputValue] = useState('');
+  const defaultStoresId = isEdit && data.store ? data.store.id : '';
+  const [storeId, setStoreId] = useState(defaultStoresId);
+  const defaultStoresInputValue = isEdit && data.store ? data.store.name : '';
+  const [storesInputValue, setStoreInputValue] = useState(defaultStoresInputValue);
   const [storesOptions, setStoresOptions] = useState([]);
   const [designsInputValue, setDesignsInputValue] = useState('');
+  const [designId, setDesignId] = useState('');
   const [designsOptions, setDesignsOptions] = useState([]);
   const [form] = Form.useForm();
   let ref = useRef({});
@@ -31,7 +35,12 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
     FrontUserCategoriesService.getCategories({ pageNum: 1, pageSize: 100, ...params }, response => {
       const newProductOptions = getProductsOptions(response.items, false);
       setProductsOptions(newProductOptions);
-      setSelectedProduct(newProductOptions.length ? newProductOptions[0] : {})
+      if (!isEdit) {
+        if (newProductOptions.length) {
+          form.validateFields(['productSelectBox']);
+        }
+        setSelectedProduct(newProductOptions.length ? newProductOptions[0] : {})
+      }
     }, () => {}, true)
   }
 
@@ -55,12 +64,14 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
 
   const handleOk = (values) => {
     const newData = {
-      productId: values.productId,
+      productId: selectedProduct.id,
+      orderProductSku: selectedProduct.sku,
       productName: values.productName,
       quantity: values.quantity,
       mockupUrl: values.mockupUrl,
       designUrl: values.designUrl,
       storeId: storeId,
+      designId: designId,
       orderNumber: values.orderNumber,
       orderNote: values.orderNote,
       orderShipping: {
@@ -74,8 +85,7 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
         city: values.city,
       }
     }
-    // console.log(newData);
-    // return;
+
     if (isEdit) {
       SellerOrdersService.updateOrder(newData, response => {
         notification.success({
@@ -107,6 +117,7 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
       setStoreId('');
     } else if (name === "designSKUAutoCompleteInput") {
       setDesignsInputValue(value);
+      setDesignId('');
     } else if (name === "productSelectBox") {
       setProductInputValue(value);
     }
@@ -128,6 +139,7 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
     if (name === "storeAutoCompleteInput") {
       setStoreId(option ? option.value : '');
     } else if (name === "designSKUAutoCompleteInput") {
+      setDesignId(option ? option.value : '');
       if (option) {
         form.setFieldsValue({
           mockupUrl: option.convertedDesignUrl,
@@ -156,6 +168,7 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
   return (
     <BoxCard className={'add-edit-order-box__wrapper'}>
       <OrderForm
+        isEdit={isEdit}
         form={form}
         initialValues={data}
         selectedProduct={selectedProduct}

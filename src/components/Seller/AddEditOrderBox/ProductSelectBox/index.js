@@ -35,7 +35,8 @@ export default function ProductSelectBox({ name, value, options, onChange, onSel
         </Col>
         <Col span={12}>
           <div className='product-select-box__selected-product-title'>{selectedProduct.name || '-'}</div>
-          <div className='product-select-box__selected-product-price'>Price: {selectedProduct.convertedPrice}</div>
+          <div className='product-select-box__selected-product-price'>{selectedProduct.convertedPrice && `Price: ${selectedProduct.convertedPrice}`}</div>
+          <div className='product-select-box__selected-product-sku'>{selectedProduct.sku && `SKU: ${selectedProduct.sku}`}</div>
           <div className='product-select-box__selected-product-options'>
             <ProductOptionsView productOptions={selectedProduct.productOptions}
                                 onProductOptionsChange={onProductOptionsChange}

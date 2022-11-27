@@ -11,7 +11,7 @@ import './style.scss';
 
 export default function OrderForm(
     {
-      form, onFinish, onCancel, initialValues,
+      isEdit, form, onFinish, onCancel, initialValues,
       selectedProduct, productInputValue, productsOptions, onProductOptionsChange,
       designsInputValue, designsOptions,
       storesInputValue, storesOptions,
@@ -22,6 +22,7 @@ export default function OrderForm(
   const handleValuesChange = values => {
     console.log(values);
   };
+
   return (
     <Form
       name="basic"
@@ -32,6 +33,8 @@ export default function OrderForm(
         designId: '',
         productId: '',
         ...initialValues,
+        storeInput: storesInputValue,
+        designSKUInput: storesInputValue,
       }}
       onValuesChange={handleValuesChange}
       onFinish={onFinish}
@@ -44,12 +47,16 @@ export default function OrderForm(
           <Form.Item
             label="Product"
             name="productSelectBox"
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: 'Please select product!',
-            //   },
-            // ]}
+            rules={[
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (selectedProduct && selectedProduct.id) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error('Please select a product!'));
+                },
+              }),
+            ]}
           >
             <ProductSelectBox
               name="productSelectBox"
@@ -158,6 +165,21 @@ export default function OrderForm(
                   title: 'Design SKU',
                   icon: <InfoCircleOutlined />,
                 }}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please select design!',
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      const existingStore = designsOptions.find(item => item.label === value || item.value === value);
+                      if (!value || existingStore) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('Design is not existing!'));
+                    },
+                  }),
+                ]}
               >
                 <AutoCompleteInput name="designSKUAutoCompleteInput"
                                    value={designsInputValue}
