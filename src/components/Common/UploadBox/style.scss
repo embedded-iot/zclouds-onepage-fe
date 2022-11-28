@@ -1,6 +1,6 @@
 .upload-box {
   &__wrapper {
-    .ant-upload-list-picture-card-container, .ant-upload-select-picture-card {
+    .ant-upload-list-picture-card-container, .ant-upload-select.ant-upload-select-picture-card {
       width: 140px;
       height: 140px;
       background: #F7F8F9;
@@ -12,7 +12,7 @@
       border-radius: 8px;
       border: 1px solid #DCDFE4;
     }
-    .ant-upload-select-picture-card {
+    .ant-upload-select.ant-upload-select-picture-card {
       border: 1px dashed #DCDFE4;
       border-radius: 8px;
     }
