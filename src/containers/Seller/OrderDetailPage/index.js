@@ -6,7 +6,7 @@ import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import AddEditOrderBox from 'components/Seller/AddEditOrderBox';
 import { ROUTERS } from 'components/contants';
-import { FrontUserCategoriesService, SellerOrdersService, SellerStoresService } from 'services';
+import { FrontUserCategoriesService, SellerOrdersService } from 'services';
 
 function OrderDetailPage(props) {
   const [data, setData] = useState(null);
@@ -15,33 +15,23 @@ function OrderDetailPage(props) {
   const pageTitle = isEdit ? 'Edit Order' : 'Create Order';
   const pageDescription = isEdit ? `Order ID: ${orderId}` : 'Great job, your dashboard is ready to go! Grow your business with Lenful.';
 
-  const getStore = (storeId, successCallback) => {
-    SellerStoresService.getStore(storeId, successCallback)
-  }
-
   const getProduct = (productId, successCallback) => {
     FrontUserCategoriesService.getProductDetail(productId, successCallback)
   }
 
-
   const getOrder = orderId => {
     SellerOrdersService.getOrder(orderId, order => {
+      const { address1, address2, city, country, fullName, phoneNumber, region, zipCode } = order.orderShipping;
       let data = {
         ...order,
-        ...order.orderShipping,
+        address1, address2, city, country, fullName, phoneNumber, region, zipCode
       };
-      getStore(order.storeId, store => {
+      getProduct(order.productId, product => {
         data = {
           ...data,
-          store
+          product
         };
-        getProduct(order.productId, product => {
-          data = {
-            ...data,
-            product
-          };
-          setData(data);
-        })
+        setData(data);
       })
     })
   }
