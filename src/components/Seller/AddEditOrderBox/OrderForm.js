@@ -34,7 +34,7 @@ export default function OrderForm(
         productId: '',
         ...initialValues,
         storeInput: storesInputValue,
-        designSKUInput: storesInputValue,
+        designSKUInput: designsInputValue,
       }}
       onValuesChange={handleValuesChange}
       onFinish={onFinish}
@@ -160,26 +160,26 @@ export default function OrderForm(
             <Col span={12}>
               <Form.Item
                 label="Design SKU"
-                name="designId"
+                name="designSKUInput"
                 tooltip={{
                   title: 'Design SKU',
                   icon: <InfoCircleOutlined />,
                 }}
-                rules={[
-                  {
-                    required: true,
-                    message: 'Please select design!',
-                  },
-                  ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      const existingStore = designsOptions.find(item => item.label === value || item.value === value);
-                      if (!value || existingStore) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject(new Error('Design is not existing!'));
-                    },
-                  }),
-                ]}
+                // rules={[
+                //   {
+                //     required: true,
+                //     message: 'Please select design!',
+                //   },
+                //   ({ getFieldValue }) => ({
+                //     validator(_, value) {
+                //       const existingStore = designsOptions.find(item => item.label === value || item.value === value);
+                //       if (!value || existingStore) {
+                //         return Promise.resolve();
+                //       }
+                //       return Promise.reject(new Error('Design is not existing!'));
+                //     },
+                //   }),
+                // ]}
               >
                 <AutoCompleteInput name="designSKUAutoCompleteInput"
                                    value={designsInputValue}
