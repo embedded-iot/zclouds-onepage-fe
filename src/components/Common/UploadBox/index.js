@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
 import { Modal, Upload } from 'antd';
 import { getAuthorizationHeaders } from 'utils';
+import uploadIcon from 'images/upload-icon.svg';
+import Icon from 'components/Common/Icon';
+import './style.scss';
 
 const getBase64 = (file) => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -10,7 +12,7 @@ const getBase64 = (file) => new Promise((resolve, reject) => {
     reader.onerror = (error) => reject(error);
 });
 
-export default function UploadBox({ action, onRemove, headers, maxFileUpload = 50, ...restProps }) {
+export default function UploadBox({ action, onRemove, headers, selectLabel, maxFileUpload = 50, ...restProps }) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -26,14 +28,8 @@ export default function UploadBox({ action, onRemove, headers, maxFileUpload = 5
   // const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
   const uploadButton = (
     <div>
-      <PlusOutlined />
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Upload
-      </div>
+      <Icon src={uploadIcon} width={24} height={24} />
+      <div className="upload-box__select-label">{selectLabel || 'Upload'}</div>
     </div>
   );
 
@@ -44,7 +40,7 @@ export default function UploadBox({ action, onRemove, headers, maxFileUpload = 5
     return true;
   };
   return (
-    <>
+    <div className="upload-box__wrapper">
       <Upload
         {...restProps}
         headers={getAuthorizationHeaders()}
@@ -66,6 +62,6 @@ export default function UploadBox({ action, onRemove, headers, maxFileUpload = 5
           src={previewImage}
         />
       </Modal>
-    </>
+    </div>
   );
 }
