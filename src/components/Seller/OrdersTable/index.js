@@ -32,7 +32,7 @@ const ACTION_KEYS = {
   ACTION_EVENTS: "ACTION_EVENTS",
   ADD_ORDER: "ADD_ORDER",
   EDIT_ORDER: "EDIT_ORDER",
-  CLONE_ORDER: "CLONE_ORDER",
+  CLONE_ORDER: "DUPLICATE_ORDER",
   IMPORT_ORDERS: "IMPORT_ORDERS",
   EXPORT_ORDERS: "EXPORT_ORDERS",
 }
@@ -54,7 +54,13 @@ const columns = [
   {
     title: 'ID/Number',
     dataIndex: 'id',
-    render: (id, record) => <span>{id} - {record.orderNumber}</span>
+    render: (id, record) => (
+      <div>
+        <span>{id} - {record.orderNumber}</span><br/>
+        <span>{record.store && record.store.domain}</span><br/>
+        <span>{record.productName} - {record.orderProductSku}</span>
+      </div>
+    )
   },
   {
     title: 'Mockup',
@@ -63,7 +69,7 @@ const columns = [
   },
   {
     title: 'Order',
-    dataIndex: 'order',
+    dataIndex: 'convertedDesignUrl',
     render: (convertedDesignUrl, record) => <img className="table-img__icon table-img__icon--circle" src={convertedDesignUrl} alt={record.orderNumber} />,
   },
   {
@@ -123,8 +129,8 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize, pageNum, ...restParams} = params || {};
-      SellerOrdersService.getOrders(cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
+      const { pageSize, pageNum, listStatus, ...restParams} = params || {};
+      SellerOrdersService.getOrders(cui.removeEmpty({ ...restParams, pageSize, pageNum, listStatus: listStatus ? listStatus.join('|') : '' }), successCallback, failureCallback)
     },
     successCallback: (response) => {
       successCallback(response);
@@ -160,6 +166,15 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     const newFilters = {
       ...filters,
       ...(typeof value === 'object' ? value : { [name]: value })
+    }
+    setFilters(newFilters);
+    reloadTable(newFilters);
+  }
+
+  const handleStatusChange = (value, name) => {
+    const newFilters = {
+      ...filters,
+      [name]: value
     }
     setFilters(newFilters);
     reloadTable(newFilters);
@@ -217,7 +232,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
         span: defaultSpan,
         props: {
           placeholder: 'Keyword...',
-          name: 'id',
+          name: 'listOrderId',
           theme: 'light',
         }
       },
@@ -418,9 +433,9 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   const StatusCheckboxGroup = (
     <div className="orders-table__status-checkbox-group">
       <CheckboxGroupBox options={StatusCheckboxOptions}
-                        name="state"
-                        value={filters.state || []}
-                        onChange={handleFilterChange}
+                        name="listStatus"
+                        value={filters.listStatus || []}
+                        onChange={handleStatusChange}
       />
     </div>
   );
