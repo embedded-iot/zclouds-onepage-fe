@@ -130,3 +130,19 @@ $primary-color: #0065FF;
     display: none !important;
   }
 }
+
+.ant-form-item-label {
+  color: #2C3E5D;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.display-flex {
+  display: flex;
+  &--center-align-items {
+    align-items: center;
+  }
+  &--center-justify-content {
+    justify-content: center;
+  }
+}
