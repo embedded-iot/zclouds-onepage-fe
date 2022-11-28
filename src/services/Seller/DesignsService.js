@@ -63,7 +63,7 @@ function importDesigns(data, successCallback, failureCallback) {
 }
 
 function getDesignDetailImageUrl(designId, type) {
-  return getAdminBaseURL() + '/designs/' + designId + '/details?type=' + type;
+  return getSellerBaseURL() + '/designs/' + designId + '/details?type=' + type;
 }
 
 function deleteProductImage(designId, designDetailId, successCallback, failureCallback) {
