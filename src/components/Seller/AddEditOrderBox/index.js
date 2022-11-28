@@ -145,7 +145,7 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
       if (option) {
         form.setFieldsValue({
           mockupUrl: option.convertedDesignUrl,
-          designUrl: option.designUrl,
+          designUrl: option.convertedMockupUrl,
         })
       }
     } else if (name === "productSelectBox") {
