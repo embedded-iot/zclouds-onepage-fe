@@ -6,8 +6,10 @@ import {
 } from 'components/contants';
 import { upload } from 'utils';
 import { SellerDesignsService } from 'services';
+import Icon from 'components/Common/Icon';
+import checkedIcon from 'images/checked-checkbox.svg';
 
-export default function DesignDetailForm({ form, designId, initialValues, ...restProps }) {
+export default function DesignDetailForm({ form, isEdit, designId, initialValues, ...restProps }) {
   const actionMockup = SellerDesignsService.getDesignDetailImageUrl(designId, 'Mockup');
   const actionDesign = SellerDesignsService.getDesignDetailImageUrl(designId, 'Design');
   const handleRemoveImage = (file) => {
@@ -27,13 +29,27 @@ export default function DesignDetailForm({ form, designId, initialValues, ...res
       layout="vertical"
       {...restProps}
     >
+      {
+        !isEdit && (
+          <Form.Item>
+            <div className='display-flex display-flex--center-align-items'>
+              <Icon src={checkedIcon} width={18} height={18}/>
+              <span style={{marginLeft: 8}}>Create design Sku successfully</span>
+            </div>
+          </Form.Item>
+        )
+      }
       <Form.Item
         label="Mockup"
         name="mockFileList"
         valuePropName="fileList"
         getValueFromEvent={upload.getValueFromEvent}
       >
-        <UploadBox action={actionMockup} onRemove={handleRemoveImage}/>
+        <UploadBox action={actionMockup}
+                   selectLabel="Choose file mockup"
+                   onRemove={handleRemoveImage}
+                   maxFileUpload={1}
+        />
       </Form.Item>
       <Form.Item
         label="Design"
@@ -41,7 +57,11 @@ export default function DesignDetailForm({ form, designId, initialValues, ...res
         valuePropName="fileList"
         getValueFromEvent={upload.getValueFromEvent}
       >
-        <UploadBox action={actionDesign} onRemove={handleRemoveImage}/>
+        <UploadBox action={actionDesign}
+                   selectLabel="Choose file design"
+                   onRemove={handleRemoveImage}
+                   maxFileUpload={3}
+        />
       </Form.Item>
     </Form>
   )
