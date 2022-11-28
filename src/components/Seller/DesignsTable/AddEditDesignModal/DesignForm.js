@@ -20,7 +20,7 @@ export default function DesignForm({ form, initialValues, ...restProps }) {
       {...restProps}
     >
       <Form.Item
-        label="Design name"
+        label="Design SKU"
         name="slug"
         rules={[
           {
@@ -29,7 +29,7 @@ export default function DesignForm({ form, initialValues, ...restProps }) {
           },
         ]}
       >
-        <InputText placeholder="Design name"  />
+        <InputText placeholder="Design name does not contain special characters"  />
       </Form.Item>
       <Form.Item
         label="Type"
