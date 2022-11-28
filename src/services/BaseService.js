@@ -29,7 +29,7 @@ const getErrorMessage = (error, defaultMessage) => {
   return !!message ? message : defaultMessage;
 }
 
-const getFullPathImage = (imageUrl = '') => getFrontUserUrl() + imageUrl;
+const getFullPathImage = (imageUrl = '') => !!imageUrl && !imageUrl.startsWith('http') ? (getFrontUserUrl() + imageUrl) : imageUrl;
 
 export {
   getFrontUserUrl,
