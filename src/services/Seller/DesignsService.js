@@ -1,4 +1,4 @@
-import { getAdminBaseURL, getFrontUserUrl, getSellerBaseURL } from 'services/BaseService';
+import { getAdminBaseURL, getFrontUserUrl, getFullPathImage, getSellerBaseURL } from 'services/BaseService';
 import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
 import { DESIGN_DETAIL_TYPE_VALUES } from 'components/contants';
@@ -76,8 +76,8 @@ function getDesignsOptions(designs, isHasDefaultOption = true) {
   return [
     ...(isHasDefaultOption ? [{ label: 'Select design', value: '' }] : []),
     ...(designs.map(design => {
-      const convertedDesignUrl = !!design.design && !!design.design.length && (getFrontUserUrl() + design.design[0]);
-      const convertedMockupUrl = !!design.mockup && !!design.mockup.length && (getFrontUserUrl() + design.mockup[0]);
+      const convertedDesignUrl = !!design.design && !!design.design.length && getFullPathImage(design.design[0]);
+      const convertedMockupUrl = !!design.mockup && !!design.mockup.length && getFullPathImage(design.mockup[0]);
       return ({ ...design, label: design.name, value: design.id, convertedDesignUrl, convertedMockupUrl });
     }))
   ]
