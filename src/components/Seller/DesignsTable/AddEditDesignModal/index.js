@@ -4,8 +4,12 @@ import { Form, notification } from 'antd';
 import DesignForm from './DesignForm';
 import { BaseService, SellerDesignsService } from 'services';
 import DesignDetailForm from './DesignDetailForm';
+import Icon from 'components/Common/Icon';
+import addIcon from 'images/plus-black-icon.svg';
+import editIcon from 'images/edit_icon.svg';
+import downloadBlackIcon from 'images/download-black.svg';
 
-export default function AddEditDesignModal({ open, data, onOk, onCancel }) {
+export default function AddEditDesignModal({ open, data, onOk, onCancel, downloadDesign }) {
   const isEdit = !!data;
   const [isDesignDetail, setIsDesignDetail] = useState(isEdit);
   const [form] = Form.useForm();
@@ -42,14 +46,21 @@ export default function AddEditDesignModal({ open, data, onOk, onCancel }) {
     onCancel();
   }
 
+  const onDownloadDesign = () => {
+    downloadDesign(selectedDesign);
+  }
+
   const modalProps = isDesignDetail ? {
     title: `Update design sku: ${selectedDesign.slug}`,
-    onCancel: onCancelDesignDetail,
-    footer: null,
+    onCancel: onDownloadDesign,
+    cancelText: <span>Download <Icon src={downloadBlackIcon} width={24} height={24} /></span>,
+    okText: "Complete",
+    onOk: onCancelDesignDetail,
     children: (
       <DesignDetailForm
         designId={selectedDesign.id}
         initialValues={data}
+        isEdit={isEdit}
       />
     )
   } : {
@@ -70,6 +81,7 @@ export default function AddEditDesignModal({ open, data, onOk, onCancel }) {
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                open={open}
                {...modalProps}
+               title={<><Icon src={isEdit ? editIcon : addIcon} width={isEdit ? 22 : 18} height={isEdit ? 22 : 18} /> {modalProps.title}</>}
     >
       {
         modalProps.children
