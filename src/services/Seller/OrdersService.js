@@ -1,4 +1,4 @@
-import { getFrontUserUrl, getFullPathImage, getSellerBaseURL } from 'services/BaseService';
+import { getFullPathImage, getSellerBaseURL } from 'services/BaseService';
 import { datetime, format, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
 import { DATE_FORMAT, STATE_LABELS } from 'components/contants';
