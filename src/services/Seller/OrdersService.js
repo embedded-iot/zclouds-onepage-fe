@@ -1,11 +1,11 @@
-import { getFrontUserUrl, getSellerBaseURL } from 'services/BaseService';
+import { getFrontUserUrl, getFullPathImage, getSellerBaseURL } from 'services/BaseService';
 import { datetime, format, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
 import { DATE_FORMAT, STATE_LABELS } from 'components/contants';
 
 const transformOrder = item => {
-  const convertedMockupUrl = !!item.mockupUrl && !item.mockupUrl.startsWith('http') ? (getFrontUserUrl() + item.mockupUrl) : item.mockupUrl;
-  const convertedDesignUrl = !!item.designUrl && !item.designUrl.startsWith('http') ? (getFrontUserUrl() + item.designUrl) : item.designUrl;
+  const convertedMockupUrl = !!item.mockupUrl && getFullPathImage(item.mockupUrl);
+  const convertedDesignUrl = !!item.designUrl && getFullPathImage(item.designUrl);
   return {
     ...item,
     convertedCreatedDate: !!item.dateOrder ? datetime.convert(item.dateOrder, DATE_FORMAT) : '',
