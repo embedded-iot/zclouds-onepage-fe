@@ -11,7 +11,7 @@ import BoxCard from 'components/Share/BoxCard';
 import { getStoresOptions } from 'services/Seller/StoresService';
 import { getDesignsOptions } from 'services/Seller/DesignsService';
 import { getProductsOptions } from 'services/FrontUser/CategoriesService';
-import { format } from 'utils';
+import { cui, format } from 'utils';
 
 import './style.scss';
 
@@ -25,8 +25,10 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
   const defaultStoresInputValue = isEdit && data.store ? data.store.name : '';
   const [storesInputValue, setStoreInputValue] = useState(defaultStoresInputValue);
   const [storesOptions, setStoresOptions] = useState([]);
-  const [designsInputValue, setDesignsInputValue] = useState('');
-  const [designId, setDesignId] = useState('');
+  const defaultDesignsInputValue = isEdit && data.design ? data.design.slug : '';
+  const [designsInputValue, setDesignsInputValue] = useState(defaultDesignsInputValue);
+  const defaultDesignId = isEdit && data.design ? data.design.id : '';
+  const [designId, setDesignId] = useState(defaultDesignId);
   const [designsOptions, setDesignsOptions] = useState([]);
   const [form] = Form.useForm();
   let ref = useRef({});
@@ -64,7 +66,7 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
   }, []);
 
   const handleOk = (values) => {
-    const newData = {
+    const newData = cui.removeEmpty({
       productId: selectedProduct.id,
       orderProductSku: selectedProduct.sku,
       productName: values.productName,
@@ -85,10 +87,9 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
         region: values.region,
         city: values.city,
       }
-    }
-
+    });
     if (isEdit) {
-      SellerOrdersService.updateOrder(newData, response => {
+      SellerOrdersService.updateOrder(data.id, newData, response => {
         notification.success({
           message: "Update order successful!",
         });
