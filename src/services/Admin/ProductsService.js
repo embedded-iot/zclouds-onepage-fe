@@ -1,4 +1,4 @@
-import { getAdminBaseURL, getFrontUserUrl } from 'services/BaseService';
+import { getAdminBaseURL, getFullPathImage } from 'services/BaseService';
 import { format, makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
 import { STATE_LABELS } from 'components/contants';
@@ -8,7 +8,7 @@ const transformProduct = item => {
   const featureImage = item.featureImage || shirt_sku;
   const convertedProductImages = (item.productImages || []).map(image => ({
     ...image,
-    url: (getFrontUserUrl() + image.fullSizePath),
+    url: getFullPathImage(image.fullSizePath),
   }));
   return {
     ...item,
