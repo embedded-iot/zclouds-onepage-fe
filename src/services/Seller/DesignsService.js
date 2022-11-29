@@ -1,18 +1,26 @@
-import { getAdminBaseURL, getFrontUserUrl, getFullPathImage, getSellerBaseURL } from 'services/BaseService';
+import { getFullPathImage, getSellerBaseURL } from 'services/BaseService';
 import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
 import { DESIGN_DETAIL_TYPE_VALUES } from 'components/contants';
 
 const transformDesign = item => {
-  const mockup = item.designDetails && item.designDetails.filter(designDetail => designDetail.type === DESIGN_DETAIL_TYPE_VALUES.MOCKUP)
-    .map(design => getFrontUserUrl() + design.url);
-  const design = item.designDetails && item.designDetails.filter(designDetail => designDetail.type === DESIGN_DETAIL_TYPE_VALUES.DESIGN)
-    .map(design => getFrontUserUrl() + design.url);
+  const convertedMockupImages = item.designDetails && item.designDetails.filter(designDetail => designDetail.type === DESIGN_DETAIL_TYPE_VALUES.MOCKUP)
+    .map(image => ({
+      ...image,
+      url: getFullPathImage(image.url),
+    }));
+  const convertedDesignImages = item.designDetails && item.designDetails.filter(designDetail => designDetail.type === DESIGN_DETAIL_TYPE_VALUES.DESIGN)
+    .map(image => ({
+      ...image,
+      url: getFullPathImage(image.url),
+    }));
   return {
     ...item,
     name: item.slug,
-    mockup: mockup.length ? mockup : [shirt_sku],
-    design: design.length ? design : [shirt_sku] ,
+    convertedMockupImages: convertedMockupImages,
+    convertedDesignImages: convertedDesignImages,
+    mockup: convertedMockupImages.length ? convertedMockupImages[0].url : shirt_sku,
+    design: convertedDesignImages.length ? convertedDesignImages[0].url : shirt_sku,
   }
 }
 
@@ -49,7 +57,7 @@ function downloadDesign(id, successCallback, failureCallback) {
   const url = getSellerBaseURL() + '/designs/' + id + '/download';
   makeGetWithConfigs(url, {}, successCallback, failureCallback, response => {
     return {
-      url: getFrontUserUrl() + response.url,
+      url:  getFullPathImage(response.url),
     }
   });
 }
@@ -67,12 +75,11 @@ function getDesignDetailImageUrl(designId, type) {
 }
 
 function deleteProductImage(designId, designDetailId, successCallback, failureCallback) {
-  const url = getAdminBaseURL() + '/designs/' + designId + '/details/' + designDetailId;
+  const url = getSellerBaseURL() + '/designs/' + designId + '/details/' + designDetailId;
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
 function getDesignsOptions(designs, isHasDefaultOption = true) {
-
   return [
     ...(isHasDefaultOption ? [{ label: 'Select design', value: '' }] : []),
     ...(designs.map(design => {
