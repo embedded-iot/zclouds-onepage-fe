@@ -15,6 +15,7 @@ const defaultPageSizeOptions = [10, 20, 50, 100];
 
 export default function TableGrid({
                                     type = 'table',
+                                    className= '',
                                     configs = {},
                                     paginationConfig = {},
                                     headerActionsConfig = {
@@ -77,14 +78,16 @@ export default function TableGrid({
         getDataFunc(newParams);
       })
     }
-    return () => {
-      reloadListener && reloadListener.remove();
-    };
+    return reloadListener;
   }
 
   useEffect(() => {
     getDataFunc(params);
-    reloadListenerFunc();
+    const reloadListener = reloadListenerFunc();
+
+    return () => {
+      reloadListener && reloadListener.remove();
+    };
     // eslint-disable-next-line
   }, []);
 
@@ -201,7 +204,7 @@ export default function TableGrid({
   const columns = isShowIndex ? [{ title: '#', dataIndex: 'index', }, ...(configs.columns || []) ] : (configs.columns || []);
   const items = data.items.map((item, index) => isShowIndex ? ({ index: index + 1, ...item }) : item);
   return (
-    <div className="table-view-wrapper">
+    <div className={`table-view-wrapper ${className}`}>
       {
         !!filteredHeaderActions.length && (
           <div className={`table-header ${headerActionsConfig.className}`}>
@@ -245,6 +248,7 @@ export default function TableGrid({
             dataSource={items}
             pagination={false}
             rowKey={record => record.id}
+            onRow={configs.onRow}
           />
         )
       }
