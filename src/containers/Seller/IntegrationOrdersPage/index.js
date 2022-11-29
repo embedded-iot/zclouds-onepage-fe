@@ -22,6 +22,7 @@ function IntegrationOrdersPage(props) {
       breadcrumbName: 'Integrations',
     },
     {
+      path: ROUTERS.SELLER_INTEGRATIONS + `/${vendorId}`,
       breadcrumbName: storeTypeLabel,
     },
     {
