@@ -17,7 +17,7 @@ import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import CreateNewStoreModal from 'components/Seller/StoresTable/CreateNewStoreModal';
 
 const ACTION_KEYS = {
-  ACTION_EVENTS: "ACTION_EVENTS",
+  ACTION_EVENTS: "STORE_ACTION_EVENTS",
   ADD_STORE: "ADD_STORE",
   EDIT_STORE: "EDIT_STORE",
   MANUAL_SYNC_ORDERS: "MANUAL_SYNC_ORDERS",
@@ -125,14 +125,15 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
         default:
       }
     });
-    return () => {
-      reloadListener && reloadListener.remove();
-    };
+    return reloadListener;
   }
 
   useEffect(() => {
     reloadTable({ type });
-    actionListenerFunc();
+    const reloadListener = actionListenerFunc();
+    return () => {
+      reloadListener && reloadListener.remove();
+    };
     // eslint-disable-next-line
   }, [type]);
 
