@@ -11,11 +11,14 @@ import BoxCard from 'components/Share/BoxCard';
 import { getStoresOptions } from 'services/Seller/StoresService';
 import { getDesignsOptions } from 'services/Seller/DesignsService';
 import { getProductsOptions } from 'services/FrontUser/CategoriesService';
-import { cui, format } from 'utils';
+import { cui, download, format } from 'utils';
+import { getShortPathImage } from 'services/BaseService';
+import AddEditDesignModal from 'components/Seller/DesignsTable/AddEditDesignModal';
 
 import './style.scss';
 
 export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirectTo }) {
+  const [openAddDesign, setOpenAddDesign] = useState(false);
   const defaultSelectedProduct = isEdit ? data.product : {};
   const [selectedProduct, setSelectedProduct] = useState(defaultSelectedProduct);
   const [productInputValue, setProductInputValue] = useState('');
@@ -71,8 +74,8 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
       orderProductSku: selectedProduct.sku,
       productName: values.productName,
       quantity: values.quantity,
-      mockupUrl: values.mockupUrl,
-      designUrl: values.designUrl,
+      mockupUrl: getShortPathImage(values.mockupUrl),
+      designUrl: getShortPathImage(values.designUrl),
       storeId: storeId,
       designId: designId,
       orderNumber: values.orderNumber,
@@ -167,26 +170,57 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
     })
   }
 
+  const downloadDesign = (selectedDesign) => {
+    SellerDesignsService.downloadDesign(selectedDesign.id, response => {
+      notification.success({
+        message: "Download design successful!",
+      });
+      download(response.url);
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error, "Download design failure!"),
+      });
+    });
+  }
+
+  const handleCreateNewDesign = () => {
+    setOpenAddDesign(true);
+  }
+
   return (
     <BoxCard className={'add-edit-order-box__wrapper'}>
-      <OrderForm
-        isEdit={isEdit}
-        form={form}
-        initialValues={data}
-        selectedProduct={selectedProduct}
-        productInputValue={productInputValue}
-        onProductOptionsChange={onProductOptionsChange}
-        productsOptions={productsOptions}
-        storesInputValue={storesInputValue}
-        storesOptions={storesOptions}
-        designsInputValue={designsInputValue}
-        designsOptions={designsOptions}
-        onInputChange={handleInputChange}
-        onInputSelect={handleInputSelect}
-        redirectTo={redirectTo}
-        onFinish={handleOk}
-        onCancel={onCancel}
-      />
+      <>
+        <OrderForm
+          isEdit={isEdit}
+          form={form}
+          initialValues={data}
+          selectedProduct={selectedProduct}
+          productInputValue={productInputValue}
+          onProductOptionsChange={onProductOptionsChange}
+          productsOptions={productsOptions}
+          storesInputValue={storesInputValue}
+          storesOptions={storesOptions}
+          designsInputValue={designsInputValue}
+          designsOptions={designsOptions}
+          onInputChange={handleInputChange}
+          onInputSelect={handleInputSelect}
+          redirectTo={redirectTo}
+          onFinish={handleOk}
+          onCancel={onCancel}
+          onCreateNewDesign={handleCreateNewDesign}
+        />
+        {
+          openAddDesign && (
+            <AddEditDesignModal
+              open={openAddDesign}
+              data={null}
+              onOk={getDesigns}
+              onCancel={() => { setOpenAddDesign(false); }}
+              downloadDesign={downloadDesign}
+            />
+          )
+        }
+      </>
     </BoxCard>
   )
 }
