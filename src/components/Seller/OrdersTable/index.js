@@ -29,7 +29,7 @@ import DropdownSelect from 'components/Common/DropdownSelect';
 
 import './style.scss';
 const ACTION_KEYS = {
-  ACTION_EVENTS: "ACTION_EVENTS",
+  ACTION_EVENTS: "ORDERS_ACTION_EVENTS",
   ADD_ORDER: "ADD_ORDER",
   EDIT_ORDER: "EDIT_ORDER",
   CLONE_ORDER: "DUPLICATE_ORDER",
@@ -126,8 +126,19 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   });
   const RELOAD_EVENT_KEY = 'RELOAD_Seller_ORDERS_TABLE_EVENT_KEY';
   let ref = useRef({});
+  const onRowEvents = (record, rowIndex) => {
+    return {
+      onDoubleClick: event => {
+        events.publish(ACTION_KEYS.ACTION_EVENTS, {
+          key: ACTION_KEYS.EDIT_ORDER,
+          record,
+        })
+      }
+    };
+  };
   const tableConfig = {
     columns,
+    onRow: onRowEvents,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, listStatus, ...restParams} = params || {};
       SellerOrdersService.getOrders(cui.removeEmpty({ ...restParams, pageSize, pageNum, listStatus: listStatus ? listStatus.join('|') : '' }), successCallback, failureCallback)
@@ -231,7 +242,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
         type: 'inputText',
         span: defaultSpan,
         props: {
-          placeholder: 'Keyword...',
+          placeholder: 'List Order ID...',
           name: 'listOrderId',
           theme: 'light',
         }
@@ -392,9 +403,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
         default:
       }
     });
-    return () => {
-      reloadListener && reloadListener.remove();
-    };
+    return reloadListener;
   }
 
   const getStoresOptions = (params = {}) => {
@@ -416,9 +425,12 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   }
 
   useEffect(() => {
-    actionListenerFunc();
+    const reloadListener = actionListenerFunc();
     getOrdersStatus();
     getStoresOptions( {});
+    return () => {
+      reloadListener && reloadListener.remove();
+    };
     // eslint-disable-next-line
   }, []);
 
@@ -446,6 +458,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
                          align="right"
       />
       <TableGrid configs={tableConfig}
+                 className="orders-table__table"
                  headerActionsConfig={headerActionsConfig}
                  secondHeader={orderStatus.length && StatusCheckboxGroup}
                  paginationConfig={{}}
