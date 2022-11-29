@@ -30,12 +30,12 @@ const columns = [
   {
     title: 'Mockup',
     dataIndex: 'mockup',
-    render: (mockup, record) => <img className="table-img__icon table-img__icon--circle" src={mockup[0]} alt={record.name} />,
+    render: (mockup, record) => <img className="table-img__icon table-img__icon--circle" src={mockup} alt={record.name} />,
   },
   {
     title: 'Design',
     dataIndex: 'design',
-    render: (design, record) => <img className="table-img__icon table-img__icon--circle" src={design[0]} alt={record.name} />,
+    render: (design, record) => <img className="table-img__icon table-img__icon--circle" src={design} alt={record.name} />,
   },
   {
     title: 'Action',
@@ -47,7 +47,7 @@ const columns = [
 ];
 
 const ACTION_KEYS = {
-  ACTION_EVENTS: "ACTION_EVENTS",
+  ACTION_EVENTS: "DESIGN_ACTION_EVENTS",
   ADD_DESIGN: "ADD_DESIGN",
   EDIT_DESIGN: "EDIT_DESIGN",
   DOWNLOAD_DESIGN: "DOWNLOAD_DESIGN",
@@ -194,13 +194,14 @@ export default function DesignsTable({ successCallback = () => {} }) {
         default:
       }
     });
-    return () => {
-      reloadListener && reloadListener.remove();
-    };
+    return reloadListener;
   }
 
   useEffect(() => {
-    actionListenerFunc();
+    const reloadListener = actionListenerFunc();
+    return () => {
+      reloadListener && reloadListener.remove();
+    };
     // eslint-disable-next-line
   }, []);
 
