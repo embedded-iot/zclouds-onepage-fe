@@ -12,7 +12,7 @@ import { events } from 'utils';
 
 
 const ACTION_KEYS = {
-  ACTION_EVENTS: "ACTION_EVENTS",
+  ACTION_EVENTS: "INTEGRATION_ORDER_ACTION_EVENTS",
   CLONE_ORDER: "CLONE_ORDER",
 }
 
@@ -140,13 +140,14 @@ export default function IntegrationOrdersTable({ type, storeId, successCallback 
         cloneOrder(record);
       }
     });
-    return () => {
-      reloadListener && reloadListener.remove();
-    };
+    return reloadListener;
   }
 
   useEffect(() => {
-    actionListenerFunc();
+    const reloadListener = actionListenerFunc();
+    return () => {
+      reloadListener && reloadListener.remove();
+    };
     // eslint-disable-next-line
   }, []);
 
