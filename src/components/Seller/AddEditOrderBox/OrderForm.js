@@ -3,7 +3,6 @@ import { Button, Col, Form, Row } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import InputNumber from 'components/Common/InputNumber';
 import InputText from 'components/Common/InputText';
-import { ROUTERS } from 'components/contants';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import ProductSelectBox from 'components/Seller/AddEditOrderBox/ProductSelectBox';
 
@@ -16,7 +15,7 @@ export default function OrderForm(
       designsInputValue, designsOptions,
       storesInputValue, storesOptions,
       onInputChange, onInputSelect,
-      redirectTo, ...restProps
+      redirectTo, onCreateNewDesign, ...restProps
     }
   ) {
   const handleValuesChange = values => {
@@ -195,7 +194,7 @@ export default function OrderForm(
               <Form.Item
                 label={"  "}
               >
-                <Button type="primary" ghost onClick={() => redirectTo(ROUTERS.SELLER_DESIGN_LIBRARY)}>Create</Button>
+                <Button type="primary" ghost className="add-edit-order-box__create-design" onClick={onCreateNewDesign}>Create</Button>
               </Form.Item>
             </Col>
           </Row>
