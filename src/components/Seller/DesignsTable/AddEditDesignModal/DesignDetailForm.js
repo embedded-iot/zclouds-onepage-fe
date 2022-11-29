@@ -22,8 +22,8 @@ export default function DesignDetailForm({ form, isEdit, designId, initialValues
       autoComplete="off"
       initialValues={{
         type: DESIGN_VALUES._2D,
-        designFileList: upload.getFileListFromList(initialValues && initialValues.design),
-        mockFileList: upload.getFileListFromList(initialValues && initialValues.mockup),
+        designFileList: upload.getFileListFromList(initialValues && initialValues.convertedDesignImages),
+        mockFileList: upload.getFileListFromList(initialValues && initialValues.convertedMockupImages),
         ...initialValues,
       }}
       layout="vertical"
