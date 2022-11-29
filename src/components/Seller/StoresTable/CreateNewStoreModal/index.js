@@ -16,6 +16,7 @@ export default function CreateNewStoreModal({ open, onOk, onCancel }) {
                onOk={onOk}
                onCancel={onCancel}
                hideCancelBtn={true}
+               maskClosable={true}
     >
       <CreateNewStoreForm form={form} />
     </ModalView>
