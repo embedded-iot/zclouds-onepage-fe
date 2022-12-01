@@ -98,6 +98,9 @@ export default function CategoriesManagementTable() {
       {
         type: 'searchText',
         requiredSelection: false,
+        props: {
+          placeholder: "Keyword"
+        }
       },
       {
         type: 'pageNum',
