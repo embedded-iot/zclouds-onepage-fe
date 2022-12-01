@@ -5,14 +5,18 @@ import { ROLE_LABELS, STATE_LABELS } from 'components/contants';
 const transformUser = item => {
   return {
     ...item,
+    fullName: (item.fullName || '') || `${item.firstName || ''} ${item.lastName || ''}`,
     convertedState: STATE_LABELS[item.state] || item.state,
     convertedRole: ROLE_LABELS[item.role] || item.role,
   }
 }
 
-function getUsers(successCallback, failureCallback) {
+function getUsers(params, successCallback, failureCallback) {
+  const config = {
+    params
+  }
   const url = getAdminBaseURL() + '/users';
-  makeGetWithConfigs(url, {}, successCallback, failureCallback, response => {
+  makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     const items = response.content.map(transformUser)
     return {
       items: items,
