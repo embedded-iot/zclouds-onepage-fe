@@ -56,6 +56,7 @@ import SellerStoreDetailPage from 'containers/Seller/StoreDetailPage/Loadable';
 
 import AdminHomePage from 'containers/Admin/HomePage/Loadable';
 import AdminProductManagementPage from 'containers/Admin/ProductManagementPage';
+import AdminProductDetailManagementPage from 'containers/Admin/ProductDetailManagementPage';
 import AdminCategoriesManagementPage from 'containers/Admin/CategoriesManagementPage';
 import AdminUsersManagementPage from 'containers/Admin/UsersManagementPage';
 
@@ -134,6 +135,7 @@ const AdminAppContent = (props) => (
   <Switch>
     <PrivateRoute exact path={ROUTERS.ROOT} component={AdminHomePage} isAuthenticated={props.isLogin && props.isAdmin}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_PRODUCTS_MANAGEMENT} component={AdminProductManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
+    <PrivateRoute exact path={ROUTERS.ADMIN_DETAIL_PRODUCT} component={AdminProductDetailManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_CATEGORIES_MANAGEMENT} component={AdminCategoriesManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_ADMINS_MANAGEMENT} component={AdminHomePage} isAuthenticated={props.isLogin && props.isAdmin}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_ROLES_MANAGEMENT} component={AdminUsersManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
