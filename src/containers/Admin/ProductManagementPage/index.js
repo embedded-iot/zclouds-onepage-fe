@@ -11,13 +11,13 @@ function ProductManagementPage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>SKU</title>
+        <title>Products management</title>
       </Helmet>
       <PageHeader
         title="Products management"
       />
       <div className="page-contents">
-        <ProductsManagementTable />
+        <ProductsManagementTable redirectTo={props.push} />
       </div>
     </div>
   );
