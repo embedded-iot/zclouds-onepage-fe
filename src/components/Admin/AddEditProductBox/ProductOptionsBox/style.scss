@@ -1,0 +1,65 @@
+.product-options-box {
+  &__wrapper {
+
+  }
+  &__option {
+    background: #F7F8F9;
+    border-radius: 8px;
+    padding: 10px;
+    position: relative;
+    &--select-box {
+      border: 1px dashed #DCDFE4;
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &__option-remove {
+    text-align: right;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+  &__title {
+    font-size: 12px;
+    color: #2C3E5D;
+    font-weight: 600;
+  }
+  &__content, &__option-value-title, &__option-value-content, button {
+    margin-top: 5px;
+  }
+  &__option-values {
+    padding-left: 15px;
+    button {
+      padding: 0;
+    }
+  }
+  &__option-value-title {
+    font-weight: 600;
+    font-size: 10px;
+    color: #2C3E5D;
+  }
+  &__option-value-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    & > input {
+      flex-grow: 1;
+    }
+    .ant-input-number {
+      flex-basis: 40%;
+    }
+  }
+  &__add-button {
+    &--margin-top {
+      margin-top: 12px;
+    }
+    img {
+      margin-right: 6px;
+    }
+    span {
+      color: #2C3E5D;
+      font-size: 12px;
+    }
+  }
+}
