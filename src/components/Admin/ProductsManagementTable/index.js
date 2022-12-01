@@ -3,12 +3,12 @@ import TableGrid from 'components/Common/TableGrid';
 import { AdminProductsService } from 'services';
 import { events, format } from 'utils';
 import { Button } from 'antd';
-import AddEditProductModal from './AddEditProductModal';
 import DeleteProductModal from './DeleteProductModal';
 import { CloseCircleOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import ProductOptionsView from 'components/Share/ProductOptionsView';
 import TableCellView from 'components/Share/TableCellView';
 import BoxCard from 'components/Share/BoxCard';
+import { ROUTERS } from 'components/contants';
 
 
 const UPDATE_DATA_EVENT_KEY = 'UPDATE_SKU_PRICE_TABLE_EVENT_KEY';
@@ -77,6 +77,14 @@ const columns = [
     )
   },
   {
+    title: 'Shipping',
+    dataIndex: 'shipping',
+  },
+  {
+    title: 'Description',
+    dataIndex: 'description',
+  },
+  {
     title: 'State',
     dataIndex: 'convertedState',
   },
@@ -88,9 +96,7 @@ const ACTION_KEYS = {
   DELETE_PRODUCT: "DELETE_PRODUCT",
 }
 
-export default function ProductsManagementTable() {
-  const [openAddProduct, setOpenAddProduct] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+export default function ProductsManagementTable({ redirectTo }) {
   const [openDeleteProduct, setOpenDeleteProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_PRODUCTS_TABLE_EVENT_KEY';
@@ -111,19 +117,12 @@ export default function ProductsManagementTable() {
   };
 
   const reloadTable = (filters ={}) => {
-    setOpenAddProduct(false);
     setOpenDeleteProduct(false);
     events.publish(RELOAD_EVENT_KEY, filters);
   }
 
-  const addProduct = () => {
-    setIsEdit(false);
-    setOpenAddProduct(true);
-  }
-
-  const editProduct = () => {
-    setIsEdit(true);
-    setOpenAddProduct(true);
+  const addEditProduct = (isEdit = false) => {
+    redirectTo(ROUTERS.ADMIN_PRODUCTS_MANAGEMENT + '/' + (isEdit ? selectedProduct.id :  0));
   }
 
   const deleteProduct = () => {
@@ -139,7 +138,7 @@ export default function ProductsManagementTable() {
     buttonList: [
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.EDIT_PRODUCT} icon={<EditOutlined />} onClick={editProduct}>Edit product</Button>,
+        render: <Button key={ACTION_KEYS.EDIT_PRODUCT} icon={<EditOutlined />} onClick={() => addEditProduct(true)}>Edit product</Button>,
         requiredSelection: true,
       },      {
         type: 'custom',
@@ -149,6 +148,9 @@ export default function ProductsManagementTable() {
       {
         type: 'searchText',
         requiredSelection: false,
+        props: {
+          placeholder: "Keyword"
+        }
       },
       {
         type: 'pageNum',
@@ -164,7 +166,7 @@ export default function ProductsManagementTable() {
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.ADD_PRODUCT} type="primary" icon={<PlusCircleOutlined />} onClick={addProduct}>Add product</Button>,
+        render: <Button key={ACTION_KEYS.ADD_PRODUCT} type="primary" icon={<PlusCircleOutlined />} onClick={() => addEditProduct()}>Add product</Button>,
         align: 'right',
       }
     ],
@@ -183,16 +185,6 @@ export default function ProductsManagementTable() {
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
-      {
-        openAddProduct && (
-          <AddEditProductModal
-            open={openAddProduct}
-            data={isEdit ? selectedProduct : null}
-            onOk={reloadTable}
-            onCancel={() => { setOpenAddProduct(false); }}
-          />
-        )
-      }
       {
         openDeleteProduct && (
           <DeleteProductModal
