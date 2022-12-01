@@ -5,10 +5,11 @@ import { STATE_LABELS } from 'components/contants';
 
 
 const transformProduct = item => {
-  const featureImage = item.featureImage || shirt_sku;
+  const featureImage = getFullPathImage(item.featureImage) || shirt_sku;
   const convertedProductImages = (item.productImages || []).map(image => ({
     ...image,
     url: getFullPathImage(image.fullSizePath),
+    existing: true,
   }));
   return {
     ...item,
@@ -37,6 +38,14 @@ function getProducts(params, successCallback, failureCallback) {
   });
 }
 
+
+function getProduct(id, successCallback, failureCallback) {
+  const url = getAdminBaseURL() + '/products/' + id;
+  makeGetWithConfigs(url, {}, successCallback, failureCallback, product => {
+    return transformProduct(product);
+  });
+}
+
 function createProduct(data, successCallback, failureCallback) {
   const config = {
     data
@@ -58,12 +67,12 @@ function deleteProduct(id, successCallback, failureCallback) {
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
-function getUploadProductImageUrl(productId) {
-  return getAdminBaseURL() + '/products/' + productId + '/images';
+function getUploadProductImageUrl() {
+  return getAdminBaseURL() + '/products/images';
 }
 
-function deleteProductImage(productId, imageId, successCallback, failureCallback) {
-  const url = getAdminBaseURL() + '/products/' + productId + '/images/' + imageId;
+function deleteProductImage(imageId, successCallback, failureCallback) {
+  const url = getAdminBaseURL() + '/products/images/' + imageId;
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
@@ -92,6 +101,7 @@ function buildProductOptions(productOptions) {
 export {
   getProducts,
   createProduct,
+  getProduct,
   updateProduct,
   deleteProduct,
   getUploadProductImageUrl,
