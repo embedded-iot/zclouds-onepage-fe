@@ -23,10 +23,14 @@ const getAdminBaseURL = () => {
 }
 
 const getErrorMessage = (error, defaultMessage) => {
-  if (!!error && error.message )
-    return error.message;
   const message = !!error && !!error.errors && Object.entries(error.errors).map(([key, value]) => value).join(',');
-  return !!message ? message : defaultMessage;
+  if (!!message) {
+    return message;
+  }
+  if (!!error && error.message ) {
+    return error.message;
+  }
+  return defaultMessage;
 }
 
 const getFullPathImage = (imageUrl = '') => !!imageUrl && !imageUrl.startsWith('http') ? (getFrontUserUrl() + imageUrl) : imageUrl;
