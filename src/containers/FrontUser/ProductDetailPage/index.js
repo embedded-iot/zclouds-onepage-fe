@@ -7,9 +7,9 @@ import BreadcrumbBox from 'components/Common/BreadcrumbBox';
 import { ROUTERS } from 'components/contants';
 import ProductDetailBox from 'components/FrontUser/ProductDetailBox';
 import RelatedProductForProductDetail from 'components/FrontUser/RelatedProductForProductDetail';
+import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
 
 import './style.scss';
-import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
 
 
 function ProductDetailPage(props) {
@@ -20,7 +20,7 @@ function ProductDetailPage(props) {
       breadcrumbName: 'All products',
     },
     {
-      path: `${categoryName}/${categoryId}`,
+      path: `${ROUTERS.FRONT_USER_ALL_PRODUCTS}/${categoryName}/${categoryId}`,
       breadcrumbName: categoryName,
     },
     {

@@ -39,6 +39,7 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
   const getProducts = (params = {}) => {
     FrontUserCategoriesService.getCategories({ pageNum: 1, pageSize: 100, ...params }, response => {
       const newProductOptions = getProductsOptions(response.items, false);
+      console.log(newProductOptions);
       setProductsOptions(newProductOptions);
       if (!isEdit) {
         if (newProductOptions.length) {

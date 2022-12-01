@@ -357,7 +357,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
         span: 3,
         render: (
           <DropdownSelect
-            name="orderBy"
+            name="sortOrder"
             options={SORT_BY_LABEL_VALUE_OPTIONS}
             defaultValue={''}
             onChange={handleFilterChange}

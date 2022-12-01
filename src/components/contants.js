@@ -2,6 +2,8 @@ import shopifyLogo from 'images/shopify_logo.svg'
 import shopBaseLogo from 'images/shopbase_logo.svg'
 import wooCommerceLogo from 'images/woocommerce_logo.svg'
 
+import {  ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
+
 export const WEBSITE_NAME = 'Fulfil';
 export const WEBSITE_DOMAIN = 'Fulfil.com';
 export const ROUTERS = {
@@ -253,15 +255,15 @@ export const CLONE_DESIGN_LABEL_VALUE_OPTIONS = [
 ];
 
 export const TYPE_DATE_LABEL_VALUE_OPTIONS = [
-  { label: 'Type date All', value: '' },
+  { label: 'Sort by time', value: '' },
   { label: 'Create date', value: 'create_date' },
   { label: 'Upload tracking date', value: 'tracking_date' },
 ];
 
 export const SORT_BY_LABEL_VALUE_OPTIONS = [
-  { label: 'Sort by', value: '' },
-  { label: 'Create date', value: 'create_date' },
-  { label: 'Upload tracking date', value: 'tracking_date' },
+  { label: 'Sort by order', value: '' },
+  { label: <><span>New - Old </span><ArrowDownOutlined /> </>, value: 'time_order_desc' },
+  { label: <><span>Old - New </span><ArrowUpOutlined /> </>, value: 'time_order_acs' },
 ];
 
 

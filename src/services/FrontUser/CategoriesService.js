@@ -4,14 +4,14 @@ import { format, makeGetWithConfigs } from 'utils';
 import product_ex from 'images/product_ex.svg';
 
 const transformProduct = product => {
-  const featureImage = product.featureImage || product_ex;
+  const featureImage = getFullPathImage(product.featureImage) || product_ex;
   const images = [featureImage, ...(product.productImages.map(image => getFullPathImage(image.fullSizePath))), ...(product.productImages.map(image => getFullPathImage(image.fullSizePath)))];
   return {
     ...product,
     key: product.id,
     sku: product.id,
     categoryId: product.categoryId,
-    categoryName: product.categoryName || 'categoryName',
+    categoryName: product.category ? product.category.name : 'Category',
     productName: product.name,
     productId: product.id,
     avatar: featureImage,
