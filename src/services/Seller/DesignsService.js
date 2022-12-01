@@ -17,10 +17,10 @@ const transformDesign = item => {
   return {
     ...item,
     name: item.slug,
-    convertedMockupImages: convertedMockupImages,
-    convertedDesignImages: convertedDesignImages,
-    mockup: convertedMockupImages.length ? convertedMockupImages[0].url : shirt_sku,
-    design: convertedDesignImages.length ? convertedDesignImages[0].url : shirt_sku,
+    convertedMockupImages: convertedMockupImages || [],
+    convertedDesignImages: convertedDesignImages || [],
+    mockupFeatureImage: convertedMockupImages.length ? convertedMockupImages[0].url : shirt_sku,
+    designFeatureImage: convertedDesignImages.length ? convertedDesignImages[0].url : shirt_sku,
   }
 }
 
@@ -83,8 +83,8 @@ function getDesignsOptions(designs, isHasDefaultOption = true) {
   return [
     ...(isHasDefaultOption ? [{ label: 'Select design', value: '' }] : []),
     ...(designs.map(design => {
-      const convertedDesignUrl = !!design.design && !!design.design.length && getFullPathImage(design.design[0]);
-      const convertedMockupUrl = !!design.mockup && !!design.mockup.length && getFullPathImage(design.mockup[0]);
+      const convertedDesignUrl = !!design.convertedDesignImages && !!design.convertedDesignImages.length ? design.convertedDesignImages[0].url : "";
+      const convertedMockupUrl = !!design.convertedMockupImages && !!design.convertedMockupImages.length ? design.convertedMockupImages[0].url : "";
       return ({ ...design, label: design.name, value: design.id, convertedDesignUrl, convertedMockupUrl });
     }))
   ]
