@@ -28,6 +28,7 @@ export const ROUTERS = {
   SELLER_CHAT_WITH_ME: '/chat-with-me',
   SELLER_CREATOR_COMMUNITY: '/creator-community',
   ADMIN_PRODUCTS_MANAGEMENT: '/products-management',
+  ADMIN_DETAIL_PRODUCT: '/products-management/:productId',
   ADMIN_CATEGORIES_MANAGEMENT: '/categories-management',
   ADMIN_ADMINS_AND_ROLES_MANAGEMENT: '/admins-and-roles-management',
   ADMIN_ADMINS_MANAGEMENT: '/admins-management',
