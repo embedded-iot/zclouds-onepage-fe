@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminUsersService } from 'services';
-import { events } from 'utils';
+import { cui, events } from 'utils';
 import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import AddEditUserModal from './AddEditUserModal';
@@ -16,8 +16,20 @@ const columns = [
     dataIndex: 'username',
   },
   {
+    title: 'Full Name',
+    dataIndex: 'fullName',
+  },
+  {
     title: 'Email',
     dataIndex: 'email',
+  },
+  {
+    title: 'Phone',
+    dataIndex: 'phone',
+  },
+  {
+    title: 'Store Name',
+    dataIndex: 'storeName',
   },
   {
     title: 'Role',
@@ -46,7 +58,7 @@ export default function UsersManagementTable() {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
-      AdminUsersService.getUsers({ ...restParams, pageSize, pageNum }, successCallback, failureCallback)
+      AdminUsersService.getUsers( cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
     },
     successCallback: (response) => {
       ref.current.items = response.items;
@@ -80,8 +92,8 @@ export default function UsersManagementTable() {
     const newSelectedUser = ref.current.items.find(item => item.id === keys[0]);
     setSelectedUser(newSelectedUser);
   }
-  const onRoleChange = (type) => {
-    reloadTable({ type })
+  const onRoleChange = (role) => {
+    reloadTable({ role })
   }
 
   ROLES_LABEL_VALUE_OPTIONS[0].label = "All Role";
@@ -99,6 +111,9 @@ export default function UsersManagementTable() {
       {
         type: 'searchText',
         requiredSelection: false,
+        props: {
+          placeholder: 'Search by id, name...'
+        }
       },
       {
         type: 'custom',
