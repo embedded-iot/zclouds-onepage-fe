@@ -1,11 +1,11 @@
 .input-text {
   width: 100%;
   &.light {
-    input {
+    input, textarea {
       background: #FFFFFF;
     }
   }
-  input {
+  input, textarea {
     height: 36px;
     padding: 0 16px;
     color: #2C3E5D;
