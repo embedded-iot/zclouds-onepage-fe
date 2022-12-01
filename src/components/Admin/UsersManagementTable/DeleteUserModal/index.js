@@ -24,7 +24,7 @@ export default function DeleteUserModal({ open, data, onOk, onCancel }) {
                onOk={handleOk}
                onCancel={onCancel}
     >
-    <div>Delete {data ? data.name : 'User name'}</div>
+    <div>Delete {data ? data.username : 'User name'}</div>
     </ModalView>
   )
 }
