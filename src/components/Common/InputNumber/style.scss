@@ -1,4 +1,9 @@
 .input-number {
+  &.light {
+    .ant-input-number {
+      background: #FFFFFF;
+    }
+  }
   .ant-input-number {
     width: 100%;
     height: 36px;
