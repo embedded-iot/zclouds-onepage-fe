@@ -29,13 +29,13 @@ const columns = [
   },
   {
     title: 'Mockup',
-    dataIndex: 'mockup',
-    render: (mockup, record) => <img className="table-img__icon table-img__icon--circle" src={mockup} alt={record.name} />,
+    dataIndex: 'mockupFeatureImage',
+    render: (mockupFeatureImage, record) => <img className="table-img__icon table-img__icon--circle" src={mockupFeatureImage} alt={record.name} />,
   },
   {
     title: 'Design',
-    dataIndex: 'design',
-    render: (design, record) => <img className="table-img__icon table-img__icon--circle" src={design} alt={record.name} />,
+    dataIndex: 'designFeatureImage',
+    render: (designFeatureImage, record) => <img className="table-img__icon table-img__icon--circle" src={designFeatureImage} alt={record.name} />,
   },
   {
     title: 'Action',
