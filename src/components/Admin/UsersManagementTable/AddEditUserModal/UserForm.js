@@ -1,10 +1,11 @@
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 import {
-  ROLES_LABEL_VALUE_OPTIONS, STATE_LABEL_VALUE_OPTIONS,
+  ROLES_LABEL_VALUE_OPTIONS, STATE_LABEL_VALUE_OPTIONS, STATE_VALUES,
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import InputText from 'components/Common/InputText';
+import InputPassword from 'components/Common/InputPassword';
 
 export default function UserForm({ form, initialValues, ...restProps }) {
   return (
@@ -14,6 +15,7 @@ export default function UserForm({ form, initialValues, ...restProps }) {
       autoComplete="off"
       initialValues={{
         role: '',
+        state: STATE_VALUES.ACTIVATED,
         ...initialValues,
       }}
       layout="vertical"
@@ -41,7 +43,7 @@ export default function UserForm({ form, initialValues, ...restProps }) {
           },
         ]}
       >
-        <Input.Password placeholder="Password" />
+        <InputPassword placeholder="Password" />
       </Form.Item>
       <Form.Item
         label="Email"
@@ -58,6 +60,42 @@ export default function UserForm({ form, initialValues, ...restProps }) {
         ]}
       >
         <InputText placeholder="Email"/>
+      </Form.Item>
+      <Form.Item
+        label="First Name"
+        name="firstName"
+        rules={[
+          {
+            required: true,
+            message: 'Please first name!',
+          },
+        ]}
+      >
+        <InputText placeholder="First Name" />
+      </Form.Item>
+      <Form.Item
+        label="Last Name"
+        name="lastName"
+        rules={[
+          {
+            required: true,
+            message: 'Please last name!',
+          },
+        ]}
+      >
+        <InputText placeholder="Last Name" />
+      </Form.Item>
+      <Form.Item
+        label="Full Name"
+        name="fullName"
+        rules={[
+          {
+            required: true,
+            message: 'Please full name!',
+          },
+        ]}
+      >
+        <InputText placeholder="First Name" />
       </Form.Item>
       <Form.Item
         label="Phone"
