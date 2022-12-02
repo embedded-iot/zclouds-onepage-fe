@@ -11,6 +11,22 @@ function connectStore(type, data, successCallback, failureCallback) {
 }
 
 
+function connectShopifyStore(type, params, successCallback, failureCallback) {
+  const config = {
+    params
+  };
+  const url = getSellerBaseURL() + `/${type.toLowerCase()}/authorize/`;
+  makeGetWithConfigs(url, config, successCallback, failureCallback);
+}
+
+function connectShopifyStoreWithData(type, data, successCallback, failureCallback) {
+  const config = {
+    data
+  };
+  const url = getSellerBaseURL() + `/${type.toLowerCase()}/exchange/`;
+  makePostWithConfigs(url, config, successCallback, failureCallback);
+}
+
 function checkConnectStore(type, id, successCallback, failureCallback) {
   const url = getSellerBaseURL() + `/integrations/${type.toLowerCase()}/${id}/check-connection`;
   makePostWithConfigs(url, {}, successCallback, failureCallback);
@@ -51,6 +67,8 @@ function cloneOrder(type, storeId, orderId, successCallback, failureCallback) {
 }
 
 export {
+  connectShopifyStore,
+  connectShopifyStoreWithData,
   connectStore,
   checkConnectStore,
   getIntegrationOrders,

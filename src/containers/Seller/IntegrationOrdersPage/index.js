@@ -26,7 +26,7 @@ function IntegrationOrdersPage(props) {
       breadcrumbName: storeTypeLabel,
     },
     {
-      breadcrumbName: storeName,
+      breadcrumbName: decodeURIComponent(storeName),
     },
   ]
   const successCallback = (response) => {

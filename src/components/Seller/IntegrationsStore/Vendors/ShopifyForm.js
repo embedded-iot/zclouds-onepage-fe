@@ -13,18 +13,6 @@ export default function ShopifyForm({ onFinish }) {
       layout="vertical"
     >
       <Form.Item
-        label="Store Name:"
-        name="name"
-        rules={[
-          {
-            required: true,
-            message: 'Please enter store name!',
-          },
-        ]}
-      >
-        <InputText placeholder={`Store Name`}/>
-      </Form.Item>
-      <Form.Item
         label="Domain:"
         name="domain"
         rules={[
@@ -35,30 +23,6 @@ export default function ShopifyForm({ onFinish }) {
         ]}
       >
         <InputText addonBefore="https://" addonAfter=".myshopify.com" placeholder={`...`}/>
-      </Form.Item>
-      <Form.Item
-        label="API Key:"
-        name="apiKey"
-        rules={[
-          {
-            required: true,
-            message: 'Please enter API key!',
-          },
-        ]}
-      >
-        <InputText placeholder={`...`}/>
-      </Form.Item>
-      <Form.Item
-        label="API Pass:"
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: 'Please enter API pass!',
-          },
-        ]}
-      >
-        <InputText placeholder={`...`}/>
       </Form.Item>
       <Form.Item>
         <Button type="primary"

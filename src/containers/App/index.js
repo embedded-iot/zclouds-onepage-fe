@@ -127,6 +127,7 @@ const AppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.SELLER_STORES} component={SellerStoresPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_STORE} component={SellerStoreDetailPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_WITH_VENDOR} component={SellerIntegrationsPage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATION_ORDERS} component={SellerIntegrationOrdersPageR} isAuthenticated={props.isLogin}/>
   </Switch>
 )

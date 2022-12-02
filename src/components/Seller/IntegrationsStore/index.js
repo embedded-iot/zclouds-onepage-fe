@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { notification } from 'antd';
 import { ShopBaseForm, ShopifyForm, WooCommerceForm } from './Vendors';
 import { BaseService, SellerIntegrationsService } from 'services';
@@ -11,7 +11,7 @@ const CONNECT_FORMS = {
   [STORE_TYPE_VALUES.WOO_COMMERCE]: WooCommerceForm,
 }
 
-export default function IntegrationsStore({ type, storeTypeLabel, onFinish }) {
+export default function IntegrationsStore({ type, queryData, storeTypeLabel, onFinish }) {
   const getDomain = (type, domain) => {
     switch (type) {
       case STORE_TYPE_VALUES.SHOP_BASE:
@@ -22,7 +22,8 @@ export default function IntegrationsStore({ type, storeTypeLabel, onFinish }) {
         return domain;
     }
   }
-  const handleConnect = (values) => {
+
+  const connectShopBase = (values) => {
     const { domain, ...rest } = values;
     const data = {
       ...rest,
@@ -39,6 +40,50 @@ export default function IntegrationsStore({ type, storeTypeLabel, onFinish }) {
       });
     })
   }
+
+  const connectShopify = (values) => {
+    const { domain } = values;
+    const data = {
+      shopUrl: getDomain(type, domain),
+    }
+    SellerIntegrationsService.connectShopifyStore(type, data, redirectLink => {
+      if (!!redirectLink) {
+        window.location.href = redirectLink;
+      }
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error, "Connect store failure!"),
+      });
+    })
+  }
+
+  const handleConnect = (values) => {
+    switch (type) {
+      case STORE_TYPE_VALUES.SHOPIFY:
+        connectShopify(values);
+        break;
+      case STORE_TYPE_VALUES.SHOP_BASE:
+        connectShopBase(values);
+        break;
+      default:
+
+    }
+  }
+
+  useEffect(() => {
+    if (Object.keys(queryData).length) {
+      SellerIntegrationsService.connectShopifyStoreWithData(type, queryData, response => {
+        notification.success({
+          message: "Connect store successful!",
+        });
+        onFinish();
+      }, error => {
+        notification.error({
+          message: BaseService.getErrorMessage(error, "Connect store failure!"),
+        });
+      })
+    }
+  }, [queryData, type]);
 
   const ConnectForm = CONNECT_FORMS[type];
 

@@ -9,10 +9,12 @@ import IntegrationsStore from 'components/Seller/IntegrationsStore';
 import { events } from 'utils';
 import { Col, Row } from 'antd';
 import { ROUTERS, STORE_TYPE_LABELS } from 'components/contants';
+import queryString from 'query-string';
 
 import "./style.scss";
 
 function IntegrationsPage(props) {
+  const queryData= queryString.parse(props.location.search);
   const { vendorId } = props.match ? props.match.params : {};
   const RELOAD_EVENT_KEY = 'RELOAD_RESELLER_INTEGRATION_STORES_TABLE_EVENT_KEY';
   const storeTypeLabel = STORE_TYPE_LABELS[vendorId];
@@ -46,6 +48,7 @@ function IntegrationsPage(props) {
         <Row gutter={[16, 16]}>
           <Col span={10}>
             <IntegrationsStore type={vendorId}
+                               queryData={queryData}
                                storeTypeLabel={storeTypeLabel}
                                onFinish={handleReloadStoresTable}
             />

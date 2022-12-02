@@ -109,7 +109,7 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
   }
 
   const integrationOrders = (selectedStore) => {
-    redirectTo(ROUTERS.SELLER_INTEGRATIONS + `/${selectedStore.platform.toLowerCase()}/orders/${selectedStore.id}/${selectedStore.name}`);
+    redirectTo(ROUTERS.SELLER_INTEGRATIONS + `/${selectedStore.platform.toLowerCase()}/orders/${selectedStore.id}/${encodeURIComponent(selectedStore.name)}`);
   }
 
   const actionListenerFunc = () => {
