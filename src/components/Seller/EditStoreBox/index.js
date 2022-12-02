@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 // eslint-disable-next-line
 import { notification } from 'antd';
-import ShopifyForm from './Vendors/ShopifyForm';
 import { BaseService, SellerIntegrationsService, SellerStoresService } from 'services';
-import { ROUTERS } from 'components/contants';
+import { ROUTERS, STORE_TYPE_VALUES } from 'components/contants';
 import BoxCard from 'components/Share/BoxCard';
+import ShopifyForm from './Vendors/ShopifyForm';
+import ShopbaseForm from './Vendors/ShopbaseForm';
 import './style.scss';
+
+const CONNECT_FORMS = {
+  [STORE_TYPE_VALUES.SHOPIFY]: ShopifyForm,
+  [STORE_TYPE_VALUES.SHOP_BASE]: ShopbaseForm,
+  [STORE_TYPE_VALUES.WOO_COMMERCE]: ShopifyForm,
+}
 
 export default function EditStoreBox({ id, redirectTo }) {
   const [store, setStore] = useState(null);
@@ -51,9 +58,12 @@ export default function EditStoreBox({ id, redirectTo }) {
     })
   }
   if (!store) return null;
+
+  const ConnectForm = CONNECT_FORMS[store.platform.toLowerCase()];
+
   return (
     <BoxCard className="edit-store-box__wrapper">
-      <ShopifyForm onFinish={handleConnect}
+      <ConnectForm onFinish={handleConnect}
                    onCancel={handleCancel}
                    onReconnect={handleReConnect}
                    initialValues={store}

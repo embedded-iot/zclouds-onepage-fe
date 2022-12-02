@@ -36,7 +36,7 @@ const transformOrder = item => {
   const { email = '', firstName = '', lastName = '' } = item.customer || {};
   return {
     ...item,
-    sourceName: item.sourceName || item.type,
+    sourceName: item.type,
     convertedCreatedDate: !!item.createdAt ? datetime.convert(item.createdAt, DATETIME_FORMAT) : '-',
     customerFullName: `${firstName} ${lastName}`,
     customerEmail: email,
