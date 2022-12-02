@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown } from 'antd';
 
-import './style.scss';
+import './style.less';
 
 export default function DropdownMenu({ items = [], onMenuClick, children, className, ...restProps }) {
   const handleMenuClick = (e) => {
