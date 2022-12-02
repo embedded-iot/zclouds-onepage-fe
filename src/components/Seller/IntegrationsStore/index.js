@@ -83,7 +83,8 @@ export default function IntegrationsStore({ type, queryData, storeTypeLabel, onF
         });
       })
     }
-  }, [queryData, type]);
+    // eslint-disable-next-line
+  }, [queryData]);
 
   const ConnectForm = CONNECT_FORMS[type];
 
