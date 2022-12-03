@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { notification } from 'antd';
 import { ShopBaseForm, ShopifyForm, WooCommerceForm } from './Vendors';
 import { BaseService, SellerIntegrationsService } from 'services';
@@ -11,7 +11,7 @@ const CONNECT_FORMS = {
   [STORE_TYPE_VALUES.WOO_COMMERCE]: WooCommerceForm,
 }
 
-export default function IntegrationsStore({ type, queryData, storeTypeLabel, onFinish }) {
+export default function IntegrationsStore({ type, storeTypeLabel, onFinish, redirectTo }) {
   const getDomain = (type, domain) => {
     switch (type) {
       case STORE_TYPE_VALUES.SHOP_BASE:
@@ -63,28 +63,13 @@ export default function IntegrationsStore({ type, queryData, storeTypeLabel, onF
         connectShopify(values);
         break;
       case STORE_TYPE_VALUES.SHOP_BASE:
+      case STORE_TYPE_VALUES.WOO_COMMERCE:
         connectShopBase(values);
         break;
       default:
 
     }
   }
-
-  useEffect(() => {
-    if (Object.keys(queryData).length) {
-      SellerIntegrationsService.connectShopifyStoreWithData(type, queryData, response => {
-        notification.success({
-          message: "Connect store successful!",
-        });
-        onFinish();
-      }, error => {
-        notification.error({
-          message: BaseService.getErrorMessage(error, "Connect store failure!"),
-        });
-      })
-    }
-    // eslint-disable-next-line
-  }, [queryData]);
 
   const ConnectForm = CONNECT_FORMS[type];
 

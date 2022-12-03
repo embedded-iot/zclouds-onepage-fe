@@ -1,4 +1,4 @@
-import { getSellerBaseURL } from 'services/BaseService';
+import { getFrontUserUrl, getSellerBaseURL } from 'services/BaseService';
 import { datetime, format, makeGetWithConfigs, makePostWithConfigs } from 'utils';
 import { DATETIME_FORMAT } from 'components/contants';
 
@@ -16,7 +16,12 @@ function connectShopifyStore(type, params, successCallback, failureCallback) {
     params
   };
   const url = getSellerBaseURL() + `/${type.toLowerCase()}/authorize/`;
-  makeGetWithConfigs(url, config, successCallback, failureCallback);
+  makeGetWithConfigs(url, config, successCallback, failureCallback, (redirectLink) => {
+    if (process.env.NODE_ENV !== "production") {
+      return !!redirectLink ? redirectLink.replace(getFrontUserUrl(), window.location.origin) : redirectLink;
+    }
+    return redirectLink;
+  });
 }
 
 function connectShopifyStoreWithData(type, data, successCallback, failureCallback) {

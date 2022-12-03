@@ -6,12 +6,14 @@ import { ROUTERS, STORE_TYPE_VALUES } from 'components/contants';
 import BoxCard from 'components/Share/BoxCard';
 import ShopifyForm from './Vendors/ShopifyForm';
 import ShopbaseForm from './Vendors/ShopbaseForm';
+import WooCommerceForm from './Vendors/WooCommerceForm';
+
 import './style.scss';
 
 const CONNECT_FORMS = {
   [STORE_TYPE_VALUES.SHOPIFY]: ShopifyForm,
   [STORE_TYPE_VALUES.SHOP_BASE]: ShopbaseForm,
-  [STORE_TYPE_VALUES.WOO_COMMERCE]: ShopifyForm,
+  [STORE_TYPE_VALUES.WOO_COMMERCE]: WooCommerceForm,
 }
 
 export default function EditStoreBox({ id, redirectTo }) {
@@ -45,9 +47,25 @@ export default function EditStoreBox({ id, redirectTo }) {
     })
   }
 
-  const handleReConnect = () => {
-    console.log("handleReConnect");
-    SellerIntegrationsService.checkConnectStore(store.platform, store.id, response => {
+  const reconnectShopify = (type) => {
+    const data = {
+      shopUrl: store.domain,
+    }
+
+    SellerIntegrationsService.connectShopifyStore(type, data, redirectLink => {
+      localStorage.setItem('INTEGRATION_TOKEN_REDIRECT', ROUTERS.SELLER_STORES + `/${store.id}`);
+      if (!!redirectLink) {
+        window.location.href = redirectLink;
+      }
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error, "Connect store failure!"),
+      });
+    })
+  }
+
+  const reconnectShopBaseWooCommerce = (type) => {
+    SellerIntegrationsService.checkConnectStore(type, store.id, response => {
       notification.success({
         message: "Connect store successful!",
       });
@@ -56,6 +74,20 @@ export default function EditStoreBox({ id, redirectTo }) {
         message: BaseService.getErrorMessage(error, "Connect store failure!"),
       });
     })
+  }
+
+  const handleReConnect = () => {
+    const type = store.platform.toLowerCase();
+    switch (type) {
+      case STORE_TYPE_VALUES.SHOPIFY:
+        reconnectShopify(type);
+        break;
+      case STORE_TYPE_VALUES.WOO_COMMERCE:
+      case STORE_TYPE_VALUES.SHOP_BASE:
+        reconnectShopBaseWooCommerce(type);
+        break;
+      default:
+    }
   }
   if (!store) return null;
 
