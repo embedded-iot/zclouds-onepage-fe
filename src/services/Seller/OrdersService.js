@@ -44,12 +44,21 @@ function createOrder(data, successCallback, failureCallback) {
   const url = getSellerBaseURL() + '/orders';
   makePostWithConfigs(url, config, successCallback, failureCallback);
 }
+
 function updateOrder(orderId, data, successCallback, failureCallback) {
   const config = {
     data
   };
   const url = getSellerBaseURL() + '/orders/' + orderId;
   makePutWithConfigs(url, config, successCallback, failureCallback);
+}
+
+function updateOrderStatus(orderId, data, successCallback, failureCallback) {
+  const config = {
+    data
+  };
+  const url = getSellerBaseURL() + '/orders/' + orderId + '/status';
+  makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
 function importOrders(data, successCallback, failureCallback) {
@@ -82,6 +91,7 @@ export {
   getOrdersStatus,
   createOrder,
   updateOrder,
+  updateOrderStatus,
   importOrders,
   getOrder,
   cloneOrder,

@@ -28,8 +28,11 @@ import DropdownSelect from 'components/Common/DropdownSelect';
 
 
 import './style.scss';
+
+
 const ACTION_KEYS = {
   ACTION_EVENTS: "ORDERS_ACTION_EVENTS",
+  STATUS_EVENTS: "ORDERS_STATUS_EVENTS",
   ADD_ORDER: "ADD_ORDER",
   EDIT_ORDER: "EDIT_ORDER",
   CLONE_ORDER: "DUPLICATE_ORDER",
@@ -49,6 +52,12 @@ const actionItems = [
     icon: <CopyOutlined />
   },
 ];
+
+const statusItems = ORDER_STATE_VALUES.map(statusValue => ({
+  key: statusValue,
+  label: STATE_LABELS[statusValue],
+  value: statusValue,
+}));
 
 const columns = [
   {
@@ -102,7 +111,16 @@ const columns = [
     title: 'Status',
     dataIndex: 'convertedStatus',
     render: (convertedStatus, record) => {
-      return <Tag className="orders-table__status" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>;
+      return (
+        <ActionDropdownMenu items={statusItems}
+                            record={record}
+                            placement="top"
+                            trigger={["hover"]}
+                            ACTION_EVENT_KEY={ACTION_KEYS.STATUS_EVENTS}
+        >
+          <Tag className="orders-table__status" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>
+        </ActionDropdownMenu>
+      );
     }
   },
   {
@@ -152,8 +170,11 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     },
   };
 
-  const reloadTable = (filters ={}) => {
+  const reloadTable = (filters ={}, hasReloadStatus = false) => {
     events.publish(RELOAD_EVENT_KEY, filters);
+    if (hasReloadStatus) {
+      getOrdersStatus();
+    }
   }
 
   const exportOrders = () => {
@@ -406,6 +427,26 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     return reloadListener;
   }
 
+  const statusListenerFunc = () => {
+    let statusListener = null;
+    statusListener = events.subscribe(ACTION_KEYS.STATUS_EVENTS, ({ key, record }) => {
+      const data = {
+        status: key
+      }
+      SellerOrdersService.updateOrderStatus(record.id, data , response => {
+        notification.success({
+          message: "Update order status successful!",
+        });
+        reloadTable({} , true);
+      }, error => {
+        notification.error({
+          message: BaseService.getErrorMessage(error,"Update order status failure!"),
+        });
+      })
+    });
+    return statusListener;
+  }
+
   const getStoresOptions = (params = {}) => {
     SellerStoresService.getStores( cui.removeEmpty({ pageNum: 1, pageSize: 100, ...params }), response => {
       const newOptions = SellerStoresService.getStoresOptions(response.items, false);
@@ -426,10 +467,12 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
 
   useEffect(() => {
     const reloadListener = actionListenerFunc();
+    const statusListener = statusListenerFunc();
     getOrdersStatus();
     getStoresOptions( {});
     return () => {
       reloadListener && reloadListener.remove();
+      statusListener && statusListener.remove();
     };
     // eslint-disable-next-line
   }, []);

@@ -15,7 +15,7 @@ export default function DropdownMenu({ items = [], onMenuClick, children, classN
   return (
     <Dropdown
       menu={menu}
-      placement="bottomRight"
+      placement={"bottomRight"}
       overlayClassName={`dropdown-menu__wrapper ${className}`}
       { ...restProps }
     >
