@@ -115,7 +115,6 @@ const columns = [
         <ActionDropdownMenu items={statusItems}
                             record={record}
                             placement="top"
-                            trigger={["hover"]}
                             ACTION_EVENT_KEY={ACTION_KEYS.STATUS_EVENTS}
         >
           <Tag className="orders-table__status" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>
