@@ -11,6 +11,8 @@ import accountsStaff from 'images/user_cicrle_black_icon.svg';
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import { EditOutlined } from '@ant-design/icons';
 import PersonalInformationBox from './PersonalInformationBox';
+import ChangePasswordBox from 'components/Seller/MyAccountBox/ChangePasswordBox';
+import LastLoginBox from 'components/Seller/MyAccountBox/LastLoginBox';
 
 import './style.scss';
 
@@ -129,22 +131,25 @@ export default function MyAccountBox({ currentUser, RELOAD_EVENT_KEY = 'RELOAD_R
         <Col span={12}>
           <Row gutter={[23, 23]}>
             <Col span={24}>
+              <ChangePasswordBox />
             </Col>
             <Col span={24}>
-ádassfdsf
+              <LastLoginBox />
             </Col>
           </Row>
         </Col>
+        <Col span={24}>
+          <TableGrid configs={tableConfig}
+                     headerActionsConfig={headerActionsConfig}
+                     paginationConfig={{}}
+                     defaultParams={{}}
+                     defaultData={{}}
+                     isShowPagination={true}
+                     isAllowSelection={false}
+                     RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
+          />
+        </Col>
       </Row>
-      <TableGrid configs={tableConfig}
-                 headerActionsConfig={headerActionsConfig}
-                 paginationConfig={{}}
-                 defaultParams={{}}
-                 defaultData={{}}
-                 isShowPagination={true}
-                 isAllowSelection={false}
-                 RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
-      />
       {
         openAddEditAccountStaff && (
           <AddEditAccountStaffModal
