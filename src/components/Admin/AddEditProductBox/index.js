@@ -7,11 +7,10 @@ import BoxCard from 'components/Share/BoxCard';
 
 import "./style.scss";
 
-export default function AddEditProductModal({ productId, data, onOk, onCancel, redirectTo }) {
+export default function AddEditProductModal({ data, onOk, onCancel, redirectTo }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
   const [categoriesOptions, setCategoriesOptions] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(data);
   const getCategoriesFilter = () => {
     AdminCategoriesService.getCategories({ pageNum: 1, pageSize: 1000 }, response => {
       setCategoriesOptions(getCategoriesOptions(response.items));
@@ -37,28 +36,29 @@ export default function AddEditProductModal({ productId, data, onOk, onCancel, r
     }
 
     if (isEdit) {
-      AdminProductsService.updateProduct(selectedProduct.id, productData, response => {
-        saveProductOptions(values, () => {
+      AdminProductsService.updateProduct(data.id, productData, product => {
+        saveProductOptions(product.id, values, () => {
           notification.success({
             message: "Update product successful!",
           });
           onOk();
         })
       }, error => {
+        console.log(error);
         notification.error({
           message: BaseService.getErrorMessage(error,"Update product failure!"),
         });
       })
     } else {
-      AdminProductsService.createProduct(productData, response => {
-        setSelectedProduct(response);
-        saveProductOptions(values, () => {
+      AdminProductsService.createProduct(productData, product => {
+        saveProductOptions(product.id, values, () => {
           notification.success({
             message: "Create product successful!",
           });
           onOk();
         })
       }, error => {
+        console.log(error);
         notification.error({
           message: BaseService.getErrorMessage(error,"Create product failure!" ),
         });
@@ -66,11 +66,12 @@ export default function AddEditProductModal({ productId, data, onOk, onCancel, r
     }
   }
 
-  const saveProductOptions = (values, successCallback) => {
+  const saveProductOptions = (id, values, successCallback) => {
     const { productOptions = [] } = values;
-    AdminProductsService.updateProductOptions(selectedProduct.id, productOptions, response => {
+    AdminProductsService.updateProductOptions(id, productOptions, response => {
       successCallback();
     }, error => {
+      console.log(error);
       notification.error({
         message: BaseService.getErrorMessage(error,"Update product options failure!" ),
       });

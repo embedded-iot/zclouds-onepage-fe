@@ -9,6 +9,7 @@ import PaginationBox from 'components/Common/PaginationBox';
 import InputText from 'components/Common/InputText';
 
 import './style.scss';
+import DatePickerSelect from 'components/Common/DatePickerSelect';
 
 
 const defaultPageSizeOptions = [10, 20, 50, 100];
@@ -131,6 +132,24 @@ export default function TableGrid({
     setFilters(newFilters);
   };
 
+  const onDateChange = (date, dateString, name) => {
+    if (!!date) {
+      const newFilters = {
+        ...filters,
+        [name[0]]: dateString[0],
+        [name[1]]: dateString[1],
+      };
+      setFilters(newFilters);
+    } else {
+      const newFilters = {
+        ...filters,
+        fromDate: '',
+        toDate: '',
+      };
+      setFilters(newFilters);
+    }
+  };
+
   const handleSearch = () => {
     const newParams = { ...params, ...filters };
     setParams(newParams);
@@ -152,6 +171,14 @@ export default function TableGrid({
           name={(item.props && item.props.name) || "inputText"}
           placeholder={item.props && item.props.placeholder}
           onChange={onInputChange}
+          style={{ width: !hasCol && 'auto'}}
+          {...item.props}
+        />
+      ),
+      'datePicker': (
+        <DatePickerSelect
+          name={(item.props && item.props.name) || ['fromDate', 'toDate']}
+          onChange={onDateChange}
           style={{ width: !hasCol && 'auto'}}
           {...item.props}
         />

@@ -33,7 +33,7 @@ export default function RelatedProductsBox({ categoryId, redirectTo, containerCl
       responsive={responsive}
     >
       {
-        products.map((product) => <CategoryItem {...product} imgProps={{ style: {minHeight: 250} }} onClick={handleClick} showDes2={false}/>)
+        products.map((product) => <CategoryItem {...product} onClick={handleClick} showDes2={false}/>)
       }
     </MultiCarouselView>
   );

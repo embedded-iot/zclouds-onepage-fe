@@ -6,6 +6,8 @@ import * as  SellerDesignsService from './Seller/DesignsService';
 import * as  SellerStoresService from './Seller/StoresService';
 import * as  SellerIntegrationsService from './Seller/IntegrationsService';
 import * as  SellerOrdersService from './Seller/OrdersService';
+import * as  SellerWalletService from './Seller/WalletService';
+import * as  SellerUsersService from './Seller/UsersService';
 import * as  AdminUsersService from 'services/Admin/UsersService';
 import * as  AdminProductsService from './Admin/ProductsService';
 import * as  AdminCategoriesService from './Admin/CategoriesService';
@@ -22,4 +24,6 @@ export {
   SellerStoresService,
   SellerIntegrationsService,
   SellerOrdersService,
+  SellerWalletService,
+  SellerUsersService,
 }

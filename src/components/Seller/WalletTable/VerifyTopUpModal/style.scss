@@ -1,0 +1,25 @@
+.create-new-wallet-form {
+    &__wrapper {
+      .ant-radio-group {
+        display: flex;
+      }
+      .ant-radio-wrapper {
+        flex-basis: 33.33%;
+        align-items: center;
+        .ant-radio {
+          top: auto;
+        }
+      }
+      .ant-form-item {
+        margin-bottom: unset;
+      }
+    }
+    &__type-select {
+      display: flex;
+      justify-content: center;
+      img {
+        margin-right: 8px;
+      }
+    }
+  }
+  
