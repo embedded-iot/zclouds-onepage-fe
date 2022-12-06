@@ -1,3 +1,13 @@
-.create-new-wallet-form {
-
+.add-money-to-wallet {
+  &__min-top-up {
+    background: rgba(34, 160, 107, 0.1);
+    border-radius: 4px;
+    padding: 8px;
+    display: inline-block;
+    color: #2C3E5D;
+  }
+  &__currency {
+    color: #22A06B;
+    font-weight: 600;
+  }
 }
