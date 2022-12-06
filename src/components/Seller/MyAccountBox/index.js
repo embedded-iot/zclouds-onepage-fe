@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerUsersService } from 'services';
 import { events } from 'utils';
@@ -24,7 +24,7 @@ const ACTION_KEYS = {
 
 const actionItems = [
   {
-    key: ACTION_KEYS.ADD_ACCOUNT_STAFF,
+    key: ACTION_KEYS.EDIT_ACCOUNT_STAFF,
     label: "Update account staff",
     icon: <EditOutlined />,
   },
@@ -74,6 +74,7 @@ const columns = [
 
 export default function MyAccountBox({ currentUser, RELOAD_EVENT_KEY = 'RELOAD_RESELLER_MY_ACCOUNT_TABLE_EVENT_KEY' }) {
   const [openAddEditAccountStaff, setOpenAddEditAccountStaff] = useState(false);
+  const [accountStaff, setAccountStaff] = useState(null);
   // eslint-disable-next-line
   let ref = useRef({});
   const tableConfig = {
@@ -95,6 +96,12 @@ export default function MyAccountBox({ currentUser, RELOAD_EVENT_KEY = 'RELOAD_R
   }
 
   const addAccountStaff = () => {
+    setAccountStaff(null);
+    setOpenAddEditAccountStaff(true);
+  }
+
+  const editAccountStaff = (selectedAccountStaff) => {
+    setAccountStaff(selectedAccountStaff);
     setOpenAddEditAccountStaff(true);
   }
 
@@ -118,11 +125,31 @@ export default function MyAccountBox({ currentUser, RELOAD_EVENT_KEY = 'RELOAD_R
     </Button>,
   ]
 
+  const actionListenerFunc = () => {
+    let reloadListener = null;
+    reloadListener = events.subscribe(ACTION_KEYS.ACTION_EVENTS, ({ key, record }) => {
+      switch (key) {
+        case ACTION_KEYS.EDIT_ACCOUNT_STAFF:
+          editAccountStaff(record);
+          break;
+        default:
+      }
+    });
+    return reloadListener;
+  }
+
+  useEffect(() => {
+    const reloadListener = actionListenerFunc();
+    return () => {
+      reloadListener && reloadListener.remove();
+    };
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <>
       <ButtonListWrapper buttonList={buttonList}
                          align="right"
-                         className="my-account__button-list"
       />
       <Row gutter={[23, 23]}>
         <Col span={12}>
@@ -131,10 +158,10 @@ export default function MyAccountBox({ currentUser, RELOAD_EVENT_KEY = 'RELOAD_R
         <Col span={12}>
           <Row gutter={[23, 23]}>
             <Col span={24}>
-              <ChangePasswordBox />
+              <ChangePasswordBox currentUser={currentUser} />
             </Col>
             <Col span={24}>
-              <LastLoginBox />
+              <LastLoginBox currentUser={currentUser} />
             </Col>
           </Row>
         </Col>
@@ -155,6 +182,7 @@ export default function MyAccountBox({ currentUser, RELOAD_EVENT_KEY = 'RELOAD_R
           <AddEditAccountStaffModal
             open={openAddEditAccountStaff}
             onOk={reloadTable}
+            data={accountStaff}
             onCancel={() => { setOpenAddEditAccountStaff(false); }}
           />
         )

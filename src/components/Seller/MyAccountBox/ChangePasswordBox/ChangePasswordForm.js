@@ -2,13 +2,12 @@ import React from 'react';
 import { Button, Card, Form } from 'antd';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import Icon from 'components/Common/Icon';
-import saveIcon from 'images/save-icon.svg';
-import settingIcon from 'images/setting-icon.svg';
+import lockIcon from 'images/lock_black_icon.svg';
 import InputPassword from 'components/Common/InputPassword';
 
 export default function ChangePasswordForm({ onFinish, initialValues }) {
   const buttonList = [
-    <Button type="primary" htmlType="submit" icon={<Icon src={saveIcon} width={18} height={18} />} >
+    <Button type="primary" htmlType="submit">
       Save
     </Button>
   ]
@@ -20,7 +19,7 @@ export default function ChangePasswordForm({ onFinish, initialValues }) {
       layout="vertical"
       initialValues={initialValues}
     >
-      <Card title={<><Icon src={settingIcon} width={24} height={24} /> Personal Information</>}
+      <Card title={<div className="my-account__card-title"><Icon src={lockIcon} width={20} height={20} />Change Password</div>}
             className="my-account__card"
             bordered={false}>
         <Form.Item
@@ -37,7 +36,7 @@ export default function ChangePasswordForm({ onFinish, initialValues }) {
         </Form.Item>
         <Form.Item
           label="New Password"
-          name="oldPassword"
+          name="newPassword"
           rules={[
             {
               required: true,

@@ -2,13 +2,12 @@ import React from 'react';
 import { Button, Card, Form } from 'antd';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import Icon from 'components/Common/Icon';
-import saveIcon from 'images/save-icon.svg';
 import InputText from 'components/Common/InputText';
-import settingIcon from 'images/setting-icon.svg';
+import userIcon from 'images/user_black_icon.svg';
 
 export default function PersonalInformationForm({ onFinish, initialValues }) {
   const buttonList = [
-    <Button type="primary" htmlType="submit" icon={<Icon src={saveIcon} width={18} height={18} />} >
+    <Button type="primary" htmlType="submit">
       Save
     </Button>
   ]
@@ -20,7 +19,7 @@ export default function PersonalInformationForm({ onFinish, initialValues }) {
       layout="vertical"
       initialValues={initialValues}
     >
-      <Card title={<><Icon src={settingIcon} width={24} height={24} /> Personal Information</>}
+      <Card title={<div className="my-account__card-title"><Icon src={userIcon} width={24} height={24} /><span>Personal Information</span></div>}
             className="my-account__card"
             bordered={false}>
         <Form.Item
@@ -31,7 +30,7 @@ export default function PersonalInformationForm({ onFinish, initialValues }) {
         </Form.Item>
         <Form.Item
           label="User Name"
-          name="userName"
+          name="username"
           rules={[
             {
               required: true,
@@ -78,7 +77,6 @@ export default function PersonalInformationForm({ onFinish, initialValues }) {
       </Card>
       <ButtonListWrapper buttonList={buttonList}
                          align="right"
-                         className="edit-store-form__button-list"
       />
     </Form>
   )

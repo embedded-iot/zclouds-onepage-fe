@@ -34,6 +34,14 @@ function forgotPassword(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback)
 }
 
+function changePassword(data, successCallback, failureCallback) {
+  const url = getFrontUserBaseURL() + '/users/change-password';
+  const config = {
+    data
+  };
+  makePostWithConfigs(url, config, successCallback, failureCallback)
+}
+
 function changeUserInfo(data, successCallback, failureCallback) {
   const url = getFrontUserBaseURL() + `/users/me`;
   const config = {
@@ -53,4 +61,5 @@ export {
   getUserInfo,
   forgotPassword,
   changeUserInfo,
+  changePassword,
 }

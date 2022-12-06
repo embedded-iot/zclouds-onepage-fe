@@ -1,16 +1,16 @@
 import React from 'react';
 import BoxCard from 'components/Share/BoxCard';
 import Icon from 'components/Common/Icon';
-import settingIcon from 'images/setting-icon.svg';
+import timeIcon from 'images/time_black_icon.svg';
 import { Card } from 'antd';
 
-export default function LastLoginBox() {
+export default function LastLoginBox({ currentUser }) {
   return (
     <BoxCard className="my-account__box">
-      <Card title={<><Icon src={settingIcon} width={24} height={24} /> Last login</>}
+      <Card title={<div className="my-account__card-title"><Icon src={timeIcon} width={24} height={24} /> Last login</div>}
             className="my-account__card"
             bordered={false}>
-        Last login: 2022-11-16 19:30
+        Last login: {currentUser.convertedLastLogin}
       </Card>
     </BoxCard>
   )

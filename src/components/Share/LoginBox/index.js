@@ -1,9 +1,9 @@
 import React from 'react';
 import { BaseService, UserService } from 'services';
 import { notification } from 'antd';
-import { authentication } from 'utils';
+import { authentication, datetime } from 'utils';
 import LoginForm from 'components/Share/LoginForm';
-import { ADMIN_ROLES } from 'components/contants';
+import { ADMIN_ROLES, DATETIME_FORMAT } from 'components/contants';
 
 export default function LoginBox({ setGlobalStore = () => {}, isAdminMode = false, redirectTo = () => {}, onFinish = () => {}}) {
   const getUserInfo = (callback) => {
@@ -13,7 +13,8 @@ export default function LoginBox({ setGlobalStore = () => {}, isAdminMode = fals
         isAdminMode: ADMIN_ROLES.includes(response.role),
         isAdmin: ADMIN_ROLES.includes(response.role),
         currentUser: {
-          ...response
+          ...response,
+          convertedLastLogin: datetime.convert(Date(), DATETIME_FORMAT),
         }
       })
       callback();

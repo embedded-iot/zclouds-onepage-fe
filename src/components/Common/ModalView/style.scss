@@ -12,6 +12,11 @@
         .ant-modal-title {
           color: #2C3E5D;
           font-weight: 500;
+          display: flex;
+          align-items: center;
+          img {
+            margin-right: 8px;
+          }
         }
       }
       .ant-modal-body {

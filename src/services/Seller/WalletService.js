@@ -35,8 +35,6 @@ function getWalletHistory(params, successCallback, failureCallback) {
     pageNum: 1,
     totalPage: 1,
   });
-  return;
-  // eslint-disable-next-line
   const config = {
     params
   };
@@ -62,6 +60,11 @@ const transformWalletTotal = item => {
 }
 
 function getWalletTotal(successCallback, failureCallback) {
+  successCallback(transformWalletTotal({
+    walletTotal: 10,
+    ordersTotal: 12131,
+    yourBalance: 222222,
+  }));
   const url = getSellerBaseURL() + '/wallet/wallet-total';
   makeGetWithConfigs(url, {}, successCallback, failureCallback, transformWalletTotal);
 }
@@ -75,8 +78,76 @@ function verifyTopUp(data, successCallback, failureCallback) {
 }
 
 function getWalletMethods(successCallback, failureCallback) {
+  successCallback({
+    walletMethods: [
+      {
+        id: 1,
+        name: 'Bank of Viet Nam',
+        methods: [
+          (
+            <div>
+              Bank Name: Techcombank
+              Acount Number: 19032268390022
+              Acount Name: HOANG MANH CUONG
+              Transfer content: LF2125TU NAMNGUYENHT1802
+              Enter the exact content of the transfer
+            </div>
+          ),
+          (
+            <div>
+              Bank Name: Vietcombank
+              Acount Number: LENFUL
+              Acount Name: HOANG MANH CUONG
+              Transfer content: LF2125TU NAMNGUYENHT1802
+              Enter the exact content of the transfer
+            </div>
+          )
+        ]
+      },
+      {
+        id: 2,
+        name: 'Payoneer',
+        methods: [
+          (
+            <div>
+              Bank Name: Techcombank
+              Acount Number: 19032268390022
+              Acount Name: HOANG MANH CUONG
+              Transfer content: LF2125TU NAMNGUYENHT1802
+              Enter the exact content of the transfer
+            </div>
+          )
+        ]
+      },
+      {
+        id: 3,
+        name: 'Pingpong',
+        methods: [
+          (
+            <div>
+              Bank Name: Vietcombank
+              Acount Number: LENFUL
+              Acount Name: HOANG MANH CUONG
+              Transfer content: LF2125TU NAMNGUYENHT1802
+              Enter the exact content of the transfer
+            </div>
+          )
+        ]
+      },
+    ]
+  })
   const url = getSellerBaseURL() + '/wallet/wallet-methods';
   makeGetWithConfigs(url, {}, successCallback, failureCallback);
+}
+
+function getWalletMethodsOptions(walletMethodList = []) {
+  return [
+    { label: 'Select type', value: '' },
+    ...walletMethodList.map(item => ({
+      label: item.name,
+      value: item.id,
+    }))
+  ]
 }
 
 export {
@@ -84,4 +155,5 @@ export {
   getWalletTotal,
   verifyTopUp,
   getWalletMethods,
+  getWalletMethodsOptions,
 }

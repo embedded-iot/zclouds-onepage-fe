@@ -14,36 +14,36 @@
  // import { BackTop } from 'antd';
  // import { UpCircleOutlined } from '@ant-design/icons';
  // import { useMediaQuery } from 'react-responsive';
- 
+
  import { connect } from 'react-redux';
  import { compose } from 'redux';
  import { setGlobalStore } from './actions';
- import { authentication } from 'utils';
- 
+ import { authentication, datetime } from 'utils';
+
  import Header from 'components/Share/Header';
- 
+
  import LayoutWrapper from 'components/Share/Layout/LayoutWapper';
  import PublicLayoutWrapper from 'components/Share/Layout/PublicLayoutWapper';
  import NormalLayoutWrapper from 'components/Share/Layout/NormalLayoutWrapper';
- 
+
  import FrontUserHeader from 'components/FrontUser/Header';
  import FrontUserFooter from 'components/FrontUser/Footer';
  import FrontUserSider from 'components/FrontUser/Sider';
- 
+
  import SellerSider from 'components/Seller/Sider';
  import SellerFooter from 'components/Seller/Footer';
- 
+
  import AdminSider from 'components/Admin/Sider';
- 
- 
+
+
  import LoginPage from 'containers/Common/LoginPage/Loadable';
  import RegisterPage from 'containers/Common/RegisterPage/Loadable';
- 
+
  import FrontUserHomePage from 'containers/FrontUser/HomePage/Loadable';
  import FrontUserAllProductsPage from 'containers/FrontUser/CategoriesPage/Loadable';
  import FrontUserProductDetailPage from 'containers/FrontUser/ProductDetailPage/Loadable';
  import FrontUserSKUPage from 'containers/FrontUser/SKUPage/Loadable';
- 
+
  import SellerHomePage from 'containers/Seller/HomePage/Loadable';
  import SellerOrdersPage from 'containers/Seller/OrdersPage/Loadable';
  import SellerOrderDetailPage from 'containers/Seller/OrderDetailPage/Loadable';
@@ -54,22 +54,22 @@
  import SellerStoreDetailPage from 'containers/Seller/StoreDetailPage/Loadable';
  import SellerWalletPage from 'containers/Seller/WalletPage/Loadable';
  import SellerMyAccountPage from 'containers/Seller/MyAccountPage/Loadable';
- 
- 
+
+
  import AdminHomePage from 'containers/Admin/HomePage/Loadable';
  import AdminProductManagementPage from 'containers/Admin/ProductManagementPage';
  import AdminProductDetailManagementPage from 'containers/Admin/ProductDetailManagementPage';
  import AdminCategoriesManagementPage from 'containers/Admin/CategoriesManagementPage';
  import AdminUsersManagementPage from 'containers/Admin/UsersManagementPage';
- 
- 
- import { ADMIN_ROLES, ROUTERS, WEBSITE_NAME } from 'components/contants';
- 
+
+
+ import { ADMIN_ROLES, DATETIME_FORMAT, ROUTERS, WEBSITE_NAME } from 'components/contants';
+
  import { UserService } from 'services';
- 
- 
+
+
  import './style.scss';
- 
+
  const FRONT_USER_ROUTER = [
    ROUTERS.ROOT,
    ROUTERS.FRONT_USER_ALL_PRODUCTS,
@@ -78,14 +78,14 @@
    ROUTERS.FRONT_USER_SKU,
    ROUTERS.FRONT_USER_REGISTER,
  ];
- 
- 
+
+
  const AppWrapper = styled.div`
    display: flex;
    min-height: 100vh;
    flex-direction: column;
  `;
- 
+
  const PrivateRoute = (props) => {
    const { isAuthenticated, ...restProps } = props;
    if (!isAuthenticated)
@@ -99,13 +99,13 @@
      );
    return (<Route {...restProps} />)
  }
- 
+
  const PublicAppContent = (props) => (
    <Switch>
      <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
    </Switch>
  );
- 
+
  const FrontUserAppContent = (props) => (
    <>
      <Switch>
@@ -117,9 +117,9 @@
        <Route exact path={ROUTERS.FRONT_USER_SKU} component={FrontUserSKUPage} />
      </Switch>
    </>
- 
+
  )
- 
+
  const AppContent = (props) => (
    <Switch>
      <PrivateRoute exact path={ROUTERS.ROOT} component={SellerHomePage} isAuthenticated={props.isLogin}/>
@@ -134,7 +134,7 @@
      <PrivateRoute exact path={ROUTERS.SELLER_MY_ACCOUNT} component={SellerMyAccountPage} isAuthenticated={props.isLogin}/>
    </Switch>
  )
- 
+
  const AdminAppContent = (props) => (
    <Switch>
      <PrivateRoute exact path={ROUTERS.ROOT} component={AdminHomePage} isAuthenticated={props.isLogin && props.isAdmin}/>
@@ -145,7 +145,7 @@
      <PrivateRoute exact path={ROUTERS.ADMIN_ROLES_MANAGEMENT} component={AdminUsersManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
    </Switch>
  )
- 
+
  const HelmetMeta = (props) => (
    <Helmet
      titleTemplate={`%s - ${WEBSITE_NAME}`}
@@ -154,7 +154,7 @@
      <meta name="description" content="A React.js Boilerplate application" />
    </Helmet>
  )
- 
+
  const App = (props) => {
    const [isLoadedCheckLogin, setIsLoadedCheckLogin] = useState(false);
    // const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
@@ -172,7 +172,7 @@
      })
      props.push(ROUTERS.ROOT);
    }
- 
+
    const restoreLoginPreviousSection = () => {
      UserService.getUserInfo(response => {
        props.setGlobalStore({
@@ -180,7 +180,8 @@
          isLogin: true,
          isAdmin: ADMIN_ROLES.includes(response.role),
          currentUser: {
-           ...response
+           ...response,
+           convertedLastLogin: datetime.convert(Date(), DATETIME_FORMAT),
          }
        })
        setIsLoadedCheckLogin(true);
@@ -188,7 +189,7 @@
        setIsLoadedCheckLogin(true);
      })
    }
- 
+
    useEffect(() => {
      restoreLoginPreviousSection();
      // eslint-disable-next-line
@@ -280,7 +281,7 @@
      </AppWrapper>
    );
  }
- 
+
  function mapStateToProps(state) {
    const { isAdminMode, isLogin, isAdmin, currentUser, products } = state.global;
    return {
@@ -292,22 +293,21 @@
      router: state.router,
    }
  }
- 
+
  function mapDispatchToProps(dispatch) {
    return {
      setGlobalStore: options => dispatch(setGlobalStore(options)),
      push: path => dispatch(push(path)),
    };
  }
- 
+
  const withConnect = connect(
    mapStateToProps,
    mapDispatchToProps,
  );
- 
+
  export default compose(
    withRouter,
    withConnect,
    memo,
  )(App);
- 

@@ -1,8 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerWalletService } from 'services';
 import { events } from 'utils';
 import VerifyTopUpModal from './VerifyTopUpModal';
+import WalletTotalCards from './WalletTotalCards';
+import AddMoneyToWalletModal from './AddMoneyToWalletModal';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import { Button } from 'antd';
 import Icon from 'components/Common/Icon';
@@ -48,10 +50,8 @@ const columns = [
 
 export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLET_TABLE_EVENT_KEY' }) {
   const [openVerifyTopUp, setOpenVerifyTopUp] = useState(false);
-  // eslint-disable-next-line
+  const [walletTotalData, setWalletTotalData] = useState({});
   const [openAddMoneyToWallet, setOpenAddMoneyToWallet] = useState(false);
-  // eslint-disable-next-line
-  let ref = useRef({});
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -59,12 +59,17 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
       SellerWalletService.getWalletHistory({ ...restParams, pageSize, pageNum }, successCallback, failureCallback)
     },
     successCallback: (response) => {
-      ref.current.items = response.items;
     },
     failureCallback: (error) => {
       console.log(error);
     },
   };
+
+  const getWalletTotal = (params = {}) => {
+    SellerWalletService.getWalletTotal(response => {
+      setWalletTotalData(response);
+    });
+  }
 
   const reloadTable = (filters ={}) => {
     events.publish(RELOAD_EVENT_KEY, filters);
@@ -109,12 +114,18 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
     </Button>,
   ]
 
+  useEffect(() => {
+    getWalletTotal();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <>
       <ButtonListWrapper buttonList={buttonList}
                          align="right"
                          className="wallet-table__button-list"
       />
+      <WalletTotalCards data={walletTotalData} />
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -123,6 +134,7 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
                  isShowPagination={true}
                  isAllowSelection={false}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
+                 className="wallet-table__table"
       />
       {
         openVerifyTopUp && (
@@ -130,6 +142,14 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
             open={openVerifyTopUp}
             onOk={reloadTable}
             onCancel={() => { setOpenVerifyTopUp(false); }}
+          />
+        )
+      }
+      {
+        openAddMoneyToWallet && (
+          <AddMoneyToWalletModal
+            open={openAddMoneyToWallet}
+            onCancel={() => { setOpenAddMoneyToWallet(false); }}
           />
         )
       }

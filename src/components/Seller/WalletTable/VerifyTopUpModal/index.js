@@ -1,24 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
-import { Form } from 'antd';
+import { Form, notification } from 'antd';
 import VerifyTopUpForm from './VerifyTopUpForm';
 import Icon from 'components/Common/Icon';
-import walletIcon from 'images/wallet-icon.png'
+import paperIcon from 'images/paper_black_icon.svg'
+import { BaseService, SellerWalletService } from 'services';
 
 export default function VerifyTopUpModal({ open, onOk, onCancel }) {
   const [form] = Form.useForm();
+  const [walletMethodsOptions, setWalletMethodsOptions] = useState([]);
+
+  const handleOk = values => {
+    SellerWalletService.verifyTopUp(values, response => {
+      notification.success({
+        message: "Verify top up successful!",
+      });
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error,"Verify top up failure!" ),
+      });
+    })
+  }
+
+  useEffect(() => {
+    SellerWalletService.getWalletMethods(response => {
+      setWalletMethodsOptions(SellerWalletService.getWalletMethodsOptions(response.walletMethods || []))
+    })
+  }, []);
+
   return (
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                form={form}
                open={open}
-               title={<><Icon src={walletIcon} width={24} height={24} /> New Wallet</>}
-               okText={"Continue"}
-               onOk={onOk}
+               title={<><Icon src={paperIcon} width={24} height={24} /><span>Verify top up</span></>}
+               okText={"Verify"}
+               onOk={handleOk}
                onCancel={onCancel}
-               hideCancelBtn={true}
-               maskClosable={true}
     >
-      <VerifyTopUpForm form={form} />
+      <VerifyTopUpForm form={form}
+                       walletMethodsOptions={walletMethodsOptions}
+      />
     </ModalView>
   )
 }
