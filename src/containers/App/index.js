@@ -51,6 +51,7 @@
  import SellerStoresPage from 'containers/Seller/StoresPage/Loadable';
  import SellerIntegrationsPage from 'containers/Seller/IntegrationsPage/Loadable';
  import SellerIntegrationOrdersPageR from 'containers/Seller/IntegrationOrdersPage/Loadable';
+ import SellerIntegrationsTokenPage from 'containers/Seller/IntegrationsTokenPage/Loadable';
  import SellerStoreDetailPage from 'containers/Seller/StoreDetailPage/Loadable';
  import SellerWalletPage from 'containers/Seller/WalletPage/Loadable';
  import SellerMyAccountPage from 'containers/Seller/MyAccountPage/Loadable';
@@ -130,6 +131,7 @@
      <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_STORE} component={SellerStoreDetailPage} isAuthenticated={props.isLogin}/>
      <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_WITH_VENDOR} component={SellerIntegrationsPage} isAuthenticated={props.isLogin}/>
      <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATION_ORDERS} component={SellerIntegrationOrdersPageR} isAuthenticated={props.isLogin}/>
+     <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsTokenPage} isAuthenticated={props.isLogin}/>
      <PrivateRoute exact path={ROUTERS.SELLER_WALLET} component={SellerWalletPage} isAuthenticated={props.isLogin}/>
      <PrivateRoute exact path={ROUTERS.SELLER_MY_ACCOUNT} component={SellerMyAccountPage} isAuthenticated={props.isLogin}/>
    </Switch>
