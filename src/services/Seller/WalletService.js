@@ -86,19 +86,19 @@ function getWalletMethods(successCallback, failureCallback) {
         methods: [
           (
             <div>
-              Bank Name: Techcombank
-              Acount Number: 19032268390022
-              Acount Name: HOANG MANH CUONG
-              Transfer content: LF2125TU NAMNGUYENHT1802
+              Bank Name: Techcombank<br/>
+              Acount Number: 19032268390022<br/>
+              Acount Name: HOANG MANH CUONG<br/>
+              Transfer content: LF2125TU NAMNGUYENHT1802<br/>
               Enter the exact content of the transfer
             </div>
           ),
           (
             <div>
-              Bank Name: Vietcombank
-              Acount Number: LENFUL
-              Acount Name: HOANG MANH CUONG
-              Transfer content: LF2125TU NAMNGUYENHT1802
+              Bank Name: Vietcombank<br/>
+              Acount Number: LENFUL<br/>
+              Acount Name: HOANG MANH CUONG<br/>
+              Transfer content: LF2125TU NAMNGUYENHT1802<br/>
               Enter the exact content of the transfer
             </div>
           )
@@ -110,10 +110,10 @@ function getWalletMethods(successCallback, failureCallback) {
         methods: [
           (
             <div>
-              Bank Name: Techcombank
-              Acount Number: 19032268390022
-              Acount Name: HOANG MANH CUONG
-              Transfer content: LF2125TU NAMNGUYENHT1802
+              Bank Name: Techcombank<br/>
+              Acount Number: 19032268390022<br/>
+              Acount Name: HOANG MANH CUONG<br/>
+              Transfer content: LF2125TU NAMNGUYENHT1802<br/>
               Enter the exact content of the transfer
             </div>
           )
@@ -125,10 +125,10 @@ function getWalletMethods(successCallback, failureCallback) {
         methods: [
           (
             <div>
-              Bank Name: Vietcombank
-              Acount Number: LENFUL
-              Acount Name: HOANG MANH CUONG
-              Transfer content: LF2125TU NAMNGUYENHT1802
+              Bank Name: Vietcombank<br/>
+              Acount Number: LENFUL<br/>
+              Acount Name: HOANG MANH CUONG<br/>
+              Transfer content: LF2125TU NAMNGUYENHT1802<br/>
               Enter the exact content of the transfer
             </div>
           )

@@ -53,14 +53,6 @@ function updateOrder(orderId, data, successCallback, failureCallback) {
   makePutWithConfigs(url, config, successCallback, failureCallback);
 }
 
-function updateOrderStatus(orderId, data, successCallback, failureCallback) {
-  const config = {
-    data
-  };
-  const url = getSellerBaseURL() + '/orders/' + orderId + '/status';
-  makePostWithConfigs(url, config, successCallback, failureCallback);
-}
-
 function importOrders(data, successCallback, failureCallback) {
   const config = {
     data
@@ -91,7 +83,6 @@ export {
   getOrdersStatus,
   createOrder,
   updateOrder,
-  updateOrderStatus,
   importOrders,
   getOrder,
   cloneOrder,

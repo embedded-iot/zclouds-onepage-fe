@@ -122,6 +122,7 @@ export default function UsersManagementTable() {
             options={ROLES_LABEL_VALUE_OPTIONS}
             defaultValue={''}
             onChange={onRoleChange}
+            style={{width: 'auto'}}
           />
         ),
         requiredSelection: false,

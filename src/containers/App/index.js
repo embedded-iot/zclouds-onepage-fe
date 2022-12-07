@@ -58,10 +58,11 @@
 
 
  import AdminHomePage from 'containers/Admin/HomePage/Loadable';
- import AdminProductManagementPage from 'containers/Admin/ProductManagementPage';
- import AdminProductDetailManagementPage from 'containers/Admin/ProductDetailManagementPage';
- import AdminCategoriesManagementPage from 'containers/Admin/CategoriesManagementPage';
- import AdminUsersManagementPage from 'containers/Admin/UsersManagementPage';
+ import AdminProductManagementPage from 'containers/Admin/ProductManagementPage/Loadable';
+ import AdminProductDetailManagementPage from 'containers/Admin/ProductDetailManagementPage/Loadable';
+ import AdminCategoriesManagementPage from 'containers/Admin/CategoriesManagementPage/Loadable';
+ import AdminUsersManagementPage from 'containers/Admin/UsersManagementPage/Loadable';
+ import AdminOrdersManagementPage from 'containers/Admin/OrdersManagementPage/Loadable';
 
 
  import { ADMIN_ROLES, DATETIME_FORMAT, ROUTERS, WEBSITE_NAME } from 'components/contants';
@@ -145,6 +146,7 @@
      <PrivateRoute exact path={ROUTERS.ADMIN_CATEGORIES_MANAGEMENT} component={AdminCategoriesManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
      <PrivateRoute exact path={ROUTERS.ADMIN_ADMINS_MANAGEMENT} component={AdminHomePage} isAuthenticated={props.isLogin && props.isAdmin}/>
      <PrivateRoute exact path={ROUTERS.ADMIN_ROLES_MANAGEMENT} component={AdminUsersManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
+     <PrivateRoute exact path={ROUTERS.ADMIN_ORDERS_MANAGEMENT} component={AdminOrdersManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
    </Switch>
  )
 

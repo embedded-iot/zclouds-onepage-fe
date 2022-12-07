@@ -3,7 +3,7 @@ import { Tabs } from 'antd';
 
 import './style.scss';
 
-export default function TabsBox({ defaultActiveKey, items = [], name, onChange }) {
+export default function TabsBox({ defaultActiveKey, items = [], name, onChange = () => {}, ...restProps }) {
   const handleChange = (key) => {
     onChange(key, name);
   };
@@ -13,6 +13,7 @@ export default function TabsBox({ defaultActiveKey, items = [], name, onChange }
         defaultActiveKey={defaultActiveKey}
         onChange={handleChange}
         items={items}
+        {...restProps}
       />
     </div>
   )
