@@ -1,25 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
-import { BaseService, SellerOrdersService, SellerStoresService } from 'services';
+import {
+  AdminOrdersService,
+  AdminStoresService,
+  BaseService,
+} from 'services';
 import { cui, events, fileHelper } from 'utils';
 import { Button, notification, Tag } from 'antd';
 import {
-  EditOutlined,
   FileExcelOutlined,
-  CopyOutlined
 } from '@ant-design/icons';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportOrdersModal from 'components/Seller/OrdersTable/ImportOrdersModal';
 import {
   CLONE_DESIGN_LABEL_VALUE_OPTIONS,
   HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES,
-  ROUTERS, SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
+  SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
   STATE_COLORS, STATE_LABELS, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import Icon from 'components/Common/Icon';
-import plusIcon from 'images/plus-icon.svg';
 import downloadGreenIcon from 'images/download-green-icon.svg';
 import CheckboxGroupBox from 'components/Common/CheckboxGroupBox';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
@@ -32,25 +33,17 @@ import './style.scss';
 
 const ACTION_KEYS = {
   ACTION_EVENTS: "ORDERS_ACTION_EVENTS",
-  ADD_ORDER: "ADD_ORDER",
-  EDIT_ORDER: "EDIT_ORDER",
-  CLONE_ORDER: "DUPLICATE_ORDER",
+  STATUS_EVENTS: "ORDERS_STATUS_EVENTS",
   IMPORT_ORDERS: "IMPORT_ORDERS",
   EXPORT_ORDERS: "EXPORT_ORDERS",
 }
 
-const actionItems = [
-  {
-    key: ACTION_KEYS.EDIT_ORDER,
-    label: "Edit order",
-    icon: <EditOutlined />,
-  },
-  {
-    key: ACTION_KEYS.CLONE_ORDER,
-    label: "Duplicate order",
-    icon: <CopyOutlined />
-  },
-];
+
+const statusItems = ORDER_STATE_VALUES.map(statusValue => ({
+  key: statusValue,
+  label: STATE_LABELS[statusValue],
+  value: statusValue,
+}));
 
 const columns = [
   {
@@ -104,20 +97,21 @@ const columns = [
     title: 'Status',
     dataIndex: 'convertedStatus',
     render: (convertedStatus, record) => {
-      return (<Tag className="orders-table__status" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>);
-    }
-  },
-  {
-    title: 'Action',
-    dataIndex: 'id',
-    render: (id, record) => {
-      return <ActionDropdownMenu items={actionItems} record={record} ACTION_EVENT_KEY={ACTION_KEYS.ACTION_EVENTS} />
+      return (
+        <ActionDropdownMenu items={statusItems}
+                            record={record}
+                            placement="top"
+                            ACTION_EVENT_KEY={ACTION_KEYS.STATUS_EVENTS}
+        >
+          <Tag className="orders-management__status" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>
+        </ActionDropdownMenu>
+      );
     }
   },
 ];
 
 
-export default function OrdersTable({ redirectTo, successCallback = () => {}  }) {
+export default function OrdersManagementTable({ redirectTo, successCallback = () => {}  }) {
   const [openImportOrders, setOpenImportOrders] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [orderStatus, setOrderStatus] = useState([]);
@@ -128,22 +122,12 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   });
   const RELOAD_EVENT_KEY = 'RELOAD_Seller_ORDERS_TABLE_EVENT_KEY';
   let ref = useRef({});
-  const onRowEvents = (record, rowIndex) => {
-    return {
-      onDoubleClick: event => {
-        events.publish(ACTION_KEYS.ACTION_EVENTS, {
-          key: ACTION_KEYS.EDIT_ORDER,
-          record,
-        })
-      }
-    };
-  };
+
   const tableConfig = {
     columns,
-    onRow: onRowEvents,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, listStatus, ...restParams} = params || {};
-      SellerOrdersService.getOrders(cui.removeEmpty({ ...restParams, pageSize, pageNum, listStatus: listStatus ? listStatus.join('|') : '' }), successCallback, failureCallback)
+      AdminOrdersService.getOrders(cui.removeEmpty({ ...restParams, pageSize, pageNum, listStatus: listStatus ? listStatus.join('|') : '' }), successCallback, failureCallback)
     },
     successCallback: (response) => {
       successCallback(response);
@@ -168,10 +152,6 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
 
   const importOrders = () => {
     setOpenImportOrders(true);
-  }
-
-  const addEditOrder = (selectedOrder = {}) => {
-    redirectTo(ROUTERS.SELLER_ORDERS + '/' + (selectedOrder.id || 0));
   }
 
   const onSelectedItemsChange = (keys) => {
@@ -232,7 +212,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   const headerActionsConfig = {
     allowRowLayout: true,
     gutter: [10, 10],
-    className: 'orders-table__filters-box',
+    className: 'orders-management__filters-box',
     buttonList: [
       {
         type: 'searchText',
@@ -376,44 +356,34 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     ],
   }
 
-  const cloneOrder = (selectedOrder) => {
-    SellerOrdersService.cloneOrder( selectedOrder.id, response => {
-      notification.success({
-        message: "Duplicate order successful!",
-      });
-      reloadTable();
-    }, error => {
-      notification.error({
-        message: BaseService.getErrorMessage(error,"Duplicate order failure!"),
-      });
-    })
-  }
-
   const buttonList = [
       ...(selectedKeys.length ? [<Button key={ACTION_KEYS.EXPORT_ORDERS} icon={<FileExcelOutlined />} onClick={exportOrders}>Export</Button>] : []),
     <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={downloadGreenIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
-    <Button key={ACTION_KEYS.ADD_ORDER} type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => addEditOrder()}>Order</Button>
   ]
 
-  const actionListenerFunc = () => {
-    let reloadListener = null;
-    reloadListener = events.subscribe(ACTION_KEYS.ACTION_EVENTS, ({ key, record }) => {
-      switch (key) {
-        case ACTION_KEYS.EDIT_ORDER:
-          addEditOrder(record);
-          break;
-        case ACTION_KEYS.CLONE_ORDER:
-          cloneOrder(record);
-          break;
-        default:
+  const statusListenerFunc = () => {
+    let statusListener = null;
+    statusListener = events.subscribe(ACTION_KEYS.STATUS_EVENTS, ({ key, record }) => {
+      const data = {
+        status: key
       }
+      AdminOrdersService.updateOrderStatus(record.id, data , response => {
+        notification.success({
+          message: "Update order status successful!",
+        });
+        reloadTable({} , true);
+      }, error => {
+        notification.error({
+          message: BaseService.getErrorMessage(error,"Update order status failure!"),
+        });
+      })
     });
-    return reloadListener;
+    return statusListener;
   }
 
   const getStoresOptions = (params = {}) => {
-    SellerStoresService.getStores( cui.removeEmpty({ pageNum: 1, pageSize: 100, ...params }), response => {
-      const newOptions = SellerStoresService.getStoresOptions(response.items, false);
+    AdminStoresService.getStores( cui.removeEmpty({ pageNum: 1, pageSize: 100, ...params }), response => {
+      const newOptions = AdminStoresService.getStoresOptions(response.items, false);
       setStoresInput((prevStoresInput) => {
         return {
           ...prevStoresInput,
@@ -424,17 +394,17 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   }
 
   const getOrdersStatus = (params = {}) => {
-    SellerOrdersService.getOrdersStatus(response => {
+    AdminOrdersService.getOrdersStatus(response => {
       setOrderStatus(response);
     }, () => {})
   }
 
   useEffect(() => {
-    const reloadListener = actionListenerFunc();
+    const statusListener = statusListenerFunc();
     getOrdersStatus();
     getStoresOptions( {});
     return () => {
-      reloadListener && reloadListener.remove();
+      statusListener && statusListener.remove();
     };
     // eslint-disable-next-line
   }, []);
@@ -448,7 +418,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   });
 
   const StatusCheckboxGroup = (
-    <div className="orders-table__status-checkbox-group">
+    <div className="orders-management__status-checkbox-group">
       <CheckboxGroupBox options={StatusCheckboxOptions}
                         name="listStatus"
                         value={filters.listStatus || []}
@@ -463,7 +433,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
                          align="right"
       />
       <TableGrid configs={tableConfig}
-                 className="orders-table__table"
+                 className="orders-management__table"
                  headerActionsConfig={headerActionsConfig}
                  secondHeader={orderStatus.length && StatusCheckboxGroup}
                  paginationConfig={{}}

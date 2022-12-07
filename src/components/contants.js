@@ -36,6 +36,7 @@ export const ROUTERS = {
   ADMIN_ADMINS_AND_ROLES_MANAGEMENT: '/admins-and-roles-management',
   ADMIN_ADMINS_MANAGEMENT: '/admins-management',
   ADMIN_ROLES_MANAGEMENT: '/roles-management',
+  ADMIN_ORDERS_MANAGEMENT: '/orders-management',
 }
 
 export const SHIPPING_EXPRESSES = {

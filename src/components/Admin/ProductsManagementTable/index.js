@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminProductsService } from 'services';
 import { events, format } from 'utils';
-import { Button } from 'antd';
+import { Button, Tooltip } from 'antd';
 import DeleteProductModal from './DeleteProductModal';
 import { CloseCircleOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import ProductOptionsView from 'components/Share/ProductOptionsView';
@@ -83,6 +83,14 @@ const columns = [
   {
     title: 'Description',
     dataIndex: 'description',
+    ellipsis: {
+      showTitle: false,
+    },
+    render: (description, record) => (
+      <Tooltip placement="topLeft" title={description}>
+        {description}
+      </Tooltip>
+    ),
   },
   {
     title: 'State',

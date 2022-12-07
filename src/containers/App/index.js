@@ -51,6 +51,7 @@
  import SellerStoresPage from 'containers/Seller/StoresPage/Loadable';
  import SellerIntegrationsPage from 'containers/Seller/IntegrationsPage/Loadable';
  import SellerIntegrationOrdersPageR from 'containers/Seller/IntegrationOrdersPage/Loadable';
+ import SellerIntegrationsTokenPage from 'containers/Seller/IntegrationsTokenPage/Loadable';
  import SellerStoreDetailPage from 'containers/Seller/StoreDetailPage/Loadable';
  import SellerWalletPage from 'containers/Seller/WalletPage/Loadable';
  import SellerMyAccountPage from 'containers/Seller/MyAccountPage/Loadable';
@@ -58,10 +59,11 @@
 
 
  import AdminHomePage from 'containers/Admin/HomePage/Loadable';
- import AdminProductManagementPage from 'containers/Admin/ProductManagementPage';
- import AdminProductDetailManagementPage from 'containers/Admin/ProductDetailManagementPage';
- import AdminCategoriesManagementPage from 'containers/Admin/CategoriesManagementPage';
- import AdminUsersManagementPage from 'containers/Admin/UsersManagementPage';
+ import AdminProductManagementPage from 'containers/Admin/ProductManagementPage/Loadable';
+ import AdminProductDetailManagementPage from 'containers/Admin/ProductDetailManagementPage/Loadable';
+ import AdminCategoriesManagementPage from 'containers/Admin/CategoriesManagementPage/Loadable';
+ import AdminUsersManagementPage from 'containers/Admin/UsersManagementPage/Loadable';
+ import AdminOrdersManagementPage from 'containers/Admin/OrdersManagementPage/Loadable';
 
 
  import { ADMIN_ROLES, DATETIME_FORMAT, ROUTERS, WEBSITE_NAME } from 'components/contants';
@@ -131,6 +133,7 @@
      <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_STORE} component={SellerStoreDetailPage} isAuthenticated={props.isLogin}/>
      <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_WITH_VENDOR} component={SellerIntegrationsPage} isAuthenticated={props.isLogin}/>
      <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATION_ORDERS} component={SellerIntegrationOrdersPageR} isAuthenticated={props.isLogin}/>
+     <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsTokenPage} isAuthenticated={props.isLogin}/>
      <PrivateRoute exact path={ROUTERS.SELLER_WALLET} component={SellerWalletPage} isAuthenticated={props.isLogin}/>
      <PrivateRoute exact path={ROUTERS.SELLER_MY_ACCOUNT} component={SellerMyAccountPage} isAuthenticated={props.isLogin}/>
      <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsTokenPage} isAuthenticated={props.isLogin}/>
@@ -145,6 +148,7 @@
      <PrivateRoute exact path={ROUTERS.ADMIN_CATEGORIES_MANAGEMENT} component={AdminCategoriesManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
      <PrivateRoute exact path={ROUTERS.ADMIN_ADMINS_MANAGEMENT} component={AdminHomePage} isAuthenticated={props.isLogin && props.isAdmin}/>
      <PrivateRoute exact path={ROUTERS.ADMIN_ROLES_MANAGEMENT} component={AdminUsersManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
+     <PrivateRoute exact path={ROUTERS.ADMIN_ORDERS_MANAGEMENT} component={AdminOrdersManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
    </Switch>
  )
 

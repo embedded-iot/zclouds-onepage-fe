@@ -5,11 +5,13 @@ import Icon from 'components/Common/Icon';
 import myAccountIcon from 'images/my-account-icon.png';
 import productCategoryIcon from 'images/product-category-icon.png';
 import categoriesIcon from 'images/orders-icon-1.png';
+import ordersIcon from 'images/paper_black_icon.svg';
 
 export default function AdminSider({ selectedRouters = [], redirectTo = () => {}, }) {
   const items = [
     getItem('Products management', ROUTERS.ADMIN_PRODUCTS_MANAGEMENT, <Icon src={categoriesIcon} />),
     getItem('Categories management', ROUTERS.ADMIN_CATEGORIES_MANAGEMENT, <Icon src={productCategoryIcon} />),
+    getItem('Orders management', ROUTERS.ADMIN_ORDERS_MANAGEMENT, <Icon src={ordersIcon} />),
     getItem('Users management', ROUTERS.ADMIN_ROLES_MANAGEMENT, <Icon src={myAccountIcon} />),
     // getItem('Admins and Roles', ROUTERS.ADMIN_ADMINS_AND_ROLES_MANAGEMENT, undefined, [
     //   getItem('Admins management', ROUTERS.ADMIN_ADMINS_MANAGEMENT),
