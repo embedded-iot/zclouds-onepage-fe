@@ -251,12 +251,6 @@ export default function OrderForm(
           <Form.Item
             label="Order Note"
             name="orderNote"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter order note!',
-              },
-            ]}
           >
             <InputText placeholder="..."  />
           </Form.Item>

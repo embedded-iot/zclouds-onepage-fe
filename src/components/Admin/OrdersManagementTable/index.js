@@ -63,7 +63,7 @@ const columns = [
     render: (convertedMockupUrl, record) => <img className="table-img__icon table-img__icon--circle" src={convertedMockupUrl} alt={record.orderNumber} />,
   },
   {
-    title: 'Order',
+    title: 'Design',
     dataIndex: 'convertedDesignUrl',
     render: (convertedDesignUrl, record) => <img className="table-img__icon table-img__icon--circle" src={convertedDesignUrl} alt={record.orderNumber} />,
   },
