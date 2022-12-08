@@ -13,7 +13,7 @@ function ProductDetailManagementPage(props) {
   const productId = parseInt(props.match.params.productId);
   const isEdit = !!productId;
   const pageTitle = isEdit ? 'Edit Product' : 'Create Product';
-  const pageDescription = isEdit ? `Product ID: ${productId}` : 'Great job, your dashboard is ready to go! Grow your business with Lenful.';
+  const pageDescription = isEdit ? `Product ID: ${productId}` : 'Great job, your dashboard is ready to go! Grow your business with Fulfill.';
 
 
   const getProduct = productId => {

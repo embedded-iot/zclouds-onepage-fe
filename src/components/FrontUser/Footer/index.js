@@ -18,7 +18,7 @@ export default function Footer() {
             <div className='public-footer__logo'>
               <img src={logo} alt='logo' />
             </div>
-            <div className='public-footer__description'>Grow your business with Lenful today.</div>
+            <div className='public-footer__description'>Grow your business with Fulfill today.</div>
             <div className='public-footer__contact'>
               <div className='public-footer__avatar'>
                 <img src={avatar} alt='avatar' />
@@ -39,7 +39,7 @@ export default function Footer() {
               <Col span={12}>
                 <div className='public-footer__title'>Support</div>
                 <div className='public-footer__link'>Import Order By Csv / Exel Files</div>
-                <div className='public-footer__link'>Instructions to Use Lenful Seller v3</div>
+                <div className='public-footer__link'>Instructions to Use Fulfill Seller v3</div>
                 <div className='public-footer__link'>Connect with shopify store Fulfillment</div>
                 <div className='public-footer__link'>Term of Services</div>
                 <div className='public-footer__link'>Return and Refund</div>
@@ -51,7 +51,7 @@ export default function Footer() {
                 <div className='public-footer__link'>VietNam Product Price List</div>
                 <div className='public-footer__link'>Privacy Policy</div>
                 <div className='public-footer__title public-footer__title--margin-top'>Contact</div>
-                <div className='public-footer__link'>Email: support@lenful.com</div>
+                <div className='public-footer__link'>Email: support@fulfill.com</div>
                 <div className='public-footer__link'>Return and Refund</div>
                 <div className='public-footer__link'>Phone: +84 888 553 888</div>
               </Col>

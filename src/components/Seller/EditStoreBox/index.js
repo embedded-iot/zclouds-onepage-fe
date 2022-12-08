@@ -34,9 +34,9 @@ export default function EditStoreBox({ id, redirectTo }) {
   }
 
   const handleConnect = (values) => {
-    console.log(values);
     const { name, domain, apiKey, password, autoApproveOrder, autoSyncOrder, autoSyncTracking } = values;
     SellerStoresService.updateStore(id, { name, domain, apiKey, password, autoApproveOrder, autoSyncOrder, autoSyncTracking }, response => {
+      setStore(response);
       notification.success({
         message: "Update store successful!",
       });
@@ -80,7 +80,11 @@ export default function EditStoreBox({ id, redirectTo }) {
     const type = store.platform.toLowerCase();
     switch (type) {
       case STORE_TYPE_VALUES.SHOPIFY:
-        reconnectShopify(type);
+        if (!!store.apiKey && !!store.password) {
+          reconnectShopBaseWooCommerce(type);
+        } else {
+          reconnectShopify(type);
+        }
         break;
       case STORE_TYPE_VALUES.WOO_COMMERCE:
       case STORE_TYPE_VALUES.SHOP_BASE:

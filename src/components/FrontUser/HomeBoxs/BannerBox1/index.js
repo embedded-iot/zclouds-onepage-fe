@@ -20,7 +20,7 @@ export default function BannerBox1({ customClass, redirectTo }) {
               <span className="link link--text banner-box-1__link">PRINT ON DEMAND </span> Fulfillment Solution
             </div>
             <div className='home-box__description'>
-              Imagine, you just focus on sales and marketing. Lenful will handle the remaining stages: printing, shipping, order synchronization... All you need to do is find great designs on your own 150+ products: shirts, mugs, hoodies, masks, flags and more.
+              Imagine, you just focus on sales and marketing. Fulfill will handle the remaining stages: printing, shipping, order synchronization... All you need to do is find great designs on your own 150+ products: shirts, mugs, hoodies, masks, flags and more.
             </div>
             <div className='home-box__buttons banner-box-1__buttons'>
               <Button type="primary" onClick={() => redirectTo(ROUTERS.FRONT_USER_REGISTER)}>Sign Up Now</Button>

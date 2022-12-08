@@ -60,7 +60,11 @@ export default function IntegrationsStore({ type, storeTypeLabel, onFinish, redi
   const handleConnect = (values) => {
     switch (type) {
       case STORE_TYPE_VALUES.SHOPIFY:
-        connectShopify(values);
+        if (!!values.apiKey && !!values.password) {
+          connectShopBase(values);
+        } else {
+          connectShopify(values);
+        }
         break;
       case STORE_TYPE_VALUES.SHOP_BASE:
       case STORE_TYPE_VALUES.WOO_COMMERCE:

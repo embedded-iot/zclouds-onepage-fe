@@ -13,7 +13,7 @@ function OrderDetailPage(props) {
   const orderId = parseInt(props.match.params.orderId);
   const isEdit = !!orderId;
   const pageTitle = isEdit ? 'Edit Order' : 'Create Order';
-  const pageDescription = isEdit ? `Order ID: ${orderId}` : 'Great job, your dashboard is ready to go! Grow your business with Lenful.';
+  const pageDescription = isEdit ? `Order ID: ${orderId}` : 'Great job, your dashboard is ready to go! Grow your business with Fulfill.';
 
   const getProduct = (productId, successCallback) => {
     FrontUserCategoriesService.getProductDetail(productId, successCallback)

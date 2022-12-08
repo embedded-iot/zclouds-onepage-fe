@@ -21,10 +21,10 @@ export default function ImportOrdersForm({ form, ...restProps }) {
           Required to upload <span className='import-orders-form__label--red'>*.csv; *.xls; *.xlsx</span> file according to the <span className='import-orders-form__label--green'>Order 2D template</span> or <span className='import-orders-form__label--green'>Order 3D template</span>
         </div>
         <div className='import-orders-form__label'>
-          List SKU: <span className='import-orders-form__label--link'>https://lenful.com/sku</span>
+          List SKU: <span className='import-orders-form__label--link'>https://fulfill.com/sku</span>
         </div>
         <div className='import-orders-form__label'>
-          Guide: <span className='import-orders-form__label--link'>https://lenful.com/blog/import-order-by-csv-exel-files</span>
+          Guide: <span className='import-orders-form__label--link'>https://fulfill.com/blog/import-order-by-csv-exel-files</span>
         </div>
         <div className='import-orders-form__label'>
           <span className='import-orders-form__label--red'>*Note:</span> Please read the instructions carefully before importing the file

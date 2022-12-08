@@ -35,7 +35,7 @@ function StoreDetailPage(props) {
         breadcrumbRouters={breadcrumbRouters}
       />
       <div className="page-contents">
-        <div className="store-detail__description">Update and edit your store information. Contact Lenful IT department if there is a problem with the API connection to your store.Email: Fulfill@gmail.com</div>
+        <div className="store-detail__description">Update and edit your store information. Contact Fulfill IT department if there is a problem with the API connection to your store.Email: Fulfill@gmail.com</div>
         <EditStoreBox id={storeId}
                       redirectTo={props.push}
         />

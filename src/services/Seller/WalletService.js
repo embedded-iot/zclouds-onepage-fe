@@ -96,7 +96,7 @@ function getWalletMethods(successCallback, failureCallback) {
           (
             <div>
               Bank Name: Vietcombank<br/>
-              Acount Number: LENFUL<br/>
+              Acount Number: FULFILL<br/>
               Acount Name: HOANG MANH CUONG<br/>
               Transfer content: LF2125TU NAMNGUYENHT1802<br/>
               Enter the exact content of the transfer
@@ -126,7 +126,7 @@ function getWalletMethods(successCallback, failureCallback) {
           (
             <div>
               Bank Name: Vietcombank<br/>
-              Acount Number: LENFUL<br/>
+              Acount Number: FULFILL<br/>
               Acount Name: HOANG MANH CUONG<br/>
               Transfer content: LF2125TU NAMNGUYENHT1802<br/>
               Enter the exact content of the transfer

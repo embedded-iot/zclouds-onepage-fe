@@ -68,7 +68,7 @@ export default function OrderForm(
             />
           </Form.Item>
           <div className='add-edit-order-box__description'>
-            With the products have Clone design option, please choose “yes” if you want Lenful help to clone design or choose “no” if you do it by yourself.
+            With the products have Clone design option, please choose “yes” if you want Fulfill help to clone design or choose “no” if you do it by yourself.
           </div>
           <div className='add-edit-order-box__sub-title'>Info variant:</div>
           <Row gutter={[24, 24]}>

@@ -72,6 +72,18 @@ export default function ShopifyForm({ onFinish, onCancel, onReconnect, initialVa
           <InputText disabled placeholder={`https://...`}/>
         </Form.Item>
         <Form.Item
+          label="API Key:"
+          name="apiKey"
+        >
+          <InputText placeholder={`...`}/>
+        </Form.Item>
+        <Form.Item
+          label="API Pass"
+          name="password"
+        >
+          <InputText placeholder={`...`}/>
+        </Form.Item>
+        <Form.Item
           label="Auto sync orders"
           name="autoSyncOrder"
           valuePropName="checked"

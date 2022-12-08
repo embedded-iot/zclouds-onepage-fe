@@ -19,7 +19,7 @@ export default function BannerBox5({ customClass, redirectTo }) {
               <span className="link link--text banner-box-5__link">We Built Best Solutions</span> For Your Company
             </div>
             <div className='home-box__description'>
-              Quickly connect with your store. You can even integrate Lenful with your management system using the API.
+              Quickly connect with your store. You can even integrate Fulfill with your management system using the API.
             </div>
             <div className='banner-box-5__img'>
               <img src={bannerImg} alt='Vendor' />

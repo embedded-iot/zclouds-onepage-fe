@@ -18,7 +18,7 @@ export default function BannerBox4({ customClass, redirectTo }) {
               <span className="link link--text banner-box-4__link">Trusted By Over</span> 50.000 Sellers
             </div>
             <div className='home-box__description'>
-              Let's see what the sellers who are using our service have to say about Lenful
+              Let's see what the sellers who are using our service have to say about Fulfill
             </div>
             <PostsGrid />
           </div>

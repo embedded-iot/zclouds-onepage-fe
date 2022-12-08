@@ -16,7 +16,7 @@ function SKUPage(props) {
       </Helmet>
       <PageHeader
         title="Price List - SKU"
-        description="Lenful is a Print-on-demand solution that helps you build a profitable online business. Start a business, with everything you need all in one place."
+        description="Fulfill is a Print-on-demand solution that helps you build a profitable online business. Start a business, with everything you need all in one place."
       />
       <div className="page-contents">
         <SKUTable />

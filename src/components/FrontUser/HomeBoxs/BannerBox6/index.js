@@ -18,7 +18,7 @@ export default function BannerBox6({ customClass, redirectTo }) {
               <span className="link link--text banner-box-6__link">Blogs</span> And News
             </div>
             <div className='home-box__description'>
-              Quickly connect with your store. You can even integrate Lenful with your management system using the API.
+              Quickly connect with your store. You can even integrate Fulfill with your management system using the API.
             </div>
             <div className='banner-box-6__blog-list'>
               <BlogsSlideBox
