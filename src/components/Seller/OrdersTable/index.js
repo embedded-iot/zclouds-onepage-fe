@@ -465,7 +465,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       <TableGrid configs={tableConfig}
                  className="orders-table__table"
                  headerActionsConfig={headerActionsConfig}
-                 secondHeader={orderStatus.length && StatusCheckboxGroup}
+                 secondHeader={StatusCheckboxGroup}
                  paginationConfig={{}}
                  defaultParams={{}}
                  defaultData={{}}

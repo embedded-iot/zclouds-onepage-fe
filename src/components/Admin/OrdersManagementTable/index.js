@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import {
-  AdminOrdersService,
+  AdminOrdersService, AdminResellersService,
   AdminStoresService,
   BaseService,
 } from 'services';
@@ -120,6 +120,10 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     value: '',
     options: [],
   });
+  const [resellersInput, setResellersInput] = useState({
+    value: '',
+    options: [],
+  });
   const RELOAD_EVENT_KEY = 'RELOAD_Seller_ORDERS_TABLE_EVENT_KEY';
   let ref = useRef({});
 
@@ -176,20 +180,32 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     reloadTable(newFilters);
   }
 
-  const handleStoreInputChange = (value, name) => {
-    setStoresInput({
-      ...storesInput,
-      value: value,
-    });
+  const handleAutoCompleteInputChange = (value, name) => {
+    if (name === 'storeId') {
+      setStoresInput({
+        ...storesInput,
+        value: value,
+      });
+    } else if (name === 'resellerId') {
+      setResellersInput({
+        ...storesInput,
+        value: value,
+      });
+    }
+
     if (ref.current.timeoutStoreChange) {
       clearTimeout(ref.current.timeoutStoreChange);
     }
     ref.current.timeoutStoreChange = setTimeout(() => {
-      getStoresOptions({ keyword: value });
+      if (name === 'storeId') {
+        getStoresOptions({ keyword: value });
+      } else if (name === 'resellerId') {
+        getResellersOptions({ keyword: value });
+      }
     }, 200);
   }
 
-  const handleStoreInputSelect = (value, options, name) => {
+  const handleAutoCompleteInputSelect = (value, options, name) => {
     handleFilterChange(value, name);
   }
 
@@ -238,8 +254,8 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
         render: (
           <AutoCompleteInput name="storeId"
                              value={storesInput.value}
-                             onChange={handleStoreInputChange}
-                             onSelect={handleStoreInputSelect}
+                             onChange={handleAutoCompleteInputChange}
+                             onSelect={handleAutoCompleteInputSelect}
                              placeholder={"All Stores"}
                              options={storesInput.options}
                              autoFilterOptions={false}
@@ -351,6 +367,21 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
         ),
       },
       {
+        type: 'custom',
+        span: defaultSpan,
+        render: (
+          <AutoCompleteInput name="resellerId"
+                             value={resellersInput.value}
+                             onChange={handleAutoCompleteInputChange}
+                             onSelect={handleAutoCompleteInputSelect}
+                             placeholder={"All Resellers"}
+                             options={resellersInput.options}
+                             autoFilterOptions={false}
+                             theme='light'
+          />
+        )
+      },
+      {
         type: 'searchButton',
       },
     ],
@@ -393,6 +424,18 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     }, () => {})
   }
 
+  const getResellersOptions = (params = {}) => {
+    AdminResellersService.getResellers( cui.removeEmpty({ pageNum: 1, pageSize: 100, ...params }), response => {
+      const newOptions = AdminResellersService.getResellersOptions(response.items, false);
+      setStoresInput((prevStoresInput) => {
+        return {
+          ...prevStoresInput,
+          options: newOptions,
+        }
+      });
+    }, () => {})
+  }
+
   const getOrdersStatus = (params = {}) => {
     AdminOrdersService.getOrdersStatus(response => {
       setOrderStatus(response);
@@ -403,6 +446,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     const statusListener = statusListenerFunc();
     getOrdersStatus();
     getStoresOptions( {});
+    getResellersOptions( {});
     return () => {
       statusListener && statusListener.remove();
     };
@@ -435,7 +479,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
       <TableGrid configs={tableConfig}
                  className="orders-management__table"
                  headerActionsConfig={headerActionsConfig}
-                 secondHeader={orderStatus.length && StatusCheckboxGroup}
+                 secondHeader={StatusCheckboxGroup}
                  paginationConfig={{}}
                  defaultParams={{}}
                  defaultData={{}}

@@ -60,7 +60,7 @@ export default function IntegrationsStore({ type, storeTypeLabel, onFinish, redi
   const handleConnect = (values) => {
     switch (type) {
       case STORE_TYPE_VALUES.SHOPIFY:
-        if (!!values.apiKey && !!values.password) {
+        if (!!values.apiKey && !!values.accessToken) {
           connectShopBase(values);
         } else {
           connectShopify(values);

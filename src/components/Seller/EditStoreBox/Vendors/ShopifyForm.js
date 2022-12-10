@@ -78,8 +78,8 @@ export default function ShopifyForm({ onFinish, onCancel, onReconnect, initialVa
           <InputText placeholder={`...`}/>
         </Form.Item>
         <Form.Item
-          label="API Pass"
-          name="password"
+          label="Admin API access token:"
+          name="accessToken"
         >
           <InputText placeholder={`...`}/>
         </Form.Item>

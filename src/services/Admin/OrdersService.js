@@ -843,7 +843,6 @@ function importOrders(data, successCallback, failureCallback) {
 }
 
 function getOrdersStatus(successCallback, failureCallback) {
-  successCallback([{"status":"PENDING","orderCount":9},{"status":"DELIVERED","orderCount":1},{"status":"TRANSIT","orderCount":1},{"status":"ALERT","orderCount":1}]);
   const url = getAdminBaseURL() + '/orders/status';
   makeGetWithConfigs(url, {}, successCallback, failureCallback);
 }

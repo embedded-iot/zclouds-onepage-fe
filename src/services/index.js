@@ -13,6 +13,7 @@ import * as  AdminProductsService from './Admin/ProductsService';
 import * as  AdminCategoriesService from './Admin/CategoriesService';
 import * as  AdminOrdersService from './Admin/OrdersService';
 import * as  AdminStoresService from './Admin/StoresService';
+import * as  AdminResellersService from './Admin/ResellersService';
 
 export {
   BaseService,
@@ -24,6 +25,7 @@ export {
   AdminCategoriesService,
   AdminOrdersService,
   AdminStoresService,
+  AdminResellersService,
   SellerDesignsService,
   SellerStoresService,
   SellerIntegrationsService,

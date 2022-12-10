@@ -80,7 +80,7 @@ export default function EditStoreBox({ id, redirectTo }) {
     const type = store.platform.toLowerCase();
     switch (type) {
       case STORE_TYPE_VALUES.SHOPIFY:
-        if (!!store.apiKey && !!store.password) {
+        if (!!store.apiKey && !!store.accessToken) {
           reconnectShopBaseWooCommerce(type);
         } else {
           reconnectShopify(type);
