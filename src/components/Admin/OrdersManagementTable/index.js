@@ -163,8 +163,8 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize, pageNum, listStatus, ...restParams} = params || {};
-      AdminOrdersService.getOrders(cui.removeEmpty({ ...restParams, pageSize, pageNum, listStatus: listStatus ? listStatus.join('|') : '' }), successCallback, failureCallback)
+      const { pageSize, pageNum, listStatus, resellerId: sellerId, ...restParams} = params || {};
+      AdminOrdersService.getOrders(cui.removeEmpty({ ...restParams, pageSize, pageNum, sellerId, listStatus: listStatus ? listStatus.join('|') : '' }), successCallback, failureCallback)
     },
     successCallback: (response) => {
       successCallback(response);
@@ -481,9 +481,9 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   const getResellersOptions = (params = {}) => {
     AdminResellersService.getResellers( cui.removeEmpty({ pageNum: 1, pageSize: 100, ...params }), response => {
       const newOptions = AdminResellersService.getResellersOptions(response.items, false);
-      setStoresInput((prevStoresInput) => {
+      setResellersInput((prevState) => {
         return {
-          ...prevStoresInput,
+          ...prevState,
           options: newOptions,
         }
       });

@@ -3,6 +3,8 @@ import { makeGetWithConfigs } from 'utils';
 
 const transformReseller = item => {
   return {
+    ...item,
+    fullName: (item.fullName || '') || (!!item.firstName || !!item.lastName ) && `${item.firstName || ''} ${ item.lastName || ''}` || item.username,
   }
 }
 
@@ -10,7 +12,7 @@ function getResellers(params, successCallback, failureCallback) {
   const config = {
     params
   };
-  const url = getAdminBaseURL() + '/resellers';
+  const url = getAdminBaseURL() + '/users/list-reseller';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     const items = response.content.map(transformReseller);
     return {
@@ -25,7 +27,7 @@ function getResellers(params, successCallback, failureCallback) {
 function getResellersOptions(stores, isHasDefaultOption = true) {
   return [
     ...(isHasDefaultOption ? [{ label: 'Select store', value: '' }] : []),
-    ...(stores.map(store => ({ label: store.name, value: store.id })))
+    ...(stores.map(store => ({ label: store.fullName, value: store.id })))
   ]
 }
 
