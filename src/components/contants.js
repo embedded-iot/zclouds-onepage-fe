@@ -33,10 +33,11 @@ export const ROUTERS = {
   ADMIN_PRODUCTS_MANAGEMENT: '/products-management',
   ADMIN_DETAIL_PRODUCT: '/products-management/:productId',
   ADMIN_CATEGORIES_MANAGEMENT: '/categories-management',
-  ADMIN_ADMINS_AND_ROLES_MANAGEMENT: '/admins-and-roles-management',
-  ADMIN_ADMINS_MANAGEMENT: '/admins-management',
+  ADMIN_USER_AND_ROLES_MANAGEMENT: '/admins-and-roles-management',
+  ADMIN_USERS_MANAGEMENT: '/users-management',
   ADMIN_ROLES_MANAGEMENT: '/roles-management',
   ADMIN_ORDERS_MANAGEMENT: '/orders-management',
+  ADMIN_TRANSACTIONS_MANAGEMENT: '/transactions-management',
 }
 
 export const SHIPPING_EXPRESSES = {
@@ -108,6 +109,7 @@ export const STATE_VALUES = {
   HOLD : 'HOLD',
   RESEND : 'RESEND',
   TRANSIT : 'TRANSIT',
+  COMPLETED : 'COMPLETED',
 };
 
 export const STATE_LABELS = {
@@ -136,6 +138,7 @@ export const STATE_COLORS = {
   [STATE_VALUES.ALERT]: '#E34935',
   [STATE_VALUES.HOLD]: '#8270DB',
   [STATE_VALUES.RESEND]: '#22A06B',
+  [STATE_VALUES.COMPLETED]: '#22A06B',
 };
 
 export const STATE_LABEL_VALUE_OPTIONS = [
@@ -294,4 +297,24 @@ export const SORT_BY_LABEL_VALUE_OPTIONS = [
 ];
 
 
+export const TRANSACTION_TYPE_VALUES = {
+  TOP_UP: 'TOP_UP',
+  WITHDRAW: 'WITHDRAW',
+};
 
+export const TRANSACTION_TYPE_LABELS = {
+  [TRANSACTION_TYPE_VALUES.TOP_UP]: 'Top up',
+  [TRANSACTION_TYPE_VALUES.WITHDRAW]: 'Withdraw',
+};
+
+export const TRANSACTION_STATUS_LABELS = {
+  [STATE_VALUES.COMPLETED]: 'Completed',
+  [STATE_VALUES.PENDING]: 'Wait confirm',
+  [STATE_VALUES.CANCEL]: 'Cancel',
+};
+
+export const TRANSACTION_STATUS_VALUES_LIST = [
+  STATE_VALUES.COMPLETED,
+  STATE_VALUES.PENDING,
+  STATE_VALUES.CANCEL,
+];

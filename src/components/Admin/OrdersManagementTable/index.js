@@ -228,7 +228,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
       });
     } else if (name === 'resellerId') {
       setResellersInput({
-        ...storesInput,
+        ...resellersInput,
         value: value,
       });
     }
