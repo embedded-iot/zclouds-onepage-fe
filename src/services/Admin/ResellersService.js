@@ -4,6 +4,7 @@ import { makeGetWithConfigs } from 'utils';
 const transformReseller = item => {
   return {
     ...item,
+    // eslint-disable-next-line
     fullName: (item.fullName || '') || (!!item.firstName || !!item.lastName ) && `${item.firstName || ''} ${ item.lastName || ''}` || item.username,
   }
 }
