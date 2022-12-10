@@ -98,7 +98,15 @@ const columns = [
   },
   {
     title: 'Tracking',
-    dataIndex: 'tracking',
+    dataIndex: 'orderTracking',
+    render: (orderTracking, record) => (
+      <div>
+        <span>Carrier: {record.convertedCarrier}</span>
+        { !!orderTracking && !!record.convertedShippingStatus && <Tag>{record.convertedShippingStatus}</Tag> }
+        <br/>
+        <span>Tracking Num: {record.convertedTrackingNum}</span>
+      </div>
+    )
   },
   {
     title: 'Status',

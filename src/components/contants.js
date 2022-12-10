@@ -243,13 +243,30 @@ export const TRACKING_STATUS_LABEL_VALUE_OPTIONS = [
   { label: 'No tracking', value: 'No' },
 ];
 
+export const SHIPPING_STATUS_VALUES = {
+  NO_ACTIVE: 'no_active',
+  TRANSIT: 'transit',
+  TRANSIT_WW: 'transit_ww',
+  DELIVERED: 'delivered',
+  PICKUP: 'pickup',
+};
+
+export const SHIPPING_STATUS_LABELS = {
+  [SHIPPING_STATUS_VALUES.NO_ACTIVE]: 'No Active',
+  [SHIPPING_STATUS_VALUES.TRANSIT]: 'Transit',
+  [SHIPPING_STATUS_VALUES.TRANSIT_WW]: 'Transit WW',
+  [SHIPPING_STATUS_VALUES.DELIVERED]: 'Delivered',
+  [SHIPPING_STATUS_VALUES.PICKUP]: 'Pick up',
+};
+
+
 export const SHIPPING_STATUS_LABEL_VALUE_OPTIONS = [
   { label: 'Shipping status All', value: '' },
-  { label: 'No Active', value: 'no_active' },
-  { label: 'Transit', value: 'transit' },
-  { label: 'Transit WW', value: 'transit_ww' },
-  { label: 'Delivered', value: 'delivered' },
-  { label: 'Pick up', value: 'pickup' },
+  { label: SHIPPING_STATUS_LABELS[SHIPPING_STATUS_VALUES.NO_ACTIVE], value: SHIPPING_STATUS_VALUES.NO_ACTIVE },
+  { label: SHIPPING_STATUS_LABELS[SHIPPING_STATUS_VALUES.TRANSIT], value: SHIPPING_STATUS_VALUES.TRANSIT },
+  { label: SHIPPING_STATUS_LABELS[SHIPPING_STATUS_VALUES.TRANSIT_WW], value: SHIPPING_STATUS_VALUES.TRANSIT_WW },
+  { label: SHIPPING_STATUS_LABELS[SHIPPING_STATUS_VALUES.DELIVERED], value: SHIPPING_STATUS_VALUES.DELIVERED },
+  { label: SHIPPING_STATUS_LABELS[SHIPPING_STATUS_VALUES.PICKUP], value: SHIPPING_STATUS_VALUES.PICKUP },
 ];
 
 export const HAVE_DESIGN_LABEL_VALUE_OPTIONS = [

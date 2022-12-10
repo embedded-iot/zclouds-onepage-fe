@@ -1,12 +1,12 @@
 import React from 'react';
 import DropdownMenu from 'components/Common/DropdownMenu';
 import Icon from 'components/Common/Icon';
-import actionIcon from 'images/action-icon.svg';
+import defaultActionIcon from 'images/action-icon.svg';
 import { events } from 'utils';
 
 import './style.scss';
 
-export default function ActionDropdownMenu({ items = [], record , onMenuClick, children, trigger, placement, ACTION_EVENT_KEY = ''}) {
+export default function ActionDropdownMenu({ items = [], record , onMenuClick, children, trigger, placement, actionIcon, ACTION_EVENT_KEY = ''}) {
   const handleMenuClick = (key) => {
     if (!!onMenuClick) {
       onMenuClick(key);
@@ -28,7 +28,7 @@ export default function ActionDropdownMenu({ items = [], record , onMenuClick, c
       {
         !!children ? children : (
           <div className="action-dropdown-menu__button">
-            <Icon src={actionIcon} width={24} height={24}/>
+            <Icon src={actionIcon || defaultActionIcon} width={24} height={24}/>
           </div>
         )
       }

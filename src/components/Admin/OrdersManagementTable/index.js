@@ -8,10 +8,10 @@ import {
 import { cui, events, fileHelper } from 'utils';
 import { Button, notification, Tag } from 'antd';
 import {
+  EditOutlined,
   FileExcelOutlined,
 } from '@ant-design/icons';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
-import ImportOrdersModal from 'components/Seller/OrdersTable/ImportOrdersModal';
 import {
   CLONE_DESIGN_LABEL_VALUE_OPTIONS,
   HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES,
@@ -26,7 +26,9 @@ import CheckboxGroupBox from 'components/Common/CheckboxGroupBox';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DatePickerSelect from 'components/Common/DatePickerSelect';
 import DropdownSelect from 'components/Common/DropdownSelect';
-
+import actionIcon from 'images/action-green-icon.svg';
+import ImportOrdersModal from './ImportOrdersModal';
+import UpdateOrderTrackingModal from './UpdateOrderTrackingModal';
 
 import './style.scss';
 
@@ -34,10 +36,18 @@ import './style.scss';
 const ACTION_KEYS = {
   ACTION_EVENTS: "ORDERS_ACTION_EVENTS",
   STATUS_EVENTS: "ORDERS_STATUS_EVENTS",
+  UPDATE_ORDER_TRACKING: "UPDATE_ORDER_TRACKING",
   IMPORT_ORDERS: "IMPORT_ORDERS",
   EXPORT_ORDERS: "EXPORT_ORDERS",
 }
 
+const actionItems = [
+  {
+    key: ACTION_KEYS.UPDATE_ORDER_TRACKING,
+    label: "Update order tracking",
+    icon: <EditOutlined />,
+  },
+];
 
 const statusItems = ORDER_STATE_VALUES.map(statusValue => ({
   key: statusValue,
@@ -91,7 +101,15 @@ const columns = [
   },
   {
     title: 'Tracking',
-    dataIndex: 'tracking',
+    dataIndex: 'orderTracking',
+    render: (orderTracking, record) => (
+      <div>
+        <span>Carrier: {record.convertedCarrier}</span>
+        { !!orderTracking && !!record.convertedShippingStatus && <Tag>{record.convertedShippingStatus}</Tag> }
+        <br/>
+        <span>Tracking Num: {record.convertedTrackingNum}</span>
+      </div>
+    )
   },
   {
     title: 'Status',
@@ -108,11 +126,26 @@ const columns = [
       );
     }
   },
+  {
+    title: 'Action',
+    dataIndex: 'id',
+    render: (id, record) => {
+      return (
+        <ActionDropdownMenu items={actionItems}
+                            record={record}
+                            ACTION_EVENT_KEY={ACTION_KEYS.ACTION_EVENTS}
+                            actionIcon={actionIcon}
+        />
+      );
+    }
+  },
 ];
 
 
 export default function OrdersManagementTable({ redirectTo, successCallback = () => {}  }) {
   const [openImportOrders, setOpenImportOrders] = useState(false);
+  const [openUpdateOrderTracking, setOpenUpdateOrderTracking] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState({});
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [orderStatus, setOrderStatus] = useState([]);
   const [filters, setFilters] = useState({});
@@ -143,6 +176,8 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   };
 
   const reloadTable = (filters ={}, hasReloadStatus = false) => {
+    setOpenImportOrders(false);
+    setOpenUpdateOrderTracking(false);
     events.publish(RELOAD_EVENT_KEY, filters);
     if (hasReloadStatus) {
       getOrdersStatus();
@@ -156,6 +191,11 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
 
   const importOrders = () => {
     setOpenImportOrders(true);
+  }
+
+  const updateOrderTracking = order => {
+    setSelectedOrder(order);
+    setOpenUpdateOrderTracking(true);
   }
 
   const onSelectedItemsChange = (keys) => {
@@ -335,14 +375,14 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
       },
       {
         type: 'pageSize',
-        span: 3,
+        span: defaultSpan,
         props: {
           theme: 'light',
         }
       },
       {
         type: 'custom',
-        span: 3,
+        span: defaultSpan,
         render: (
           <DropdownSelect
             name="typeDate"
@@ -355,7 +395,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
       },
       {
         type: 'custom',
-        span: 3,
+        span: defaultSpan,
         render: (
           <DropdownSelect
             name="sortOrder"
@@ -391,6 +431,20 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
       ...(selectedKeys.length ? [<Button key={ACTION_KEYS.EXPORT_ORDERS} icon={<FileExcelOutlined />} onClick={exportOrders}>Export</Button>] : []),
     <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={downloadGreenIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
   ]
+
+  const actionListenerFunc = () => {
+    let reloadListener = null;
+    reloadListener = events.subscribe(ACTION_KEYS.ACTION_EVENTS, ({ key, record }) => {
+      switch (key) {
+        case ACTION_KEYS.UPDATE_ORDER_TRACKING:
+          updateOrderTracking(record);
+          break;
+        default:
+      }
+    });
+    return reloadListener;
+  }
+
 
   const statusListenerFunc = () => {
     let statusListener = null;
@@ -443,12 +497,14 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   }
 
   useEffect(() => {
+    const reloadListener = actionListenerFunc();
     const statusListener = statusListenerFunc();
     getOrdersStatus();
     getStoresOptions( {});
     getResellersOptions( {});
     return () => {
       statusListener && statusListener.remove();
+      reloadListener && reloadListener.remove();
     };
     // eslint-disable-next-line
   }, []);
@@ -495,6 +551,16 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
             open={openImportOrders}
             onOk={reloadTable}
             onCancel={() => { setOpenImportOrders(false); }}
+          />
+        )
+      }
+      {
+        openUpdateOrderTracking && (
+          <UpdateOrderTrackingModal
+            open={openUpdateOrderTracking}
+            data={selectedOrder}
+            onOk={reloadTable}
+            onCancel={() => { setOpenUpdateOrderTracking(false); }}
           />
         )
       }

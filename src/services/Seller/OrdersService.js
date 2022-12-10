@@ -1,7 +1,7 @@
 import { getFullPathImage, getSellerBaseURL } from 'services/BaseService';
 import { datetime, format, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
-import { DATE_FORMAT, STATE_LABELS } from 'components/contants';
+import { DATE_FORMAT, SHIPPING_STATUS_LABELS, STATE_LABELS } from 'components/contants';
 
 const transformOrder = item => {
   const convertedMockupUrl = !!item.mockupUrl && getFullPathImage(item.mockupUrl);
@@ -18,6 +18,9 @@ const transformOrder = item => {
     convertedPriceTotal: format.formatCurrency(item.totalPrice || 0),
     convertedStatus: STATE_LABELS[item.status] || item.status,
     customerFullName: item.orderShipping && item.orderShipping.fullName ,
+    convertedShippingStatus: item.orderTracking ? (SHIPPING_STATUS_LABELS[item.orderTracking.shippingStatus] || item.orderTracking.shippingStatus) : '',
+    convertedCarrier: item.orderTracking ? item.orderTracking.carrier : 'No',
+    convertedTrackingNum: item.orderTracking ? item.orderTracking.trackingNumber : 'No',
   };
 }
 
