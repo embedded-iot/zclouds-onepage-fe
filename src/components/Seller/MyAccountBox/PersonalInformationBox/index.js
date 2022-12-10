@@ -1,12 +1,14 @@
 import React from 'react';
 import BoxCard from 'components/Share/BoxCard';
 import PersonalInformationForm from './PersonalInformationForm';
-import { BaseService, UserService } from 'services';
+import { BaseService, SellerUsersService } from 'services';
 import { notification } from 'antd';
 
-export default function PersonalInformationBox({ currentUser }) {
+export default function PersonalInformationBox({ currentUser, onChange }) {
   const handOk = values => {
-    UserService.changeUserInfo(values, response => {
+    const { fullName, telegramId, email, phone } = values;
+    SellerUsersService.changeUserInfo({ fullName, telegramId, email, phone } , response => {
+      onChange(response);
       notification.success({
         message: "Update personal information successful!",
       });

@@ -65,8 +65,26 @@ function updateAccountStaff(id, data, successCallback, failureCallback) {
   makePutWithConfigs(url, config, successCallback, failureCallback);
 }
 
+function changePassword(data, successCallback, failureCallback) {
+  const url = getSellerBaseURL() + '/account/change-password';
+  const config = {
+    data
+  };
+  makePostWithConfigs(url, config, successCallback, failureCallback)
+}
+
+function changeUserInfo(data, successCallback, failureCallback) {
+  const url = getSellerBaseURL() + `/account`;
+  const config = {
+    data
+  };
+  makePostWithConfigs(url, config, successCallback, failureCallback)
+}
+
 export {
   getAccountsStaff,
   createAccountStaff,
   updateAccountStaff,
+  changeUserInfo,
+  changePassword,
 }

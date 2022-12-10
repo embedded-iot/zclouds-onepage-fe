@@ -24,7 +24,7 @@ export default function ChangePasswordForm({ onFinish, initialValues }) {
             bordered={false}>
         <Form.Item
           label="Old Password"
-          name="oldPassword"
+          name="password"
           rules={[
             {
               required: true,

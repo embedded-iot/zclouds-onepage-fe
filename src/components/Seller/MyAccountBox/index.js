@@ -72,7 +72,7 @@ const columns = [
   },
 ];
 
-export default function MyAccountBox({ currentUser, RELOAD_EVENT_KEY = 'RELOAD_RESELLER_MY_ACCOUNT_TABLE_EVENT_KEY' }) {
+export default function MyAccountBox({ currentUser, setGlobalStore,  RELOAD_EVENT_KEY = 'RELOAD_RESELLER_MY_ACCOUNT_TABLE_EVENT_KEY' }) {
   const [openAddEditAccountStaff, setOpenAddEditAccountStaff] = useState(false);
   const [accountStaff, setAccountStaff] = useState(null);
   // eslint-disable-next-line
@@ -146,6 +146,15 @@ export default function MyAccountBox({ currentUser, RELOAD_EVENT_KEY = 'RELOAD_R
     // eslint-disable-next-line
   }, []);
 
+  const handleCurrentUserChange = updatedCurrentUser => {
+    setGlobalStore({
+      currentUser: {
+        ...currentUser,
+        ...updatedCurrentUser,
+      }
+    })
+  }
+
   return (
     <>
       <ButtonListWrapper buttonList={buttonList}
@@ -153,7 +162,7 @@ export default function MyAccountBox({ currentUser, RELOAD_EVENT_KEY = 'RELOAD_R
       />
       <Row gutter={[23, 23]}>
         <Col span={12}>
-          <PersonalInformationBox currentUser={currentUser} />
+          <PersonalInformationBox currentUser={currentUser} onChange={handleCurrentUserChange}/>
         </Col>
         <Col span={12}>
           <Row gutter={[23, 23]}>

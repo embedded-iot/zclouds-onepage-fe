@@ -42,7 +42,7 @@ export default function PersonalInformationForm({ onFinish, initialValues }) {
         </Form.Item>
         <Form.Item
           label="Telegram ID"
-          name="telegramID"
+          name="telegramId"
         >
           <InputText placeholder="Telegram ID"/>
         </Form.Item>
@@ -64,7 +64,7 @@ export default function PersonalInformationForm({ onFinish, initialValues }) {
         </Form.Item>
         <Form.Item
           label="Phone Contact"
-          name="phoneNumber"
+          name="phone"
           rules={[
             {
               required: true,

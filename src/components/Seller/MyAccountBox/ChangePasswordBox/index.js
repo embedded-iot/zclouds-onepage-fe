@@ -1,12 +1,12 @@
 import React from 'react';
 import BoxCard from 'components/Share/BoxCard';
 import ChangePasswordForm from './ChangePasswordForm';
-import { BaseService, UserService } from 'services';
+import { BaseService, SellerUsersService } from 'services';
 import { notification } from 'antd';
 
 export default function ChangePasswordBox({ currentUser }) {
   const handOk = values => {
-    UserService.changePassword(values, response => {
+    SellerUsersService.changePassword(values, response => {
       notification.success({
         message: "Change password successful!",
       });

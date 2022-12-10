@@ -23,7 +23,7 @@ const getAdminBaseURL = () => {
 }
 
 const getErrorMessage = (error, defaultMessage) => {
-  const message = !!error && !!error.errors && Object.entries(error.errors).map(([key, value]) => value).join(',');
+  const message = !!error && !!error.errors && Object.entries(error.errors).map(([key, value]) => `[${key.toUpperCase()}]: ${value}`).join(',');
   if (!!message) {
     return message;
   }

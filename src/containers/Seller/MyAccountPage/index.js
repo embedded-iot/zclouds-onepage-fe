@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import MyAccountBox from 'components/Seller/MyAccountBox';
+import { setGlobalStore } from 'containers/App/actions';
 
 function WalletPage(props) {
   return (
@@ -18,7 +19,7 @@ function WalletPage(props) {
         currentBreadcrumb="Wallet"
       />
       <div className="page-contents">
-        <MyAccountBox currentUser={props.currentUser}/>
+        <MyAccountBox currentUser={props.currentUser} setGlobalStore={props.setGlobalStore}/>
       </div>
     </div>
   );
@@ -33,6 +34,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setGlobalStore: options => dispatch(setGlobalStore(options)),
     push: path => dispatch(push(path)),
   };
 }
