@@ -61,7 +61,7 @@ const ACTION_KEYS = {
 }
 
 export default function SellerWalletManagementTable({ currentUser }) {
-  const [topUpMode, setTopUpMode] = useState(true);
+  const [topUpMode, setTopUpMode] = useState(false);
   // eslint-disable-next-line
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [summaryData, setSummaryData] = useState({});

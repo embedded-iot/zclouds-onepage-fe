@@ -21,11 +21,11 @@ import './style.scss';
 const columns = [
   {
     title: 'Sender',
-    dataIndex: 'sender',
+    dataIndex: 'infoSender',
   },
   {
     title: 'Recipient',
-    dataIndex: 'recipient',
+    dataIndex: 'infoReceiver',
   },
   {
     title: 'Type',
@@ -36,8 +36,8 @@ const columns = [
     dataIndex: 'convertedMoney',
   },
   {
-    title: 'Content',
-    dataIndex: 'content',
+    title: 'Message',
+    dataIndex: 'message',
   },
   {
     title: 'Date',
@@ -45,7 +45,7 @@ const columns = [
   },
   {
     title: 'Transaction ID',
-    dataIndex: 'id',
+    dataIndex: 'transactionId',
   },
   {
     title: 'Status',
@@ -166,7 +166,7 @@ export default function TransactionsManagementTable() {
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.CANCEL_TRANSACTION} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={cancelTransaction}>Cancel transaction</Button>,
+        render: <Button key={ACTION_KEYS.CANCEL_TRANSACTION} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={cancelTransaction}>Reject transaction</Button>,
         requiredSelection: true,
       },
       {

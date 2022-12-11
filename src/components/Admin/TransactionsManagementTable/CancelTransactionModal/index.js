@@ -7,24 +7,24 @@ export default function CancelTransactionModal({ open, data, onOk, onCancel }) {
   const handleOk = () => {
     AdminTransactionsService.cancelTransaction(data.id, response => {
       notification.success({
-        message: "Cancel transaction successful!",
+        message: "Reject transaction successful!",
       });
       onOk();
     }, error => {
       notification.error({
-        message: BaseService.getErrorMessage(error,"Cancel transaction failure!"),
+        message: BaseService.getErrorMessage(error,"Reject transaction failure!"),
       });
     })
   }
   return (
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                open={open}
-               title={"Cancel transaction"}
+               title={"Reject transaction"}
                okText={"Save"}
                onOk={handleOk}
                onCancel={onCancel}
     >
-    <div>Cancel transaction: {data ? data.id : 'Transaction id'}</div>
+    <div>Transaction Id: {data ? data.transactionId : 'Transaction id'}</div>
     </ModalView>
   )
 }
