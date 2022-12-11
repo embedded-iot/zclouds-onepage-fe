@@ -20,28 +20,37 @@ const transformTransaction = item => {
 const items = [];
 items.push(transformTransaction({
   id: 1,
+  sender: <span>Nguyen Cuong<br/>05086495<br/>BIDV</span>,
+  recipient: <span>Nguyen Ha An<br/>05086495264<br/>Viettin</span>,
+  content: 'TK 12345',
   createdAt: 1669993510000,
   type: TRANSACTION_TYPE_VALUES.TOP_UP,
   money: 1312,
-  paymentMethod: 'Bank in Viet nam',
+  approval: 'Admin',
   resellerName: 'resellerName',
   status: STATE_VALUES.COMPLETED,
 }))
 items.push(transformTransaction({
   id: 2,
+  sender: <span>Nguyen Cuong<br/>05086495<br/>BIDV</span>,
+  recipient: <span>Nguyen Ha An<br/>05086495264<br/>Viettin</span>,
+  content: 'TK 12345',
   createdAt: 1669993510000,
-  type: TRANSACTION_TYPE_VALUES.WITHDRAW,
+  type: TRANSACTION_TYPE_VALUES.TOP_UP,
   money: 1312,
-  paymentMethod: 'Bank in Viet nam',
+  approval: 'Admin',
   resellerName: 'resellerName',
   status: STATE_VALUES.PENDING,
 }))
 items.push(transformTransaction({
   id: 3,
+  sender: <span>Nguyen Cuong<br/>05086495<br/>BIDV</span>,
+  recipient: <span>Nguyen Ha An<br/>05086495264<br/>Viettin</span>,
+  content: 'TK 12345',
   createdAt: 1669993510000,
   type: TRANSACTION_TYPE_VALUES.TOP_UP,
   money: 1312,
-  paymentMethod: 'Bank in Viet nam',
+  approval: 'Admin',
   resellerName: 'resellerName',
   status: STATE_VALUES.CANCEL,
 }))

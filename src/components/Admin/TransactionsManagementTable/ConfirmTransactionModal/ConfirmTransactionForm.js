@@ -26,7 +26,7 @@ export default function ConfirmTransactionForm({ form, filters, resellersInput, 
               if (!value || existingStore) {
                 return Promise.resolve();
               }
-              return Promise.reject(new Error('Store is not existing!'));
+              return Promise.reject(new Error('Reseller is not existing!'));
             },
           }),
         ]}

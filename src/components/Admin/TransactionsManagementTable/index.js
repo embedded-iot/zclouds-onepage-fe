@@ -3,38 +3,49 @@ import TableGrid from 'components/Common/TableGrid';
 import { AdminTransactionsService } from 'services';
 import { cui, events } from 'utils';
 import { Button, Tag } from 'antd';
-import { EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined } from '@ant-design/icons';
 import ConfirmTransactionModal from './ConfirmTransactionModal';
 import CancelTransactionModal from './CancelTransactionModal';
 import BoxCard from 'components/Share/BoxCard';
-import { STATE_COLORS, TRANSACTION_STATUS_LABELS, TRANSACTION_STATUS_VALUES_LIST } from 'components/contants';
+import {
+  STATE_COLORS, TRANSACTION_STATUS_LABEL_VALUE_OPTIONS, TRANSACTION_TYPE_LABEL_VALUE_OPTIONS,
+} from 'components/contants';
+
+import DropdownSelect from 'components/Common/DropdownSelect';
+import checkboxIcon from 'images/checkbox-green-icon.svg';
+import Icon from 'components/Common/Icon';
 
 import './style.scss';
 
+
 const columns = [
   {
-    title: 'Transaction ID',
-    dataIndex: 'id',
+    title: 'Sender',
+    dataIndex: 'sender',
   },
   {
-    title: 'Date',
-    dataIndex: 'convertedCreatedDate',
-  },
-  {
-    title: 'Seller',
-    dataIndex: 'resellerName',
+    title: 'Recipient',
+    dataIndex: 'recipient',
   },
   {
     title: 'Type',
     dataIndex: 'convertedType',
   },
   {
-    title: 'Money',
+    title: 'Amount',
     dataIndex: 'convertedMoney',
   },
   {
-    title: 'Payment method',
-    dataIndex: 'paymentMethod',
+    title: 'Content',
+    dataIndex: 'content',
+  },
+  {
+    title: 'Date',
+    dataIndex: 'convertedCreatedDate',
+  },
+  {
+    title: 'Transaction ID',
+    dataIndex: 'id',
   },
   {
     title: 'Status',
@@ -42,6 +53,14 @@ const columns = [
     render: (convertedStatus, record) => {
       return (<Tag className="transactions-table__status-cell" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>);
     }
+  },
+  {
+    title: 'Approval',
+    dataIndex: 'approval',
+  },
+  {
+    title: 'Seller',
+    dataIndex: 'resellerName',
   },
 ];
 
@@ -54,8 +73,9 @@ const ACTION_KEYS = {
 export default function TransactionsManagementTable() {
   const [openAddTransaction, setOpenAddTransaction] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [opencancelTransaction, setOpencancelTransaction] = useState(false);
+  const [openCancelTransaction, setOpenCancelTransaction] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [summaryData, setSummaryData] = useState({});
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_TRANSACTIONS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
@@ -66,6 +86,7 @@ export default function TransactionsManagementTable() {
     },
     successCallback: (response) => {
       ref.current.items = response.items;
+      setSummaryData({})
     },
     failureCallback: (error) => {
       console.log(error);
@@ -73,7 +94,7 @@ export default function TransactionsManagementTable() {
   };
 
   const reloadTable = (filters ={}) => {
-    setOpencancelTransaction(false);
+    setOpenCancelTransaction(false);
     setOpenAddTransaction(false);
     events.publish(RELOAD_EVENT_KEY, filters);
   }
@@ -84,7 +105,7 @@ export default function TransactionsManagementTable() {
   }
 
   const cancelTransaction = () => {
-    setOpencancelTransaction(true);
+    setOpenCancelTransaction(true);
   }
 
   const onSelectedItemsChange = (keys) => {
@@ -92,30 +113,55 @@ export default function TransactionsManagementTable() {
     setSelectedTransaction(newSelectedTransaction);
   }
 
-  // const TransactionsSummaryBox = (
-  //   <div className="transactions-table__wallet-summary-box">
-  //     <div className='transactions-table__wallet-summary'>Wallet total:</div>
-  //     <div className="transactions-table__status-button">Tất cả (0)</div>
-  //   </div>
-  // );
+  const onDropdownChange = (value, name) => {
+    reloadTable({
+      [name]: value
+    });
+  }
 
-  const TransactionsStatusBox = (
-    <div className="transactions-table__status-box">
-      <div className='transactions-table__status-title'>Hiển thị:</div>
-      <div className="transactions-table__status-button">Tất cả (0)</div>
-      {
-        TRANSACTION_STATUS_VALUES_LIST.map(statusValue => (
-          <div className="transactions-table__status-button" key={statusValue}>{TRANSACTION_STATUS_LABELS[statusValue]} (0)</div>
-        ))
-      }
+  const SummaryBox = (
+    <div className='transactions-table__summary-box'>
+      <div className='transactions-table__summary-item'>
+        Total deposit amount:
+        <span className='transactions-table__summary-value transactions-table__summary-value--first'>{summaryData.totalDepositAmount || 0}</span>
+      </div>
+      <div className='transactions-table__summary-item'>
+        Total orders amount:
+        <span className='transactions-table__summary-value transactions-table__summary-value--second'>{summaryData.totalOrdersAmount || 0}</span>
+      </div>
+      <div className='transactions-table__summary-item'>
+        Balance:
+        <span className='transactions-table__summary-value transactions-table__summary-value--third'>{summaryData.balance || 0}</span>
+      </div>
     </div>
-  );
+  )
+
+  const FiltersBox = (
+    <div className='transactions-table__filters-box'>
+      <DropdownSelect
+        name="type"
+        options={TRANSACTION_TYPE_LABEL_VALUE_OPTIONS}
+        defaultValue={''}
+        onChange={onDropdownChange}
+        style={{minWidth: 200}}
+        theme="light"
+      />
+      <DropdownSelect
+        name="status"
+        options={TRANSACTION_STATUS_LABEL_VALUE_OPTIONS}
+        defaultValue={''}
+        onChange={onDropdownChange}
+        style={{minWidth: 210}}
+        theme="light"
+      />
+    </div>
+  )
 
   const headerActionsConfig = {
     buttonList: [
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.CONFIRM_TRANSACTION} icon={<EditOutlined />} onClick={confirmTransaction}>Confirm transaction</Button>,
+        render: <Button key={ACTION_KEYS.CONFIRM_TRANSACTION} icon={<Icon src={checkboxIcon} width={18} height={18} /> } type="primary" ghost onClick={confirmTransaction}>Confirm transaction</Button>,
         requiredSelection: true,
       },
       {
@@ -125,12 +171,12 @@ export default function TransactionsManagementTable() {
       },
       {
         type: 'custom',
-        render: <div></div>,
+        render: SummaryBox,
         requiredSelection: false,
       },
       {
         type: 'custom',
-        render: TransactionsStatusBox,
+        render: FiltersBox,
         align: 'right',
       },
     ],
@@ -160,12 +206,12 @@ export default function TransactionsManagementTable() {
         )
       }
       {
-        opencancelTransaction && (
+        openCancelTransaction && (
           <CancelTransactionModal
-            open={opencancelTransaction}
+            open={openCancelTransaction}
             data={selectedTransaction}
             onOk={reloadTable}
-            onCancel={() => { setOpencancelTransaction(false); }}
+            onCancel={() => { setOpenCancelTransaction(false); }}
           />
         )
       }
