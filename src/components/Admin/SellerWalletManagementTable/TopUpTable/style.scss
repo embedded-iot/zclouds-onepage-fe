@@ -1,0 +1,23 @@
+.top-up-table {
+  &__add-button {
+    color: #44546F !important;
+  }
+  &__up-down-icon {
+    background: #22A06B;
+    border-radius: 4px;
+    width: 16px;
+    height: 16px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 16px;
+    padding-top: 1px;
+  }
+  &__mount-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    .input-number {
+      max-width: 120px;
+    }
+  }
+}

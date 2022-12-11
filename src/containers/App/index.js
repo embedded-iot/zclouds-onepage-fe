@@ -64,6 +64,7 @@
  import AdminUsersManagementPage from 'containers/Admin/UsersManagementPage/Loadable';
  import AdminOrdersManagementPage from 'containers/Admin/OrdersManagementPage/Loadable';
  import AdminTransactionsManagementPage from 'containers/Admin/TransactionsManagementPage/Loadable';
+ import AdminSellerWalletManagementPage from 'containers/Admin/SellerWalletManagementPage/Loadable';
 
 
  import { ADMIN_ROLES, DATETIME_FORMAT, ROUTERS, WEBSITE_NAME } from 'components/contants';
@@ -148,6 +149,7 @@
      <PrivateRoute exact path={ROUTERS.ADMIN_USERS_MANAGEMENT} component={AdminUsersManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
      <PrivateRoute exact path={ROUTERS.ADMIN_ORDERS_MANAGEMENT} component={AdminOrdersManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
      <PrivateRoute exact path={ROUTERS.ADMIN_TRANSACTIONS_MANAGEMENT} component={AdminTransactionsManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
+     <PrivateRoute exact path={ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT} component={AdminSellerWalletManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
    </Switch>
  )
 

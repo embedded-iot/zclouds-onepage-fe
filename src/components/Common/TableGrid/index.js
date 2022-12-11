@@ -83,6 +83,14 @@ export default function TableGrid({
   }
 
   useEffect(() => {
+    setData({
+      ...data,
+      ...defaultData,
+    });
+    // eslint-disable-next-line
+  }, [defaultData])
+
+  useEffect(() => {
     getDataFunc(params);
     const reloadListener = reloadListenerFunc();
 
