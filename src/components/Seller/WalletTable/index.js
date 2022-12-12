@@ -16,7 +16,7 @@ import './style.scss';
 const columns = [
   {
     title: 'ID/Number',
-    dataIndex: 'id',
+    dataIndex: 'transactionId',
   },
   {
     title: 'Description',

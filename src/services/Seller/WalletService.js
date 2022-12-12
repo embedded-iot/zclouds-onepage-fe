@@ -7,38 +7,18 @@ const transformWalletHistory = item => {
     ...item,
     convertedWalletBefore: !!item.walletBefore ? format.formatCurrency(item.walletBefore) : '',
     convertedBalanceBefore: !!item.balanceBefore ? format.formatCurrency(item.balanceBefore) : '',
-    convertedTopUp: !!item.topUp ? format.formatCurrency(item.topUp) : '',
+    convertedTopUp: !!item.amount ? format.formatCurrency(item.amount) : '',
     convertedWalletAfter: !!item.walletAfter ? format.formatCurrency(item.walletAfter) : '',
     convertedBalanceAfter: !!item.balanceAfter ? format.formatCurrency(item.balanceAfter) : '',
-    convertedCreatedDate: !!item.createdate ? datetime.convert(item.createdate, DATETIME_FORMAT) : '',
+    convertedCreatedDate: !!item.date ? datetime.convert(item.date, DATETIME_FORMAT) : '',
   }
 }
 
-const walletHistoryItems = [];
-for (let i = 0; i < 10; i++) {
-  walletHistoryItems.push(transformWalletHistory({
-    id: i,
-    description: 'Topup by Techcombank banking 10.10.2022',
-    walletBefore: 100.2,
-    balanceBefore: 100000,
-    topUp: 2000,
-    walletAfter: 400,
-    balanceAfter: 60000,
-    createdate: 1669993510000,
-  }));
-}
-
 function getWalletHistory(params, successCallback, failureCallback) {
-  successCallback({
-    items: walletHistoryItems,
-    totalCount: 10,
-    pageNum: 1,
-    totalPage: 1,
-  });
   const config = {
     params
   };
-  const url = getSellerBaseURL() + '/wallet/wallet-history';
+  const url = getSellerBaseURL() + '/wallet/top-ups';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     const items = response.content.map(transformWalletHistory);
     return {
@@ -53,19 +33,14 @@ function getWalletHistory(params, successCallback, failureCallback) {
 const transformWalletTotal = item => {
   return {
     ...item,
-    convertedWalletTotal: !!item.walletTotal ? format.formatCurrency(item.walletTotal) : '',
-    convertedOrdersTotal: !!item.ordersTotal ? format.formatCurrency(item.ordersTotal) : '',
-    convertedYourBalance: !!item.yourBalance ? format.formatCurrency(item.yourBalance) : '',
+    convertedWalletTotal: !!item.walletTotal ? format.formatCurrency(item.walletTotal) : 0,
+    convertedOrdersTotal: !!item.orderTotal ? format.formatCurrency(item.orderTotal) : 0,
+    convertedYourBalance: !!item.balance ? format.formatCurrency(item.balance) : 0,
   }
 }
 
 function getWalletTotal(successCallback, failureCallback) {
-  successCallback(transformWalletTotal({
-    walletTotal: 10,
-    ordersTotal: 12131,
-    yourBalance: 222222,
-  }));
-  const url = getSellerBaseURL() + '/wallet/wallet-total';
+  const url = getSellerBaseURL() + '/wallet';
   makeGetWithConfigs(url, {}, successCallback, failureCallback, transformWalletTotal);
 }
 
