@@ -8,7 +8,7 @@ import InputText from 'components/Common/InputText';
 import './style.scss';
 export default function LoginForm({ onFinish = () => {}, redirectTo = () => {}, isAdminMode = false }) {
   return (
-    <BoxCard className="sign-in-form__wrapper">
+    <BoxCard className="sign-in-form__wrapper" style={{ maxWidth: 400 }}>
       <BoxHeader
         title="Sign in to Creative Space"
         description="Log in with your data that you entered during registration."

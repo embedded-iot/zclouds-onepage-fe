@@ -10,7 +10,7 @@ import './style.scss';
 export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {}}) {
   // eslint-disable-next-line
   return (
-    <BoxCard className="sign-up-form__wrapper">
+    <BoxCard className="sign-up-form__wrapper" style={{ maxWidth: 400 }}>
       <BoxHeader
         title="Sign up"
         description="Log in with your data that you entered during registration."

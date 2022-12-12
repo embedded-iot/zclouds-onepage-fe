@@ -48,9 +48,15 @@ function deleteUser(id, successCallback, failureCallback) {
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function getUser(id, successCallback, failureCallback) {
+  const url = getAdminBaseURL() + '/users/' + id;
+  makeGetWithConfigs(url, {}, successCallback, failureCallback);
+}
+
 export {
   getUsers,
   createUser,
   updateUser,
   deleteUser,
+  getUser,
 }

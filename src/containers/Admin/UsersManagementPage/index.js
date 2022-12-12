@@ -17,7 +17,7 @@ function UsersManagementPage(props) {
         title="Users management"
       />
       <div className="page-contents">
-        <UsersManagementTable />
+        <UsersManagementTable redirectTo={props.push}/>
       </div>
     </div>
   );

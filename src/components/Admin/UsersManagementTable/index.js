@@ -4,10 +4,9 @@ import { AdminUsersService } from 'services';
 import { cui, events } from 'utils';
 import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import AddEditUserModal from './AddEditUserModal';
 import DeleteUserModal from './DeleteUserModal';
 import DropdownSelect from 'components/Common/DropdownSelect';
-import { ROLES_LABEL_VALUE_OPTIONS } from 'components/contants';
+import { ROLES_LABEL_VALUE_OPTIONS, ROUTERS } from 'components/contants';
 import BoxCard from 'components/Share/BoxCard';
 
 const columns = [
@@ -47,9 +46,7 @@ const ACTION_KEYS = {
   DELETE_USER: "DELETE_USER",
 }
 
-export default function UsersManagementTable() {
-  const [openAddUser, setOpenAddUser] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+export default function UsersManagementTable({ redirectTo }) {
   const [openDeleteUser, setOpenDeleteUser] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_USERS_TABLE_EVENT_KEY';
@@ -70,18 +67,11 @@ export default function UsersManagementTable() {
 
   const reloadTable = (filters ={}) => {
     setOpenDeleteUser(false);
-    setOpenAddUser(false);
     events.publish(RELOAD_EVENT_KEY, filters);
   }
 
-  const addUser = () => {
-    setIsEdit(false);
-    setOpenAddUser(true);
-  }
-
-  const editUser = () => {
-    setIsEdit(true);
-    setOpenAddUser(true);
+  const addEditUser = () => {
+    redirectTo(ROUTERS.ADMIN_USERS_MANAGEMENT + '/' + (!!selectedUser ? selectedUser.id : 0))
   }
 
   const deleteUser = () => {
@@ -101,7 +91,7 @@ export default function UsersManagementTable() {
     buttonList: [
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.EDIT_USER} icon={<EditOutlined />} onClick={editUser}>Edit user</Button>,
+        render: <Button key={ACTION_KEYS.EDIT_USER} icon={<EditOutlined />} onClick={addEditUser}>Edit user</Button>,
         requiredSelection: true,
       },      {
         type: 'custom',
@@ -141,7 +131,7 @@ export default function UsersManagementTable() {
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.ADD_USER} type="primary" icon={<PlusCircleOutlined />} onClick={addUser}>Add user</Button>,
+        render: <Button key={ACTION_KEYS.ADD_USER} type="primary" icon={<PlusCircleOutlined />} onClick={addEditUser}>Add user</Button>,
         align: 'right',
       }
     ],
@@ -160,16 +150,6 @@ export default function UsersManagementTable() {
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
-      {
-        openAddUser && (
-          <AddEditUserModal
-            open={openAddUser}
-            data={isEdit ? selectedUser : null}
-            onOk={reloadTable}
-            onCancel={() => { setOpenAddUser(false); }}
-          />
-        )
-      }
       {
         openDeleteUser && (
           <DeleteUserModal
