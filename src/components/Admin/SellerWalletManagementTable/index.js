@@ -24,7 +24,7 @@ const columns = [
   },
   {
     title: 'Seller',
-    dataIndex: 'resellerName',
+    dataIndex: 'walletUser',
   },
   {
     title: 'Email',
