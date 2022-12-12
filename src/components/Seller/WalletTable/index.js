@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerWalletService } from 'services';
-import { events } from 'utils';
+import { cui, events } from 'utils';
 import VerifyTopUpModal from './VerifyTopUpModal';
 import WalletTotalCards from './WalletTotalCards';
 import AddMoneyToWalletModal from './AddMoneyToWalletModal';
@@ -56,7 +56,7 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, type, ...restParams} = params || {};
-      SellerWalletService.getWalletHistory({ ...restParams, pageSize, pageNum }, successCallback, failureCallback)
+      SellerWalletService.getWalletHistory(cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
     },
     successCallback: (response) => {
     },

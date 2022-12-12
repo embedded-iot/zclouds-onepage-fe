@@ -48,7 +48,7 @@ function verifyTopUp(data, successCallback, failureCallback) {
   const config = {
     data
   };
-  const url = getSellerBaseURL() + '/wallet/verify-top-up';
+  const url = getSellerBaseURL() + '/wallet/top-ups';
   makePostWithConfigs(url, config, successCallback, failureCallback, transformWalletTotal);
 }
 
