@@ -170,13 +170,50 @@ export default function TransactionsManagementTable() {
         requiredSelection: true,
       },
       {
+        type: 'searchText',
+        requiredSelection: false,
+        props: {
+          placeholder: 'Search by id, transaction_id, name received ...',
+        }
+      },
+      {
         type: 'custom',
         render: SummaryBox,
         requiredSelection: false,
+        permission: false,
       },
       {
         type: 'custom',
         render: FiltersBox,
+        align: 'right',
+        permission: false,
+      },
+      {
+        type: 'custom',
+        render: (
+          <DropdownSelect
+            name="type"
+            options={TRANSACTION_TYPE_LABEL_VALUE_OPTIONS}
+            defaultValue={''}
+            onChange={onDropdownChange}
+            style={{maxWidth: 210}}
+            theme="light"
+          />
+        ),
+        align: 'right',
+      },
+      {
+        type: 'custom',
+        render: (
+          <DropdownSelect
+            name="status"
+            options={TRANSACTION_STATUS_LABEL_VALUE_OPTIONS}
+            defaultValue={''}
+            onChange={onDropdownChange}
+            style={{maxWidth: 210}}
+            theme="light"
+          />
+        ),
         align: 'right',
       },
     ],

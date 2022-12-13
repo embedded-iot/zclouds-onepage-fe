@@ -7,15 +7,10 @@ import DropdownSelect from 'components/Common/DropdownSelect';
 import InputText from 'components/Common/InputText';
 import InputPassword from 'components/Common/InputPassword';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
-import Icon from 'components/Common/Icon';
-import saveIcon from 'images/save-icon.svg';
 
-export default function UserForm({ form, initialValues, onFinish, onCancel, ...restProps }) {
+export default function UserForm({ form, isEdit, role, initialValues, onFinish, ...restProps }) {
   const buttonList = [
-    <Button onClick={onCancel}>
-      Cancel
-    </Button>,
-    <Button type="primary" htmlType="submit" icon={<Icon src={saveIcon} width={18} height={18} />} >
+    <Button type="primary" htmlType="submit">
       Save
     </Button>
   ]
@@ -25,10 +20,11 @@ export default function UserForm({ form, initialValues, onFinish, onCancel, ...r
       form={form}
       autoComplete="off"
       initialValues={{
-        role: '',
+        role: role || '',
         state: STATE_VALUES.ACTIVATED,
         ...initialValues,
       }}
+      onFinish={onFinish}
       layout="vertical"
       {...restProps}
     >
@@ -42,7 +38,7 @@ export default function UserForm({ form, initialValues, onFinish, onCancel, ...r
           },
         ]}
       >
-        <InputText placeholder="User Name"  />
+        <InputText disabled={isEdit} placeholder="User Name"  />
       </Form.Item>
       <Form.Item
         label="Password"
@@ -131,12 +127,14 @@ export default function UserForm({ form, initialValues, onFinish, onCancel, ...r
         ]}
       >
         <DropdownSelect
+          disabled={role && !isEdit}
           options={ROLES_LABEL_VALUE_OPTIONS}
         />
       </Form.Item>
       <Form.Item
         label="State"
         name="state"
+        hidden={!isEdit}
         rules={[
           {
             required: true,

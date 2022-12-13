@@ -3,7 +3,7 @@ import { Form, notification } from 'antd';
 import UserForm from './UserForm';
 import { AdminUsersService, BaseService } from 'services';
 
-export default function AddEditUserBox({ data, onOk, onCancel }) {
+export default function AddEditUserBox({ data, role, onOk }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
   const handleOk = (values) => {
@@ -35,9 +35,10 @@ export default function AddEditUserBox({ data, onOk, onCancel }) {
   return (
     <UserForm
       form={form}
+      isEdit={isEdit}
+      role={role}
       initialValues={data}
       onFinish={handleOk}
-      onCancel={onCancel}
     />
   )
 }

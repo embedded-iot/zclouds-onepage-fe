@@ -9,12 +9,12 @@ import ordersIcon from 'images/paper_black_icon.svg';
 
 export default function AdminSider({ selectedRouters = [], redirectTo = () => {}, }) {
   const items = [
-    getItem('Products management', ROUTERS.ADMIN_PRODUCTS_MANAGEMENT, <Icon src={categoriesIcon} />),
-    getItem('Categories management', ROUTERS.ADMIN_CATEGORIES_MANAGEMENT, <Icon src={productCategoryIcon} />),
-    getItem('Orders management', ROUTERS.ADMIN_ORDERS_MANAGEMENT, <Icon src={ordersIcon} />),
-    getItem('Users management', ROUTERS.ADMIN_USERS_MANAGEMENT, <Icon src={myAccountIcon} />),
-    getItem('Transactions management', ROUTERS.ADMIN_TRANSACTIONS_MANAGEMENT, <Icon src={ordersIcon} />),
-    getItem('Seller wallet management', ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT, <Icon src={myAccountIcon} />),
+    getItem('Products', ROUTERS.ADMIN_PRODUCTS_MANAGEMENT, <Icon src={categoriesIcon} />),
+    getItem('Categories', ROUTERS.ADMIN_CATEGORIES_MANAGEMENT, <Icon src={productCategoryIcon} />),
+    getItem('Orders', ROUTERS.ADMIN_ORDERS_MANAGEMENT, <Icon src={ordersIcon} />),
+    getItem('Users', ROUTERS.ADMIN_USERS_MANAGEMENT, <Icon src={myAccountIcon} />),
+    getItem('Transactions', ROUTERS.ADMIN_TRANSACTIONS_MANAGEMENT, <Icon src={ordersIcon} />),
+    getItem('Seller wallets', ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT, <Icon src={myAccountIcon} />),
     // getItem('Admins and Roles', ROUTERS.ADMIN_USER_AND_ROLES_MANAGEMENT, undefined, [
     //   getItem('Admins management', ROUTERS.ADMIN_USERS_MANAGEMENT),
     //   getItem( 'Roles management', ROUTERS.ADMIN_ROLES_MANAGEMENT),

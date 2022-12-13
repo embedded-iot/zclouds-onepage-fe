@@ -70,8 +70,8 @@ export default function UsersManagementTable({ redirectTo }) {
     events.publish(RELOAD_EVENT_KEY, filters);
   }
 
-  const addEditUser = () => {
-    redirectTo(ROUTERS.ADMIN_USERS_MANAGEMENT + '/' + (!!selectedUser ? selectedUser.id : 0))
+  const addEditUser = (userId = 0) => {
+    redirectTo(ROUTERS.ADMIN_USERS_MANAGEMENT + '/' + userId)
   }
 
   const deleteUser = () => {
@@ -91,7 +91,7 @@ export default function UsersManagementTable({ redirectTo }) {
     buttonList: [
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.EDIT_USER} icon={<EditOutlined />} onClick={addEditUser}>Edit user</Button>,
+        render: <Button key={ACTION_KEYS.EDIT_USER} icon={<EditOutlined />} onClick={() => addEditUser(selectedUser.id)}>Edit user</Button>,
         requiredSelection: true,
       },      {
         type: 'custom',
@@ -131,7 +131,7 @@ export default function UsersManagementTable({ redirectTo }) {
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.ADD_USER} type="primary" icon={<PlusCircleOutlined />} onClick={addEditUser}>Add user</Button>,
+        render: <Button key={ACTION_KEYS.ADD_USER} type="primary" icon={<PlusCircleOutlined />} onClick={() => addEditUser()}>Add user</Button>,
         align: 'right',
       }
     ],

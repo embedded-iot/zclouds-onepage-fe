@@ -299,7 +299,7 @@ export default function TableGrid({
           />
         )
       }
-      <br/>
+      { isShowPagination && <br/>}
       {
         isShowPagination && !!data.totalCount && (
           <div className="pagination-box">

@@ -3,24 +3,26 @@ import TableGrid from 'components/Common/TableGrid';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import { Button, notification } from 'antd';
 import Icon from 'components/Common/Icon';
-import { AdminResellersService, BaseService } from 'services';
+import { AdminResellersService, AdminWalletsService, BaseService } from 'services';
 import plusBlack from 'images/plus-black-icon.svg';
 
 import './style.scss';
 import { cui, datetime } from 'utils';
-import { DATE_FORMAT } from 'components/contants';
+import { DATE_FORMAT, TRANSACTION_TYPE_LABEL_VALUE_OPTIONS, TRANSACTION_TYPE_VALUES } from 'components/contants';
 import InputText from 'components/Common/InputText';
 import InputNumber from 'components/Common/InputNumber';
 import plusIcon from 'images/plus_green_icon.svg';
 import minusIcon from 'images/minus_green_icon.svg';
+import removeIcon from 'images/remove_round_gray_icon.svg';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
+import DropdownSelect from 'components/Common/DropdownSelect';
 
-
-export default function TopUpTable({ headerActionsConfig, onCancel, onOk, currentUser }) {
+export default function TopUpTable({ onCancel, onOk, currentUser }) {
   const [resellerWallets, setResellerWallets] = useState([]);
   const [resellersOptions, setResellerSOptions] = useState([]);
+  const [selectedKeys, setSelectedKeys] = useState([]);
   let ref = useRef({});
-
+  const [, ...transactionTypesOptions] = TRANSACTION_TYPE_LABEL_VALUE_OPTIONS;
   const getResellersOptions = (params = {}) => {
     AdminResellersService.getResellers( cui.removeEmpty({ pageNum: 1, pageSize: 100, ...params }), response => {
       const newOptions = AdminResellersService.getResellersOptions(response.items, false);
@@ -29,13 +31,19 @@ export default function TopUpTable({ headerActionsConfig, onCancel, onOk, curren
   }
 
   const handleInputChange = (value, name, id) => {
-    setResellerWallets(resellerWallets.map(item => item.id === id ? ({
+    setResellerWallets(prevResellerWallets => prevResellerWallets.map(item => item.id === id ? ({
       ...item,
       [name]: value,
     }) : item))
   }
+  const handleRemove = (id) => {
+    setResellerWallets(resellerWallets.filter(item => item.id !== id));
+  }
 
   const handleAutoCompleteInputChange = (value, name, id) => {
+    if (typeof value !== 'string') {
+      return;
+    }
     handleInputChange(value, name, id);
 
     if (ref.current.timeoutStoreChange) {
@@ -43,10 +51,10 @@ export default function TopUpTable({ headerActionsConfig, onCancel, onOk, curren
     }
     ref.current.timeoutStoreChange = setTimeout(() => {
       getResellersOptions({ keyword: value });
-    }, 200);
+    }, 300);
   }
 
-  const handleAutoCompleteInputSelect = (value, options, name, id) => {
+  const handleAutoCompleteInputSelect = (value, option, name, id) => {
     handleInputChange(value, name, id);
   }
 
@@ -56,6 +64,22 @@ export default function TopUpTable({ headerActionsConfig, onCancel, onOk, curren
 
   const columns = [
     {
+      title: 'Type',
+      dataIndex: 'type',
+      render: (type, record) => {
+        return (
+          <DropdownSelect
+            name="type"
+            options={transactionTypesOptions}
+            value={type}
+            onChange={(value, name) => handleInputChange(value, name, record.id)}
+            style={{minWidth: 100}}
+            theme="light"
+          />
+        )
+      }
+    },
+    {
       title: 'Seller',
       dataIndex: 'resellerInput',
       render: (resellerInput, record) => {
@@ -64,10 +88,12 @@ export default function TopUpTable({ headerActionsConfig, onCancel, onOk, curren
                              value={resellerInput}
                              onFocus={() => handleAutoCompleteFocus(resellerInput)}
                              onChange={(value, name) => handleAutoCompleteInputChange(value, name, record.id)}
-                             onSelect={(value, options, name) => handleAutoCompleteInputSelect(value, options, 'resellerId', record.id)}
+                             onSelect={(value, options, name) => handleAutoCompleteInputSelect(value, options,'resellerId', record.id)}
                              placeholder={"All Resellers"}
                              options={resellersOptions}
                              autoFilterOptions={false}
+                             theme="light"
+                             style={{minWidth: 100}}
           />
         )
       }
@@ -108,8 +134,16 @@ export default function TopUpTable({ headerActionsConfig, onCancel, onOk, curren
                      name="note"
                      placeholder="Note"
                      onChange={(value, name) => handleInputChange(value, name, record.id)}
+                     theme="light"
           />
         )
+      }
+    },
+    {
+      title: '',
+      dataIndex: 'id',
+      render: (id) => {
+        return (<Icon src={removeIcon} height={18} width={18} className="cursor-pointer" onClick={() => handleRemove(id)}/>)
       }
     },
   ];
@@ -120,7 +154,7 @@ export default function TopUpTable({ headerActionsConfig, onCancel, onOk, curren
   };
 
   const onSelectedItemsChange = (keys) => {
-
+    setSelectedKeys(keys);
   };
 
   const addNewResellerWallet = () => {
@@ -129,7 +163,8 @@ export default function TopUpTable({ headerActionsConfig, onCancel, onOk, curren
       ...resellerWallets,
       {
         id: ref.current.count,
-        resellerId: '',
+        type: TRANSACTION_TYPE_VALUES.TOP_UP,
+        resellerId: 0,
         resellerInput: '',
         amount: 0,
         createdBy: currentUser.username || 'username',
@@ -140,21 +175,40 @@ export default function TopUpTable({ headerActionsConfig, onCancel, onOk, curren
   }
 
   const handleOk = () => {
-    AdminResellersService.topUpReseller(resellerWallets, response => {
+    const selectedTransactions = resellerWallets.filter(item => selectedKeys.includes(item.id));
+    if (!selectedTransactions.length) {
+      notification.error({
+        message: "Please select transactions before submit!",
+      });
+      return;
+    }
+    const validTransactions = selectedTransactions.filter(item => !!item.resellerId).map(item => ({
+      type: item.type,
+      sellerId: item.resellerId,
+      amount: item.amount,
+      note: item.note,
+    }));
+    if (selectedTransactions.length !== validTransactions.length) {
+      notification.error({
+        message: "Reseller can't empty in selected transactions. Please check again!",
+      });
+      return;
+    }
+    AdminWalletsService.topUpWithdrawWallet(validTransactions, response => {
       notification.success({
-        message: "Top up successful!",
+        message: "Top up / withdraw successful!",
       });
       onOk();
     }, error => {
       notification.error({
-        message: BaseService.getErrorMessage(error, "Top up failure!"),
+        message: BaseService.getErrorMessage(error, "Top up / withdraw failure!"),
       });
     })
   }
 
   const buttonList = [
     <Button onClick={onCancel}>Cancel</Button>,
-    <Button type="primary" onClick={handleOk}>Top up now</Button>
+    <Button type="primary" onClick={handleOk}>Top up / withdraw now</Button>
   ]
 
   useEffect(() => {
@@ -167,11 +221,12 @@ export default function TopUpTable({ headerActionsConfig, onCancel, onOk, curren
                  defaultData={{
                    items: resellerWallets,
                  }}
-                 headerActionsConfig={headerActionsConfig}
                  onSelectedItemsChange={onSelectedItemsChange}
                  isAllowSelection={true}
       />
-      <Button type="link" className="top-up-table__add-button" icon={<Icon src={plusBlack} height={18} width={18} />} onClick={addNewResellerWallet}>Add new top up</Button>,
+      <div className='top-up-table__add-box'>
+        <Button type="link" className="top-up-table__add-button" icon={<Icon src={plusBlack} height={18} width={18} />} onClick={addNewResellerWallet}>Add new top up (withdraw)</Button>
+      </div>
       <ButtonListWrapper buttonList={buttonList}
                          align="right"
       />

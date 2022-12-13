@@ -1,10 +1,9 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
-import { AdminResellersService } from 'services';
+import { AdminWalletsService } from 'services';
 import { cui, events } from 'utils';
 import { Button } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
-import BoxCard from 'components/Share/BoxCard';
 
 import plusIcon from 'images/plus-icon.svg';
 import walletIcon from 'images/wallet_black_icon.svg';
@@ -14,6 +13,8 @@ import editIcon from 'images/edit_black_icon.svg';
 import infoIcon from 'images/info_black_icon.svg';
 import TopUpTable from './TopUpTable';
 
+import { ROLE_VALUES, ROUTERS } from 'components/contants';
+import DeleteUserModal from 'components/Admin/UsersManagementTable/DeleteUserModal';
 import './style.scss';
 
 
@@ -60,8 +61,9 @@ const ACTION_KEYS = {
   TOP_UP_RESELLER: "TOP_UP_RESELLER",
 }
 
-export default function SellerWalletManagementTable({ currentUser }) {
+export default function SellerWalletManagementTable({ currentUser, redirectTo }) {
   const [topUpMode, setTopUpMode] = useState(false);
+  const [openDeleteUser, setOpenDeleteUser] = useState(false);
   // eslint-disable-next-line
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [summaryData, setSummaryData] = useState({});
@@ -71,11 +73,11 @@ export default function SellerWalletManagementTable({ currentUser }) {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
-      AdminResellersService.getSellerWallets(cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
+      AdminWalletsService.getWallets(cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
     },
     successCallback: (response) => {
       ref.current.items = response.items;
-      setSummaryData({})
+      setSummaryData(response)
     },
     failureCallback: (error) => {
       console.log(error);
@@ -86,16 +88,20 @@ export default function SellerWalletManagementTable({ currentUser }) {
     events.publish(RELOAD_EVENT_KEY, filters);
   }
 
-  const editReseller = () => {
+  const addEditUser = (userId = 0) => {
+    redirectTo(ROUTERS.ADMIN_USERS_MANAGEMENT + '/' + userId + '/' + (!!userId && !!selectedTransaction.user ? selectedTransaction.user.role :  ROLE_VALUES.RESELLER))
+  }
 
+  const editReseller = () => {
+    addEditUser(selectedTransaction.userId);
   }
 
   const deleteReseller = () => {
-
+    setOpenDeleteUser(true);
   }
 
   const addReseller = () => {
-
+    addEditUser();
   }
 
   const showTopUpTable = () => {
@@ -145,7 +151,7 @@ export default function SellerWalletManagementTable({ currentUser }) {
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.TOP_UP_RESELLER} icon={<Icon src={walletIcon} width={24} height={24} /> } onClick={showTopUpTable}>Top up</Button>,
+        render: <Button key={ACTION_KEYS.TOP_UP_RESELLER} icon={<Icon src={walletIcon} width={24} height={24} /> } onClick={showTopUpTable}>Top up / Withdraw</Button>,
         align: 'right',
       },
       {
@@ -157,22 +163,19 @@ export default function SellerWalletManagementTable({ currentUser }) {
   }
 
   return (
-    <BoxCard className="content-box__wrapper">
-      {
-        !topUpMode && (
-          <TableGrid configs={tableConfig}
-                     headerActionsConfig={headerActionsConfig}
-                     paginationConfig={{}}
-                     defaultParams={{}}
-                     defaultData={{}}
-                     isShowPagination={true}
-                     isSingleSelection={true}
-                     onSelectedItemsChange={onSelectedItemsChange}
-                     isAllowSelection={true}
-                     RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
-          />
-        )
-      }
+    <>
+      <TableGrid configs={tableConfig}
+                 className={`seller-wallet-table__table-wrapper ${!!topUpMode && 'hide-table'}`}
+                 headerActionsConfig={headerActionsConfig}
+                 paginationConfig={{}}
+                 defaultParams={{}}
+                 defaultData={{}}
+                 isShowPagination={true}
+                 isSingleSelection={true}
+                 onSelectedItemsChange={onSelectedItemsChange}
+                 isAllowSelection={true}
+                 RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
+      />
       {
         topUpMode && (
           <TopUpTable headerActionsConfig={headerActionsConfig}
@@ -182,6 +185,16 @@ export default function SellerWalletManagementTable({ currentUser }) {
           />
         )
       }
-    </BoxCard>
+      {
+        openDeleteUser && (
+          <DeleteUserModal
+            open={openDeleteUser}
+            data={{ id: selectedTransaction.userId, username: selectedTransaction.walletUser}}
+            onOk={reloadTable}
+            onCancel={() => { setOpenDeleteUser(false); }}
+          />
+        )
+      }
+    </>
   );
 }

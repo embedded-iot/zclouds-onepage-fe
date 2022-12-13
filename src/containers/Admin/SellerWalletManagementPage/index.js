@@ -11,13 +11,13 @@ function SellerWalletManagementPage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Seller wallet management</title>
+        <title>Seller wallets management</title>
       </Helmet>
       <PageHeader
-        title="Seller wallet management"
+        title="Seller wallets management"
       />
       <div className="page-contents">
-        <SellerWalletManagementTable currentUser={props.currentUser}/>
+        <SellerWalletManagementTable currentUser={props.currentUser} redirectTo={props.push}/>
       </div>
     </div>
   );

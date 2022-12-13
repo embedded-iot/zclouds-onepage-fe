@@ -24,4 +24,11 @@
   &__table-header {
     height: 60px;
   }
+  &__table-wrapper {
+    &.hide-table {
+      .table-view__wrapper, br , .pagination-box {
+        display: none;
+      }
+    }
+  }
 }
