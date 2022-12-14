@@ -1,11 +1,19 @@
 import React from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import { AdminTransactionsService, BaseService } from 'services';
-import { notification } from 'antd';
+import { Form, notification } from 'antd';
+import RejectTransactionForm from './RejectTransactionForm';
+import { STATE_VALUES } from 'components/contants';
 
 export default function CancelTransactionModal({ open, data, onOk, onCancel }) {
-  const handleOk = () => {
-    AdminTransactionsService.cancelTransaction(data.id, response => {
+  const [form] = Form.useForm();
+  const handleOk = (values) => {
+    const { description = '' } = values;
+    const transactionData = {
+      status: STATE_VALUES.REJECTED,
+      description,
+    }
+    AdminTransactionsService.updateTransactionStatus(data.id, transactionData, response => {
       notification.success({
         message: "Reject transaction successful!",
       });
@@ -19,12 +27,15 @@ export default function CancelTransactionModal({ open, data, onOk, onCancel }) {
   return (
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                open={open}
+               form={form}
                title={"Reject transaction"}
                okText={"Save"}
                onOk={handleOk}
                onCancel={onCancel}
     >
-    <div>Transaction Id: {data ? data.transactionId : 'Transaction id'}</div>
+      <RejectTransactionForm form={form}
+                             initialValues={data}
+      />
     </ModalView>
   )
 }

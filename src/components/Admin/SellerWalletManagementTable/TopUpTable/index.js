@@ -17,7 +17,7 @@ import removeIcon from 'images/remove_round_gray_icon.svg';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DropdownSelect from 'components/Common/DropdownSelect';
 
-export default function TopUpTable({ onCancel, onOk, currentUser }) {
+export default function TopUpTable({ onCancel, onOk, className, currentUser }) {
   const [resellerWallets, setResellerWallets] = useState([]);
   const [resellersOptions, setResellerSOptions] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
@@ -73,7 +73,7 @@ export default function TopUpTable({ onCancel, onOk, currentUser }) {
             options={transactionTypesOptions}
             value={type}
             onChange={(value, name) => handleInputChange(value, name, record.id)}
-            style={{minWidth: 100}}
+            style={{minWidth: 130}}
             theme="light"
           />
         )
@@ -183,9 +183,8 @@ export default function TopUpTable({ onCancel, onOk, currentUser }) {
       return;
     }
     const validTransactions = selectedTransactions.filter(item => !!item.resellerId).map(item => ({
-      type: item.type,
       sellerId: item.resellerId,
-      amount: item.amount,
+      amount: (item.type === TRANSACTION_TYPE_VALUES.WITHDRAW ? -1 : 1) * item.amount,
       note: item.note,
     }));
     if (selectedTransactions.length !== validTransactions.length) {
@@ -216,11 +215,12 @@ export default function TopUpTable({ onCancel, onOk, currentUser }) {
     // eslint-disable-next-line
   }, []);
   return (
-    <>
+    <div className={className}>
       <TableGrid configs={tableConfig}
                  defaultData={{
                    items: resellerWallets,
                  }}
+                 isAllowUpdateDefaultData={true}
                  onSelectedItemsChange={onSelectedItemsChange}
                  isAllowSelection={true}
       />
@@ -230,6 +230,6 @@ export default function TopUpTable({ onCancel, onOk, currentUser }) {
       <ButtonListWrapper buttonList={buttonList}
                          align="right"
       />
-    </>
+    </div>
   );
 }

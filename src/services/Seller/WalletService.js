@@ -52,69 +52,6 @@ function verifyTopUp(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback, transformWalletTotal);
 }
 
-function getWalletMethods(successCallback, failureCallback) {
-  successCallback({
-    walletMethods: [
-      {
-        id: 1,
-        name: 'Bank of Viet Nam',
-        methods: [
-          (
-            <div>
-              Bank Name: Techcombank<br/>
-              Acount Number: 19032268390022<br/>
-              Acount Name: HOANG MANH CUONG<br/>
-              Transfer content: LF2125TU NAMNGUYENHT1802<br/>
-              Enter the exact content of the transfer
-            </div>
-          ),
-          (
-            <div>
-              Bank Name: Vietcombank<br/>
-              Acount Number: FULFILL<br/>
-              Acount Name: HOANG MANH CUONG<br/>
-              Transfer content: LF2125TU NAMNGUYENHT1802<br/>
-              Enter the exact content of the transfer
-            </div>
-          )
-        ]
-      },
-      {
-        id: 2,
-        name: 'Payoneer',
-        methods: [
-          (
-            <div>
-              Bank Name: Techcombank<br/>
-              Acount Number: 19032268390022<br/>
-              Acount Name: HOANG MANH CUONG<br/>
-              Transfer content: LF2125TU NAMNGUYENHT1802<br/>
-              Enter the exact content of the transfer
-            </div>
-          )
-        ]
-      },
-      {
-        id: 3,
-        name: 'Pingpong',
-        methods: [
-          (
-            <div>
-              Bank Name: Vietcombank<br/>
-              Acount Number: FULFILL<br/>
-              Acount Name: HOANG MANH CUONG<br/>
-              Transfer content: LF2125TU NAMNGUYENHT1802<br/>
-              Enter the exact content of the transfer
-            </div>
-          )
-        ]
-      },
-    ]
-  })
-  const url = getSellerBaseURL() + '/wallet/wallet-methods';
-  makeGetWithConfigs(url, {}, successCallback, failureCallback);
-}
-
 function getWalletMethodsOptions(walletMethodList = []) {
   return [
     { label: 'Select type', value: '' },
@@ -129,6 +66,5 @@ export {
   getWalletHistory,
   getWalletTotal,
   verifyTopUp,
-  getWalletMethods,
   getWalletMethodsOptions,
 }

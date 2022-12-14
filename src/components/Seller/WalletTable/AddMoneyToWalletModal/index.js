@@ -2,29 +2,33 @@ import React, { useEffect, useState } from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import Icon from 'components/Common/Icon';
 import creditIcon from 'images/credit_card_black_icon.svg'
-import { SellerWalletService } from 'services';
+import { SellerBanksService } from 'services';
 
 import './style.scss';
 import TabsBox from 'components/Common/TabsBox';
 import { Col, Row } from 'antd';
+import { cui } from 'utils';
 
 export default function AddMoneyToWalletModal({ open, onCancel }) {
   const [walletMethodsItems, setWalletMethodsItems] = useState([]);
   useEffect(() => {
-    SellerWalletService.getWalletMethods(response => {
-      setWalletMethodsItems(response.walletMethods ? response.walletMethods : []);
+    SellerBanksService.getBanksInfo(response => {
+      setWalletMethodsItems(SellerBanksService.getGroupedBanks(response || []));
     })
   }, []);
-
   const items = walletMethodsItems.map(item => ({
     label: item.name,
     key: item.id,
     children: (
       <Row gutter={[24, 24]}>
         {
-          item.methods.map(method => (
-            <Col span={12}>
-              {method}
+          item.children.map(item => (
+            <Col span={12} key={item.id} className="add-money-to-wallet__bank-info">
+              <div className='add-money-to-wallet__bank-name'>{cui.toCapitalizeCase(`${item.bankType} Name`)}: {item.bankName}</div>
+              <div className='add-money-to-wallet__account-name'>Account Name: {item.bankAccount}</div>
+              <div className='add-money-to-wallet__account-number'>Account Number: {item.bankNumber}</div>
+              <div className='add-money-to-wallet__transfer-content'>Transfer content: <span className="value">{item.transferContent}</span></div>
+              <div className='add-money-to-wallet__transfer-note'>Enter the exact content of the transfer</div>
             </Col>
           ))
         }
@@ -42,7 +46,7 @@ export default function AddMoneyToWalletModal({ open, onCancel }) {
     >
       <>
         <div className="add-money-to-wallet__min-top-up margin-button-16">Min top up: <span className="add-money-to-wallet__currency">$13,498.14</span> (Rate: 25.000 ₫) ⟺ <span className="add-money-to-wallet__currency">337.453.500 ₫</span></div>
-        <TabsBox items={items}/>
+        { !!items.length && <TabsBox items={items} /> }
       </>
     </ModalView>
   )

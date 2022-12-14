@@ -25,15 +25,15 @@ const columns = [
   },
   {
     title: 'Seller',
-    dataIndex: 'walletUser',
+    dataIndex: 'userName',
   },
   {
     title: 'Email',
-    dataIndex: 'email',
+    dataIndex: 'userEmail',
   },
   {
     title: 'Phone',
-    dataIndex: 'phone',
+    dataIndex: 'userPhone',
   },
   {
     title: 'Total',
@@ -176,15 +176,12 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
-      {
-        topUpMode && (
-          <TopUpTable headerActionsConfig={headerActionsConfig}
-                      onCancel={() => setTopUpMode(false)}
-                      onOk={reloadTable}
-                      currentUser={currentUser}
-          />
-        )
-      }
+      <TopUpTable headerActionsConfig={headerActionsConfig}
+                  className={`seller-wallet-table__top-up-table ${!topUpMode && 'hide-table'}`}
+                  onCancel={() => setTopUpMode(false)}
+                  onOk={reloadTable}
+                  currentUser={currentUser}
+      />
       {
         openDeleteUser && (
           <DeleteUserModal

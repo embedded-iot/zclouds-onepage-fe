@@ -29,6 +29,7 @@ export default function TableGrid({
                                     secondHeader = null,
                                     defaultParams = {},
                                     defaultData = {},
+                                    isAllowUpdateDefaultData = false,
                                     isSingleSelection = false,
                                     onSelectedItemsChange = () => {},
                                     onSelectGridItem = () => {},
@@ -83,6 +84,8 @@ export default function TableGrid({
   }
 
   useEffect(() => {
+    if (!isAllowUpdateDefaultData)
+      return;
     setData({
       ...data,
       ...defaultData,

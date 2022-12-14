@@ -32,18 +32,15 @@ function getTransactions(params, successCallback, failureCallback) {
   })
 }
 
-function confirmTransaction(id, successCallback, failureCallback) {
-  const url = getAdminBaseURL() + '/transaction/' + id + '/confirm';
-  makePutWithConfigs(url, {}, successCallback, failureCallback);
-}
-
-function cancelTransaction(id, successCallback, failureCallback) {
-  const url = getAdminBaseURL() + '/transaction/' + id + '/cancel';
-  makePutWithConfigs(url, {}, successCallback, failureCallback);
+function updateTransactionStatus(id, data, successCallback, failureCallback) {
+  const config = {
+    data
+  };
+  const url = getAdminBaseURL() + '/transaction/' + id;
+  makePutWithConfigs(url, config, successCallback, failureCallback);
 }
 
 export {
   getTransactions,
-  confirmTransaction,
-  cancelTransaction,
+  updateTransactionStatus,
 }

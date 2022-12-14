@@ -31,4 +31,9 @@
       }
     }
   }
+  &__top-up-table {
+    &.hide-table {
+      display: none;
+    }
+  }
 }

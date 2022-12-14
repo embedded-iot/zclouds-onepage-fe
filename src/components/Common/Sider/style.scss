@@ -16,12 +16,12 @@
   border-right: none !important;
   font-weight: 600;
   .ant-menu-item, .ant-menu-submenu-title {
-    padding-left: 21px !important;
+    //padding-left: 21px !important;
     &:after {
       border-right: none !important;
     }
     img {
-      margin-right: 24px;
+      margin-right: 14px;
     }
     &.ant-menu-item-selected {
       color: #FFFFFF !important;

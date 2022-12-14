@@ -8,8 +8,8 @@ import {
 const transformWallet = item => {
   return {
     ...item,
-    convertedCreatedDate: !!item.createdAt ? datetime.convert(item.createdAt, DATE_FORMAT) : '-',
-    convertedUpdatedDate: !!item.updatedAt ? datetime.convert(item.updatedAt, DATE_FORMAT) : '-',
+    convertedCreatedDate: !!item.createdTime ? datetime.convert(item.createdTime, DATE_FORMAT) : '',
+    convertedUpdatedDate: !!item.updatedTime ? datetime.convert(item.updatedTime, DATE_FORMAT) : '',
     convertedTotal: format.formatCurrency(item.walletTotal),
     convertedUsedAmount: format.formatCurrency(item.orderTotal),
     convertedBalance: format.formatCurrency(item.balance),

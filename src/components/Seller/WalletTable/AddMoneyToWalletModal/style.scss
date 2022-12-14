@@ -10,4 +10,21 @@
     color: #22A06B;
     font-weight: 600;
   }
+  &__bank-info {
+    color: #2C3E5D;
+    & > div {
+      margin-bottom: 4px;
+    }
+  }
+  &__bank-name {
+    font-weight: 600;
+  }
+  &__transfer-content {
+    .value {
+      color: #22A06B;
+    }
+  }
+  &__transfer-note {
+    color: red
+  }
 }

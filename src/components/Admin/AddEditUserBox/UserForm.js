@@ -122,7 +122,7 @@ export default function UserForm({ form, isEdit, role, initialValues, onFinish, 
         rules={[
           {
             required: true,
-            message: 'Please select state!',
+            message: 'Please select role!',
           },
         ]}
       >

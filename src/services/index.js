@@ -8,6 +8,7 @@ import * as  SellerIntegrationsService from './Seller/IntegrationsService';
 import * as  SellerOrdersService from './Seller/OrdersService';
 import * as  SellerWalletService from './Seller/WalletService';
 import * as  SellerUsersService from './Seller/UsersService';
+import * as  SellerBanksService from './Seller/BanksService';
 import * as  AdminUsersService from 'services/Admin/UsersService';
 import * as  AdminProductsService from './Admin/ProductsService';
 import * as  AdminCategoriesService from './Admin/CategoriesService';
@@ -16,6 +17,7 @@ import * as  AdminStoresService from './Admin/StoresService';
 import * as  AdminResellersService from './Admin/ResellersService';
 import * as  AdminTransactionsService from './Admin/TransactionsService';
 import * as  AdminWalletsService from './Admin/WalletsService';
+import * as  AdminBanksService from './Admin/BanksService';
 
 export {
   BaseService,
@@ -30,10 +32,12 @@ export {
   AdminResellersService,
   AdminTransactionsService,
   AdminWalletsService,
+  AdminBanksService,
   SellerDesignsService,
   SellerStoresService,
   SellerIntegrationsService,
   SellerOrdersService,
   SellerWalletService,
   SellerUsersService,
+  SellerBanksService,
 }

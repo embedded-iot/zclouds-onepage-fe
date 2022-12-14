@@ -4,7 +4,6 @@ import InputText from 'components/Common/InputText';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import { SHIPPING_STATUS_LABEL_VALUE_OPTIONS } from 'components/contants';
 import './style.scss';
-import InputNumber from 'components/Common/InputNumber';
 
 
 export default function OrderTrackingForm({ form, initialValues, ...restProps }) {
@@ -68,7 +67,7 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
         label="Tracking Number"
         name="trackingNumber"
       >
-        <InputNumber min={0} placeholder="Tracking Number" />
+        <InputText placeholder="Tracking Number" />
       </Form.Item>
       <Form.Item
         label="Destination"

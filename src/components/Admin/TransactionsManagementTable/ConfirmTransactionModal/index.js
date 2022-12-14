@@ -4,6 +4,7 @@ import { Form, notification } from 'antd';
 import { AdminResellersService, AdminTransactionsService, BaseService } from 'services';
 import ConfirmTransactionForm from './ConfirmTransactionForm';
 import { cui } from 'utils';
+import { STATE_VALUES } from 'components/contants';
 
 export default function ConfirmTransactionModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
@@ -14,7 +15,14 @@ export default function ConfirmTransactionModal({ open, data, onOk, onCancel }) 
     options: [],
   });
   const handleOk = (values) => {
-    AdminTransactionsService.confirmTransaction(data.id, values, response => {
+    const { userName } = filters;
+    const { description = '' } = values;
+    const transactionData = {
+      userName,
+      status: STATE_VALUES.ACTIVATED,
+      description,
+    }
+    AdminTransactionsService.updateTransactionStatus(data.id, transactionData, response => {
       notification.success({
         message: "Confirm transaction successful!",
       });
@@ -29,7 +37,7 @@ export default function ConfirmTransactionModal({ open, data, onOk, onCancel }) 
 
   const getResellersOptions = (params = {}) => {
     AdminResellersService.getResellers( cui.removeEmpty({ pageNum: 1, pageSize: 100, ...params }), response => {
-      const newOptions = AdminResellersService.getResellersOptions(response.items, false);
+      const newOptions = AdminResellersService.getResellersOptions(response.items, false, 'username');
       setResellersInput((prevState) => {
         return {
           ...prevState,

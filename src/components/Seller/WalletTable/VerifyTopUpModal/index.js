@@ -4,7 +4,7 @@ import { Form, notification } from 'antd';
 import VerifyTopUpForm from './VerifyTopUpForm';
 import Icon from 'components/Common/Icon';
 import paperIcon from 'images/paper_black_icon.svg'
-import { BaseService, SellerWalletService } from 'services';
+import { BaseService, SellerBanksService, SellerWalletService } from 'services';
 
 export default function VerifyTopUpModal({ open, onOk, onCancel }) {
   const [form] = Form.useForm();
@@ -23,8 +23,8 @@ export default function VerifyTopUpModal({ open, onOk, onCancel }) {
   }
 
   useEffect(() => {
-    SellerWalletService.getWalletMethods(response => {
-      setWalletMethodsOptions(SellerWalletService.getWalletMethodsOptions(response.walletMethods || []))
+    SellerBanksService.getBanksInfo(response => {
+      setWalletMethodsOptions(SellerWalletService.getWalletMethodsOptions(SellerBanksService.getGroupedBanks(response || [])));
     })
   }, []);
 

@@ -25,10 +25,10 @@ function getResellers(params, successCallback, failureCallback) {
   });
 }
 
-function getResellersOptions(stores, isHasDefaultOption = true) {
+function getResellersOptions(stores, isHasDefaultOption = true, defaultValueKey = 'id') {
   return [
     ...(isHasDefaultOption ? [{ label: 'Select store', value: '' }] : []),
-    ...(stores.map(store => ({ label: store.fullName, value: store.id })))
+    ...(stores.map(store => ({ label: store.fullName, value: store[defaultValueKey] })))
   ]
 }
 

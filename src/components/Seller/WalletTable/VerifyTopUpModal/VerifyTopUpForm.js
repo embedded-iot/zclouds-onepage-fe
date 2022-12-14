@@ -22,7 +22,7 @@ export default function VerifyTopUpForm({ form, walletMethodsOptions, ...restPro
         rules={[
           {
             required: true,
-            message: 'Please select wallet type!',
+            message: 'Please select bank type!',
           },
         ]}
       >

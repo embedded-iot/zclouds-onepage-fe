@@ -2,6 +2,7 @@ import React from 'react';
 import { Form } from 'antd';
 
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
+import InputText from 'components/Common/InputText';
 
 export default function ConfirmTransactionForm({ form, filters, resellersInput, onAutoCompleteInputChange, onAutoCompleteInputSelect, initialValues, ...restProps }) {
   return (
@@ -18,7 +19,7 @@ export default function ConfirmTransactionForm({ form, filters, resellersInput, 
         rules={[
           {
             required: true,
-            message: 'Please select state!',
+            message: 'Please select seller!',
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
@@ -31,7 +32,7 @@ export default function ConfirmTransactionForm({ form, filters, resellersInput, 
           }),
         ]}
       >
-        <AutoCompleteInput name="resellerId"
+        <AutoCompleteInput name="userName"
                            value={resellersInput.value}
                            onChange={onAutoCompleteInputChange}
                            onSelect={onAutoCompleteInputSelect}
@@ -39,6 +40,12 @@ export default function ConfirmTransactionForm({ form, filters, resellersInput, 
                            options={resellersInput.options}
                            autoFilterOptions={false}
         />
+      </Form.Item>
+      <Form.Item
+        label="Description"
+        name="description"
+        >
+        <InputText placeholder="Description" />
       </Form.Item>
     </Form>
   )
