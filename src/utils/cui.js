@@ -38,11 +38,11 @@ function groupBy(list, keyGetter) {
 
 const toCapitalizeCase = (str, isFirstOnly = false) => {
   if (isFirstOnly) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
   const arr = str.split(" ");
   for (let i = 0; i < arr.length; i++) {
-    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1).toLowerCase();
   }
   return arr.join(' ');
 }

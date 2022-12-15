@@ -19,19 +19,15 @@ const columns = [
   },
   {
     title: 'Account Name',
-    dataIndex: 'bankAccount',
+    dataIndex: 'accountName',
   },
   {
     title: 'Account Number',
-    dataIndex: 'bankNumber',
+    dataIndex: 'accountNumber',
   },
   {
     title: 'Transfer Content',
     dataIndex: 'transferContent',
-  },
-  {
-    title: 'Updated Date',
-    dataIndex: 'convertedUpdatedDate',
   },
 ];
 

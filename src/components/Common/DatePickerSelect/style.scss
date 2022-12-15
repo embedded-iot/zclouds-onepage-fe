@@ -7,6 +7,10 @@
   border: none;
   border-radius: 4px !important;
   box-shadow: none !important;
+  position: relative;
+  .ant-picker-input {
+    position: unset;
+  }
   &.light {
     background: #FFFFFF;
     border: 1px solid #DCDFE4;

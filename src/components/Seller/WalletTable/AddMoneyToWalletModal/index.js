@@ -25,8 +25,8 @@ export default function AddMoneyToWalletModal({ open, onCancel }) {
           item.children.map(item => (
             <Col span={12} key={item.id} className="add-money-to-wallet__bank-info">
               <div className='add-money-to-wallet__bank-name'>{cui.toCapitalizeCase(`${item.bankType} Name`)}: {item.bankName}</div>
-              <div className='add-money-to-wallet__account-name'>Account Name: {item.bankAccount}</div>
-              <div className='add-money-to-wallet__account-number'>Account Number: {item.bankNumber}</div>
+              <div className='add-money-to-wallet__account-name'>Account Name: {item.accountName}</div>
+              <div className='add-money-to-wallet__account-number'>Account Number: {item.accountNumber}</div>
               <div className='add-money-to-wallet__transfer-content'>Transfer content: <span className="value">{item.transferContent}</span></div>
               <div className='add-money-to-wallet__transfer-note'>Enter the exact content of the transfer</div>
             </Col>

@@ -1,11 +1,10 @@
 import { getAdminBaseURL } from 'services/BaseService';
-import { datetime, makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
-import { DATE_FORMAT, TRANSACTION_TYPE_LABELS } from 'components/contants';
+import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
+import { TRANSACTION_TYPE_LABELS } from 'components/contants';
 
 const transformBank = item => {
   return {
     ...item,
-    convertedUpdatedDate: !!item.updatedTime ? datetime.convert(item.updatedTime, DATE_FORMAT) : '',
     convertedType: TRANSACTION_TYPE_LABELS[item.bankType] || item.bankType,
   }
 }

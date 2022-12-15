@@ -15,8 +15,8 @@ import statisticIcon from 'images/dollar_black_icon.svg';
 
 export default function AdminSider({ selectedRouters = [], redirectTo = () => {}, }) {
   const items = [
-    getItem('Products', ROUTERS.ADMIN_PRODUCTS_MANAGEMENT, <Icon src={productIcon} />),
     getItem('Orders', ROUTERS.ADMIN_ORDERS_MANAGEMENT, <Icon src={ordersIcon} />),
+    getItem('Products', ROUTERS.ADMIN_PRODUCTS_MANAGEMENT, <Icon src={productIcon} />),
     getItem('Stores', ROUTERS.ADMIN_STORES_MANAGEMENT, <Icon src={storesIcon} />),
     getItem('Resellers', ROUTERS.ADMIN_SELLERS_MANAGEMENT, <Icon src={userIcon} />),
     getItem('Categories', ROUTERS.ADMIN_CATEGORIES_MANAGEMENT, <Icon src={productCategoryIcon} />),

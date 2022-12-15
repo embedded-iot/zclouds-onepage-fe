@@ -68,6 +68,7 @@ import AdminTransactionsManagementPage from 'containers/Admin/TransactionsManage
 import AdminSellerWalletManagementPage from 'containers/Admin/SellerWalletManagementPage/Loadable';
 import AdminBanksManagementPage from 'containers/Admin/BanksManagementPage/Loadable';
 import AdminStoresManagementPage from 'containers/Admin/StoresManagementPage/Loadable';
+import AdminSellersManagementPage from 'containers/Admin/SellersManagementPage/Loadable';
 
 
 import { ADMIN_ROLES, DATETIME_FORMAT, ROUTERS, WEBSITE_NAME } from 'components/contants';
@@ -157,6 +158,7 @@ const AdminAppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT} component={AdminSellerWalletManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_BANKS_MANAGEMENT} component={AdminBanksManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_STORES_MANAGEMENT} component={AdminStoresManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
+    <PrivateRoute exact path={ROUTERS.ADMIN_SELLERS_MANAGEMENT} component={AdminSellersManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
   </Switch>
 )
 

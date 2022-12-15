@@ -8,13 +8,8 @@ export default function AddEditBankModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
   const handleOk = (values) => {
-    const { displayOrder, name, slug, state, avatarFileList } = values;
-    const featureImage = !!avatarFileList.length ? avatarFileList[0].response.url : null;
-    const bankData = {
-      displayOrder, name, slug, state, featureImage
-    }
     if (isEdit) {
-      AdminBanksService.updateBank(data.id, bankData, response => {
+      AdminBanksService.updateBank(data.id, values, response => {
         notification.success({
           message: "Update bank successful!",
         });
@@ -25,7 +20,7 @@ export default function AddEditBankModal({ open, data, onOk, onCancel }) {
         });
       })
     } else {
-      AdminBanksService.createBank(bankData, response => {
+      AdminBanksService.createBank(values, response => {
         notification.success({
           message: "Create bank successful!",
         });

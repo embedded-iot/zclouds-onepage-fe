@@ -143,6 +143,7 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
         type: 'custom',
         render: <Button key={ACTION_KEYS.DETAIL_RESELLER} icon={<Icon src={infoIcon} width={24} height={24} /> } onClick={editReseller}>Details</Button>,
         requiredSelection: true,
+        permission: false,
       },
       {
         type: 'custom',

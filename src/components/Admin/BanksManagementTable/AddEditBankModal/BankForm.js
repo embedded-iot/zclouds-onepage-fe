@@ -47,7 +47,7 @@ export default function BankForm({ form, initialValues, ...restProps }) {
       </Form.Item>
       <Form.Item
         label="Account Name"
-        name="bankAccount"
+        name="accountName"
         rules={[
           {
             required: true,
@@ -59,7 +59,7 @@ export default function BankForm({ form, initialValues, ...restProps }) {
       </Form.Item>
       <Form.Item
         label="Account Number"
-        name="bankNumber"
+        name="accountNumber"
         rules={[
           {
             required: true,

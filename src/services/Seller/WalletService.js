@@ -5,11 +5,11 @@ import { DATETIME_FORMAT } from 'components/contants';
 const transformWalletHistory = item => {
   return {
     ...item,
-    convertedWalletBefore: !!item.walletBefore ? format.formatCurrency(item.walletBefore) : '',
-    convertedBalanceBefore: !!item.balanceBefore ? format.formatCurrency(item.balanceBefore) : '',
-    convertedTopUp: !!item.amount ? format.formatCurrency(item.amount) : '',
-    convertedWalletAfter: !!item.walletAfter ? format.formatCurrency(item.walletAfter) : '',
-    convertedBalanceAfter: !!item.balanceAfter ? format.formatCurrency(item.balanceAfter) : '',
+    convertedWalletBefore: !!item.walletBefore ? format.formatCurrency(item.walletBefore) : 0,
+    convertedBalanceBefore: !!item.balanceBefore ? format.formatCurrency(item.balanceBefore) : 0,
+    convertedTopUp: !!item.amount ? format.formatCurrency(item.amount) : 0,
+    convertedWalletAfter: !!item.walletAfter ? format.formatCurrency(item.walletAfter) : 0,
+    convertedBalanceAfter: !!item.balanceAfter ? format.formatCurrency(item.balanceAfter) : 0,
     convertedCreatedDate: !!item.date ? datetime.convert(item.date, DATETIME_FORMAT) : '',
   }
 }
