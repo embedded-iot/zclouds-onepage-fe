@@ -10,9 +10,9 @@ export default function InputText({ name, type, value, onChange, placeholder, th
   return (
     <div className={`input-text ${theme}`}>
       <InputComponent placeholder={placeholder}
-             value={value}
-             onChange={handlerOnchange}
-             {...restProps}
+                      value={value}
+                      onChange={handlerOnchange}
+                      {...restProps}
       />
     </div>
   )

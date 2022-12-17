@@ -9,6 +9,7 @@ import ProductOptionsView from 'components/Share/ProductOptionsView';
 import TableCellView from 'components/Share/TableCellView';
 import BoxCard from 'components/Share/BoxCard';
 import { ROUTERS } from 'components/contants';
+import PlainText from 'components/Common/PlainText';
 
 
 const UPDATE_DATA_EVENT_KEY = 'UPDATE_SKU_PRICE_TABLE_EVENT_KEY';
@@ -87,7 +88,11 @@ const columns = [
       showTitle: false,
     },
     render: (description, record) => (
-      <Tooltip placement="topLeft" title={description}>
+      <Tooltip placement="topLeft" title={(
+        <PlainText type="TextArea">
+          {description}
+        </PlainText>
+      )}>
         {description}
       </Tooltip>
     ),

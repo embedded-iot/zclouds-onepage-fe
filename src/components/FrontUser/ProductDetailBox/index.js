@@ -3,6 +3,7 @@ import { Col, Row } from 'antd';
 import { FrontUserCategoriesService } from 'services';
 import ProductImagesPreview from './ProductImagesPreview';
 import ProductInfo from './ProductInfo';
+import PlainText from 'components/Common/PlainText';
 
 import './style.scss';
 
@@ -37,7 +38,9 @@ export default function ProductDetailBox({ productId, productName }) {
             Description
           </div>
           <div className='product-detail-box__description'>
-            { product.description || '-'}
+            <PlainText type='TextArea'>
+              { product.description || '-'}
+            </PlainText>
           </div>
         </Col>
       </Row>

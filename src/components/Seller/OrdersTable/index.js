@@ -104,7 +104,7 @@ const columns = [
         <span>Carrier: {record.convertedCarrier}</span>
         { !!orderTracking && !!record.convertedShippingStatus && <Tag>{record.convertedShippingStatus}</Tag> }
         <br/>
-        <span>Tracking Num: {record.convertedTrackingNum}</span>
+        <span>Tracking Num: {!!orderTracking ? <a href={`https://t.17track.net/en#nums=${orderTracking.trackingNumber}`} target='_blank' rel='noreferrer'>{record.convertedTrackingNum}</a> : record.convertedTrackingNum}</span>
       </div>
     )
   },
