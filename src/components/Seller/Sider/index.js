@@ -59,6 +59,7 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
            defaultOpenKeys={defaultOpenKeys}
            defaultSelectedKeys={selectedRouters}
            onClick={onClick}
+           className="seller-sider__wrapper"
            mode="inline"
     />
   );

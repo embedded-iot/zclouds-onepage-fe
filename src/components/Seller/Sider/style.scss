@@ -1,8 +1,8 @@
-.deposit-method-wrapper {
-  .highlight-box {
-    background: #fff;
-    padding: 7px 10px;
-    border-radius: 5px;
-    display: inline-block;
+.seller-sider__wrapper {
+  .ant-menu-item:not(.ant-menu-item-only-child), .ant-menu-submenu-title{
+      padding-left: 24px !important;
+  }
+  .ant-menu-item.ant-menu-item-only-child {
+    padding-left: 48px !important;
   }
 }
