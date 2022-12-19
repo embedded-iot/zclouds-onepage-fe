@@ -16,7 +16,7 @@ import {
   CLONE_DESIGN_LABEL_VALUE_OPTIONS,
   HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES,
   SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
-  STATE_COLORS, STATE_LABELS, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
+  STATE_COLORS, STATE_LABELS, STATE_VALUES, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
@@ -41,13 +41,6 @@ const ACTION_KEYS = {
   EXPORT_ORDERS: "EXPORT_ORDERS",
 }
 
-const actionItems = [
-  {
-    key: ACTION_KEYS.UPDATE_ORDER_TRACKING,
-    label: "Update order tracking",
-    icon: <EditOutlined />,
-  },
-];
 
 const statusItems = ORDER_STATE_VALUES.map(statusValue => ({
   key: statusValue,
@@ -130,6 +123,14 @@ const columns = [
     title: 'Action',
     dataIndex: 'id',
     render: (id, record) => {
+      const actionItems = [
+        {
+          key: ACTION_KEYS.UPDATE_ORDER_TRACKING,
+          label: "Update order tracking",
+          icon: <EditOutlined />,
+          disabled: !([STATE_VALUES.TRANSIT, STATE_VALUES.RESEND, STATE_VALUES.DELIVERED].includes(record.status)),
+        },
+      ];
       return (
         <ActionDropdownMenu items={actionItems}
                             record={record}
