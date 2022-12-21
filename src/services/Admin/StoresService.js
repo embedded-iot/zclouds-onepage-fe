@@ -1,12 +1,14 @@
 import { getAdminBaseURL } from 'services/BaseService';
-import { datetime, makeGetWithConfigs } from 'utils';
-import { DATE_FORMAT, STORE_TYPE_LABELS } from 'components/contants';
+import { datetime, makeGetWithConfigs, makePutWithConfigs } from 'utils';
+import { DATE_FORMAT, STATE_LABELS, STATE_VALUES, STORE_TYPE_LABELS } from 'components/contants';
 
 const transformStore = item => {
+  item.state = item.state || STATE_VALUES.ACTIVATED;
   return {
     ...item,
     convertedType: STORE_TYPE_LABELS[item.platform.toLowerCase()] || item.type,
     convertedCreatedDate: !!item.createdAt ? datetime.convert(item.createdAt, DATE_FORMAT) : '',
+    convertedStatus: STATE_LABELS[item.state] || item.state,
   }
 }
 
@@ -33,7 +35,16 @@ function getStoresOptions(stores, isHasDefaultOption = true) {
   ]
 }
 
+function updateStoreStatus(id, data, successCallback, failureCallback) {
+  const config = {
+    data
+  };
+  const url = getAdminBaseURL() + '/stores/' + id + '/state';
+  makePutWithConfigs(url, config, successCallback, failureCallback);
+}
+
 export {
   getStores,
   getStoresOptions,
+  updateStoreStatus,
 }

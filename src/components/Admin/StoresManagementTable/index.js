@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminStoresService } from 'services';
 import { events } from 'utils';
@@ -12,7 +12,9 @@ import Icon from 'components/Common/Icon';
 
 import searchGreenIcon from 'images/search_green.svg';
 import BoxCard from 'components/Share/BoxCard';
-import { Tag } from 'antd';
+import { Button, Tag } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
+import EditStoreModal from './EditStoreModal';
 
 
 const columns = [
@@ -42,24 +44,15 @@ const columns = [
     title: 'Status',
     dataIndex: 'convertedStatus',
     render: (convertedStatus, record) => {
-      return (<Tag className="stores-management-table__status-cell" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>);
+      return (<Tag className="stores-management-table__status-cell" color={STATE_COLORS[record.state] || 'default'}>{convertedStatus}</Tag>);
     }
-  },
-  {
-    title: 'Total order amount',
-    dataIndex: 'totalOrder',
-  },
-  {
-    title: 'Total paid amount',
-    dataIndex: 'totalPaid',
-  },
-  {
-    title: 'Total unpaid amount',
-    dataIndex: 'totalUnpaid',
   },
 ];
 
 export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN_STORES_MANAGEMENT_TABLE_EVENT_KEY' }) {
+  const [selectedStore, setSelectedStore] = useState(null);
+  const [openUpdateStore, setOpenUpdateStore] = useState(false);
+  let ref = useRef({});
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -67,6 +60,7 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
       AdminStoresService.getStores({ ...restParams, pageSize, pageNum, type }, successCallback, failureCallback)
     },
     successCallback: (response) => {
+      ref.current.items = response.items;
     },
     failureCallback: (error) => {
       console.log(error);
@@ -81,14 +75,24 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
     reloadTable({ type })
   }
 
+  const editStore = () => {
+    setOpenUpdateStore(true);
+  }
+
   const headerActionsConfig = {
     buttonList: [
+      {
+        type: 'custom',
+        render: <Button icon={<EditOutlined />} onClick={editStore}>Edit store</Button>,
+        requiredSelection: true,
+      },
       {
         type: 'searchText',
         props: {
           placeholder: 'Search by name...',
           theme: 'light',
-        }
+        },
+        requiredSelection: false,
       },
       {
         type: 'custom',
@@ -101,27 +105,36 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
             theme='light'
           />
         ),
+        requiredSelection: false,
       },
       {
         type: 'pageNum',
         props: {
           theme: 'light',
-        }
+        },
+        requiredSelection: false,
       },
       {
         type: 'pageSize',
         props: {
           theme: 'light',
-        }
+        },
+        requiredSelection: false,
       },
       {
         type: 'searchButton',
         props: {
           ghost: true,
           icon: <Icon src={searchGreenIcon} width={20} height={20} />
-        }
+        },
+        requiredSelection: false,
       },
     ],
+  }
+
+  const onSelectedItemsChange = (keys) => {
+    const newSelectedStore = ref.current.items.find(item => item.id === keys[0]);
+    setSelectedStore(newSelectedStore);
   }
 
   return (
@@ -132,9 +145,21 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
                  defaultParams={{}}
                  defaultData={{}}
                  isShowPagination={true}
-                 isAllowSelection={false}
+                 isAllowSelection={true}
+                 isSingleSelection={true}
+                 onSelectedItemsChange={onSelectedItemsChange}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
+      {
+        openUpdateStore && (
+          <EditStoreModal
+            open={openUpdateStore}
+            data={selectedStore}
+            onOk={reloadTable}
+            onCancel={() => { setOpenUpdateStore(false); }}
+          />
+        )
+      }
     </BoxCard>
   );
 }
