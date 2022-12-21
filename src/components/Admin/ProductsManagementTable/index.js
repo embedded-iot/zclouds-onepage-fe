@@ -112,6 +112,7 @@ const ACTION_KEYS = {
 export default function ProductsManagementTable({ redirectTo }) {
   const [openDeleteProduct, setOpenDeleteProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProductKeys, setSelectedProductKeys] = useState([]);
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_PRODUCTS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
@@ -143,8 +144,9 @@ export default function ProductsManagementTable({ redirectTo }) {
   }
 
   const onSelectedItemsChange = (keys) => {
-    const newSelectedCategory = ref.current.items.find(item => item.id === keys[0]);
-    setSelectedProduct(newSelectedCategory);
+    setSelectedProductKeys(keys);
+    const newSelectedProduct = ref.current.items.find(item => item.id === keys[0]);
+    setSelectedProduct(newSelectedProduct);
   }
 
   const headerActionsConfig = {
@@ -153,9 +155,11 @@ export default function ProductsManagementTable({ redirectTo }) {
         type: 'custom',
         render: <Button key={ACTION_KEYS.EDIT_PRODUCT} icon={<EditOutlined />} onClick={() => addEditProduct(true)}>Edit product</Button>,
         requiredSelection: true,
-      },      {
+        permission: selectedProductKeys.length === 1
+      },
+      {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.DELETE_PRODUCT} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteProduct}>Delete product</Button>,
+        render: <Button key={ACTION_KEYS.DELETE_PRODUCT} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteProduct}>{`Delete product${selectedProductKeys.length > 1 ? 's' : ''}`}</Button>,
         requiredSelection: true,
       },
       {
@@ -193,7 +197,7 @@ export default function ProductsManagementTable({ redirectTo }) {
                  defaultParams={{}}
                  defaultData={{}}
                  isShowPagination={true}
-                 isSingleSelection={true}
+                 isSingleSelection={false}
                  onSelectedItemsChange={onSelectedItemsChange}
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
@@ -203,6 +207,7 @@ export default function ProductsManagementTable({ redirectTo }) {
           <DeleteProductModal
             open={openDeleteProduct}
             data={selectedProduct}
+            productIds={selectedProductKeys}
             onOk={reloadTable}
             onCancel={() => { setOpenDeleteProduct(false); }}
           />

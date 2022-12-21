@@ -67,6 +67,14 @@ function deleteProduct(id, successCallback, failureCallback) {
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function deleteProducts(data, successCallback, failureCallback) {
+  const config = {
+    data
+  }
+  const url = getAdminBaseURL() + '/products/batch';
+  makeDeleteWithConfigs(url, config, successCallback, failureCallback);
+}
+
 function getUploadProductImageUrl() {
   return getAdminBaseURL() + '/products/images';
 }
@@ -104,6 +112,7 @@ export {
   getProduct,
   updateProduct,
   deleteProduct,
+  deleteProducts,
   getUploadProductImageUrl,
   deleteProductImage,
   updateProductOptions,
