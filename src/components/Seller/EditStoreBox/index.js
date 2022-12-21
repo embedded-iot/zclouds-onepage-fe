@@ -64,6 +64,25 @@ export default function EditStoreBox({ id, redirectTo }) {
     })
   }
 
+  const reconnectWooCommerce = (type) => {
+    const data = {
+      shopUrl: store.domain,
+      shopName: store.name,
+    }
+
+    SellerIntegrationsService.connectWooCommerceStore(type, data, redirectLink => {
+      localStorage.setItem('INTEGRATION_TOKEN_REDIRECT', ROUTERS.SELLER_STORES + `/${store.id}`);
+      if (!!redirectLink) {
+        window.location.href = redirectLink;
+      }
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error, "Connect store failure!"),
+      });
+    })
+  }
+
+
   const reconnectShopBaseWooCommerce = (type) => {
     SellerIntegrationsService.checkConnectStore(type, store.id, response => {
       notification.success({
@@ -87,6 +106,8 @@ export default function EditStoreBox({ id, redirectTo }) {
         }
         break;
       case STORE_TYPE_VALUES.WOO_COMMERCE:
+        reconnectWooCommerce(type);
+        break;
       case STORE_TYPE_VALUES.SHOP_BASE:
         reconnectShopBaseWooCommerce(type);
         break;

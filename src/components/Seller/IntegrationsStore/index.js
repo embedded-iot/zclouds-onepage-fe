@@ -57,6 +57,25 @@ export default function IntegrationsStore({ type, storeTypeLabel, onFinish, redi
     })
   }
 
+
+  const connectWooCommerce = (values) => {
+    const { domain, name } = values;
+    const data = {
+      shopUrl: getDomain(type, domain),
+      shopName: name,
+    }
+    SellerIntegrationsService.connectWooCommerceStore(type, data, redirectLink => {
+      if (!!redirectLink) {
+        window.location.href = redirectLink;
+      }
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error, "Connect store failure!"),
+      });
+    })
+  }
+
+
   const handleConnect = (values) => {
     switch (type) {
       case STORE_TYPE_VALUES.SHOPIFY:
@@ -67,8 +86,10 @@ export default function IntegrationsStore({ type, storeTypeLabel, onFinish, redi
         }
         break;
       case STORE_TYPE_VALUES.SHOP_BASE:
-      case STORE_TYPE_VALUES.WOO_COMMERCE:
         connectShopBase(values);
+        break;
+      case STORE_TYPE_VALUES.WOO_COMMERCE:
+        connectWooCommerce(values);
         break;
       default:
 

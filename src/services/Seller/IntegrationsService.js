@@ -24,6 +24,19 @@ function connectShopifyStore(type, params, successCallback, failureCallback) {
   });
 }
 
+function connectWooCommerceStore(type, params, successCallback, failureCallback) {
+  const config = {
+    params
+  };
+  const url = getSellerBaseURL() + `/${type.toLowerCase()}/authorize/`;
+  makeGetWithConfigs(url, config, successCallback, failureCallback, (redirectLink) => {
+    if (process.env.NODE_ENV !== "production") {
+      return !!redirectLink ? redirectLink.replace(getFrontUserUrl(), window.location.origin) : redirectLink;
+    }
+    return redirectLink;
+  });
+}
+
 function connectShopifyStoreWithData(type, data, successCallback, failureCallback) {
   const config = {
     data
@@ -73,6 +86,7 @@ function cloneOrder(type, storeId, orderId, successCallback, failureCallback) {
 
 export {
   connectShopifyStore,
+  connectWooCommerceStore,
   connectShopifyStoreWithData,
   connectStore,
   checkConnectStore,
