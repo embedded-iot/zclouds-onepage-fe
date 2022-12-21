@@ -61,6 +61,15 @@ function makePutWithConfigs(url, configs = {}, successCallback = () => {}, failC
   return request(requestConfigs, successCallback, failCallback, transformFunc);
 }
 
+function makePatchWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = (response) => response) {
+  const requestConfigs = {
+    method: 'patch',
+    url,
+    ...configs
+  }
+  return request(requestConfigs, successCallback, failCallback, transformFunc);
+}
+
 function makeDeleteWithConfigs(url, configs = {}, successCallback = () => {}, failCallback = () => {}, transformFunc = (response) => response) {
   const requestConfigs = {
     method: 'delete',
@@ -78,6 +87,7 @@ export {
   makePostWithConfigs,
   makePutWithConfigs,
   makeDeleteWithConfigs,
+  makePatchWithConfigs,
   getAuthorizationHeaders,
   download,
 }

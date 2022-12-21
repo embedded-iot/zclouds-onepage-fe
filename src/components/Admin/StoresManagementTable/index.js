@@ -68,6 +68,7 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
   };
 
   const reloadTable = (filters ={}) => {
+    setOpenUpdateStore(false);
     events.publish(RELOAD_EVENT_KEY, filters);
   }
 

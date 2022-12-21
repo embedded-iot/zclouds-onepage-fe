@@ -1,5 +1,5 @@
 import { getAdminBaseURL } from 'services/BaseService';
-import { datetime, makeGetWithConfigs, makePutWithConfigs } from 'utils';
+import { datetime, makeGetWithConfigs, makePatchWithConfigs } from 'utils';
 import { DATE_FORMAT, STATE_LABELS, STATE_VALUES, STORE_TYPE_LABELS } from 'components/contants';
 
 const transformStore = item => {
@@ -40,7 +40,7 @@ function updateStoreStatus(id, params, successCallback, failureCallback) {
     params
   };
   const url = getAdminBaseURL() + '/stores/' + id + '/state';
-  makePutWithConfigs(url, config, successCallback, failureCallback);
+  makePatchWithConfigs(url, config, successCallback, failureCallback);
 }
 
 export {

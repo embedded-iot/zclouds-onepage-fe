@@ -1,6 +1,6 @@
 import history from './history';
 import loadable from './loadable';
-import { download, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs, makeDeleteWithConfigs, getAuthorizationHeaders } from './requests';
+import { download, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs, makePatchWithConfigs, makeDeleteWithConfigs, getAuthorizationHeaders } from './requests';
 import authentication from './authentication';
 import events from './events';
 import * as datetime from './datetime';
@@ -19,6 +19,7 @@ export {
   makeGetWithConfigs,
   makePostWithConfigs,
   makePutWithConfigs,
+  makePatchWithConfigs,
   makeDeleteWithConfigs,
   getAuthorizationHeaders,
   format,
