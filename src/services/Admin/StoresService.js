@@ -35,9 +35,9 @@ function getStoresOptions(stores, isHasDefaultOption = true) {
   ]
 }
 
-function updateStoreStatus(id, data, successCallback, failureCallback) {
+function updateStoreStatus(id, params, successCallback, failureCallback) {
   const config = {
-    data
+    params
   };
   const url = getAdminBaseURL() + '/stores/' + id + '/state';
   makePutWithConfigs(url, config, successCallback, failureCallback);
