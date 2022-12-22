@@ -10,7 +10,7 @@ const transformTransaction = item => {
   return {
     ...item,
     convertedCreatedDate: item.createdTime,
-    convertedType: TRANSACTION_TYPE_LABELS[item.bankType] || item.bankType,
+    convertedType: TRANSACTION_TYPE_LABELS[item.transactionType] || item.transactionType,
     convertedStatus: TRANSACTION_STATUS_LABELS[item.status] || item.status,
     convertedMoney: format.formatCurrency(parseInt(amount || 0)),
   }

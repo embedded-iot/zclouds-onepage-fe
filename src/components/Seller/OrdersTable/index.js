@@ -6,6 +6,7 @@ import { Button, notification, Tag } from 'antd';
 import {
   EditOutlined,
   FileExcelOutlined,
+  SendOutlined,
   CopyOutlined
 } from '@ant-design/icons';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
@@ -28,6 +29,7 @@ import DropdownSelect from 'components/Common/DropdownSelect';
 
 
 import './style.scss';
+import TrackingEventModal from 'components/Seller/OrdersTable/TrackingEventModal';
 
 
 const ACTION_KEYS = {
@@ -37,20 +39,9 @@ const ACTION_KEYS = {
   CLONE_ORDER: "DUPLICATE_ORDER",
   IMPORT_ORDERS: "IMPORT_ORDERS",
   EXPORT_ORDERS: "EXPORT_ORDERS",
+  VIEW_TRACKING: "VIEW_TRACKING",
 }
 
-const actionItems = [
-  {
-    key: ACTION_KEYS.EDIT_ORDER,
-    label: "Edit order",
-    icon: <EditOutlined />,
-  },
-  {
-    key: ACTION_KEYS.CLONE_ORDER,
-    label: "Duplicate order",
-    icon: <CopyOutlined />
-  },
-];
 
 const columns = [
   {
@@ -119,6 +110,24 @@ const columns = [
     title: 'Action',
     dataIndex: 'id',
     render: (id, record) => {
+      const actionItems = [
+        {
+          key: ACTION_KEYS.EDIT_ORDER,
+          label: "Edit order",
+          icon: <EditOutlined />,
+        },
+        {
+          key: ACTION_KEYS.CLONE_ORDER,
+          label: "Duplicate order",
+          icon: <CopyOutlined />
+        },
+        {
+          key: ACTION_KEYS.VIEW_TRACKING,
+          label: "View tracking events",
+          icon: <SendOutlined />,
+          disabled: !record.orderTracking,
+        },
+      ];
       return <ActionDropdownMenu items={actionItems} record={record} ACTION_EVENT_KEY={ACTION_KEYS.ACTION_EVENTS} />
     }
   },
@@ -127,7 +136,9 @@ const columns = [
 
 export default function OrdersTable({ redirectTo, successCallback = () => {}  }) {
   const [openImportOrders, setOpenImportOrders] = useState(false);
+  const [openTrackingEvents, setOpenTrackingEvents] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderStatus, setOrderStatus] = useState([]);
   const [filters, setFilters] = useState({});
   const [storesInput, setStoresInput] = useState({
@@ -176,6 +187,11 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
 
   const importOrders = () => {
     setOpenImportOrders(true);
+  }
+
+  const viewTrackingEvent = (selectedOrder) => {
+    setSelectedOrder(selectedOrder);
+    setOpenTrackingEvents(true);
   }
 
   const addEditOrder = (selectedOrder = {}) => {
@@ -413,6 +429,9 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
         case ACTION_KEYS.CLONE_ORDER:
           cloneOrder(record);
           break;
+        case ACTION_KEYS.VIEW_TRACKING:
+          viewTrackingEvent(record);
+          break;
         default:
       }
     });
@@ -489,6 +508,16 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             open={openImportOrders}
             onOk={reloadTable}
             onCancel={() => { setOpenImportOrders(false); }}
+          />
+        )
+      }
+      {
+        openTrackingEvents && (
+          <TrackingEventModal
+            open={openTrackingEvents}
+            onOk={reloadTable}
+            data={!!selectedOrder && !!selectedOrder.orderTracking ? selectedOrder.orderTracking : {} }
+            onCancel={() => { setOpenTrackingEvents(false); }}
           />
         )
       }

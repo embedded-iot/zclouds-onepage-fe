@@ -7,7 +7,7 @@ import BoxCard from 'components/Share/BoxCard';
 
 import "./style.scss";
 
-export default function AddEditProductModal({ data, onOk, onCancel, redirectTo }) {
+export default function AddEditProductBox({ data, onOk, onCancel, redirectTo }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
   const [categoriesOptions, setCategoriesOptions] = useState([]);

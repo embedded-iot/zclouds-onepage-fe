@@ -15,8 +15,8 @@ function OrderDetailPage(props) {
   const pageTitle = isEdit ? 'Edit Order' : 'Create Order';
   const pageDescription = isEdit ? `Order ID: ${orderId}` : 'Great job, your dashboard is ready to go! Grow your business with Fulfill.';
 
-  const getProduct = (productId, successCallback) => {
-    FrontUserCategoriesService.getProductDetail(productId, successCallback)
+  const getProduct = (productId, successCallback, failureCallback) => {
+    FrontUserCategoriesService.getProductDetail(productId, successCallback, failureCallback)
   }
 
   const getOrder = orderId => {
@@ -26,13 +26,20 @@ function OrderDetailPage(props) {
         ...order,
         address1, address2, city, country, fullName, phoneNumber, region, zipCode
       };
-      getProduct(order.productId, product => {
-        data = {
-          ...data,
-          product
-        };
+      if (!!order.productId) {
+        getProduct(order.productId, product => {
+          data = {
+            ...data,
+            product
+          };
+          setData(data);
+        }, error => {
+          setData(data);
+        })
+      } else {
         setData(data);
-      })
+      }
+
     })
   }
 
