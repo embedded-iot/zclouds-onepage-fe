@@ -1,11 +1,14 @@
 import { getAdminBaseURL } from 'services/BaseService';
-import { makeGetWithConfigs } from 'utils';
+import { makeGetWithConfigs, makePatchWithConfigs } from 'utils';
+import { STATE_LABELS, STATE_VALUES } from 'components/contants';
 
 const transformReseller = item => {
+  const state = item.state || STATE_VALUES.ACTIVATED;
   return {
     ...item,
-    // eslint-disable-next-line
-    fullName: (item.fullName || '') || (!!item.firstName || !!item.lastName ) && `${item.firstName || ''} ${ item.lastName || ''}` || item.username,
+    state,
+    storeCount: item.storeCount || 0,
+    convertedStatus: STATE_LABELS[state] || state,
   }
 }
 
@@ -28,11 +31,20 @@ function getResellers(params, successCallback, failureCallback) {
 function getResellersOptions(stores, isHasDefaultOption = true, defaultValueKey = 'id') {
   return [
     ...(isHasDefaultOption ? [{ label: 'Select store', value: '' }] : []),
-    ...(stores.map(store => ({ label: store.fullName, value: store[defaultValueKey] })))
+    ...(stores.map(store => ({ label: store.username, value: store[defaultValueKey] })))
   ]
+}
+
+function updateSellerStatus(id, params, successCallback, failureCallback) {
+  const config = {
+    params
+  };
+  const url = getAdminBaseURL() + '/users/list-reseller/' + id + '/state';
+  makePatchWithConfigs(url, config, successCallback, failureCallback);
 }
 
 export {
   getResellers,
   getResellersOptions,
+  updateSellerStatus,
 }
