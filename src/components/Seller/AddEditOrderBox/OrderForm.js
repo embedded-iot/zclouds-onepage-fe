@@ -5,6 +5,7 @@ import InputNumber from 'components/Common/InputNumber';
 import InputText from 'components/Common/InputText';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import ProductSelectBox from 'components/Seller/AddEditOrderBox/ProductSelectBox';
+import { LinkOutlined } from '@ant-design/icons';
 
 import './style.scss';
 
@@ -20,6 +21,10 @@ export default function OrderForm(
   ) {
   const handleValuesChange = values => {
     console.log(values);
+  };
+
+  const handleProductLinkClick = () => {
+    window.open(initialValues.productLink, '_blank')
   };
 
   return (
@@ -253,6 +258,16 @@ export default function OrderForm(
             name="orderNote"
           >
             <InputText placeholder="..."  />
+          </Form.Item>
+          <Form.Item
+            label="Your product"
+            name="productLink"
+            hidden={!initialValues.productLink}
+          >
+            <div className="display-flex display-flex--center-align-items">
+              <InputText disabled={true} placeholder="..."  />
+              <Button icon={<LinkOutlined />} style={{ marginLeft: 8}} onClick={handleProductLinkClick}/>
+            </div>
           </Form.Item>
           <div className='add-edit-order-box__divider' />
           <div className='add-edit-order-box__title'>3. Shipping Info</div>

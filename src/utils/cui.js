@@ -46,9 +46,18 @@ const toCapitalizeCase = (str, isFirstOnly = false) => {
   }
   return arr.join(' ');
 }
+const parseStringObject = (str, defaultValue = {}) => {
+  try {
+    const shippingEventList = JSON.parse(str);
+    return typeof shippingEventList === 'object' ? shippingEventList  : defaultValue;
+  } catch (error) {
+    return defaultValue;
+  }
+}
 
 export {
   removeEmpty,
   groupBy,
   toCapitalizeCase,
+  parseStringObject,
 }
