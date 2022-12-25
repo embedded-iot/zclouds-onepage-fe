@@ -10,7 +10,7 @@ import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportDesignsModal from 'components/Seller/DesignsTable/ImportDesignsModal';
 import Icon from 'components/Common/Icon';
 import searchGreenIcon from 'images/search_green.svg';
-import downloadGreenIcon from 'images/download-green-icon.svg';
+import downloadGreenIcon from 'images/export_green_icon.svg';
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import plusIcon from 'images/plus-icon.svg';
 

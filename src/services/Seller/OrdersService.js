@@ -81,12 +81,21 @@ function cloneOrder(id, successCallback, failureCallback) {
   makePostWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function exportOrders(params, successCallback, failureCallback) {
+  const config = {
+    params
+  };
+  const url = getSellerBaseURL() + '/orders/export';
+  makeGetWithConfigs(url, config, successCallback, failureCallback);
+}
+
 export {
   getOrders,
   getOrdersStatus,
   createOrder,
   updateOrder,
   importOrders,
+  exportOrders,
   getOrder,
   cloneOrder,
 }

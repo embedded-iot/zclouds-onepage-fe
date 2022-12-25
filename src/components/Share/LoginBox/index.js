@@ -14,7 +14,7 @@ export default function LoginBox({ setGlobalStore = () => {}, isAdminMode = fals
         isAdmin: ADMIN_ROLES.includes(response.role),
         currentUser: {
           ...response,
-          convertedLastLogin: datetime.convert(Date(), DATETIME_FORMAT),
+          convertedLastLogin: datetime.convert(new Date(), DATETIME_FORMAT),
         }
       })
       callback();

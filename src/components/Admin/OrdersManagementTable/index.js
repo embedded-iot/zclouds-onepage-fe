@@ -22,7 +22,7 @@ import {
 
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import Icon from 'components/Common/Icon';
-import downloadGreenIcon from 'images/download-green-icon.svg';
+import downloadGreenIcon from 'images/export_green_icon.svg';
 import CheckboxGroupBox from 'components/Common/CheckboxGroupBox';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DatePickerSelect from 'components/Common/DatePickerSelect';

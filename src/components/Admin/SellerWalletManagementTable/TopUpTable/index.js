@@ -168,7 +168,7 @@ export default function TopUpTable({ onCancel, onOk, className, currentUser }) {
         resellerInput: '',
         amount: 0,
         createdBy: currentUser.username || 'username',
-        convertedDate: datetime.convert(Date(), DATE_FORMAT),
+        convertedDate: datetime.convert(new Date(), DATE_FORMAT),
         note: '',
       }
     ])

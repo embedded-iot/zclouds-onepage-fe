@@ -1,11 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { BaseService, SellerOrdersService, SellerStoresService } from 'services';
-import { cui, events, fileHelper } from 'utils';
+import { cui, events } from 'utils';
 import { Button, notification, Tag } from 'antd';
 import {
   EditOutlined,
-  FileExcelOutlined,
   SendOutlined,
   CopyOutlined
 } from '@ant-design/icons';
@@ -21,15 +20,15 @@ import {
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import Icon from 'components/Common/Icon';
 import plusIcon from 'images/plus-icon.svg';
-import downloadGreenIcon from 'images/download-green-icon.svg';
+import exportIcon from 'images/export_green_icon.svg';
+import importIcon from 'images/import_green_icon.svg';
 import CheckboxGroupBox from 'components/Common/CheckboxGroupBox';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DatePickerSelect from 'components/Common/DatePickerSelect';
 import DropdownSelect from 'components/Common/DropdownSelect';
-
+import TrackingEventModal from './TrackingEventModal';
 
 import './style.scss';
-import TrackingEventModal from 'components/Seller/OrdersTable/TrackingEventModal';
 
 
 const ACTION_KEYS = {
@@ -162,7 +161,9 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     onRow: onRowEvents,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, listStatus, ...restParams} = params || {};
-      SellerOrdersService.getOrders(cui.removeEmpty({ ...restParams, pageSize, pageNum, listStatus: listStatus ? listStatus.join('|') : '' }), successCallback, failureCallback)
+      const requestParams = cui.removeEmpty({ ...restParams, pageSize, pageNum, listStatus: listStatus ? listStatus.join('|') : '' });
+      ref.current.params = requestParams;
+      SellerOrdersService.getOrders(requestParams, successCallback, failureCallback)
     },
     successCallback: (response) => {
       successCallback(response);
@@ -181,8 +182,21 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   }
 
   const exportOrders = () => {
-    const selectedOrders = ref.current.items.filter(item => selectedKeys.includes(item.id));
-    fileHelper.exportToExcel(selectedOrders, 'orders')
+    SellerOrdersService.exportOrders({
+      IDs: [...selectedKeys].join('|'),
+      ...ref.current.params,
+    }, redirectLink => {
+      if (!!redirectLink) {
+        window.location.href = redirectLink;
+      }
+      notification.success({
+        message: "Export orders successful!",
+      });
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error,"Export orders failure!"),
+      });
+    })
   }
 
   const importOrders = () => {
@@ -414,8 +428,8 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   }
 
   const buttonList = [
-      ...(selectedKeys.length ? [<Button key={ACTION_KEYS.EXPORT_ORDERS} icon={<FileExcelOutlined />} onClick={exportOrders}>Export</Button>] : []),
-    <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={downloadGreenIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
+    <Button key={ACTION_KEYS.EXPORT_ORDERS} type="primary" ghost icon={<Icon src={exportIcon} width={24} height={24} />} onClick={exportOrders}>Export</Button>,
+    <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={importIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
     <Button key={ACTION_KEYS.ADD_ORDER} type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => addEditOrder()}>Order</Button>
   ]
 
