@@ -47,6 +47,7 @@ export const ROUTERS = {
   ADMIN_SYSTEM_ACCOUNTING_MANAGEMENT: '/system-accounting-management',
   ADMIN_STATISTICS_MANAGEMENT: '/statistics-management',
   ADMIN_DESIGNS_MANAGEMENT: '/designs-management',
+  ADMIN_PRODUCERS_MANAGEMENT: '/producers-management',
 }
 
 export const SHIPPING_EXPRESSES = {

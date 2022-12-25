@@ -19,8 +19,9 @@ export default function AdminSider({ selectedRouters = [], redirectTo = () => {}
     getItem('Orders', ROUTERS.ADMIN_ORDERS_MANAGEMENT, <Icon src={ordersIcon} />),
     getItem('Products', ROUTERS.ADMIN_PRODUCTS_MANAGEMENT, <Icon src={productIcon} />),
     getItem('Stores', ROUTERS.ADMIN_STORES_MANAGEMENT, <Icon src={storesIcon} />),
-    getItem( 'Designs library', ROUTERS.ADMIN_DESIGNS_MANAGEMENT, <Icon src={designsLibraryIcon} />),
     getItem('Resellers', ROUTERS.ADMIN_SELLERS_MANAGEMENT, <Icon src={userIcon} />),
+    getItem( 'Designs library', ROUTERS.ADMIN_DESIGNS_MANAGEMENT, <Icon src={designsLibraryIcon} />),
+    getItem('Producer', ROUTERS.ADMIN_PRODUCERS_MANAGEMENT, <Icon src={userIcon} />),
     getItem('Categories', ROUTERS.ADMIN_CATEGORIES_MANAGEMENT, <Icon src={productCategoryIcon} />),
     getItem('Users', ROUTERS.ADMIN_USERS_MANAGEMENT, <Icon src={userIcon} />),
     getItem('System Accounting', ROUTERS.ADMIN_SYSTEM_ACCOUNTING_MANAGEMENT, <Icon src={systemAccountingIcon} />, [
