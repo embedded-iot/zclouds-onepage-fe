@@ -12,12 +12,14 @@ import transactionIcon from 'images/paper_black_icon_1.svg';
 import systemAccountingIcon from 'images/layers_black_icon.svg';
 import bankIcon from 'images/paper_black_icon_2.svg';
 import statisticIcon from 'images/dollar_black_icon.svg';
+import designsLibraryIcon from 'images/designs-library-icon.png';
 
 export default function AdminSider({ selectedRouters = [], redirectTo = () => {}, }) {
   const items = [
     getItem('Orders', ROUTERS.ADMIN_ORDERS_MANAGEMENT, <Icon src={ordersIcon} />),
     getItem('Products', ROUTERS.ADMIN_PRODUCTS_MANAGEMENT, <Icon src={productIcon} />),
     getItem('Stores', ROUTERS.ADMIN_STORES_MANAGEMENT, <Icon src={storesIcon} />),
+    getItem( 'Designs library', ROUTERS.ADMIN_DESIGNS_MANAGEMENT, <Icon src={designsLibraryIcon} />),
     getItem('Resellers', ROUTERS.ADMIN_SELLERS_MANAGEMENT, <Icon src={userIcon} />),
     getItem('Categories', ROUTERS.ADMIN_CATEGORIES_MANAGEMENT, <Icon src={productCategoryIcon} />),
     getItem('Users', ROUTERS.ADMIN_USERS_MANAGEMENT, <Icon src={userIcon} />),

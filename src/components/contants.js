@@ -46,6 +46,7 @@ export const ROUTERS = {
   ADMIN_SELLERS_MANAGEMENT: '/sellers-management',
   ADMIN_SYSTEM_ACCOUNTING_MANAGEMENT: '/system-accounting-management',
   ADMIN_STATISTICS_MANAGEMENT: '/statistics-management',
+  ADMIN_DESIGNS_MANAGEMENT: '/designs-management',
 }
 
 export const SHIPPING_EXPRESSES = {
@@ -365,6 +366,12 @@ export const STORE_STATE_LABEL_VALUE_OPTIONS = [
 ];
 
 export const SELLER_STATE_LABEL_VALUE_OPTIONS = [
+  { label: 'Select seller state', value: '' },
+  { label: STATE_LABELS[STATE_VALUES.ACTIVATED], value: STATE_VALUES.ACTIVATED },
+  { label: STATE_LABELS[STATE_VALUES.DEACTIVATED], value: STATE_VALUES.DEACTIVATED },
+];
+
+export const DESIGN_STATE_LABEL_VALUE_OPTIONS = [
   { label: 'Select seller state', value: '' },
   { label: STATE_LABELS[STATE_VALUES.ACTIVATED], value: STATE_VALUES.ACTIVATED },
   { label: STATE_LABELS[STATE_VALUES.DEACTIVATED], value: STATE_VALUES.DEACTIVATED },
