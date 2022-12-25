@@ -56,7 +56,7 @@ const columns = [
   },
   {
     title: 'Approval',
-    dataIndex: 'approval',
+    dataIndex: 'approve',
   },
   {
     title: 'Seller',
