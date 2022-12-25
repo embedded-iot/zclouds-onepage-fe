@@ -1,9 +1,8 @@
 .seller-footer {
   &__wrapper {
     margin: -24px -50px;
-    padding: 39px 82px 28px;
-    //background: url("~images/front-footer.png") center center no-repeat;
-    background-size: cover;
+    padding: 0 82px;
+    //background-size: cover;
     display: flex;
     justify-content: center;
 
@@ -13,6 +12,8 @@
   &__contents {
     max-width: 1110px;
     width: 100%;
+    padding: 50px;
+    background: url("~images/footer_bg.png") center right no-repeat;
   }
 
   &__title {
