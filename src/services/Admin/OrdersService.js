@@ -81,6 +81,14 @@ function getOrdersStatus(successCallback, failureCallback) {
   makeGetWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function exportOrders(params, successCallback, failureCallback) {
+  const config = {
+    params
+  };
+  const url = getAdminBaseURL() + '/orders/export';
+  makeGetWithConfigs(url, config, successCallback, failureCallback);
+}
+
 export {
   getOrders,
   getOrdersStatus,
@@ -88,4 +96,5 @@ export {
   updateOrderPrice,
   updateOrderTracking,
   importOrders,
+  exportOrders,
 }

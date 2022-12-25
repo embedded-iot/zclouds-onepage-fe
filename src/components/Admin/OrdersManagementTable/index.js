@@ -22,7 +22,8 @@ import {
 
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import Icon from 'components/Common/Icon';
-import downloadGreenIcon from 'images/export_green_icon.svg';
+import exportIcon from 'images/export_green_icon.svg';
+import importIcon from 'images/import_green_icon.svg';
 import CheckboxGroupBox from 'components/Common/CheckboxGroupBox';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DatePickerSelect from 'components/Common/DatePickerSelect';
@@ -197,8 +198,21 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   }
 
   const exportOrders = () => {
-    const selectedOrders = ref.current.items.filter(item => selectedKeys.includes(item.id));
-    fileHelper.exportToExcel(selectedOrders, 'orders')
+    AdminOrdersService.exportOrders({
+      IDs: [...selectedKeys].join('|'),
+      ...ref.current.params,
+    }, redirectLink => {
+      if (!!redirectLink) {
+        window.location.href = redirectLink;
+      }
+      notification.success({
+        message: "Export orders successful!",
+      });
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error,"Export orders failure!"),
+      });
+    })
   }
 
   const importOrders = () => {
@@ -445,8 +459,8 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   }
 
   const buttonList = [
-      ...(selectedKeys.length ? [<Button key={ACTION_KEYS.EXPORT_ORDERS} icon={<FileExcelOutlined />} onClick={exportOrders}>Export</Button>] : []),
-    <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={downloadGreenIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
+    <Button key={ACTION_KEYS.EXPORT_ORDERS} type="primary" ghost icon={<Icon src={exportIcon} width={24} height={24} />} onClick={exportOrders}>Export orders</Button>,
+    <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={importIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
   ]
 
   const actionListenerFunc = () => {
