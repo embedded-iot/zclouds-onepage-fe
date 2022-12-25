@@ -34,7 +34,7 @@ const columns = [
     dataIndex: 'lastName',
   },
   {
-    title: 'Sellers count',
+    title: 'Store count',
     dataIndex: 'storeCount',
   },
   {

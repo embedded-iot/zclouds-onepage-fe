@@ -70,6 +70,7 @@ export default function OrderForm(
               onSelect={onInputSelect}
               selectedProduct={selectedProduct}
               onProductOptionsChange={onProductOptionsChange}
+              hasLabel={true}
             />
           </Form.Item>
           <div className='add-edit-order-box__description'>
@@ -146,10 +147,6 @@ export default function OrderForm(
                   icon: <InfoCircleOutlined />,
                 }}
                 rules={[
-                  {
-                    required: true,
-                    message: 'Please enter design url!',
-                  },
                   {
                     type: 'url',
                     message: 'Url invalid!',
@@ -259,16 +256,20 @@ export default function OrderForm(
           >
             <InputText placeholder="..."  />
           </Form.Item>
-          <Form.Item
-            label="Your product"
-            name="productLink"
-            hidden={!initialValues.productLink}
-          >
-            <div className="display-flex display-flex--center-align-items">
-              <InputText disabled={true} placeholder="..."  />
-              <Button icon={<LinkOutlined />} style={{ marginLeft: 8}} onClick={handleProductLinkClick}/>
-            </div>
-          </Form.Item>
+          {
+            !!initialValues && !!initialValues.productLink && (
+              <div className="display-flex display-flex--center-align-items">
+                <Form.Item
+                  label="Your product"
+                  name="productLink"
+                  style={{ width: '100%' }}
+                >
+                  <InputText disabled={true} placeholder="..."  />
+                </Form.Item>
+                <Button icon={<LinkOutlined />} style={{ margin: '8px 0 0 8px'}} onClick={handleProductLinkClick}/>
+              </div>
+            )
+          }
           <div className='add-edit-order-box__divider' />
           <div className='add-edit-order-box__title'>3. Shipping Info</div>
           <Row gutter={[24, 24]}>

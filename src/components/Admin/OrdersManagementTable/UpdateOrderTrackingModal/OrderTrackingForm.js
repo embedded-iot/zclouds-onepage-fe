@@ -14,8 +14,8 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
     { label: "Select shipping status", value: '' },
     ...restShippingStatus
   ]
-
-  const shippingEvents = cui.parseStringObject(initialValues.shippingEvent || '[]', []);
+  // eslint-disable-next-line
+  const shippingEvents = cui.parseStringObject(initialValues && initialValues.shippingEvent || '[]', []);
 
   return (
     <Form

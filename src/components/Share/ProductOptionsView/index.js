@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import DropdownSelect from 'components/Common/DropdownSelect';
 
 import "./style.scss";
+import { cui } from 'utils';
 
-export default function ProductOptionsView({ productOptions = [], onProductOptionsChange }) {
+export default function ProductOptionsView({ hasLabel = false, productOptions = [], onProductOptionsChange }) {
   const [selectedProductOptions, setProductOptions] = useState({});
   const getOptionList = (option => {
     return ([
-      { label : option.name, value: '' },
+      { label : `Select ${option.name.toLowerCase()}`, value: '' },
       ...((option.productOptionValues || []).map(optionValue => ({
         ...optionValue,
         label : optionValue.value,
@@ -39,6 +40,7 @@ export default function ProductOptionsView({ productOptions = [], onProductOptio
       {
         productOptions.map((option, index) => (
           <div key={option.id || index}>
+            { hasLabel && <div className="product-options-view__label">{cui.toCapitalizeCase(option.name)}</div>}
             <DropdownSelect
               options={getOptionList(option)}
               defaultValue={''}

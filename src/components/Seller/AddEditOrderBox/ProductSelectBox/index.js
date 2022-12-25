@@ -5,7 +5,7 @@ import { Col, Row } from 'antd';
 import "./style.scss";
 import ProductOptionsView from 'components/Share/ProductOptionsView';
 
-export default function ProductSelectBox({ name, value, options, onChange, onSelect, onProductOptionsChange,  selectedProduct = {} }) {
+export default function ProductSelectBox({ name, value, options, onChange, onSelect, onProductOptionsChange,  selectedProduct = {}, hasLabel = false }) {
   return (
     <div className="product-select-box__wrapper">
       <InputSearch name={name}
@@ -40,6 +40,7 @@ export default function ProductSelectBox({ name, value, options, onChange, onSel
           <div className='product-select-box__selected-product-options'>
             <ProductOptionsView productOptions={selectedProduct.productOptions}
                                 onProductOptionsChange={onProductOptionsChange}
+                                hasLabel={hasLabel}
 
             />
           </div>
