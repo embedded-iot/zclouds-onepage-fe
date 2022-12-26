@@ -164,7 +164,7 @@ const AdminAppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.ADMIN_SELLERS_MANAGEMENT} component={AdminSellersManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_DESIGNS_MANAGEMENT} component={AdminDesignsManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_PRODUCERS_MANAGEMENT} component={AdminProducersManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
-    <PrivateRoute exact path={ROUTERS.ADMIN_WALLET_TRANSACTIONS_MANAGEMENT} component={AdminWalletTransactionsManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
+    <PrivateRoute exact path={ROUTERS.ADMIN_SELLER_WALLET_DETAILS_MANAGEMENT} component={AdminWalletTransactionsManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
   </Switch>
 )
 

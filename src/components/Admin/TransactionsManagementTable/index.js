@@ -8,6 +8,7 @@ import ConfirmTransactionModal from './ConfirmTransactionModal';
 import CancelTransactionModal from './CancelTransactionModal';
 import BoxCard from 'components/Share/BoxCard';
 import {
+  ROUTERS,
   STATE_COLORS, TRANSACTION_STATUS_LABEL_VALUE_OPTIONS, TRANSACTION_TYPE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 
@@ -18,51 +19,6 @@ import Icon from 'components/Common/Icon';
 import './style.scss';
 
 
-const columns = [
-  {
-    title: 'Sender',
-    dataIndex: 'infoSender',
-  },
-  {
-    title: 'Recipient',
-    dataIndex: 'infoReceiver',
-  },
-  {
-    title: 'Type',
-    dataIndex: 'convertedType',
-  },
-  {
-    title: 'Amount',
-    dataIndex: 'convertedMoney',
-  },
-  {
-    title: 'Message',
-    dataIndex: 'message',
-  },
-  {
-    title: 'Date',
-    dataIndex: 'convertedCreatedDate',
-  },
-  {
-    title: 'Transaction ID',
-    dataIndex: 'transactionId',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'convertedStatus',
-    render: (convertedStatus, record) => {
-      return (<Tag className="transactions-table__status-cell" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>);
-    }
-  },
-  {
-    title: 'Approval',
-    dataIndex: 'approve',
-  },
-  {
-    title: 'Seller',
-    dataIndex: 'resellerName',
-  },
-];
 
 const ACTION_KEYS = {
   ADD_TRANSACTION: "ADD_TRANSACTION",
@@ -70,7 +26,7 @@ const ACTION_KEYS = {
   CANCEL_TRANSACTION: "CANCEL_TRANSACTION",
 }
 
-export default function TransactionsManagementTable() {
+export default function TransactionsManagementTable({ redirectTo }) {
   const [openAddTransaction, setOpenAddTransaction] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [openCancelTransaction, setOpenCancelTransaction] = useState(false);
@@ -78,6 +34,55 @@ export default function TransactionsManagementTable() {
   const [summaryData, setSummaryData] = useState({});
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_TRANSACTIONS_TABLE_EVENT_KEY';
   let ref = useRef({});
+
+
+  const columns = [
+    {
+      title: 'Sender',
+      dataIndex: 'infoSender',
+    },
+    {
+      title: 'Recipient',
+      dataIndex: 'infoReceiver',
+    },
+    {
+      title: 'Type',
+      dataIndex: 'convertedType',
+    },
+    {
+      title: 'Amount',
+      dataIndex: 'convertedMoney',
+    },
+    {
+      title: 'Message',
+      dataIndex: 'message',
+    },
+    {
+      title: 'Date',
+      dataIndex: 'convertedCreatedDate',
+    },
+    {
+      title: 'Transaction ID',
+      dataIndex: 'transactionId',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'convertedStatus',
+      render: (convertedStatus, record) => {
+        return (<Tag className="transactions-table__status-cell" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>);
+      }
+    },
+    {
+      title: 'Approval',
+      dataIndex: 'approve',
+    },
+    {
+      title: 'Seller',
+      dataIndex: 'resellerName',
+      render: (resellerName, record) => <span className="link" onClick={() => viewWalletDetails(record.resellerId)}>{resellerName}</span>
+    },
+  ];
+
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -92,6 +97,13 @@ export default function TransactionsManagementTable() {
       console.log(error);
     },
   };
+
+
+
+
+  const viewWalletDetails = (sellerId) => {
+    redirectTo(ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT + '/' + sellerId);
+  }
 
   const reloadTable = (filters ={}) => {
     setOpenCancelTransaction(false);

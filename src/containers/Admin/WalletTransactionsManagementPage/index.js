@@ -6,18 +6,26 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import WalletTransactionsManagementTable from 'components/Admin/WalletTransactionsManagementTable';
+import arrowLeftIcon from 'images/arrow_left_icon.svg';
+import Icon from 'components/Common/Icon';
+
+import './style.scss';
 
 function WalletTransactionsManagementPage(props) {
+  const sellerId = parseInt(props.match.params.sellerId);
+  const pageDescription = `Seller ID: ${sellerId}`;
   return (
     <div className="page-wrapper">
       <Helmet>
         <title>Wallet transactions management</title>
       </Helmet>
       <PageHeader
-        title="Wallet transactions management"
+        title="View Wallet Details"
+        description={pageDescription}
       />
       <div className="page-contents">
-        <WalletTransactionsManagementTable />
+        <Icon src={arrowLeftIcon} width={24} height={24} className="cursor-pointer wallet-transaction-management__back-button" onClick={props.goBack} />
+        <WalletTransactionsManagementTable sellerId={sellerId}/>
       </div>
     </div>
   );

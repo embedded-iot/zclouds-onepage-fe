@@ -18,40 +18,6 @@ import DeleteUserModal from 'components/Admin/UsersManagementTable/DeleteUserMod
 import './style.scss';
 
 
-const columns = [
-  {
-    title: 'Date',
-    dataIndex: 'convertedCreatedDate',
-  },
-  {
-    title: 'Seller',
-    dataIndex: 'userName',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'userEmail',
-  },
-  {
-    title: 'Phone',
-    dataIndex: 'userPhone',
-  },
-  {
-    title: 'Total',
-    dataIndex: 'convertedTotal',
-  },
-  {
-    title: 'Used amount',
-    dataIndex: 'convertedUsedAmount',
-  },
-  {
-    title: 'Balance',
-    dataIndex: 'convertedBalance',
-  },
-  {
-    title: 'Updated Date',
-    dataIndex: 'convertedUpdatedDate',
-  },
-];
 
 const ACTION_KEYS = {
   ADD_RESELLER: "ADD_RESELLER",
@@ -69,6 +35,43 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
   const [summaryData, setSummaryData] = useState({});
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_RESELLERS_WALLET_TABLE_EVENT_KEY';
   let ref = useRef({});
+
+  const columns = [
+    {
+      title: 'Date',
+      dataIndex: 'convertedCreatedDate',
+    },
+    {
+      title: 'Seller',
+      dataIndex: 'userName',
+      render: (userName, record) => <span className="link" onClick={() => viewWalletDetails(record.resellerId)}>{userName}</span>
+    },
+    {
+      title: 'Email',
+      dataIndex: 'userEmail',
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'userPhone',
+    },
+    {
+      title: 'Total',
+      dataIndex: 'convertedTotal',
+    },
+    {
+      title: 'Used amount',
+      dataIndex: 'convertedUsedAmount',
+    },
+    {
+      title: 'Balance',
+      dataIndex: 'convertedBalance',
+    },
+    {
+      title: 'Updated Date',
+      dataIndex: 'convertedUpdatedDate',
+    },
+  ];
+
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -92,8 +95,12 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
     redirectTo(ROUTERS.ADMIN_USERS_MANAGEMENT + '/' + userId + '/' + (!!userId && !!selectedTransaction.user ? selectedTransaction.user.role :  ROLE_VALUES.RESELLER))
   }
 
+  const viewWalletDetails = (sellerId) => {
+    redirectTo(ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT + '/' + sellerId);
+  }
+
   const editReseller = () => {
-    addEditUser(selectedTransaction.userId);
+    addEditUser(selectedTransaction.resellerId);
   }
 
   const deleteReseller = () => {
@@ -141,9 +148,8 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.DETAIL_RESELLER} icon={<Icon src={infoIcon} width={24} height={24} /> } onClick={editReseller}>Details</Button>,
+        render: <Button key={ACTION_KEYS.DETAIL_RESELLER} icon={<Icon src={infoIcon} width={24} height={24} /> } onClick={() => viewWalletDetails(selectedTransaction.resellerId)}>Details</Button>,
         requiredSelection: true,
-        permission: false,
       },
       {
         type: 'custom',

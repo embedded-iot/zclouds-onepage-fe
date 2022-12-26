@@ -17,7 +17,7 @@ function TransactionsManagementPage(props) {
         title="Transactions management"
       />
       <div className="page-contents">
-        <TransactionsManagementTable />
+        <TransactionsManagementTable redirectTo={props.push}/>
       </div>
     </div>
   );

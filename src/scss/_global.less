@@ -88,8 +88,12 @@
   outline: none;
   cursor: pointer;
   transition: color 0.3s;
+  &:hover {
+    text-decoration: underline;
+  }
   &--text {
     cursor: default;
+    text-decoration: unset !important;
   }
 }
 .cursor-pointer {

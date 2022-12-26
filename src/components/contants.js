@@ -41,6 +41,7 @@ export const ROUTERS = {
   ADMIN_ORDERS_MANAGEMENT: '/orders-management',
   ADMIN_TRANSACTIONS_MANAGEMENT: '/transactions-management',
   ADMIN_SELLER_WALLETS_MANAGEMENT: '/seller-wallets-management',
+  ADMIN_SELLER_WALLET_DETAILS_MANAGEMENT: '/seller-wallets-management/:sellerId',
   ADMIN_BANKS_MANAGEMENT: '/banks-management',
   ADMIN_STORES_MANAGEMENT: '/stores-management',
   ADMIN_SELLERS_MANAGEMENT: '/sellers-management',
@@ -48,7 +49,6 @@ export const ROUTERS = {
   ADMIN_STATISTICS_MANAGEMENT: '/statistics-management',
   ADMIN_DESIGNS_MANAGEMENT: '/designs-management',
   ADMIN_PRODUCERS_MANAGEMENT: '/producers-management',
-  ADMIN_WALLET_TRANSACTIONS_MANAGEMENT: '/wallet-transactions-management',
 }
 
 export const SHIPPING_EXPRESSES = {

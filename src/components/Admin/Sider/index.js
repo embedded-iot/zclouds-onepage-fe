@@ -28,7 +28,6 @@ export default function AdminSider({ selectedRouters = [], redirectTo = () => {}
       getItem('Statistics', ROUTERS.ADMIN_STATISTICS_MANAGEMENT, <Icon src={statisticIcon} />),
       getItem('Transactions', ROUTERS.ADMIN_TRANSACTIONS_MANAGEMENT, <Icon src={transactionIcon} />),
       getItem('Seller wallets', ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT, <Icon src={walletIcon} />),
-      getItem('Wallet transactions', ROUTERS.ADMIN_WALLET_TRANSACTIONS_MANAGEMENT, <Icon src={transactionIcon} />),
       getItem('Banks', ROUTERS.ADMIN_BANKS_MANAGEMENT, <Icon src={bankIcon} />),
     ]),
   ];
