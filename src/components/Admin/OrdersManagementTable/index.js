@@ -197,10 +197,8 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   }
 
   const exportOrders = () => {
-    AdminOrdersService.exportOrders({
-      IDs: [...selectedKeys].join('|'),
-      ...ref.current.params,
-    }, redirectLink => {
+    const params = selectedKeys.length ? { listOrderId: [...selectedKeys].join(',') } : { ...ref.current.params, }
+    AdminOrdersService.exportOrders(params, redirectLink => {
       if (!!redirectLink) {
         window.location.href = redirectLink;
       }

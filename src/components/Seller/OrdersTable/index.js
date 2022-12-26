@@ -182,10 +182,8 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   }
 
   const exportOrders = () => {
-    SellerOrdersService.exportOrders({
-      IDs: [...selectedKeys].join('|'),
-      ...ref.current.params,
-    }, redirectLink => {
+    const params = selectedKeys.length ? { listOrderId: [...selectedKeys].join(',') } : { ...ref.current.params, }
+    SellerOrdersService.exportOrders(params, redirectLink => {
       if (!!redirectLink) {
         window.location.href = redirectLink;
       }
