@@ -1,5 +1,5 @@
 import { getAdminBaseURL } from 'services/BaseService';
-import { makeGetWithConfigs, makePatchWithConfigs } from 'utils';
+import { makeGetWithConfigs, makePostWithConfigs } from 'utils';
 import { STATE_LABELS, STATE_VALUES } from 'components/contants';
 
 const transformReseller = item => {
@@ -16,7 +16,7 @@ function getResellers(params, successCallback, failureCallback) {
   const config = {
     params
   };
-  const url = getAdminBaseURL() + '/users/list-reseller';
+  const url = getAdminBaseURL() + '/resellers';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     const items = response.content.map(transformReseller);
     return {
@@ -35,12 +35,12 @@ function getResellersOptions(stores, isHasDefaultOption = true, defaultValueKey 
   ]
 }
 
-function updateSellerStatus(id, params, successCallback, failureCallback) {
+function updateSellerStatus(id, data, successCallback, failureCallback) {
   const config = {
-    params
+    data
   };
-  const url = getAdminBaseURL() + '/users/list-reseller/' + id + '/state';
-  makePatchWithConfigs(url, config, successCallback, failureCallback);
+  const url = getAdminBaseURL() + '/resellers/' + id + '/state';
+  makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
 export {
