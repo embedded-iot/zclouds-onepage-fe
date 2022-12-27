@@ -9,7 +9,7 @@ const transformProduct = product => {
   return {
     ...product,
     key: product.id,
-    sku: product.id,
+    sku: `${product.id}`,
     categoryId: product.categoryId,
     categoryName: product.category ? product.category.name : 'Category',
     productName: product.name,

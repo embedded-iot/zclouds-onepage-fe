@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import DropdownSelect from 'components/Common/DropdownSelect';
-
-import "./style.scss";
 import { cui } from 'utils';
 
-export default function ProductOptionsView({ hasLabel = false, productOptions = [], onProductOptionsChange }) {
+import "./style.scss";
+
+export default function ProductOptionsView({ hasLabel = false, selectedSku = '', productOptions = [], onProductOptionsChange }) {
   const [selectedProductOptions, setProductOptions] = useState({});
+  const [selectedSkuOptions] = useState(!!selectedSku ? selectedSku.split('|') : []);
   const getOptionList = (option => {
     return ([
       { label : `Select ${option.name.toLowerCase()}`, value: '' },
@@ -16,6 +17,17 @@ export default function ProductOptionsView({ hasLabel = false, productOptions = 
       })))
     ])
   });
+
+  const getDefaultSelectedOption = (options, name) => {
+    const selectedOption = options.find(option => selectedSkuOptions.includes(option.slug))
+    if (!!selectedOption && !selectedProductOptions[name]) {
+      setProductOptions(prevState => ({
+        ...prevState,
+        [name]: selectedOption,
+      }))
+    }
+    return !!selectedOption  ? selectedOption.value : '';
+  };
 // eslint-disable-next-line
   const onOptionsChange = (value, name, selectedOption) => {
     let newSelectedProductOptions;
@@ -43,7 +55,7 @@ export default function ProductOptionsView({ hasLabel = false, productOptions = 
             { hasLabel && <div className="product-options-view__label">{cui.toCapitalizeCase(option.name)}</div>}
             <DropdownSelect
               options={getOptionList(option)}
-              defaultValue={''}
+              defaultValue={getDefaultSelectedOption(getOptionList(option), option.name)}
               name={option.name}
               onChange={onOptionsChange}
             />

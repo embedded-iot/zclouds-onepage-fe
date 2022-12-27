@@ -1,9 +1,9 @@
 import React from 'react';
 import InputSearch from 'components/Common/InputSearch';
 import { Col, Row } from 'antd';
+import ProductOptionsView from 'components/Share/ProductOptionsView';
 
 import "./style.scss";
-import ProductOptionsView from 'components/Share/ProductOptionsView';
 
 export default function ProductSelectBox({ name, value, options, onChange, onSelect, onProductOptionsChange,  selectedProduct = {}, hasLabel = false }) {
   return (
@@ -41,7 +41,7 @@ export default function ProductSelectBox({ name, value, options, onChange, onSel
             <ProductOptionsView productOptions={selectedProduct.productOptions}
                                 onProductOptionsChange={onProductOptionsChange}
                                 hasLabel={hasLabel}
-
+                                selectedSku={selectedProduct.sku}
             />
           </div>
         </Col>

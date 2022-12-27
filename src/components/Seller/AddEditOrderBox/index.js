@@ -19,7 +19,8 @@ import './style.scss';
 
 export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirectTo }) {
   const [openAddDesign, setOpenAddDesign] = useState(false);
-  const defaultSelectedProduct = isEdit ? data.product : {};
+  // eslint-disable-next-line
+  const defaultSelectedProduct = isEdit ? { ...data.product, sku: data.orderProductSku || (!!data.product && data.product.sku ? data.product.sku : '') } : {};
   const [selectedProduct, setSelectedProduct] = useState(defaultSelectedProduct);
   const [productInputValue, setProductInputValue] = useState('');
   const [productsOptions, setProductsOptions] = useState([]);
