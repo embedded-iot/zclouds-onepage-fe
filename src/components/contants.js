@@ -49,6 +49,7 @@ export const ROUTERS = {
   ADMIN_STATISTICS_MANAGEMENT: '/statistics-management',
   ADMIN_DESIGNS_MANAGEMENT: '/designs-management',
   ADMIN_PRODUCERS_MANAGEMENT: '/producers-management',
+  ADMIN_SYSTEM_CONFIGS_MANAGEMENT: '/system-configs-management',
 }
 
 export const SHIPPING_EXPRESSES = {
@@ -123,11 +124,15 @@ export const STATE_VALUES = {
   TRANSIT : 'TRANSIT',
   COMPLETED : 'COMPLETED',
   REJECTED : 'REJECTED',
+  IS_ACTIVE : 'IS_ACTIVE',
+  NOT_ACTIVE  : 'NOT_ACTIVE ',
 };
 
 export const STATE_LABELS = {
   [STATE_VALUES.ACTIVATED]: 'Activated',
+  [STATE_VALUES.IS_ACTIVE]: 'Activated',
   [STATE_VALUES.BLOCKED]: 'No Active',
+  [STATE_VALUES.NOT_ACTIVE]: 'No Active',
   [STATE_VALUES.PENDING]: 'Pending',
   [STATE_VALUES.PROCESS]: 'Process',
   [STATE_VALUES.DELIVERED]: 'Delivered',
@@ -154,6 +159,7 @@ export const STATE_COLORS = {
   [STATE_VALUES.RESEND]: '#22A06B',
   [STATE_VALUES.COMPLETED]: '#22A06B',
   [STATE_VALUES.ACTIVATED]: '#22A06B',
+  [STATE_VALUES.IS_ACTIVE]: '#22A06B',
 };
 
 export const STATE_LABEL_VALUE_OPTIONS = [
@@ -377,4 +383,10 @@ export const DESIGN_STATE_LABEL_VALUE_OPTIONS = [
   { label: 'Select seller state', value: '' },
   { label: STATE_LABELS[STATE_VALUES.ACTIVATED], value: STATE_VALUES.ACTIVATED },
   { label: STATE_LABELS[STATE_VALUES.DEACTIVATED], value: STATE_VALUES.DEACTIVATED },
+];
+
+export const SYSTEM_STATE_LABEL_VALUE_OPTIONS = [
+  { label: 'Select state', value: '' },
+  { label: STATE_LABELS[STATE_VALUES.IS_ACTIVE], value: STATE_VALUES.IS_ACTIVE },
+  { label: STATE_LABELS[STATE_VALUES.NOT_ACTIVE], value: STATE_VALUES.NOT_ACTIVE },
 ];
