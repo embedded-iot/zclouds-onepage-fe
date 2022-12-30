@@ -15,6 +15,12 @@ for (let i = 0; i < 10; i++) {
   items.push(transformProducer({
     "id": i,
     "name": "Nhà sản xuất " + i,
+    "phone": "0123456789",
+    "email": "abc@gmail.com",
+    "address": "Số 1, ....",
+    "website": "http://localhost:3000/producers-management",
+    "contact": "sadasdasd",
+    "idCard": "12121212",
     "state": "ACTIVATED",
   }))
 }

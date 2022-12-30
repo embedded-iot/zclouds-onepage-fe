@@ -14,6 +14,31 @@ const columns = [
     dataIndex: 'name',
   },
   {
+    title: 'Phone',
+    dataIndex: 'phone',
+  },
+  {
+    title: 'Email',
+    dataIndex: 'email',
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+  },
+  {
+    title: 'Website',
+    dataIndex: 'website',
+    render: (website) => !!website ? <a href={website} target='_blank' rel='noreferrer'>{website}</a> : ''
+  },
+  {
+    title: 'Contact',
+    dataIndex: 'contact',
+  },
+  {
+    title: 'ID Card',
+    dataIndex: 'idCard',
+  },
+  {
     title: 'State',
     dataIndex: 'convertedState',
   },
