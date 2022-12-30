@@ -14,7 +14,7 @@ import {
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import {
   CLONE_DESIGN_LABEL_VALUE_OPTIONS,
-  HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES,
+  HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, ROUTERS,
   SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
   STATE_COLORS, STATE_LABELS, STATE_VALUES, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
@@ -40,6 +40,7 @@ const ACTION_KEYS = {
   STATUS_EVENTS: "ORDERS_STATUS_EVENTS",
   UPDATE_ORDER_TRACKING: "UPDATE_ORDER_TRACKING",
   UPDATE_ORDER_PRICE: "UPDATE_ORDER_PRICE",
+  EDIT_ORDER: "EDIT_ORDER",
   IMPORT_ORDERS: "IMPORT_ORDERS",
   EXPORT_ORDERS: "EXPORT_ORDERS",
 }
@@ -128,16 +129,21 @@ const columns = [
     render: (id, record) => {
       const actionItems = [
         {
-          key: ACTION_KEYS.UPDATE_ORDER_TRACKING,
-          label: "Update order tracking",
+          key: ACTION_KEYS.EDIT_ORDER,
+          label: "Edit order",
           icon: <EditOutlined />,
-          disabled: !([STATE_VALUES.TRANSIT, STATE_VALUES.RESEND, STATE_VALUES.DELIVERED].includes(record.status)),
         },
         {
           key: ACTION_KEYS.UPDATE_ORDER_PRICE,
           label: "Update order price",
           icon: <DollarOutlined />,
           disabled: !([STATE_VALUES.PENDING].includes(record.status)),
+        },
+        {
+          key: ACTION_KEYS.UPDATE_ORDER_TRACKING,
+          label: "Update order tracking",
+          icon: <EditOutlined />,
+          disabled: !([STATE_VALUES.TRANSIT, STATE_VALUES.RESEND, STATE_VALUES.DELIVERED].includes(record.status)),
         },
       ];
       return (
@@ -170,9 +176,19 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   });
   const RELOAD_EVENT_KEY = 'RELOAD_Seller_ORDERS_TABLE_EVENT_KEY';
   let ref = useRef({});
-
+  const onRowEvents = (record, rowIndex) => {
+    return {
+      onDoubleClick: event => {
+        events.publish(ACTION_KEYS.ACTION_EVENTS, {
+          key: ACTION_KEYS.EDIT_ORDER,
+          record,
+        })
+      }
+    };
+  };
   const tableConfig = {
     columns,
+    onRow: onRowEvents,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, listStatus, resellerId: sellerId, ...restParams} = params || {};
       AdminOrdersService.getOrders(cui.removeEmpty({ ...restParams, pageSize, pageNum, sellerId, listStatus: listStatus ? listStatus.join('|') : '' }), successCallback, failureCallback)
@@ -219,6 +235,10 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   const updateOrderTracking = order => {
     setSelectedOrder(order);
     setOpenUpdateOrderTracking(true);
+  }
+
+  const addEditOrder = (selectedOrder = {}) => {
+    redirectTo(ROUTERS.ADMIN_ORDERS_MANAGEMENT + '/' + (selectedOrder.id || 0));
   }
 
   const updateOrderStatus = order => {
@@ -464,6 +484,9 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     let reloadListener = null;
     reloadListener = events.subscribe(ACTION_KEYS.ACTION_EVENTS, ({ key, record }) => {
       switch (key) {
+        case ACTION_KEYS.EDIT_ORDER:
+          addEditOrder(record);
+          break;
         case ACTION_KEYS.UPDATE_ORDER_TRACKING:
           updateOrderTracking(record);
           break;

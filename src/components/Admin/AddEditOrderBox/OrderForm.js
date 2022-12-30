@@ -192,13 +192,13 @@ export default function OrderForm(
                 />
               </Form.Item>
             </Col>
-            <Col span={12}>
-              <Form.Item
-                label={"  "}
-              >
-                <Button type="primary" ghost className="add-edit-order-box__create-design" onClick={onCreateNewDesign}>Create</Button>
-              </Form.Item>
-            </Col>
+            {/*<Col span={12}>*/}
+            {/*  <Form.Item*/}
+            {/*    label={"  "}*/}
+            {/*  >*/}
+            {/*    <Button type="primary" ghost className="add-edit-order-box__create-design" onClick={onCreateNewDesign}>Create</Button>*/}
+            {/*  </Form.Item>*/}
+            {/*</Col>*/}
           </Row>
 
         </Col>

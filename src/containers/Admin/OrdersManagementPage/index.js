@@ -17,7 +17,7 @@ function OrdersManagementPage(props) {
         title="Orders management"
       />
       <div className="page-contents">
-        <OrdersManagementTable />
+        <OrdersManagementTable redirectTo={props.push}/>
       </div>
     </div>
   );

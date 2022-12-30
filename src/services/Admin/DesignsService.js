@@ -77,7 +77,19 @@ function updateDesignStatus(id, params, successCallback, failureCallback) {
 }
 
 
+function getDesignsOptions(designs, isHasDefaultOption = true) {
+  return [
+    ...(isHasDefaultOption ? [{ label: 'Select design', value: '' }] : []),
+    ...(designs.map(design => {
+      const convertedDesignUrl = !!design.convertedDesignImages && !!design.convertedDesignImages.length ? design.convertedDesignImages[0].url : "";
+      const convertedMockupUrl = !!design.convertedMockupImages && !!design.convertedMockupImages.length ? design.convertedMockupImages[0].url : "";
+      return ({ ...design, label: design.name, value: design.id, convertedDesignUrl, convertedMockupUrl });
+    }))
+  ]
+}
+
 export {
   getDesigns,
   updateDesignStatus,
+  getDesignsOptions,
 }

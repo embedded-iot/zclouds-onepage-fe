@@ -1,5 +1,5 @@
 import { getFullPathImage, getAdminBaseURL } from 'services/BaseService';
-import { datetime, format, makeGetWithConfigs, makePostWithConfigs } from 'utils';
+import { datetime, format, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
 import {
   DATE_FORMAT,
@@ -42,6 +42,29 @@ function getOrders(params, successCallback, failureCallback) {
       totalPage: response.totalPage,
     };
   });
+}
+
+function getOrder(id, successCallback, failureCallback) {
+  const url = getAdminBaseURL() + '/orders/' + id;
+  makeGetWithConfigs(url, {}, successCallback, failureCallback, response => {
+    return transformOrder(response);
+  });
+}
+
+function createOrder(data, successCallback, failureCallback) {
+  const config = {
+    data
+  };
+  const url = getAdminBaseURL() + '/orders';
+  makePostWithConfigs(url, config, successCallback, failureCallback);
+}
+
+function updateOrder(orderId, data, successCallback, failureCallback) {
+  const config = {
+    data
+  };
+  const url = getAdminBaseURL() + '/orders/' + orderId;
+  makePutWithConfigs(url, config, successCallback, failureCallback);
 }
 
 function updateOrderStatus(orderId, data, successCallback, failureCallback) {
@@ -91,6 +114,9 @@ function exportOrders(params, successCallback, failureCallback) {
 
 export {
   getOrders,
+  getOrder,
+  createOrder,
+  updateOrder,
   getOrdersStatus,
   updateOrderStatus,
   updateOrderPrice,

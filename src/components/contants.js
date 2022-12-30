@@ -39,6 +39,7 @@ export const ROUTERS = {
   ADMIN_DETAIL_USER_WITH_ROLE: '/users-management/:userId/:role',
   ADMIN_ROLES_MANAGEMENT: '/roles-management',
   ADMIN_ORDERS_MANAGEMENT: '/orders-management',
+  ADMIN_DETAIL_ORDER_MANAGEMENT: '/orders-management/:orderId',
   ADMIN_TRANSACTIONS_MANAGEMENT: '/transactions-management',
   ADMIN_SELLER_WALLETS_MANAGEMENT: '/seller-wallets-management',
   ADMIN_SELLER_WALLET_DETAILS_MANAGEMENT: '/seller-wallets-management/:sellerId',
