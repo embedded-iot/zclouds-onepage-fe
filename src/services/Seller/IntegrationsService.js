@@ -59,7 +59,7 @@ const transformOrder = item => {
     customerFullName: `${firstName} ${lastName}`,
     customerEmail: email,
     shippingAddressCountry: item.shippingAddress && item.shippingAddress.country,
-    convertedTotalLineItemsPrice: format.formatCurrency(item.totalLineItemsPrice),
+    convertedTotalLineItemsPrice: format.formatCurrency(item.totalLineItemsPrice, item.currency === 'USD' ? undefined : item.currency),
   };
 }
 
