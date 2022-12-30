@@ -32,6 +32,10 @@ const columns = [
     dataIndex: 'name',
   },
   {
+    title: 'Owner',
+    dataIndex: 'owner',
+  },
+  {
     title: 'Domain',
     dataIndex: 'domain',
     render: (domain) => <span className="link link--text">{domain}</span>
