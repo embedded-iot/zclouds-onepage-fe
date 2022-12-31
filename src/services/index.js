@@ -21,6 +21,7 @@ import * as  AdminBanksService from './Admin/BanksService';
 import * as  AdminDesignsService from './Admin/DesignsService';
 import * as  AdminProducersService from './Admin/ProducersService';
 import * as  AdminSystemService from './Admin/SystemService';
+import * as  AdminStatisticsService from './Admin/StatisticsService';
 
 export {
   BaseService,
@@ -39,6 +40,7 @@ export {
   AdminDesignsService,
   AdminProducersService,
   AdminSystemService,
+  AdminStatisticsService,
   SellerDesignsService,
   SellerStoresService,
   SellerIntegrationsService,
