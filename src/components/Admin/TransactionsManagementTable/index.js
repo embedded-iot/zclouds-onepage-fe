@@ -2,19 +2,20 @@ import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminTransactionsService } from 'services';
 import { cui, events } from 'utils';
-import { Button, Tag } from 'antd';
+import { Button } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import ConfirmTransactionModal from './ConfirmTransactionModal';
 import CancelTransactionModal from './CancelTransactionModal';
 import BoxCard from 'components/Share/BoxCard';
 import {
   ROUTERS,
-  STATE_COLORS, TRANSACTION_STATUS_LABEL_VALUE_OPTIONS, TRANSACTION_TYPE_LABEL_VALUE_OPTIONS,
+  TRANSACTION_STATUS_LABEL_VALUE_OPTIONS, TRANSACTION_TYPE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 
 import DropdownSelect from 'components/Common/DropdownSelect';
 import checkboxIcon from 'images/checkbox-green-icon.svg';
 import Icon from 'components/Common/Icon';
+import StatusTag from 'components/Share/StatusTag';
 
 import './style.scss';
 
@@ -69,7 +70,7 @@ export default function TransactionsManagementTable({ redirectTo }) {
       title: 'Status',
       dataIndex: 'convertedStatus',
       render: (convertedStatus, record) => {
-        return (<Tag className="transactions-table__status-cell" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>);
+        return (<StatusTag value={record.status} label={convertedStatus}/>);
       }
     },
     {

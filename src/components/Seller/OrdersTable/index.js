@@ -27,6 +27,7 @@ import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DatePickerSelect from 'components/Common/DatePickerSelect';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import TrackingEventModal from './TrackingEventModal';
+import StatusTag from 'components/Share/StatusTag';
 
 import './style.scss';
 
@@ -102,7 +103,7 @@ const columns = [
     title: 'Status',
     dataIndex: 'convertedStatus',
     render: (convertedStatus, record) => {
-      return (<Tag className="orders-table__status" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>);
+      return (<StatusTag className="orders-table__status" value={record.status} label={convertedStatus}/>);
     }
   },
   {

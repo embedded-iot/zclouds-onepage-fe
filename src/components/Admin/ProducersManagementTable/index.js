@@ -7,6 +7,7 @@ import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-desi
 import AddEditProducerModal from './AddEditProducerModal';
 import DeleteProducerModal from './DeleteProducerModal';
 import BoxCard from 'components/Share/BoxCard';
+import StatusTag from 'components/Share/StatusTag';
 
 const columns = [
   {
@@ -39,8 +40,11 @@ const columns = [
     dataIndex: 'idCard',
   },
   {
-    title: 'State',
+    title: 'Status',
     dataIndex: 'convertedState',
+    render: (convertedStatus, record) => {
+      return (<StatusTag value={record.state} label={convertedStatus}/>);
+    }
   },
 ];
 

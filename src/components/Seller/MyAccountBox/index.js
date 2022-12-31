@@ -15,6 +15,7 @@ import ChangePasswordBox from 'components/Seller/MyAccountBox/ChangePasswordBox'
 import LastLoginBox from 'components/Seller/MyAccountBox/LastLoginBox';
 
 import './style.scss';
+import StatusTag from 'components/Share/StatusTag';
 
 const ACTION_KEYS = {
   ACTION_EVENTS: "MY_ACCOUNT_ACTION_EVENTS",
@@ -62,6 +63,9 @@ const columns = [
   {
     title: 'Status',
     dataIndex: 'convertedStatus',
+    render: (convertedStatus, record) => {
+      return (<StatusTag className="orders-table__status" value={record.status} label={convertedStatus}/>);
+    }
   },
   {
     title: 'Action',

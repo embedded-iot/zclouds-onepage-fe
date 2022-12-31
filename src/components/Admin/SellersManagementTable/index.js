@@ -6,10 +6,10 @@ import Icon from 'components/Common/Icon';
 
 import searchGreenIcon from 'images/search_green.svg';
 import BoxCard from 'components/Share/BoxCard';
-import { Button, Tag } from 'antd';
-import { STATE_COLORS } from 'components/contants';
+import { Button } from 'antd';
 import EditSellerModal from './EditSellerModal';
 import { EditOutlined } from '@ant-design/icons';
+import StatusTag from 'components/Share/StatusTag';
 
 
 const columns = [
@@ -41,7 +41,7 @@ const columns = [
     title: 'Status',
     dataIndex: 'convertedStatus',
     render: (convertedStatus, record) => {
-      return (<Tag className="sellers-management-table__status-cell" color={STATE_COLORS[record.state] || 'default'}>{convertedStatus}</Tag>);
+      return (<StatusTag value={record.state} label={convertedStatus}/>);
     }
   },
 ];

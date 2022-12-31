@@ -2,12 +2,12 @@ import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminSystemService } from 'services';
 import { events } from 'utils';
-import { Button, Tag } from 'antd';
+import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import AddEditSystemModal from './AddEditSystemModal';
 import DeleteSystemModal from './DeleteSystemModal';
 import BoxCard from 'components/Share/BoxCard';
-import { STATE_COLORS } from 'components/contants';
+import StatusTag from 'components/Share/StatusTag';
 
 const columns = [
   {
@@ -26,7 +26,7 @@ const columns = [
     title: 'Status',
     dataIndex: 'convertedStatus',
     render: (convertedStatus, record) => {
-      return (<Tag className="designs-management-table__status-cell" color={STATE_COLORS[record.configStatus] || 'default'}>{convertedStatus}</Tag>);
+      return (<StatusTag value={record.configStatus} label={convertedStatus}/>);
     }
   },
 ];

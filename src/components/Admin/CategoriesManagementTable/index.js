@@ -7,6 +7,7 @@ import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-desi
 import AddEditCategoryModal from './AddEditCategoryModal';
 import DeleteCategoryModal from './DeleteCategoryModal';
 import BoxCard from 'components/Share/BoxCard';
+import StatusTag from 'components/Share/StatusTag';
 
 const columns = [
   {
@@ -27,8 +28,11 @@ const columns = [
     dataIndex: 'displayOrder',
   },
   {
-    title: 'State',
+    title: 'Status',
     dataIndex: 'convertedState',
+    render: (convertedStatus, record) => {
+      return (<StatusTag value={record.state} label={convertedStatus}/>);
+    }
   },
 ];
 

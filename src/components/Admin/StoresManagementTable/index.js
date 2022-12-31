@@ -3,7 +3,6 @@ import TableGrid from 'components/Common/TableGrid';
 import { AdminStoresService } from 'services';
 import { events } from 'utils';
 import {
-  STATE_COLORS,
   STORE_TYPE_ICONS,
   STORE_TYPE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
@@ -12,9 +11,10 @@ import Icon from 'components/Common/Icon';
 
 import searchGreenIcon from 'images/search_green.svg';
 import BoxCard from 'components/Share/BoxCard';
-import { Button, Tag } from 'antd';
+import { Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import EditStoreModal from './EditStoreModal';
+import StatusTag from 'components/Share/StatusTag';
 
 
 const columns = [
@@ -48,7 +48,7 @@ const columns = [
     title: 'Status',
     dataIndex: 'convertedStatus',
     render: (convertedStatus, record) => {
-      return (<Tag className="stores-management-table__status-cell" color={STATE_COLORS[record.state] || 'default'}>{convertedStatus}</Tag>);
+      return (<StatusTag value={record.state} label={convertedStatus}/>);
     }
   },
 ];

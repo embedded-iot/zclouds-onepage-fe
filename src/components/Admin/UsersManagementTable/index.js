@@ -8,6 +8,7 @@ import DeleteUserModal from './DeleteUserModal';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import { ROLES_LABEL_VALUE_OPTIONS, ROUTERS } from 'components/contants';
 import BoxCard from 'components/Share/BoxCard';
+import StatusTag from 'components/Share/StatusTag';
 
 const columns = [
   {
@@ -35,8 +36,11 @@ const columns = [
     dataIndex: 'convertedRole',
   },
   {
-    title: 'State',
+    title: 'Status',
     dataIndex: 'convertedState',
+    render: (convertedStatus, record) => {
+      return (<StatusTag value={record.state} label={convertedStatus}/>);
+    }
   },
 ];
 

@@ -31,6 +31,7 @@ import actionIcon from 'images/action-green-icon.svg';
 import ImportOrdersModal from './ImportOrdersModal';
 import UpdateOrderTrackingModal from './UpdateOrderTrackingModal';
 import UpdateOrderPriceModal from './UpdateOrderPriceModal';
+import StatusTag from 'components/Share/StatusTag';
 
 import './style.scss';
 
@@ -118,7 +119,7 @@ const columns = [
                             placement="top"
                             ACTION_EVENT_KEY={ACTION_KEYS.STATUS_EVENTS}
         >
-          <Tag className="orders-management__status" color={STATE_COLORS[record.status] || 'default'}>{convertedStatus}</Tag>
+          <StatusTag className="orders-management__status" value={record.status} label={convertedStatus}/>
         </ActionDropdownMenu>
       );
     }
