@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerStatisticsService, SellerWalletService } from 'services';
 import { cui, events } from 'utils';
-import WalletTotalCards from './WalletTotalCards';
 import circleIcon from 'images/circle-chart-green-icon.svg';
+import WalletTotalCards from 'components/Seller/WalletTable/WalletTotalCards';
+import Icon from 'components/Common/Icon';
 
-import './style.scss';
+// import './style.scss';
 
 const columns = [
   {
