@@ -13,7 +13,7 @@ export default function SwitchBar({ items = [], value = '', name = '', onChange 
       {
         items.map(item => {
           return (
-            <div className={`switch-bar__item ${item.value === selectedValue && 'active'}`} onClick={() => handleSelect(item.value)}>{item.label}</div>
+            <div key={item.value} className={`switch-bar__item ${item.value === selectedValue && 'active'}`} onClick={() => handleSelect(item.value)}>{item.label}</div>
           )
         })
       }

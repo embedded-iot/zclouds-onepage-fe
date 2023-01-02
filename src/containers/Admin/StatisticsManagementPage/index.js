@@ -4,8 +4,10 @@ import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { Col, Row } from 'antd';
 import PageHeader from 'components/Share/PageHeader';
 import TopSellersManagementTable from 'components/Admin/TopSellersManagementTable';
+import SellersAccountingManagementChart from 'components/Admin/SellersAccountingManagementChart';
 
 function StatisticsManagementPage(props) {
   return (
@@ -17,7 +19,14 @@ function StatisticsManagementPage(props) {
         title="Statistics management"
       />
       <div className="page-contents">
-        <TopSellersManagementTable />
+        <Row gutter={[24, 24]}>
+          <Col span={12}>
+            <SellersAccountingManagementChart />
+          </Col>
+          <Col span={12}>
+            <TopSellersManagementTable />
+          </Col>
+        </Row>
       </div>
     </div>
   );
