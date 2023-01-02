@@ -4,6 +4,8 @@ import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import PageHeader from 'components/Share/PageHeader';
+import DashboardBox from 'components/Seller/DashboardBox';
 
 function HomePage(props) {
   return (
@@ -11,8 +13,11 @@ function HomePage(props) {
       <Helmet>
         <title>Trang chủ</title>
       </Helmet>
+      <PageHeader
+        title={`Dashboard`}
+      />
       <div className="page-contents">
-
+        <DashboardBox />
       </div>
     </div>
   );
