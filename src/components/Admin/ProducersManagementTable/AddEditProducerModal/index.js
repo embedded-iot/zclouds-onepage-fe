@@ -8,10 +8,16 @@ export default function AddEditProducerModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
   const handleOk = (values) => {
-    const { displayOrder, name, slug, state, avatarFileList } = values;
-    const featureImage = !!avatarFileList.length ? avatarFileList[0].response.url : null;
+    const { producerName, producerEmail, producerNumber, producerAddress, producerWebsite, messagingApp1, producerMessagingName1, messagingApp2, producerMessagingName2, producerIdCard, status} = values;
     const producerData = {
-      displayOrder, name, slug, state, featureImage
+      producerName, producerEmail, producerNumber, producerAddress, producerWebsite, producerIdCard, status,
+      messagingInfoList: [{
+        messagingApp: messagingApp1,
+        producerMessagingName: producerMessagingName1,
+      }, {
+        messagingApp: messagingApp2,
+        producerMessagingName: producerMessagingName2,
+      }],
     }
     if (isEdit) {
       AdminProducersService.updateProducer(data.id, producerData, response => {

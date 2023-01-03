@@ -32,6 +32,7 @@ const columns = [
   {
     title: 'Variant',
     dataIndex: 'productOptions',
+    width: '15%',
     render: (productOptions, record) => {
       const onProductOptionsChange = (selectedProductOptions) => {
         let calcPrice = record.price;
@@ -55,7 +56,6 @@ const columns = [
   {
     title: 'SKU',
     dataIndex: 'sku',
-    width: '15%',
     render: (sku, record) => (
       <TableCellView
         className="table-img__sku-text"
@@ -77,10 +77,6 @@ const columns = [
         UPDATE_VALUE_EVENT={UPDATE_DATA_EVENT_KEY + record.key}
       />
     )
-  },
-  {
-    title: 'Shipping',
-    dataIndex: 'shipping',
   },
   {
     title: 'Description',
@@ -120,7 +116,6 @@ export default function ProductsManagementTable({ redirectTo }) {
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_PRODUCTS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
-    searchTextKey: 'keyword',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize: size, pageNum: page, searchText, ...restParams} = params || {};
@@ -170,7 +165,7 @@ export default function ProductsManagementTable({ redirectTo }) {
         type: 'searchText',
         requiredSelection: false,
         props: {
-          placeholder: "Keyword"
+          placeholder: 'Search by id, name...',
         }
       },
       {

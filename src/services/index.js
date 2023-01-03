@@ -23,6 +23,7 @@ import * as  AdminDesignsService from './Admin/DesignsService';
 import * as  AdminProducersService from './Admin/ProducersService';
 import * as  AdminSystemService from './Admin/SystemService';
 import * as  AdminStatisticsService from './Admin/StatisticsService';
+import * as  AdminNotificationsService from './Admin/NotificationsService';
 
 export {
   BaseService,
@@ -42,6 +43,7 @@ export {
   AdminProducersService,
   AdminSystemService,
   AdminStatisticsService,
+  AdminNotificationsService,
   SellerDesignsService,
   SellerStoresService,
   SellerIntegrationsService,

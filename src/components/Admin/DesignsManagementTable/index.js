@@ -9,7 +9,6 @@ import BoxCard from 'components/Share/BoxCard';
 import { Button } from 'antd';
 import EditDesignModal from './EditDesignModal';
 import { EditOutlined } from '@ant-design/icons';
-import StatusTag from 'components/Share/StatusTag';
 
 
 const columns = [
@@ -34,13 +33,6 @@ const columns = [
     title: 'Design',
     dataIndex: 'designFeatureImage',
     render: (designFeatureImage, record) => <img className="table-img__icon table-img__icon--circle" src={designFeatureImage} alt={record.name} />,
-  },
-  {
-    title: 'Status',
-    dataIndex: 'convertedStatus',
-    render: (convertedStatus, record) => {
-      return <StatusTag value={record.state} label={convertedStatus}/>;
-    }
   },
 ];
 
@@ -80,7 +72,7 @@ export default function DesignsManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
       {
         type: 'searchText',
         props: {
-          placeholder: 'Search by name...',
+          placeholder: 'Search by name, creator...',
           theme: 'light',
         },
         requiredSelection: false,
@@ -123,7 +115,7 @@ export default function DesignsManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
                  defaultParams={{}}
                  defaultData={{}}
                  isShowPagination={true}
-                 isAllowSelection={true}
+                 isAllowSelection={false}
                  isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}

@@ -91,6 +91,14 @@ function updateOrderTracking(orderId, data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
+function updateOrderProducer(orderId, data, successCallback, failureCallback) {
+  const config = {
+    data
+  };
+  const url = getAdminBaseURL() + '/orders/' + orderId + '/producer';
+  makePostWithConfigs(url, config, successCallback, failureCallback);
+}
+
 function importOrders(data, successCallback, failureCallback) {
   const config = {
     data
@@ -121,6 +129,7 @@ export {
   updateOrderStatus,
   updateOrderPrice,
   updateOrderTracking,
+  updateOrderProducer,
   importOrders,
   exportOrders,
 }

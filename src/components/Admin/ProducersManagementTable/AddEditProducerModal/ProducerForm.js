@@ -1,19 +1,24 @@
 import React from 'react';
 import { Form } from 'antd';
 import {
-  STATE_LABEL_VALUE_OPTIONS,
+  PRODUCER_STATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import InputText from 'components/Common/InputText';
 
 export default function ProducerForm({ form, initialValues, ...restProps }) {
+  const producerMessaging = !!initialValues && !!initialValues.producerMessaging ? JSON.parse(initialValues.producerMessaging) : [];
   return (
     <Form
       name="basic"
       form={form}
       autoComplete="off"
       initialValues={{
-        state: '',
+        status: '',
+        messagingApp1: producerMessaging.length > 0 ? producerMessaging[0].messagingApp : '',
+        producerMessagingName1: producerMessaging.length > 0 ? producerMessaging[0].producerMessagingName : '',
+        messagingApp2: producerMessaging.length > 1 ? producerMessaging[1].messagingApp : '',
+        producerMessagingName2: producerMessaging.length > 1 ? producerMessaging[1].producerMessagingName : '',
         ...initialValues,
       }}
       layout="vertical"
@@ -21,7 +26,7 @@ export default function ProducerForm({ form, initialValues, ...restProps }) {
     >
       <Form.Item
         label="Producer name"
-        name="name"
+        name="producerName"
         rules={[
           {
             required: true,
@@ -33,7 +38,7 @@ export default function ProducerForm({ form, initialValues, ...restProps }) {
       </Form.Item>
       <Form.Item
         label="Phone"
-        name="phone"
+        name="producerNumber"
         rules={[
           {
             required: true,
@@ -46,7 +51,7 @@ export default function ProducerForm({ form, initialValues, ...restProps }) {
 
       <Form.Item
         label="Email"
-        name="email"
+        name="producerEmail"
         rules={[
           {
             type: 'email',
@@ -62,7 +67,7 @@ export default function ProducerForm({ form, initialValues, ...restProps }) {
       </Form.Item>
       <Form.Item
         label="Address"
-        name="address"
+        name="producerAddress"
         rules={[
           {
             required: true,
@@ -74,7 +79,7 @@ export default function ProducerForm({ form, initialValues, ...restProps }) {
       </Form.Item>
       <Form.Item
         label="Website"
-        name="website"
+        name="producerWebsite"
         rules={[
           {
             type: 'url',
@@ -85,20 +90,54 @@ export default function ProducerForm({ form, initialValues, ...restProps }) {
         <InputText placeholder="..."  />
       </Form.Item>
       <Form.Item
-        label="Contact"
-        name="contact"
+        label="Contact 1"
+        name="messagingApp1"
         rules={[
           {
             required: true,
-            message: 'Please enter contact!',
+            message: 'Please enter app name!',
           },
         ]}
       >
-        <InputText placeholder="..."  />
+        <InputText placeholder="App name (e.g: Webchat or Whatsapp....)"  />
+      </Form.Item>
+      <Form.Item
+        name="producerMessagingName1"
+        rules={[
+          {
+            required: true,
+            message: 'Please enter contact link or name!',
+          },
+        ]}
+      >
+        <InputText placeholder="Profile link or name"  />
+      </Form.Item>
+      <Form.Item
+        label="Contact 2"
+        name="messagingApp2"
+        rules={[
+          {
+            required: true,
+            message: 'Please enter app name!',
+          },
+        ]}
+      >
+        <InputText placeholder="App name (e.g: Webchat or Whatsapp....)"  />
+      </Form.Item>
+      <Form.Item
+        name="producerMessagingName2"
+        rules={[
+          {
+            required: true,
+            message: 'Please enter contact link or name!',
+          },
+        ]}
+      >
+        <InputText placeholder="Profile link or name"  />
       </Form.Item>
       <Form.Item
         label="ID Card"
-        name="idCard"
+        name="producerIdCard"
         rules={[
           {
             required: true,
@@ -109,17 +148,17 @@ export default function ProducerForm({ form, initialValues, ...restProps }) {
         <InputText placeholder="..."  />
       </Form.Item>
       <Form.Item
-        label="State"
-        name="state"
+        label="Status"
+        name="status"
         rules={[
           {
             required: true,
-            message: 'Please select state!',
+            message: 'Please select status!',
           },
         ]}
       >
         <DropdownSelect
-          options={STATE_LABEL_VALUE_OPTIONS}
+          options={PRODUCER_STATE_LABEL_VALUE_OPTIONS}
         />
       </Form.Item>
     </Form>

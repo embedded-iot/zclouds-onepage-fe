@@ -33,7 +33,7 @@ const columns = [
   },
   {
     title: 'Owner',
-    dataIndex: 'owner',
+    dataIndex: 'owners',
   },
   {
     title: 'Domain',
@@ -94,7 +94,7 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
       {
         type: 'searchText',
         props: {
-          placeholder: 'Search by name...',
+          placeholder: 'Search by id, name...',
           theme: 'light',
         },
         requiredSelection: false,

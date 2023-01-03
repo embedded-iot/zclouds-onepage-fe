@@ -36,22 +36,17 @@ function getTopSellers(params, successCallback, failureCallback) {
   })
 }
 function getSellersAccounting(params, successCallback, failureCallback) {
-  successCallback({
-    items,
-    totalCount: 100,
-  })
   const config = {
     params
   }
   const url = getAdminBaseURL() + '/sellers-accounting';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
-    const items = response.content.map(transformTopSeller)
     return {
-
-      items: items,
-      totalCount: response.totalElement,
-      pageNum: response.currentPage,
-      totalPage: response.totalPage,
+      categories: response.categories || [],
+      revenueData: response.revenueData || [],
+      costData: response.costData || [],
+      ordersData: response.ordersData || [],
+      profitData: response.profitData || [],
     };
   })
 }

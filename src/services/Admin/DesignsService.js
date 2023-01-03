@@ -1,10 +1,9 @@
 import { getAdminBaseURL, getFullPathImage } from 'services/BaseService';
 import { makeGetWithConfigs, makePatchWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
-import { DESIGN_DETAIL_TYPE_VALUES, STATE_LABELS, STATE_VALUES } from 'components/contants';
+import { DESIGN_DETAIL_TYPE_VALUES } from 'components/contants';
 
 const transformDesign = item => {
-  item.state = item.state || STATE_VALUES.ACTIVATED;
   const convertedMockupImages = item.designDetails && item.designDetails.filter(designDetail => designDetail.type === DESIGN_DETAIL_TYPE_VALUES.MOCKUP)
     .map(image => ({
       ...image,
@@ -17,8 +16,8 @@ const transformDesign = item => {
     }));
   return {
     ...item,
-    convertedStatus: STATE_LABELS[item.state] || item.state,
     name: item.slug,
+    owner: item.user ? item.user.username : '',
     convertedMockupImages: convertedMockupImages || [],
     convertedDesignImages: convertedDesignImages || [],
     mockupFeatureImage: convertedMockupImages.length ? convertedMockupImages[0].url : shirt_sku,
@@ -26,33 +25,7 @@ const transformDesign = item => {
   }
 }
 
-const items = [];
-for (let i = 0; i < 10; i++) {
-  items.push(transformDesign({
-    "id": i,
-    "slug": "design-test",
-    "type": "2D",
-    "userId": 4,
-    "designDetails": [
-      {
-        "id": 26,
-        "url": "/uploads/designs/19/64b6c280-313e-4c1f-aa12-99b3f8412a48.png",
-        "systemPath": "/uploads/designs/19/64b6c280-313e-4c1f-aa12-99b3f8412a48.png",
-        "size": 4,
-        "displayOrder": 1,
-        "type": "MOCKUP",
-        "storageType": "FileSystem",
-        "designId": 19
-      }
-    ]
-  }))
-}
-
 function getDesigns(params, successCallback, failureCallback) {
-  successCallback({
-    items,
-    totalCount: 3
-  })
   const config = {
     params
   };

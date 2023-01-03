@@ -10,6 +10,8 @@ import productIcon from 'images/box_black_icon.svg';
 import storesIcon from 'images/store_black_icon.svg';
 import transactionIcon from 'images/paper_black_icon_1.svg';
 import systemAccountingIcon from 'images/layers_black_icon.svg';
+import systemSettingIcon from 'images/setting_gray_icon.svg';
+import systemNotificationIcon from 'images/bell_gray_icon.svg';
 import bankIcon from 'images/paper_black_icon_2.svg';
 import statisticIcon from 'images/dollar_black_icon.svg';
 import designsLibraryIcon from 'images/designs-library-icon.png';
@@ -29,7 +31,10 @@ export default function AdminSider({ selectedRouters = [], redirectTo = () => {}
       getItem('Transactions', ROUTERS.ADMIN_TRANSACTIONS_MANAGEMENT, <Icon src={transactionIcon} />),
       getItem('Seller wallets', ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT, <Icon src={walletIcon} />),
       getItem('Banks', ROUTERS.ADMIN_BANKS_MANAGEMENT, <Icon src={bankIcon} />),
-      getItem('System configs', ROUTERS.ADMIN_SYSTEM_CONFIGS_MANAGEMENT, <Icon src={statisticIcon} />),
+    ]),
+    getItem('System settings', ROUTERS.ADMIN_SYSTEM_SETTINGS_MANAGEMENT, <Icon src={systemSettingIcon} width={22} height={22}/>, [
+      getItem('Notifications', ROUTERS.ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT, <Icon src={systemNotificationIcon} width={22} height={22} />),
+      getItem('Configs', ROUTERS.ADMIN_SYSTEM_CONFIGS_MANAGEMENT, <Icon src={statisticIcon} />),
     ]),
   ];
 

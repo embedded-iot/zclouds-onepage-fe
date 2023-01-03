@@ -75,6 +75,8 @@ import AdminProducersManagementPage from 'containers/Admin/ProducersManagementPa
 import AdminWalletTransactionsManagementPage from 'containers/Admin/WalletTransactionsManagementPage/Loadable';
 import AdminSystemManagementPage from 'containers/Admin/SystemManagementPage/Loadable';
 import AdminStatisticsManagementPage from 'containers/Admin/StatisticsManagementPage/Loadable';
+import AdminNotificationsManagementPage from 'containers/Admin/NotificationsManagementPage/Loadable';
+import AdminNotificationsPage from 'containers/Admin/NotificationsPage/Loadable';
 
 
 import { ADMIN_ROLES, DATETIME_FORMAT, ROUTERS, WEBSITE_NAME } from 'components/contants';
@@ -171,6 +173,8 @@ const AdminAppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.ADMIN_SELLER_WALLET_DETAILS_MANAGEMENT} component={AdminWalletTransactionsManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_SYSTEM_CONFIGS_MANAGEMENT} component={AdminSystemManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_STATISTICS_MANAGEMENT} component={AdminStatisticsManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
+    <PrivateRoute exact path={ROUTERS.ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT} component={AdminNotificationsManagementPage} isAuthenticated={props.isLogin && props.isAdmin}/>
+    <PrivateRoute exact path={ROUTERS.NOTIFICATIONS} component={AdminNotificationsPage} isAuthenticated={props.isLogin && props.isAdmin}/>
   </Switch>
 )
 

@@ -5,19 +5,19 @@ import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
-import SystemManagementTable from 'components/Admin/SystemManagementTable';
+import NotificationsManagementTable from 'components/Admin/NotificationsManagementTable';
 
-function SystemManagementPage(props) {
+function NotificationsManagementPage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Configs management</title>
+        <title>Notifications management</title>
       </Helmet>
       <PageHeader
-        title="Configs management"
+        title="Notifications management"
       />
       <div className="page-contents">
-        <SystemManagementTable />
+        <NotificationsManagementTable />
       </div>
     </div>
   );
@@ -46,4 +46,4 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-)(SystemManagementPage);
+)(NotificationsManagementPage);

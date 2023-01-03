@@ -1,0 +1,81 @@
+import React from 'react';
+import { Form } from 'antd';
+import {
+  NOTIFICATION_STATE_LABEL_VALUE_OPTIONS,
+} from 'components/contants';
+import DropdownSelect from 'components/Common/DropdownSelect';
+import InputText from 'components/Common/InputText';
+
+export default function NotificationForm({ form, initialValues, ...restProps }) {
+  return (
+    <Form
+      name="basic"
+      form={form}
+      autoComplete="off"
+      initialValues={{
+        ...initialValues,
+        status: !!initialValues && !!initialValues.status ? initialValues.status : '',
+      }}
+      layout="vertical"
+      {...restProps}
+    >
+
+      <Form.Item
+        label="Title"
+        name="title"
+        rules={[
+          {
+            required: true,
+            message: 'Please enter title!',
+          },
+        ]}
+      >
+        <InputText placeholder="Title"  />
+      </Form.Item>
+      <Form.Item
+        label="Vietnamese content"
+        name="vnContent"
+        rules={[
+          {
+            required: true,
+            message: 'Please enter Vietnamese content!',
+          },
+        ]}
+      >
+        <InputText type="TextArea"
+                   rows={4}
+                   placeholder="Vietnamese content"
+        />
+      </Form.Item>
+      <Form.Item
+        label="English content"
+        name="enContent"
+        rules={[
+          {
+            required: true,
+            message: 'Please enter English content!',
+          },
+        ]}
+      >
+        <InputText type="TextArea"
+                   rows={4}
+                   placeholder="English content"
+        />
+      </Form.Item>
+      <Form.Item
+        label="Status"
+        name="status"
+        rules={[
+          {
+            required: true,
+            message: 'Please select status!',
+          },
+        ]}
+      >
+        <DropdownSelect
+          options={NOTIFICATION_STATE_LABEL_VALUE_OPTIONS}
+        />
+      </Form.Item>
+    </Form>
+  )
+}

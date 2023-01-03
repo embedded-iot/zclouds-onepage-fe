@@ -3,10 +3,10 @@ import { Avatar, Badge, Dropdown, Menu } from 'antd';
 import {
   LogoutOutlined,
   UserOutlined,
-  BellOutlined,
 } from '@ant-design/icons';
 import { ROLE_LABELS, ROUTERS } from 'components/contants';
-
+import systemNotificationIcon from 'images/bell_gray_icon.svg';
+import Icon from 'components/Common/Icon';
 import './style.scss';
 
 export default function UserInfo({ isLogin = false, isAdmin = false, currentUser = {}, redirectTo = () => {}, signOut = () => {}}) {
@@ -26,11 +26,6 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
       onClick={handleMenuClick}
       items={[
         {
-          label: 'My account',
-          key: ROUTERS.ACCOUNT_INFO,
-          icon: <UserOutlined />,
-        },
-        {
           label: 'Logout',
           key: ROUTERS.LOGOUT,
           icon: <LogoutOutlined />,
@@ -41,9 +36,11 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
 
   return (
     <div className="user-info__wrapper">
-      <Badge count={5}>
-        <BellOutlined style={{ fontSize: 25 }} />
-      </Badge>
+      <span className="cursor-pointer" onClick={() => redirectTo(ROUTERS.NOTIFICATIONS)}>
+        <Badge count={5}>
+          <Icon src={systemNotificationIcon}/>
+        </Badge>
+      </span>
       <Dropdown
         overlay={menu}
         placement="bottomRight"

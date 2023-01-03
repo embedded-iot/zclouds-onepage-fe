@@ -12,38 +12,53 @@ import StatusTag from 'components/Share/StatusTag';
 const columns = [
   {
     title: 'Producer Name',
-    dataIndex: 'name',
+    dataIndex: 'producerName',
   },
   {
     title: 'Phone',
-    dataIndex: 'phone',
+    dataIndex: 'producerNumber',
   },
   {
     title: 'Email',
-    dataIndex: 'email',
+    dataIndex: 'producerEmail',
   },
   {
     title: 'Address',
-    dataIndex: 'address',
+    dataIndex: 'producerAddress',
   },
   {
     title: 'Website',
-    dataIndex: 'website',
+    dataIndex: 'producerWebsite',
     render: (website) => !!website ? <a href={website} target='_blank' rel='noreferrer'>{website}</a> : ''
   },
   {
     title: 'Contact',
-    dataIndex: 'contact',
+    dataIndex: 'convertedProducerMessaging',
+    render: (convertedProducerMessaging) => {
+      return (
+        <>
+          {
+            convertedProducerMessaging.map((item, index) => {
+              return (
+                <div key={index}>
+                  {item.messagingApp} - {item.producerMessagingName.startsWith('http') ? <a href={item.producerMessagingName} target='_blank' rel='noreferrer'>{item.producerMessagingName}</a> : item.producerMessagingName}
+                </div>
+              )
+            })
+          }
+        </>
+      )
+    }
   },
   {
     title: 'ID Card',
-    dataIndex: 'idCard',
+    dataIndex: 'producerIdCard',
   },
   {
     title: 'Status',
-    dataIndex: 'convertedState',
+    dataIndex: 'convertedStatus',
     render: (convertedStatus, record) => {
-      return (<StatusTag value={record.state} label={convertedStatus}/>);
+      return (<StatusTag value={record.status} label={convertedStatus}/>);
     }
   },
 ];
@@ -115,7 +130,7 @@ export default function ProducersManagementTable() {
         type: 'searchText',
         requiredSelection: false,
         props: {
-          placeholder: "Keyword"
+          placeholder: "Search by id, name..."
         }
       },
       {

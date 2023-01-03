@@ -5,31 +5,12 @@ import { STATE_LABELS } from 'components/contants';
 const transformProducer = item => {
   return {
     ...item,
-    convertedState: STATE_LABELS[item.state] || item.state,
+    convertedStatus: STATE_LABELS[item.status] || item.status,
+    convertedProducerMessaging: item.producerMessaging ? JSON.parse(item.producerMessaging) : [],
   }
 }
 
-
-const items = [];
-for (let i = 0; i < 10; i++) {
-  items.push(transformProducer({
-    "id": i,
-    "name": "Nhà sản xuất " + i,
-    "phone": "0123456789",
-    "email": "abc@gmail.com",
-    "address": "Số 1, ....",
-    "website": "http://localhost:3000/producers-management",
-    "contact": "sadasdasd",
-    "idCard": "12121212",
-    "state": "ACTIVATED",
-  }))
-}
-
 function getProducers(params, successCallback, failureCallback) {
-  successCallback({
-    items,
-    totalCount: 10,
-  })
   const config = {
     params
   };
@@ -66,9 +47,17 @@ function deleteProducer(id, successCallback, failureCallback) {
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function getProducersOptions(stores, isHasDefaultOption = true, defaultValueKey = 'id') {
+  return [
+    ...(isHasDefaultOption ? [{ label: 'Select producer', value: '' }] : []),
+    ...(stores.map(store => ({ label: store.producerName, value: store[defaultValueKey] })))
+  ]
+}
+
 export {
   getProducers,
   createProducer,
   updateProducer,
   deleteProducer,
+  getProducersOptions,
 }

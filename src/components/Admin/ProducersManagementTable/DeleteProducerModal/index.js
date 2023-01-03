@@ -24,7 +24,7 @@ export default function DeleteProducerModal({ open, data, onOk, onCancel }) {
                onOk={handleOk}
                onCancel={onCancel}
     >
-    <div>Delete {data ? data.name : 'Producer name'}</div>
+    <div>Delete {data && data.producerName ? data.producerName : 'Producer name'}</div>
     </ModalView>
   )
 }

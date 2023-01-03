@@ -9,7 +9,7 @@ import { cui, events } from 'utils';
 import { Button, notification, Tag } from 'antd';
 import {
   EditOutlined,
-  DollarOutlined,
+  DollarOutlined, UserOutlined,
 } from '@ant-design/icons';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import {
@@ -34,6 +34,7 @@ import UpdateOrderPriceModal from './UpdateOrderPriceModal';
 import StatusTag from 'components/Share/StatusTag';
 
 import './style.scss';
+import UpdateOrderProducerModal from 'components/Admin/OrdersManagementTable/UpdateOrderProducerModal';
 
 
 const ACTION_KEYS = {
@@ -41,6 +42,7 @@ const ACTION_KEYS = {
   STATUS_EVENTS: "ORDERS_STATUS_EVENTS",
   UPDATE_ORDER_TRACKING: "UPDATE_ORDER_TRACKING",
   UPDATE_ORDER_PRICE: "UPDATE_ORDER_PRICE",
+  UPDATE_ORDER_PRODUCER: "UPDATE_ORDER_PRODUCER",
   EDIT_ORDER: "EDIT_ORDER",
   IMPORT_ORDERS: "IMPORT_ORDERS",
   EXPORT_ORDERS: "EXPORT_ORDERS",
@@ -146,6 +148,11 @@ const columns = [
           icon: <EditOutlined />,
           disabled: !([STATE_VALUES.TRANSIT, STATE_VALUES.RESEND, STATE_VALUES.DELIVERED].includes(record.status)),
         },
+        {
+          key: ACTION_KEYS.UPDATE_ORDER_PRODUCER,
+          label: "Update order producer",
+          icon: <UserOutlined />,
+        },
       ];
       return (
         <ActionDropdownMenu items={actionItems}
@@ -163,6 +170,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   const [openImportOrders, setOpenImportOrders] = useState(false);
   const [openUpdateOrderTracking, setOpenUpdateOrderTracking] = useState(false);
   const [openUpdateOrderPrice, setOpenUpdateOrderPrice] = useState(false);
+  const [openUpdateOrderProducer, setOpenUpdateOrderProducer] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState({});
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [orderStatus, setOrderStatus] = useState([]);
@@ -207,6 +215,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     setOpenImportOrders(false);
     setOpenUpdateOrderTracking(false);
     setOpenUpdateOrderPrice(false);
+    setOpenUpdateOrderProducer(false);
     events.publish(RELOAD_EVENT_KEY, filters);
     if (hasReloadStatus) {
       getOrdersStatus();
@@ -245,6 +254,11 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   const updateOrderStatus = order => {
     setSelectedOrder(order);
     setOpenUpdateOrderPrice(true);
+  }
+
+  const updateOrderProducer = order => {
+    setSelectedOrder(order);
+    setOpenUpdateOrderProducer(true);
   }
 
   const onSelectedItemsChange = (keys) => {
@@ -494,6 +508,9 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
         case ACTION_KEYS.UPDATE_ORDER_PRICE:
           updateOrderStatus(record);
           break;
+        case ACTION_KEYS.UPDATE_ORDER_PRODUCER:
+          updateOrderProducer(record);
+          break;
         default:
       }
     });
@@ -626,6 +643,16 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
             data={selectedOrder}
             onOk={reloadTable}
             onCancel={() => { setOpenUpdateOrderPrice(false); }}
+          />
+        )
+      }
+      {
+        openUpdateOrderProducer && (
+          <UpdateOrderProducerModal
+            open={openUpdateOrderProducer}
+            data={selectedOrder}
+            onOk={reloadTable}
+            onCancel={() => { setOpenUpdateOrderProducer(false); }}
           />
         )
       }

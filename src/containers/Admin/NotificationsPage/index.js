@@ -4,20 +4,17 @@ import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import PageHeader from 'components/Share/PageHeader';
-import SystemManagementTable from 'components/Admin/SystemManagementTable';
+import NotificationsList from 'components/Admin/NotificationsList';
 
-function SystemManagementPage(props) {
+
+function NotificationsPage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Configs management</title>
+        <title>Notifications</title>
       </Helmet>
-      <PageHeader
-        title="Configs management"
-      />
       <div className="page-contents">
-        <SystemManagementTable />
+        <NotificationsList />
       </div>
     </div>
   );
@@ -46,4 +43,4 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-)(SystemManagementPage);
+)(NotificationsPage);

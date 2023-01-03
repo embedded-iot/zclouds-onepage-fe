@@ -10,6 +10,7 @@ export const ROUTERS = {
   ROOT: '/',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  NOTIFICATIONS: '/notifications',
   FRONT_USER_REGISTER: '/register',
   FRONT_USER_ALL_PRODUCTS: '/products',
   FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY: '/products/:categoryName/:categoryId',
@@ -51,54 +52,9 @@ export const ROUTERS = {
   ADMIN_DESIGNS_MANAGEMENT: '/designs-management',
   ADMIN_PRODUCERS_MANAGEMENT: '/producers-management',
   ADMIN_SYSTEM_CONFIGS_MANAGEMENT: '/system-configs-management',
+  ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT: '/system-notifications-management',
+  ADMIN_SYSTEM_SETTINGS_MANAGEMENT: '/system-settings-management',
 }
-
-export const SHIPPING_EXPRESSES = {
-  YUN_EXPRESS: 'Yun Express',
-  YUN_FAST: 'Funfast',
-  FED_EX: 'FedEx',
-  DHL: 'DHL',
-};
-
-export const SHIPPING_EXPRESSES_VALUES_OPTIONS = [
-  SHIPPING_EXPRESSES.YUN_EXPRESS,
-  SHIPPING_EXPRESSES.YUN_FAST,
-  SHIPPING_EXPRESSES.FED_EX,
-  SHIPPING_EXPRESSES.DHL,
-]
-
-
-export const SHIPPING_EXPRESSES_LABEL_VALUE_OPTIONS = [
-  { label: SHIPPING_EXPRESSES.YUN_EXPRESS, value: SHIPPING_EXPRESSES.YUN_EXPRESS },
-  { label: SHIPPING_EXPRESSES.YUN_FAST, value: SHIPPING_EXPRESSES.YUN_FAST },
-  { label: SHIPPING_EXPRESSES.FED_EX, value: SHIPPING_EXPRESSES.FED_EX },
-  { label: SHIPPING_EXPRESSES.DHL, value: SHIPPING_EXPRESSES.DHL },
-];
-
-
-export const SIZES = {
-  _S: 'S',
-  _M: 'M',
-  _L: 'L',
-  _XL: 'XL',
-  _2XL: '2XL',
-};
-
-export const SIZES_VALUES_OPTIONS = [
-  SIZES._S,
-  SIZES._M,
-  SIZES._L,
-  SIZES._XL,
-  SIZES._2XL,
-]
-
-export const SIZES_LABEL_VALUE_OPTIONS = [
-  { label: SIZES._S, value: SIZES._S },
-  { label: SIZES._M, value: SIZES._M },
-  { label: SIZES._L, value: SIZES._L },
-  { label: SIZES._XL, value: SIZES._XL },
-  { label: SIZES._2XL, value: SIZES._2XL },
-];
 
 export const DATETIME_FORMAT = "DD/MM/YYYY HH:MM";
 export const DATE_FORMAT = "DD/MM/YYYY";
@@ -126,7 +82,8 @@ export const STATE_VALUES = {
   COMPLETED : 'COMPLETED',
   REJECTED : 'REJECTED',
   IS_ACTIVE : 'IS_ACTIVE',
-  NOT_ACTIVE  : 'NOT_ACTIVE ',
+  NOT_ACTIVE  : 'NOT_ACTIVE',
+  DELETED   : 'DELETED',
 };
 
 export const STATE_LABELS = {
@@ -145,6 +102,7 @@ export const STATE_LABELS = {
   [STATE_VALUES.RESEND]: 'Resend',
   [STATE_VALUES.TRANSIT]: 'Transit',
   [STATE_VALUES.DEACTIVATED]: 'Deactivated',
+  [STATE_VALUES.DELETED]: 'Deleted',
 };
 
 export const STATE_COLORS = {
@@ -390,4 +348,17 @@ export const SYSTEM_STATE_LABEL_VALUE_OPTIONS = [
   { label: 'Select state', value: '' },
   { label: STATE_LABELS[STATE_VALUES.IS_ACTIVE], value: STATE_VALUES.IS_ACTIVE },
   { label: STATE_LABELS[STATE_VALUES.NOT_ACTIVE], value: STATE_VALUES.NOT_ACTIVE },
+];
+
+export const NOTIFICATION_STATE_LABEL_VALUE_OPTIONS = [
+  { label: 'Select state', value: '' },
+  { label: STATE_LABELS[STATE_VALUES.ACTIVATED], value: STATE_VALUES.ACTIVATED },
+  { label: STATE_LABELS[STATE_VALUES.BLOCKED], value: STATE_VALUES.BLOCKED },
+];
+
+export const PRODUCER_STATE_LABEL_VALUE_OPTIONS = [
+  { label: 'Select state', value: '' },
+  { label: STATE_LABELS[STATE_VALUES.ACTIVATED], value: STATE_VALUES.ACTIVATED },
+  { label: STATE_LABELS[STATE_VALUES.BLOCKED], value: STATE_VALUES.BLOCKED },
+  { label: STATE_LABELS[STATE_VALUES.DELETED], value: STATE_VALUES.DELETED },
 ];

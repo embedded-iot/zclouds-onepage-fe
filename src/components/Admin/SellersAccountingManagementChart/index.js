@@ -2,14 +2,37 @@ import React, { useEffect, useRef, useState } from 'react';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import { AdminResellersService, AdminStatisticsService } from 'services';
 import { cui } from 'utils';
-
-import './style.scss';
 import ChartWrapper from 'components/Common/ChartWrapper';
 import { Col, Row } from 'antd';
 
+import './style.scss';
+
 export default function SellersAccountingManagementChart(props) {
-  // eslint-disable-next-line
   const [summaryData, setSummaryData] = useState({});
+  const [chartData, setChartData] = useState({
+    categories: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ],
+    revenueData: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4,
+      194.1, 95.6, 54.4],
+    costData: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5,
+      106.6, 92.3],
+    ordersData: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3,
+      51.2],
+    profitData: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8,
+      51.1],
+  });
   const [resellersInput, setResellersInput] = useState({
     value: '',
     options: [],
@@ -23,7 +46,7 @@ export default function SellersAccountingManagementChart(props) {
       ...(typeof value === 'object' ? value : { [name]: value })
     }
     setFilters(newFilters);
-    // reloadTable(newFilters);
+    getSellersAccountingData( newFilters);
   }
 
 
@@ -59,7 +82,11 @@ export default function SellersAccountingManagementChart(props) {
 
   const getSellersAccountingData = (params) => {
     AdminStatisticsService.getSellersAccounting( cui.removeEmpty(params), response => {
-
+      const { revenueData, costData, ordersData, profitData } = response;
+      setChartData({
+        revenueData, costData, ordersData, profitData
+      });
+      setSummaryData({})
     }, error => {
 
     })
@@ -75,36 +102,30 @@ export default function SellersAccountingManagementChart(props) {
       type: 'column'
     },
     title: {
-      text: 'Orders overview'
+      text: 'Orders overview',
+      align: 'left',
+      margin: 30,
+      style: {
+        fontSize: 20,
+        fontFamily: 'helvetica',
+        fontWeight: 600,
+        color: '#2C3E5D',
+      }
     },
     xAxis: {
-      categories: [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ],
+      categories: chartData.categories,
       crosshair: true
     },
     yAxis: {
       min: 0,
       title: {
-        show: false,
-        text: 'Dollar ($)'
+        enabled: false,
       }
     },
     tooltip: {
       headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
       pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+        '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
       footerFormat: '</table>',
       shared: true,
       useHTML: true
@@ -117,24 +138,20 @@ export default function SellersAccountingManagementChart(props) {
     },
     series: [{
       name: 'Revenue',
-      data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4,
-        194.1, 95.6, 54.4]
-
+      color: '#0065FF',
+      data: chartData.revenueData,
     }, {
       name: 'Cost',
-      data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5,
-        106.6, 92.3]
-
+      color: '#8270DB',
+      data: chartData.costData,
     }, {
       name: 'Order',
-      data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3,
-        51.2]
-
+      color: '#D97008',
+      data: chartData.ordersData,
     }, {
       name: 'Profit',
-      data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8,
-        51.1]
-
+      color: '#22A06B',
+      data: chartData.profitData,
     }]
   }
 

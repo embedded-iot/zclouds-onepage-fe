@@ -100,23 +100,19 @@ export default function CategoriesManagementTable() {
         requiredSelection: true,
       },
       {
-        type: 'searchText',
+        type: 'custom',
+        render: <div></div>,
         requiredSelection: false,
-        props: {
-          placeholder: "Keyword"
-        }
       },
       {
         type: 'pageNum',
         requiredSelection: false,
+        align: 'right',
       },
       {
         type: 'pageSize',
         requiredSelection: false,
-      },
-      {
-        type: 'searchButton',
-        requiredSelection: false,
+        align: 'right',
       },
       {
         type: 'custom',
