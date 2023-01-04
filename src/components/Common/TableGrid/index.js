@@ -291,7 +291,7 @@ export default function TableGrid({
         )
       }
       {
-        type !== 'table' && (
+        type === 'grid' && (
           <GridView
             gutter={configs.gutter}
             colSpan={configs.colSpan}
@@ -301,6 +301,9 @@ export default function TableGrid({
             onSelectGridItem={onSelectGridItem}
           />
         )
+      }
+      {
+        type === 'custom' && !!configs.customBodyTemplate && configs.customBodyTemplate({ dataSource: items })
       }
       { isShowPagination && <br/>}
       {
