@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 import walletIcon from 'images/wallet_purple_icon.svg';
 import bagIcon from 'images/bag_green_icon.svg';
 import chartIcon from 'images/column_chart_orange_icon.svg';
 import Icon from 'components/Common/Icon';
+import { SellerWalletService } from 'services';
 import './style.scss';
 
-export default function WalletTotalCards({ data = {} }) {
+export default function WalletTotalCards() {
+  const [data, setData] = useState({});
+  const getWalletTotal = (params = {}) => {
+    SellerWalletService.getWalletTotal(response => {
+      setData(response);
+    });
+  }
+
+  useEffect(() => {
+    getWalletTotal();
+    // eslint-disable-next-line
+  }, []);
+
   const items = [
     {
       label: 'Wallet total (1)',

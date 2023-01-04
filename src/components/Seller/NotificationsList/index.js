@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { AdminNotificationsService } from 'services';
+import { SellerNotificationsService } from 'services';
 import NotificationsBox from 'components/Share/NotificationsBox';
 
 export default function NotificationsList({ isExplain = true, redirectTo = () => {}, noData = '' }) {
   const [notifications, setNotifications] = useState([]);
   const getNotifications = (params = {}) => {
-    AdminNotificationsService.getNotifications({}, response => {
-      setNotifications(AdminNotificationsService.getActivatedNotifications(response.items))
+    SellerNotificationsService.getNotifications({}, response => {
+      setNotifications(SellerNotificationsService.getActivatedNotifications(response.items))
     }, () => {})
   }
 

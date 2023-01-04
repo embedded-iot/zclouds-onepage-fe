@@ -352,8 +352,8 @@ export const SYSTEM_STATE_LABEL_VALUE_OPTIONS = [
 
 export const NOTIFICATION_STATE_LABEL_VALUE_OPTIONS = [
   { label: 'Select state', value: '' },
-  { label: STATE_LABELS[STATE_VALUES.ACTIVATED], value: STATE_VALUES.ACTIVATED },
-  { label: STATE_LABELS[STATE_VALUES.BLOCKED], value: STATE_VALUES.BLOCKED },
+  { label: STATE_LABELS[STATE_VALUES.IS_ACTIVE], value: STATE_VALUES.IS_ACTIVE },
+  { label: STATE_LABELS[STATE_VALUES.NOT_ACTIVE], value: STATE_VALUES.NOT_ACTIVE },
 ];
 
 export const PRODUCER_STATE_LABEL_VALUE_OPTIONS = [
@@ -361,4 +361,20 @@ export const PRODUCER_STATE_LABEL_VALUE_OPTIONS = [
   { label: STATE_LABELS[STATE_VALUES.ACTIVATED], value: STATE_VALUES.ACTIVATED },
   { label: STATE_LABELS[STATE_VALUES.BLOCKED], value: STATE_VALUES.BLOCKED },
   { label: STATE_LABELS[STATE_VALUES.DELETED], value: STATE_VALUES.DELETED },
+];
+
+export const SYSTEM_CONFIG_VALUE = {
+  MIN_TOP_UP: 'MIN_TOP_UP',
+  RATE: 'RATE',
+  CHAT_WITH_ME: 'CHAT_WITH_ME',
+  CREATOR_COMMUNITY: 'CREATOR_COMMUNITY',
+};
+
+export const PERIOD_STATE_LABEL_VALUE_OPTIONS = [
+  { label: 'Select period', value: '' },
+  { label: 'Today', value: 'today' },
+  { label: 'Last 7 days', value: 'last7' },
+  { label: 'Last 14 days', value: 'last14' },
+  { label: 'Last 30 days', value: 'last30' },
+  { label: 'Last 60 days', value: 'last60' },
 ];

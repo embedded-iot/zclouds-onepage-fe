@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerWalletService } from 'services';
 import { cui, events } from 'utils';
@@ -48,9 +48,8 @@ const columns = [
   },
 ];
 
-export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLET_TABLE_EVENT_KEY' }) {
+export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLET_TABLE_EVENT_KEY', systemConfigs = [] }) {
   const [openVerifyTopUp, setOpenVerifyTopUp] = useState(false);
-  const [walletTotalData, setWalletTotalData] = useState({});
   const [openAddMoneyToWallet, setOpenAddMoneyToWallet] = useState(false);
   const tableConfig = {
     columns,
@@ -64,12 +63,6 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
       console.log(error);
     },
   };
-
-  const getWalletTotal = (params = {}) => {
-    SellerWalletService.getWalletTotal(response => {
-      setWalletTotalData(response);
-    });
-  }
 
   const reloadTable = (filters ={}) => {
     events.publish(RELOAD_EVENT_KEY, filters);
@@ -114,10 +107,6 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
     </Button>,
   ]
 
-  useEffect(() => {
-    getWalletTotal();
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <>
@@ -125,7 +114,7 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
                          align="right"
                          className="wallet-table__button-list"
       />
-      <WalletTotalCards data={walletTotalData} />
+      <WalletTotalCards />
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -149,6 +138,7 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
         openAddMoneyToWallet && (
           <AddMoneyToWalletModal
             open={openAddMoneyToWallet}
+            systemConfigs={systemConfigs}
             onCancel={() => { setOpenAddMoneyToWallet(false); }}
           />
         )

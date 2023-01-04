@@ -24,11 +24,11 @@ const columns = [
   },
   {
     title: 'Vietnamese content',
-    dataIndex: 'vnContent',
+    dataIndex: 'contentVietnamese',
   },
   {
     title: 'English content',
-    dataIndex: 'enContent',
+    dataIndex: 'contentEnglish',
   },
   {
     title: 'Updated Date',
@@ -38,7 +38,7 @@ const columns = [
     title: 'Status',
     dataIndex: 'convertedStatus',
     render: (convertedStatus, record) => {
-      return (<StatusTag value={record.status} label={convertedStatus}/>);
+      return (<StatusTag value={record.configStatus} label={convertedStatus}/>);
     }
   },
 ];
@@ -59,7 +59,7 @@ export default function NotificationsManagementTable() {
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      AdminNotificationsService.getNotifications(params, successCallback, failureCallback)
+      AdminNotificationsService.getNotifications({}, successCallback, failureCallback)
     },
     successCallback: (response) => {
       ref.current.items = response.items;

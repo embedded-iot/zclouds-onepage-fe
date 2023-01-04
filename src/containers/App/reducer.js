@@ -17,6 +17,7 @@ export const initialState = {
   isAdmin: false,
   currentUser: {},
   products: [],
+  systemConfigs: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */

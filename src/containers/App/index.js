@@ -55,6 +55,7 @@ import SellerStoreDetailPage from 'containers/Seller/StoreDetailPage/Loadable';
 import SellerWalletPage from 'containers/Seller/WalletPage/Loadable';
 import SellerMyAccountPage from 'containers/Seller/MyAccountPage/Loadable';
 import SellerIntegrationsTokenPage from 'containers/Seller/IntegrationsTokenPage/Loadable';
+import SellerNotificationsPage from 'containers/Seller/NotificationsPage/Loadable';
 
 
 import AdminHomePage from 'containers/Admin/HomePage/Loadable';
@@ -81,7 +82,7 @@ import AdminNotificationsPage from 'containers/Admin/NotificationsPage/Loadable'
 
 import { ADMIN_ROLES, DATETIME_FORMAT, ROUTERS, WEBSITE_NAME } from 'components/contants';
 
-import { UserService } from 'services';
+import { AdminNotificationsService, SellerNotificationsService, SellerSystemService, UserService } from 'services';
 
 
 import './style.scss';
@@ -149,6 +150,7 @@ const AppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsTokenPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_WALLET} component={SellerWalletPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_MY_ACCOUNT} component={SellerMyAccountPage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.NOTIFICATIONS} component={SellerNotificationsPage} isAuthenticated={props.isLogin}/>
   </Switch>
 )
 
@@ -189,6 +191,7 @@ const HelmetMeta = (props) => (
 
 const App = (props) => {
   const [isLoadedCheckLogin, setIsLoadedCheckLogin] = useState(false);
+  const [notificationsCount, setNotificationsCount] = useState(0);
   // const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   // const backdropPosition = isMobile ? 40 : 23;
   const redirectTo = path => {
@@ -221,6 +224,41 @@ const App = (props) => {
       setIsLoadedCheckLogin(true);
     })
   }
+
+  const getNewNotifications = (isAdminMode) => {
+    if (isAdminMode) {
+      AdminNotificationsService.getNotifications({}, response => {
+        setNotificationsCount(AdminNotificationsService.getActivatedNotifications(response.items).length)
+      }, () => {})
+    } else {
+      SellerNotificationsService.getNotifications({}, response => {
+        setNotificationsCount(SellerNotificationsService.getActivatedNotifications(response.items).length)
+      }, () => {})
+    }
+  }
+
+  const getSystemConfigs = () => {
+    SellerSystemService.getSystemConfigs({}, response => {
+      props.setGlobalStore({
+        systemConfigs: SellerSystemService.getActivatedSystemConfigs(response.items),
+      });
+    }, () => {})
+  }
+
+  useEffect(() => {
+    let notificationInterval = null;
+    if (props.isLogin) {
+      getNewNotifications(props.isAdminMode);
+      getSystemConfigs();
+      notificationInterval = setInterval(() => {
+        getNewNotifications(props.isAdminMode);
+      }, 60000);
+    }
+    return () => {
+      notificationInterval && clearInterval(notificationInterval);
+    }
+    // eslint-disable-next-line
+  }, [props.isLogin]);
 
   useEffect(() => {
     restoreLoginPreviousSection();
@@ -259,6 +297,7 @@ const App = (props) => {
                     currentUser={props.currentUser}
                     redirectTo={redirectTo}
                     signOut={signOut}
+                    notificationsCount={notificationsCount}
             />
           )}
           sider={<AdminSider selectedRouters={selectedRouters} redirectTo={redirectTo}/> }
@@ -298,9 +337,10 @@ const App = (props) => {
                       currentUser={props.currentUser}
                       redirectTo={redirectTo}
                       signOut={signOut}
+                      notificationsCount={notificationsCount}
               />
             )}
-            sider={<SellerSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore}/>}
+            sider={<SellerSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore} systemConfigs={props.systemConfigs}/>}
             content={<AppContent isLogin={props.isLogin}/>}
             footer={<SellerFooter />}
             router={props.router}
@@ -315,13 +355,14 @@ const App = (props) => {
 }
 
 function mapStateToProps(state) {
-  const { isAdminMode, isLogin, isAdmin, currentUser, products } = state.global;
+  const { isAdminMode, isLogin, isAdmin, currentUser, products, systemConfigs } = state.global;
   return {
     isAdminMode,
     isLogin,
     isAdmin,
     currentUser,
     products,
+    systemConfigs,
     router: state.router,
   }
 }

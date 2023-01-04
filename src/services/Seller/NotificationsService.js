@@ -1,5 +1,5 @@
-import { getAdminBaseURL } from 'services/BaseService';
-import { datetime, makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
+import { getSellerBaseURL } from 'services/BaseService';
+import { datetime, makeGetWithConfigs } from 'utils';
 import { DATE_FORMAT, STATE_LABELS, STATE_VALUES } from 'components/contants';
 
 const transformNotification = item => {
@@ -15,7 +15,7 @@ function getNotifications(params, successCallback, failureCallback) {
   const config = {
     params
   };
-  const url = getAdminBaseURL() + '/notification';
+  const url = getSellerBaseURL() + '/system/notification';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     const items = response ? response.map(transformNotification) : []
     return {
@@ -27,35 +27,11 @@ function getNotifications(params, successCallback, failureCallback) {
   });
 }
 
-function createNotification(data, successCallback, failureCallback) {
-  const config = {
-    data
-  };
-  const url = getAdminBaseURL() + '/notification';
-  makePostWithConfigs(url, config, successCallback, failureCallback);
-}
-
-function updateNotification(id, data, successCallback, failureCallback) {
-  const config = {
-    data
-  };
-  const url = getAdminBaseURL() + '/notification/' + id;
-  makePutWithConfigs(url, config, successCallback, failureCallback);
-}
-
-function deleteNotification(id, successCallback, failureCallback) {
-  const url = getAdminBaseURL() + '/notification/' + id;
-  makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
-}
-
 function getActivatedNotifications(notifications) {
   return notifications.filter(notice => notice.configStatus === STATE_VALUES.IS_ACTIVE);
 }
 
 export {
   getNotifications,
-  createNotification,
-  updateNotification,
-  deleteNotification,
   getActivatedNotifications,
 }

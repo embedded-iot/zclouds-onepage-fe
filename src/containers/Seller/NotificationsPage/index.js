@@ -4,7 +4,7 @@ import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import NotificationsList from 'components/Admin/NotificationsList';
+import NotificationsList from 'components/Seller/NotificationsList';
 import PageHeader from 'components/Share/PageHeader';
 
 

@@ -9,7 +9,7 @@ import systemNotificationIcon from 'images/bell_gray_icon.svg';
 import Icon from 'components/Common/Icon';
 import './style.scss';
 
-export default function UserInfo({ isLogin = false, isAdmin = false, currentUser = {}, redirectTo = () => {}, signOut = () => {}}) {
+export default function UserInfo({ notificationsCount = 0, isAdmin = false, currentUser = {}, redirectTo = () => {}, signOut = () => {}}) {
   const handleMenuClick = (e) => {
     switch (e.key) {
       case ROUTERS.LOGOUT:
@@ -37,7 +37,7 @@ export default function UserInfo({ isLogin = false, isAdmin = false, currentUser
   return (
     <div className="user-info__wrapper">
       <span className="cursor-pointer" onClick={() => redirectTo(ROUTERS.NOTIFICATIONS)}>
-        <Badge count={5}>
+        <Badge count={notificationsCount}>
           <Icon src={systemNotificationIcon}/>
         </Badge>
       </span>

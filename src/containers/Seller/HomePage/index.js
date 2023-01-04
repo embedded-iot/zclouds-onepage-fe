@@ -6,17 +6,19 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import DashboardBox from 'components/Seller/DashboardBox';
+import NotificationsList from 'components/Seller/NotificationsList';
 
 function HomePage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Trang chủ</title>
+        <title>Dashboard</title>
       </Helmet>
       <PageHeader
         title={`Dashboard`}
       />
       <div className="page-contents">
+        <NotificationsList isExplain={false} redirectTo={props.push}/>
         <DashboardBox />
       </div>
     </div>

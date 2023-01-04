@@ -18,7 +18,7 @@ function WalletPage(props) {
         currentBreadcrumb="Wallet"
       />
       <div className="page-contents">
-        <WalletsTable />
+        <WalletsTable systemConfigs={props.systemConfigs}/>
       </div>
     </div>
   );
@@ -28,6 +28,7 @@ function mapStateToProps(state) {
   return {
     router: state.router,
     currentUser: state.global.currentUser || {},
+    systemConfigs: state.global.systemConfigs || [],
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { BaseService, SellerOrdersService, SellerStoresService } from 'services';
-import { cui, events } from 'utils';
+import { cui, download, events } from 'utils';
 import { Button, notification, Tag } from 'antd';
 import {
   EditOutlined,
@@ -184,10 +184,8 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
 
   const exportOrders = () => {
     const params = selectedKeys.length ? { listOrderId: [...selectedKeys].join(',') } : { ...ref.current.params, }
-    SellerOrdersService.exportOrders(params, redirectLink => {
-      if (!!redirectLink) {
-        window.location.href = redirectLink;
-      }
+    SellerOrdersService.exportOrders(params, response => {
+      response && download(response.url);
       notification.success({
         message: "Export orders successful!",
       });

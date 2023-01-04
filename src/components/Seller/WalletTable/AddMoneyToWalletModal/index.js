@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import Icon from 'components/Common/Icon';
 import creditIcon from 'images/credit_card_black_icon.svg'
-import { SellerBanksService } from 'services';
+import { SellerBanksService, SellerSystemService } from 'services';
 
 import './style.scss';
 import TabsBox from 'components/Common/TabsBox';
 import { Col, Row } from 'antd';
-import { cui } from 'utils';
+import { cui, format } from 'utils';
+import { SYSTEM_CONFIG_VALUE } from 'components/contants';
 
-export default function AddMoneyToWalletModal({ open, onCancel }) {
+export default function AddMoneyToWalletModal({ open, systemConfigs = [], onCancel }) {
   const [walletMethodsItems, setWalletMethodsItems] = useState([]);
   useEffect(() => {
     SellerBanksService.getBanksInfo(response => {
@@ -36,6 +37,12 @@ export default function AddMoneyToWalletModal({ open, onCancel }) {
     )
   }))
 
+  const minTopUp = +(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.MIN_TOP_UP) || '0');
+  const rate = +(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.RATE) || '0');
+  const convertedMinTopUp = format.formatCurrency(minTopUp);
+  const convertedRate = format.formatCurrency(rate, 'VND');
+  const minVNDTopUp = minTopUp * rate;
+  const convertedVNDMinTopUp = format.formatCurrency(minVNDTopUp, 'VND');
   return (
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                open={open}
@@ -45,7 +52,11 @@ export default function AddMoneyToWalletModal({ open, onCancel }) {
                width={884}
     >
       <>
-        <div className="add-money-to-wallet__min-top-up margin-button-16">Min top up: <span className="add-money-to-wallet__currency">$13,498.14</span> (Rate: 25.000 ₫) ⟺ <span className="add-money-to-wallet__currency">337.453.500 ₫</span></div>
+        <div className="add-money-to-wallet__min-top-up margin-button-16">
+          { !!minTopUp && <span>Min top up: <span className="add-money-to-wallet__currency">{convertedMinTopUp}</span></span> }
+          { !!rate && <span>{` (Rate: ${convertedRate}`})</span>}
+          { !!minVNDTopUp && <span> ⟺ <span className="add-money-to-wallet__currency">{convertedVNDMinTopUp}</span></span>}
+          </div>
         { !!items.length && <TabsBox items={items} /> }
       </>
     </ModalView>

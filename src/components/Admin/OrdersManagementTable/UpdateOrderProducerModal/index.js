@@ -7,18 +7,18 @@ import { cui } from 'utils';
 
 export default function UpdateOrderProducerModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({
+    producerId: data.producerId,
+  });
   let ref = useRef({});
   const [producersInput, setProducersInput] = useState({
-    value: '',
+    value: "",
     options: [],
   });
   const handleOk = (values) => {
     const { producerId } = filters;
-    const { description = '' } = values;
     const orderProducerData = {
       producerId,
-      description,
     }
     AdminOrdersService.updateOrderProducer(data.id, orderProducerData, response => {
       notification.success({
@@ -88,7 +88,7 @@ export default function UpdateOrderProducerModal({ open, data, onOk, onCancel })
     >
       <OrderProducerForm
         form={form}
-        initialValues={data}
+        initialValues={data.producer}
         producersInput={producersInput}
         omAutoCompleteInputChange={handleAutoCompleteInputChange}
         onAutoCompleteInputSelect={handleAutoCompleteInputSelect}

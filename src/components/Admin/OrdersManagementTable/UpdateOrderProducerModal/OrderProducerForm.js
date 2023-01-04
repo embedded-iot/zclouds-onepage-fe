@@ -2,15 +2,19 @@ import React from 'react';
 import { Form } from 'antd';
 
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
-import InputText from 'components/Common/InputText';
 
 export default function OrderProducerForm({ form, filters, producersInput, onAutoCompleteInputChange, onAutoCompleteInputSelect, initialValues, ...restProps }) {
+  const producerInput = initialValues ? initialValues.producerName : ''
   return (
     <Form
       name="basic"
       form={form}
       autoComplete="off"
       layout="vertical"
+      initialValues={{
+        ...initialValues,
+        producerInput,
+      }}
       {...restProps}
     >
       <Form.Item
@@ -33,19 +37,13 @@ export default function OrderProducerForm({ form, filters, producersInput, onAut
         ]}
       >
         <AutoCompleteInput name="producerId"
-                           value={producersInput.value}
+                           value={producerInput}
                            onChange={onAutoCompleteInputChange}
                            onSelect={onAutoCompleteInputSelect}
                            placeholder={"All Producers"}
                            options={producersInput.options}
                            autoFilterOptions={false}
         />
-      </Form.Item>
-      <Form.Item
-        label="Description"
-        name="description"
-        >
-        <InputText placeholder="Description" />
       </Form.Item>
     </Form>
   )

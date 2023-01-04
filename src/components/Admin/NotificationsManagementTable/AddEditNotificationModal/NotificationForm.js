@@ -14,7 +14,7 @@ export default function NotificationForm({ form, initialValues, ...restProps }) 
       autoComplete="off"
       initialValues={{
         ...initialValues,
-        status: !!initialValues && !!initialValues.status ? initialValues.status : '',
+        configStatus: !!initialValues && !!initialValues.configStatus ? initialValues.configStatus : '',
       }}
       layout="vertical"
       {...restProps}
@@ -34,7 +34,7 @@ export default function NotificationForm({ form, initialValues, ...restProps }) 
       </Form.Item>
       <Form.Item
         label="Vietnamese content"
-        name="vnContent"
+        name="contentVietnamese"
         rules={[
           {
             required: true,
@@ -49,7 +49,7 @@ export default function NotificationForm({ form, initialValues, ...restProps }) 
       </Form.Item>
       <Form.Item
         label="English content"
-        name="enContent"
+        name="contentEnglish"
         rules={[
           {
             required: true,
@@ -64,7 +64,7 @@ export default function NotificationForm({ form, initialValues, ...restProps }) 
       </Form.Item>
       <Form.Item
         label="Status"
-        name="status"
+        name="configStatus"
         rules={[
           {
             required: true,

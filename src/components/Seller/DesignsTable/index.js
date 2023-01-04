@@ -119,7 +119,7 @@ export default function DesignsTable({ successCallback = () => {} }) {
       notification.success({
         message: "Download design successful!",
       });
-      download(response.url);
+      response && download(response.url);
     }, error => {
       notification.error({
         message: BaseService.getErrorMessage(error, "Download design failure!"),

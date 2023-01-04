@@ -5,7 +5,7 @@ import {
   AdminStoresService,
   BaseService,
 } from 'services';
-import { cui, events } from 'utils';
+import { cui, download, events } from 'utils';
 import { Button, notification, Tag } from 'antd';
 import {
   EditOutlined,
@@ -110,6 +110,18 @@ const columns = [
         <span>Tracking Num: {!!orderTracking ? <a href={`https://t.17track.net/en#nums=${orderTracking.trackingNumber}`} target='_blank' rel='noreferrer'>{record.convertedTrackingNum}</a> : record.convertedTrackingNum}</span>
       </div>
     )
+  },
+  {
+    title: 'Producer',
+    dataIndex: 'producer',
+    render: (producer) => producer ? (
+      <div>
+        <span>Name: {producer.producerName}</span><br/>
+        <span>Email: {producer.producerEmail}</span><br/>
+        <span>Phone: {producer.producerNumber}</span><br/>
+        <span>Website: <a href={producer.producerWebsite} target='_blank' rel='noreferrer'>{producer.producerWebsite}</a></span><br/>
+      </div>
+    ) : ''
   },
   {
     title: 'Status',
@@ -224,10 +236,8 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
 
   const exportOrders = () => {
     const params = selectedKeys.length ? { listOrderId: [...selectedKeys].join(',') } : { ...ref.current.params, }
-    AdminOrdersService.exportOrders(params, redirectLink => {
-      if (!!redirectLink) {
-        window.location.href = redirectLink;
-      }
+    AdminOrdersService.exportOrders(params, response => {
+      response && download(response.url);
       notification.success({
         message: "Export orders successful!",
       });

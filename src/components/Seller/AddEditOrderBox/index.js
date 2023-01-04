@@ -176,7 +176,7 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
       notification.success({
         message: "Download design successful!",
       });
-      download(response.url);
+      response && download(response.url);
     }, error => {
       notification.error({
         message: BaseService.getErrorMessage(error, "Download design failure!"),

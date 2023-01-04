@@ -1,24 +1,22 @@
 import React from 'react';
 import Sider, { getItem } from 'components/Common/Sider';
-import { ROUTERS, STORE_TYPE_LABELS, STORE_TYPE_VALUES } from 'components/contants';
+import { ROUTERS, STORE_TYPE_LABELS, STORE_TYPE_VALUES, SYSTEM_CONFIG_VALUE } from 'components/contants';
 import Icon from 'components/Common/Icon';
 import dashboardIcon from 'images/darhboard-icon.png';
 import ordersIcon from 'images/orders-icon.png';
 import designsLibraryIcon from 'images/designs-library-icon.png';
-// import designsSkuIcon from 'images/designs-sku-icon.png';
-// import designFromOrderIcon from 'images/designs-from-order-icon.png';
 import myAccountIcon from 'images/my-account-icon.png';
 import storesIcon from 'images/stores-icon.png';
 import walletIcon from 'images/wallet-icon.png';
 import integrationsIcon from 'images/intergrations-icon.png';
 import productCategoryIcon from 'images/product-category-icon.png';
-import ticketsIcon from 'images/tickets-icon.png';
 import chatWithMeIcon from 'images/chat-with-me-icon.png';
 import createrCommunityIcon from 'images/creater-community-icon.png';
+import { SellerSystemService } from 'services';
 
 import "./style.scss";
 
-export default function UserSider({ selectedRouters = [], redirectTo = () => {}, setGlobalStore = () => {} }) {
+export default function UserSider({ selectedRouters = [], redirectTo = () => {}, systemConfigs = []}) {
   const items = [
     getItem('DASHBOARD', ROUTERS.ROOT, <Icon src={dashboardIcon} />),
     getItem('Functions', 'functions', undefined, [
@@ -35,7 +33,6 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
     ]),
     getItem('Help', 'help', undefined, [
       getItem('Product category', ROUTERS.SELLER_PRODUCT_CATEGORY, <Icon src={productCategoryIcon} />),
-      getItem( 'Tickets', ROUTERS.SELLER_TICKETS, <Icon src={ticketsIcon} />),
       getItem('Chat with me', ROUTERS.SELLER_CHAT_WITH_ME, <Icon src={chatWithMeIcon} />),
       getItem('Creator community', ROUTERS.SELLER_CREATOR_COMMUNITY, <Icon src={createrCommunityIcon} />),
     ]),
@@ -45,10 +42,10 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
   const onClick = (e) => {
     switch (e.key) {
       case ROUTERS.SELLER_CHAT_WITH_ME:
-        window.open('https://www.facebook.com/FanpageLike68/?ref=website', '_blank');
+        window.open(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.CHAT_WITH_ME), '_blank');
         break;
       case ROUTERS.SELLER_CREATOR_COMMUNITY:
-        window.open('https://www.facebook.com/mr.QuocDoan','_blank');
+        window.open(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.CREATOR_COMMUNITY),'_blank');
         break;
       default:
         redirectTo(e.key);
