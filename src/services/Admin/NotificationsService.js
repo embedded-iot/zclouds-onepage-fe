@@ -17,7 +17,7 @@ function getNotifications(params, successCallback, failureCallback) {
   };
   const url = getAdminBaseURL() + '/notification';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
-    const items = response ? response.map(transformNotification) : []
+    const items = response ? response.content.map(transformNotification) : []
     return {
       items: items,
       totalCount: response.totalElement,

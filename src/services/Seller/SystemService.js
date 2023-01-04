@@ -1,4 +1,4 @@
-import { getSellerBaseURL } from 'services/BaseService';
+import { getFrontUserBaseURL } from 'services/BaseService';
 import { makeGetWithConfigs } from 'utils';
 import { STATE_VALUES } from 'components/contants';
 
@@ -6,7 +6,7 @@ function getSystemConfigs(params, successCallback, failureCallback) {
   const config = {
     params
   };
-  const url = getSellerBaseURL() + '/system/config';
+  const url = getFrontUserBaseURL() + '/system/config';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     return {
       items: response,

@@ -1,4 +1,4 @@
-import { getSellerBaseURL } from 'services/BaseService';
+import { getFrontUserBaseURL } from 'services/BaseService';
 import { datetime, makeGetWithConfigs } from 'utils';
 import { DATE_FORMAT, STATE_LABELS, STATE_VALUES } from 'components/contants';
 
@@ -15,9 +15,9 @@ function getNotifications(params, successCallback, failureCallback) {
   const config = {
     params
   };
-  const url = getSellerBaseURL() + '/system/notification';
+  const url = getFrontUserBaseURL() + '/system/notification';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
-    const items = response ? response.map(transformNotification) : []
+    const items = response ? response.content.map(transformNotification) : []
     return {
       items: items,
       totalCount: response.totalElement,
