@@ -24,10 +24,6 @@ const columns = [
     dataIndex: 'type',
   },
   {
-    title: 'Owner',
-    dataIndex: 'owner',
-  },
-  {
     title: 'Mockup',
     dataIndex: 'mockupFeatureImage',
     render: (mockupFeatureImage, record) => <img className="table-img__icon table-img__icon--circle" src={mockupFeatureImage} alt={record.name} />,
