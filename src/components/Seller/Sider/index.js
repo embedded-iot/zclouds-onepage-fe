@@ -1,5 +1,5 @@
 import React from 'react';
-import Sider, { getItem } from 'components/Common/Sider';
+import Sider, { checkRouterMatch, getItem } from 'components/Common/Sider';
 import { ROUTERS, STORE_TYPE_LABELS, STORE_TYPE_VALUES, SYSTEM_CONFIG_VALUE } from 'components/contants';
 import Icon from 'components/Common/Icon';
 import dashboardIcon from 'images/darhboard-icon.png';
@@ -17,8 +17,9 @@ import { SellerSystemService } from 'services';
 import "./style.scss";
 
 export default function UserSider({ selectedRouters = [], redirectTo = () => {}, systemConfigs = []}) {
+  const checkRouterMatchFn = (path) => checkRouterMatch(path, selectedRouters[0]);
   const items = [
-    getItem('DASHBOARD', ROUTERS.ROOT, <Icon src={dashboardIcon} />),
+    getItem('DASHBOARD', ROUTERS.ROOT, <Icon src={dashboardIcon} activeSrc={dashboardIcon} active={checkRouterMatchFn(ROUTERS.ROOT)} />),
     getItem('Functions', 'functions', undefined, [
       getItem('Orders', ROUTERS.SELLER_ORDERS, <Icon src={ordersIcon} />),
       getItem( 'Designs library', ROUTERS.SELLER_DESIGN_LIBRARY, <Icon src={designsLibraryIcon} />),
