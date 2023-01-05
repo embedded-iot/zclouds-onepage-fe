@@ -7,25 +7,13 @@ import Icon from 'components/Common/Icon';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import { PERIOD_STATE_LABEL_VALUE_OPTIONS } from 'components/contants';
+import TopSellingProductsBox from 'components/Seller/TopSellingProductsTable/TopSellingProductsBox';
 
-const columns = [
-  {
-    title: 'Product name',
-    dataIndex: 'productName',
-  },
-  {
-    title: 'Orders',
-    dataIndex: 'orders',
-  },
-  {
-    title: 'Unit sales',
-    dataIndex: 'unitSales',
-  },
-  {
-    title: 'Fulfillment cost',
-    dataIndex: 'convertedCost',
-  },
-];
+const renderOrdersOverviewBody = ({ dataSource = [] }) => {
+  return (
+    <TopSellingProductsBox products={dataSource} />
+  )
+}
 
 export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP_SELLING_PRODUCTS_TABLE_EVENT_KEY' }) {
   const [filters, setFilters] = useState({});
@@ -35,7 +23,7 @@ export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP
   });
   let ref = useRef({});
   const tableConfig = {
-    columns,
+    customBodyTemplate: renderOrdersOverviewBody,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, type, ...restParams} = params || {};
       SellerStatisticsService.getTopsellingProducts(cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
@@ -147,11 +135,12 @@ export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP
         <span className="dashboard-box__title">Top Selling Products</span>
       </div>
       <TableGrid configs={tableConfig}
+                 type="custom"
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
                  defaultParams={{}}
                  defaultData={{}}
-                 isShowPagination={true}
+                 isShowPagination={false}
                  isAllowSelection={false}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
                  className="dashboard-box__table"

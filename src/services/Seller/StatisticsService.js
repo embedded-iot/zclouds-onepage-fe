@@ -4,17 +4,19 @@ import { getAdminBaseURL } from '../BaseService';
 const transformTopSellingProducts = item => {
   return {
     ...item,
-    convertedCost: !!item.cost ? format.formatCurrency(item.cost) : 0,
+    convertedCost: !!item.totalAmount ? format.formatCurrency(item.totalAmount) : 0,
   }
 }
 
 const items = [];
 for (let i = 0; i < 10; i++) {
   items.push(transformTopSellingProducts({
-    productName: "Prodcut " + i,
-    orders: "SKU12121", 
-    unitSales: 100,
-    cost: 21212
+    id: i,
+    avatar: "https://fulfill.zclouds.vn/uploads/b59bf9da-8d35-4104-84f7-69525f786b00.jpg",
+    name: "Product " + i,
+    sku: "SKU12121",
+    ordersCount: 100,
+    totalAmount: 21212
   }))
 }
 
