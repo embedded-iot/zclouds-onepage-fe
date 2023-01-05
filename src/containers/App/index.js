@@ -80,7 +80,7 @@ import AdminNotificationsManagementPage from 'containers/Admin/NotificationsMana
 import AdminNotificationsPage from 'containers/Admin/NotificationsPage/Loadable';
 
 
-import { ADMIN_ROLES, DATETIME_FORMAT, ROUTERS, WEBSITE_NAME } from 'components/contants';
+import { ADMIN_ROLES, DATETIME_FORMAT, ROUTERS, STATE_VALUES, WEBSITE_NAME } from 'components/contants';
 
 import { AdminNotificationsService, SellerNotificationsService, SellerSystemService, UserService } from 'services';
 
@@ -227,12 +227,12 @@ const App = (props) => {
 
   const getNewNotifications = (isAdminMode) => {
     if (isAdminMode) {
-      AdminNotificationsService.getNotifications({ pageNum: 1, pageSize: 100 }, response => {
-        setNotificationsCount(AdminNotificationsService.getActivatedNotifications(response.items).length)
+      AdminNotificationsService.getNotifications({ pageNum: 1, pageSize: 100, status: STATE_VALUES.IS_ACTIVE }, response => {
+        setNotificationsCount(response.items.length)
       }, () => {})
     } else {
-      SellerNotificationsService.getNotifications({ pageNum: 1, pageSize: 100 }, response => {
-        setNotificationsCount(SellerNotificationsService.getActivatedNotifications(response.items).length)
+      SellerNotificationsService.getNotifications({ pageNum: 1, pageSize: 100, status: STATE_VALUES.IS_ACTIVE }, response => {
+        setNotificationsCount(response.items.length)
       }, () => {})
     }
   }

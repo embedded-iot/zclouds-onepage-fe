@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminNotificationsService } from 'services';
-import { events } from 'utils';
+import { cui, events } from 'utils';
 import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import AddEditNotificationModal from './AddEditNotificationModal';
@@ -9,6 +9,9 @@ import DeleteNotificationModal from './DeleteNotificationModal';
 import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
 import PlainText from 'components/Common/PlainText';
+import ReactHtmlParser from 'react-html-parser';
+import { NOTIFICATION_STATE_LABEL_VALUE_OPTIONS } from 'components/contants';
+import DropdownSelect from 'components/Common/DropdownSelect';
 
 const columns = [
   {
@@ -27,14 +30,14 @@ const columns = [
     title: 'Vietnamese content',
     dataIndex: 'contentVietnamese',
     render: (content) => {
-      return <PlainText type="TextArea">{content}</PlainText>
+      return <PlainText type="TextArea">{ReactHtmlParser(content)}</PlainText>
     }
   },
   {
     title: 'English content',
     dataIndex: 'contentEnglish',
     render: (content) => {
-      return <PlainText type="TextArea">{content}</PlainText>
+      return <PlainText type="TextArea">{ReactHtmlParser(content)}</PlainText>
     }
   },
   {
@@ -66,7 +69,7 @@ export default function NotificationsManagementTable() {
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      AdminNotificationsService.getNotifications(params, successCallback, failureCallback)
+      AdminNotificationsService.getNotifications(cui.removeEmpty(params), successCallback, failureCallback)
     },
     successCallback: (response) => {
       ref.current.items = response.items;
@@ -101,6 +104,15 @@ export default function NotificationsManagementTable() {
     setSelectedNotification(newSelectedNotification);
   }
 
+  const notificationsOptions = NOTIFICATION_STATE_LABEL_VALUE_OPTIONS ;
+  notificationsOptions[0].label = 'All Status';
+
+  const handleFilterChange = (value, name) => {
+    reloadTable({
+      [name] : value
+    });
+  }
+
   const headerActionsConfig = {
     buttonList: [
       {
@@ -113,8 +125,27 @@ export default function NotificationsManagementTable() {
         requiredSelection: true,
       },
       {
+        type: 'searchText',
+        requiredSelection: false,
+        props: {
+          placeholder: 'Search by id, name...',
+        }
+      },
+      {
         type: 'custom',
-        render: <div></div>,
+        requiredSelection: false,
+        render: (
+          <DropdownSelect
+            name="status"
+            options={notificationsOptions}
+            defaultValue={''}
+            onChange={handleFilterChange}
+            style={{ width: 200}}
+          />
+        )
+      },
+      {
+        type: 'searchButton',
         requiredSelection: false,
       },
       {

@@ -1,6 +1,6 @@
 import { getFrontUserBaseURL } from 'services/BaseService';
 import { datetime, makeGetWithConfigs } from 'utils';
-import { DATE_FORMAT, STATE_LABELS, STATE_VALUES } from 'components/contants';
+import { DATE_FORMAT, STATE_LABELS } from 'components/contants';
 
 const transformNotification = item => {
   return {
@@ -27,11 +27,6 @@ function getNotifications(params, successCallback, failureCallback) {
   });
 }
 
-function getActivatedNotifications(notifications) {
-  return notifications.filter(notice => notice.configStatus === STATE_VALUES.IS_ACTIVE);
-}
-
 export {
   getNotifications,
-  getActivatedNotifications,
 }

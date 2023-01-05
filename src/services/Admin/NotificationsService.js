@@ -1,6 +1,6 @@
 import { getAdminBaseURL } from 'services/BaseService';
 import { datetime, makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
-import { DATE_FORMAT, STATE_LABELS, STATE_VALUES } from 'components/contants';
+import { DATE_FORMAT, STATE_LABELS } from 'components/contants';
 
 const transformNotification = item => {
   return {
@@ -48,14 +48,9 @@ function deleteNotification(id, successCallback, failureCallback) {
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
-function getActivatedNotifications(notifications) {
-  return notifications.filter(notice => notice.configStatus === STATE_VALUES.IS_ACTIVE);
-}
-
 export {
   getNotifications,
   createNotification,
   updateNotification,
   deleteNotification,
-  getActivatedNotifications,
 }

@@ -152,14 +152,14 @@ export default function ProductsManagementTable({ redirectTo }) {
     buttonList: [
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.EDIT_PRODUCT} icon={<EditOutlined />} onClick={() => addEditProduct(true)}>Edit product</Button>,
+        render: <Button key={ACTION_KEYS.DELETE_PRODUCT} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteProduct}>{`Delete product${selectedProductKeys.length > 1 ? 's' : ''}`}</Button>,
         requiredSelection: true,
-        permission: selectedProductKeys.length === 1
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.DELETE_PRODUCT} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteProduct}>{`Delete product${selectedProductKeys.length > 1 ? 's' : ''}`}</Button>,
+        render: <Button key={ACTION_KEYS.EDIT_PRODUCT} icon={<EditOutlined />} onClick={() => addEditProduct(true)}>Edit product</Button>,
         requiredSelection: true,
+        permission: selectedProductKeys.length === 1
       },
       {
         type: 'searchText',
