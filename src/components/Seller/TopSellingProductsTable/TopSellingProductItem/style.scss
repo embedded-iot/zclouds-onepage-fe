@@ -1,16 +1,14 @@
 .top-selling-product-item {
     &__wrapper {
-      cursor: pointer;
-      border: none;
       background: transparent;
-      cursor: pointer;
       display: flex;
       flex-flow: column;
       height: 100%;
+      padding: 12px;
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      border: 1px solid #cccccc;
       .ant-card-cover {
-        box-shadow: 0px 4px 4px rgb(29 41 106 / 25%);
-        border-radius: 16px;
-        background: #F6F6F8;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -24,19 +22,21 @@
       }
     }
     &__title {
+      text-align: center;
       font-weight: 600;
       color: #2C3E5D;
+      font-size: 14px;
       line-height: 22px;
     }
     &__description-1 {
-      font-size: 18px;
-      color: #22A06B;
+      text-align: center;
+      font-size: 14px;
+      color: #626F86;
       line-height: 26px;
     }
     &__description-2 {
-      color: #B3B9C4;
-      min-height: 25px;
+      text-align: center;
+      color: #22A06B;
       line-height: 25px;
     }
   }
-  

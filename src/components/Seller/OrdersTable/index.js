@@ -93,7 +93,7 @@ const columns = [
     render: (orderTracking, record) => (
       <div>
         <span>Carrier: {record.convertedCarrier}</span>
-        { !!orderTracking && !!record.convertedShippingStatus && <Tag>{record.convertedShippingStatus}</Tag> }
+        { !!orderTracking && !!record.convertedShippingStatus && <Tag style={{marginLeft: 10}}>{record.convertedShippingStatus}</Tag> }
         <br/>
         <span>Tracking Num: {!!orderTracking ? <a href={`https://t.17track.net/en#nums=${orderTracking.trackingNumber}`} target='_blank' rel='noreferrer'>{record.convertedTrackingNum}</a> : record.convertedTrackingNum}</span>
       </div>
