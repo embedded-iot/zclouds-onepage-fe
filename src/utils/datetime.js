@@ -6,6 +6,13 @@ function convert(datetime, formatStr) {
   return moment(datetime).format(formatStr);
 }
 
+function getPreviousDay(date = new Date(), count = 1) {
+  const previous = new Date(date.getTime());
+  previous.setDate(date.getDate() - count);
+  return previous;
+}
+
 export {
-  convert
+  convert,
+  getPreviousDay,
 }

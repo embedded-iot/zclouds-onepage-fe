@@ -227,11 +227,11 @@ const App = (props) => {
 
   const getNewNotifications = (isAdminMode) => {
     if (isAdminMode) {
-      AdminNotificationsService.getNotifications({}, response => {
+      AdminNotificationsService.getNotifications({ pageNum: 1, pageSize: 100 }, response => {
         setNotificationsCount(AdminNotificationsService.getActivatedNotifications(response.items).length)
       }, () => {})
     } else {
-      SellerNotificationsService.getNotifications({}, response => {
+      SellerNotificationsService.getNotifications({ pageNum: 1, pageSize: 100 }, response => {
         setNotificationsCount(SellerNotificationsService.getActivatedNotifications(response.items).length)
       }, () => {})
     }

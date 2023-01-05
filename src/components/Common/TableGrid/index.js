@@ -303,7 +303,7 @@ export default function TableGrid({
         )
       }
       {
-        type === 'custom' && !!configs.customBodyTemplate && configs.customBodyTemplate({ dataSource: items })
+        type === 'custom' && !!configs.customBodyTemplate && configs.customBodyTemplate({ params, dataSource: items })
       }
       { isShowPagination && <br/>}
       {

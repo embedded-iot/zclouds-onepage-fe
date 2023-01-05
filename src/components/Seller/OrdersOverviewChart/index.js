@@ -1,64 +1,42 @@
 import React from 'react';
 import TableGrid from 'components/Common/TableGrid';
-import { SellerWalletService } from 'services';
-import { cui, events } from 'utils';
+import { SellerDashboardService } from 'services';
+import { cui } from 'utils';
 import Icon from 'components/Common/Icon';
 import circleIcon from 'images/circle-chart-green-icon.svg';
+import { Col, Row } from 'antd';
+import OrdersStatusList from './OrdersStatusList';
+import OrdersCountChart from './OrdersCountChart';
 
-
-const columns = [
-  {
-    title: 'ID/Number',
-    dataIndex: 'transactionId',
-  },
-  {
-    title: 'Description',
-    dataIndex: 'description',
-  },
-  {
-    title: 'Wallet Before ($)',
-    dataIndex: 'convertedWalletBefore',
-  },
-  {
-    title: 'Balance Before ($)',
-    dataIndex: 'convertedBalanceBefore',
-  },
-  {
-    title: 'Top up ($)',
-    dataIndex: 'convertedTopUp',
-  },
-  {
-    title: 'Wallet After ($)',
-    dataIndex: 'convertedWalletAfter',
-  },
-  {
-    title: 'Balance After ($)',
-    dataIndex: 'convertedBalanceAfter',
-  },
-  {
-    title: 'Date',
-    dataIndex: 'convertedCreatedDate',
-  },
-];
+const renderOrdersOverviewBody = ({ params = {}, dataSource = [] }) => {
+  const { ordersCounts, ordersStatus} = SellerDashboardService.transformOrdersOverviewChartData(dataSource);
+  return (
+    <Row gutter={[24, 24]}>
+      <Col span={18}>
+        <OrdersCountChart fromDate={!!params.fromDate ? new Date(params.fromDate) : undefined}
+                          toDate={!!params.toDate ? new Date(params.toDate) : undefined}
+                          data={ordersCounts}
+        />
+      </Col>
+      <Col span={6}>
+        <OrdersStatusList data={ordersStatus}/>
+      </Col>
+    </Row>
+  );
+}
 
 export default function OrdersOverviewChart({ RELOAD_EVENT_KEY = 'RELOAD_ORDERS_OVERVIEW_CHART_TABLE_EVENT_KEY', systemConfigs = [] }) {
   const tableConfig = {
-    columns,
+    customBodyTemplate: renderOrdersOverviewBody,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, type, ...restParams} = params || {};
-      SellerWalletService.getWalletHistory(cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
+      SellerDashboardService.getOrdersOverview(cui.removeEmpty({ ...restParams }), successCallback, failureCallback)
     },
     successCallback: (response) => {
     },
     failureCallback: (error) => {
-      console.log(error);
     },
   };
-
-  // eslint-disable-next-line
-  const reloadTable = (filters ={}) => {
-    events.publish(RELOAD_EVENT_KEY, filters);
-  }
 
   const headerActionsConfig = {
     buttonList: [
@@ -67,7 +45,7 @@ export default function OrdersOverviewChart({ RELOAD_EVENT_KEY = 'RELOAD_ORDERS_
         render: (
           <div className='display-flex display-flex--center-align-items'>
             <Icon src={circleIcon}/>
-            <span className="wallet-table__title">Orders overview</span>
+            <span className="dashboard-box__title">Orders overview</span>
           </div>
         )
       },
@@ -83,17 +61,16 @@ export default function OrdersOverviewChart({ RELOAD_EVENT_KEY = 'RELOAD_ORDERS_
   }
 
   return (
-    <>
-      <TableGrid configs={tableConfig}
-                 headerActionsConfig={headerActionsConfig}
-                 paginationConfig={{}}
-                 defaultParams={{}}
-                 defaultData={{}}
-                 isShowPagination={true}
-                 isAllowSelection={false}
-                 RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
-                 className="dashboard-box__table"
-      />
-    </>
+    <TableGrid configs={tableConfig}
+               type="custom"
+               headerActionsConfig={headerActionsConfig}
+               paginationConfig={{}}
+               defaultParams={{}}
+               defaultData={{}}
+               isShowPagination={true}
+               isAllowSelection={false}
+               RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
+               className="dashboard-box__table"
+    />
   );
 }

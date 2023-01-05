@@ -5,7 +5,7 @@ import NotificationsBox from 'components/Share/NotificationsBox';
 export default function NotificationsList({ isExplain = true, redirectTo = () => {}, noData = '' }) {
   const [notifications, setNotifications] = useState([]);
   const getNotifications = (params = {}) => {
-    SellerNotificationsService.getNotifications({}, response => {
+    SellerNotificationsService.getNotifications({ pageNum: 1, pageSize: 100 }, response => {
       setNotifications(SellerNotificationsService.getActivatedNotifications(response.items))
     }, () => {})
   }

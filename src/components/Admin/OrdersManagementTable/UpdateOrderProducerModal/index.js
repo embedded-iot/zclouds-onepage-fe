@@ -90,7 +90,7 @@ export default function UpdateOrderProducerModal({ open, data, onOk, onCancel })
         form={form}
         initialValues={data.producer}
         producersInput={producersInput}
-        omAutoCompleteInputChange={handleAutoCompleteInputChange}
+        onAutoCompleteInputChange={handleAutoCompleteInputChange}
         onAutoCompleteInputSelect={handleAutoCompleteInputSelect}
       />
     </ModalView>

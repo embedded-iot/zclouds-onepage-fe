@@ -8,6 +8,7 @@ import AddEditNotificationModal from './AddEditNotificationModal';
 import DeleteNotificationModal from './DeleteNotificationModal';
 import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
+import PlainText from 'components/Common/PlainText';
 
 const columns = [
   {
@@ -25,10 +26,16 @@ const columns = [
   {
     title: 'Vietnamese content',
     dataIndex: 'contentVietnamese',
+    render: (content) => {
+      return <PlainText type="TextArea">{content}</PlainText>
+    }
   },
   {
     title: 'English content',
     dataIndex: 'contentEnglish',
+    render: (content) => {
+      return <PlainText type="TextArea">{content}</PlainText>
+    }
   },
   {
     title: 'Updated Date',
@@ -59,7 +66,7 @@ export default function NotificationsManagementTable() {
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      AdminNotificationsService.getNotifications({}, successCallback, failureCallback)
+      AdminNotificationsService.getNotifications(params, successCallback, failureCallback)
     },
     successCallback: (response) => {
       ref.current.items = response.items;

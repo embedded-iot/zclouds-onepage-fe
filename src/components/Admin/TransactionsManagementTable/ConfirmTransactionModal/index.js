@@ -92,7 +92,6 @@ export default function ConfirmTransactionModal({ open, data, onOk, onCancel }) 
         form={form}
         initialValues={data}
         resellersInput={resellersInput}
-        omAutoCompleteInputChange={handleAutoCompleteInputChange}
         onAutoCompleteInputChange={handleAutoCompleteInputChange}
         onAutoCompleteInputSelect={handleAutoCompleteInputSelect}
       />

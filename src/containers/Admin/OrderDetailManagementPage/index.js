@@ -51,7 +51,7 @@ function OrderDetailManagementPage(props) {
   }, [orderId])
 
   const goOrdersPage = () => {
-    props.push(ROUTERS.ADMIN_SELLERS_MANAGEMENT);
+    props.push(ROUTERS.ADMIN_ORDERS_MANAGEMENT);
   }
   if (isEdit && !data) {
     return null;
