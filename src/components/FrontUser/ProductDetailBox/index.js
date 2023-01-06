@@ -26,7 +26,7 @@ export default function ProductDetailBox({ productId, redirectTo }) {
   }
 
   const handleAddOrder = productId => {
-    redirectTo(ROUTERS.SELLER_ORDERS + '/0/productId/' + productId );
+    redirectTo(ROUTERS.LOGIN + `?redirect=${ROUTERS.SELLER_ORDERS + '/0/productId/' + productId}`);
   }
 
   return (
