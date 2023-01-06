@@ -56,6 +56,7 @@ import SellerWalletPage from 'containers/Seller/WalletPage/Loadable';
 import SellerMyAccountPage from 'containers/Seller/MyAccountPage/Loadable';
 import SellerIntegrationsTokenPage from 'containers/Seller/IntegrationsTokenPage/Loadable';
 import SellerNotificationsPage from 'containers/Seller/NotificationsPage/Loadable';
+import SellerProductCategoriesPage from 'containers/Seller/ProductCategoriesPage/Loadable';
 
 
 import AdminHomePage from 'containers/Admin/HomePage/Loadable';
@@ -142,6 +143,7 @@ const AppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.ROOT} component={SellerHomePage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_ORDERS} component={SellerOrdersPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER} component={SellerOrderDetailPage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER_WITH_PRODUCT} component={SellerOrderDetailPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_DESIGN_LIBRARY} component={SellerDesignsPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_STORES} component={SellerStoresPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_STORE} component={SellerStoreDetailPage} isAuthenticated={props.isLogin}/>
@@ -151,6 +153,7 @@ const AppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.SELLER_WALLET} component={SellerWalletPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_MY_ACCOUNT} component={SellerMyAccountPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.NOTIFICATIONS} component={SellerNotificationsPage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_PRODUCT_CATEGORY} component={SellerProductCategoriesPage} isAuthenticated={props.isLogin}/>
   </Switch>
 )
 

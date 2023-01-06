@@ -1,5 +1,5 @@
 import { getFrontUserBaseURL, getFullPathImage } from 'services/BaseService';
-import { format, makeGetWithConfigs } from 'utils';
+import { cui, format, makeGetWithConfigs } from 'utils';
 
 import product_ex from 'images/product_ex.svg';
 
@@ -38,8 +38,11 @@ function getCategories(params, successCallback, failureCallback) {
 }
 
 const transformCategory = item => {
+  const featureImage = getFullPathImage(item.category ? item.category.featureImage : '');
   return {
     ...item.category,
+    avatar: featureImage,
+    displayOrder: item.category ? item.category.displayOrder : 0,
     categoryId: item.category.id,
     categoryName: item.category.name || 'categoryName',
     label: item.category ? item.category.name : '-',
@@ -51,7 +54,7 @@ const transformCategory = item => {
 function getCategoriesFilter(successCallback, failureCallback, isAddAll = false) {
   const url = getFrontUserBaseURL() + '/categories';
   makeGetWithConfigs(url, {}, successCallback, failureCallback, response => {
-    const categories = response.map(transformCategory);
+    const categories = cui.sortBy(response.map(transformCategory), 'displayOrder');
     const totalCount = categories.reduce((previousValue, currentValue) => previousValue + currentValue.count, 0);
     const newCategories = isAddAll ? [
       { label: 'All products', count: totalCount, value: '' },

@@ -1,13 +1,18 @@
-import { getAdminBaseURL } from 'services/BaseService';
+import { getAdminBaseURL, getFullPathImage } from 'services/BaseService';
 import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import { STATE_LABELS } from 'components/contants';
 import shirt_sku from 'images/t-shirt_sku.svg';
 
 const transformCategory = item => {
+  const convertedCategoryImages = (!!item.featureImage ? [item.featureImage] : []).map(image => ({
+    url: getFullPathImage(image),
+    existing: true,
+  }));
   return {
     ...item,
-    featureImage: item.featureImage || shirt_sku ,
+    featureImage: getFullPathImage(item.featureImage) || shirt_sku ,
     convertedState: STATE_LABELS[item.state] || item.state,
+    convertedCategoryImages
   }
 }
 
@@ -55,10 +60,26 @@ function deleteCategory(id, successCallback, failureCallback) {
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function getUploadImageUrl() {
+  return getAdminBaseURL() + '/files/images';
+}
+
+function deleteImage(path, successCallback, failureCallback) {
+  const config = {
+    params: {
+      path
+    }
+  }
+  const url = getAdminBaseURL() + '/files/images/';
+  makeDeleteWithConfigs(url, config, successCallback, failureCallback);
+}
+
 export {
   getCategories,
   createCategory,
   updateCategory,
   deleteCategory,
   getCategoriesOptions,
+  getUploadImageUrl,
+  deleteImage,
 }

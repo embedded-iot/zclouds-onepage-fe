@@ -17,10 +17,10 @@ import AddEditDesignModal from 'components/Seller/DesignsTable/AddEditDesignModa
 
 import './style.scss';
 
-export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirectTo }) {
+export default function AddEditOrderBox({ isEdit, data, product, onOk, onCancel, redirectTo }) {
   const [openAddDesign, setOpenAddDesign] = useState(false);
   // eslint-disable-next-line
-  const defaultSelectedProduct = isEdit ? { ...data.product, sku: data.orderProductSku || (!!data.product && data.product.sku ? data.product.sku : '') } : {};
+  const defaultSelectedProduct = isEdit ? { ...data.product, sku: data.orderProductSku || (!!data.product && data.product.sku ? data.product.sku : '') } : (product || {});
   const [selectedProduct, setSelectedProduct] = useState(defaultSelectedProduct);
   const [productInputValue, setProductInputValue] = useState('');
   const [productsOptions, setProductsOptions] = useState([]);
@@ -45,7 +45,9 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
         if (newProductOptions.length) {
           form.validateFields(['productSelectBox']);
         }
-        setSelectedProduct(newProductOptions.length ? newProductOptions[0] : {})
+        if (!product || !!params.keyword) {
+          setSelectedProduct(newProductOptions.length ? newProductOptions[0] : {})
+        }
       }
     }, () => {}, true)
   }

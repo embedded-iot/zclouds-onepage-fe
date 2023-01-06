@@ -19,7 +19,7 @@ export default function ProductSelectBox({ name, value, options, onChange, onSel
           <div className="product-select-box__product-list">
             {
               options.map(item => (
-                <div className={`product-select-box__product-item ${selectedProduct && selectedProduct.value === item.value && 'product-select-box__product-item--selected' }`}
+                <div className={`product-select-box__product-item ${selectedProduct && (selectedProduct.value === item.value || selectedProduct.id === item.id) && 'product-select-box__product-item--selected' }`}
                      onClick={() => onSelect(item.value, item, name)}
                      key={item.id}
                 >

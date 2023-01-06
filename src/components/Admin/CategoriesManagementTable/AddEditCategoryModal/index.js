@@ -8,8 +8,8 @@ export default function AddEditCategoryModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
   const handleOk = (values) => {
-    const { displayOrder, name, slug, state, avatarFileList } = values;
-    const featureImage = !!avatarFileList.length ? avatarFileList[0].response.url : null;
+    const { displayOrder, name, slug, state, imageFiles } = values;
+    const featureImage = !!imageFiles.length ? imageFiles[0].response.url : null;
     const categoryData = {
       displayOrder, name, slug, state, featureImage
     }
@@ -43,13 +43,14 @@ export default function AddEditCategoryModal({ open, data, onOk, onCancel }) {
                form={form}
                open={open}
                title={isEdit ? "Edit category" : "Add category"}
-               okText={isEdit ? "Save" : "Add"}
-               onOk={handleOk}
-               onCancel={onCancel}
+               footer={null}
     >
       <CategoryForm
         form={form}
+        isEdit={isEdit}
         initialValues={data}
+        onCancel={onCancel}
+        onFinish={handleOk}
       />
     </ModalView>
   )

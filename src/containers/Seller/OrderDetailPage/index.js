@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { push } from 'connected-react-router';
+import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import AddEditOrderBox from 'components/Seller/AddEditOrderBox';
-import { ROUTERS } from 'components/contants';
 import { FrontUserCategoriesService, SellerOrdersService } from 'services';
 
 function OrderDetailPage(props) {
   const [data, setData] = useState(null);
+  const [product, setProduct] = useState(null);
   const orderId = parseInt(props.match.params.orderId);
+  const productId = parseInt(props.match.params.productId);
   const isEdit = !!orderId;
   const pageTitle = isEdit ? 'Edit Order' : 'Create Order';
   const pageDescription = isEdit ? `Order ID: ${orderId}` : 'Great job, your dashboard is ready to go! Grow your business with Fulfill.';
@@ -47,13 +48,20 @@ function OrderDetailPage(props) {
     if (isEdit) {
       getOrder(orderId);
     }
+    if (productId) {
+      getProduct(productId, product => {
+        setProduct(product);
+      }, error => {
+        setProduct({})
+      });
+    }
     // eslint-disable-next-line
-  }, [orderId])
+  }, [orderId, productId])
 
   const goOrdersPage = () => {
-    props.push(ROUTERS.SELLER_ORDERS);
+    props.goBack();
   }
-  if (isEdit && !data) {
+  if ((isEdit && !data) || (!!productId && !product)) {
     return null;
   }
 
@@ -71,6 +79,7 @@ function OrderDetailPage(props) {
           id={orderId}
           isEdit={isEdit}
           data={data}
+          product={product}
           redirectTo={props.push}
           onOk={goOrdersPage}
           onCancel={goOrdersPage}
@@ -89,6 +98,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     push: path => dispatch(push(path)),
+    goBack: path => dispatch(goBack()),
   };
 }
 

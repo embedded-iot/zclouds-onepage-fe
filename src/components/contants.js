@@ -18,6 +18,7 @@ export const ROUTERS = {
   FRONT_USER_SKU: '/sku',
   SELLER_ORDERS: '/orders',
   SELLER_DETAIL_ORDER: '/orders/:orderId',
+  SELLER_DETAIL_ORDER_WITH_PRODUCT: '/orders/:orderId/productId/:productId',
   SELLER_DESIGN_LIBRARY: '/design-library',
   SELLER_MY_ACCOUNT: '/my-account',
   SELLER_STORES: '/stores',
@@ -62,6 +63,7 @@ export const DATE_FORMAT = "DD/MM/YYYY";
 export const RESPONSIVE_MEDIAS = {
   MOBILE: { query: '(max-width: 768px)' },
   TABLET: { query: '(max-width: 1124px)' },
+  EX_TABLET: { query: '(max-width: 1366px)' },
   DESKTOP: { query: '(max-width: 4096px)' },
 }
 

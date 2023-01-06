@@ -12,7 +12,7 @@ export default function OrdersCountChart({ data = [], fromDate = datetime.getPre
     categories.unshift(dateStr);
     currentDay = datetime.getPreviousDay(currentDay);
     const selectedDay = data.find(item => item.convertedOrderDate === dateStr);
-    chartData.push(!!selectedDay ? selectedDay.orderCount : 0);
+    chartData.unshift(!!selectedDay ? selectedDay.orderCount : 0);
   }
 
   const options = {

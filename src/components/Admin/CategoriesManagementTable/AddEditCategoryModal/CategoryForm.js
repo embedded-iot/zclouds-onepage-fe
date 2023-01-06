@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form, InputNumber } from 'antd';
+import React, { useState } from 'react';
+import { Button, Form, InputNumber } from 'antd';
 import UploadBox from 'components/Common/UploadBox';
 import {
   STATE_LABEL_VALUE_OPTIONS,
@@ -7,8 +7,55 @@ import {
 import DropdownSelect from 'components/Common/DropdownSelect';
 import { upload } from 'utils';
 import InputText from 'components/Common/InputText';
+import { AdminCategoriesService } from 'services';
+import ButtonListWrapper from 'components/Common/ButtonListWrapper';
+import { getShortPathImage } from 'services/BaseService';
 
-export default function CategoryForm({ form, initialValues, ...restProps }) {
+export default function CategoryForm({ form, isEdit, initialValues, onCancel, onFinish, ...restProps }) {
+  const action = AdminCategoriesService.getUploadImageUrl();
+  const [deletedImages, setDeletedImages] = useState([]);
+
+  const handleRemoveImage = (file) => {
+    setDeletedImages([
+      ...deletedImages,
+      file,
+    ])
+  }
+  const removeUnusedImagesBefore = (successCallback = () => {}, submit = false) => {
+    const { imageFiles = [] } = form.getFieldsValue();
+    const newUploadedImages = imageFiles.map(imageFile => imageFile.response).filter(image => !image.existing);
+    const newUploadedImagesInDeletedImage = deletedImages.filter(image => !image.existing);
+    const unusedImages = submit ? deletedImages : [...newUploadedImagesInDeletedImage, ...newUploadedImages];
+    if (!unusedImages.length) {
+      successCallback();
+      return;
+    }
+    const promiseUnusedImages = unusedImages.map(image => new Promise((resolve, reject) => {
+      AdminCategoriesService.deleteImage(getShortPathImage(image.url), resolve, reject);
+    }));
+    Promise.all(promiseUnusedImages).then(() => {
+      setDeletedImages([]);
+      successCallback();
+    }).catch(error => {
+      successCallback();
+    })
+  }
+
+  const handleCancel = () => {
+    removeUnusedImagesBefore(() => {
+      onCancel();
+    })
+  }
+
+  const buttonList = [
+    <Button onClick={handleCancel}>
+      Cancel
+    </Button>,
+    <Button type="primary" htmlType="submit">
+      {isEdit ? "Save" : "Add"}
+    </Button>
+  ]
+
   return (
     <Form
       name="basic"
@@ -16,8 +63,13 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
       autoComplete="off"
       initialValues={{
         state: '',
-        avatarFileList: upload.getFileListFromList(initialValues && initialValues.featureImage ? [initialValues.featureImage] : []),
+        imageFiles: upload.getFileListFromList(initialValues ? initialValues.convertedCategoryImages : []),
         ...initialValues,
+      }}
+      onFinish={(values) => {
+        removeUnusedImagesBefore(() => {
+          onFinish(values);
+        }, true)
       }}
       layout="vertical"
       {...restProps}
@@ -36,11 +88,15 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
       </Form.Item>
       <Form.Item
         label="Upload"
-        name="avatarFileList"
+        name="imageFiles"
         valuePropName="fileList"
         getValueFromEvent={upload.getValueFromEvent}
       >
-        <UploadBox maxFileUpload={1}/>
+        <UploadBox action={action}
+                   onRemove={handleRemoveImage}
+                   selectLabel="Choose category image"
+                   maxFileUpload={1}
+        />
       </Form.Item>
       <Form.Item
         label="Slug"
@@ -80,6 +136,11 @@ export default function CategoryForm({ form, initialValues, ...restProps }) {
           options={STATE_LABEL_VALUE_OPTIONS}
         />
       </Form.Item>
+      <div style={{ paddingBottom: 20}}>
+        <ButtonListWrapper buttonList={buttonList}
+                           align="right"
+        />
+      </div>
     </Form>
   )
 }

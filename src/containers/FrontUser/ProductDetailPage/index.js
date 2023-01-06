@@ -36,7 +36,7 @@ function ProductDetailPage(props) {
         <BreadcrumbBox routes={breadcrumbRoutes} />
         <ProductDetailBox
           productId={productId}
-          productName={productName}
+          redirectTo={props.push}
         />
         <RelatedProductForProductDetail
           categoryId={categoryId}

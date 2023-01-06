@@ -4,8 +4,11 @@ import { DownloadOutlined } from '@ant-design/icons';
 
 import './style.scss';
 import { format } from 'utils';
+import Icon from 'components/Common/Icon';
+import plusIcon from 'images/plus-icon.svg';
+import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 
-export default function ProductInfo({ product = {}, onChange}) {
+export default function ProductInfo({ product = {}, onAddOrder = () => {}}) {
   const [productOptions, setProductOptions] = useState({});
   const [productDetail, setProductDetail] = useState(product);
 
@@ -35,6 +38,10 @@ export default function ProductInfo({ product = {}, onChange}) {
     // eslint-disable-next-line
   }, [productOptions]);
 
+  const buttonList = [
+    <Button className="product-info__download-button" type='primary' icon={<DownloadOutlined />}>Download Mockup & Template Design</Button>,
+    <Button type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => onAddOrder(product.id)}>Order now</Button>
+  ];
   return (
     <div className='product-info__wrapper'>
       <div className='product-info__title'>{productDetail.name}</div>
@@ -60,7 +67,7 @@ export default function ProductInfo({ product = {}, onChange}) {
         ))
       }
       { !!product.note && <div className='product-info__note'>{productDetail.note}</div> }
-      <Button className="product-info__download-button" type='primary' icon={<DownloadOutlined />}>Download Mockup & Teamplate Design</Button>
+      <ButtonListWrapper buttonList={buttonList} />
     </div>
   )
 }

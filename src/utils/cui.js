@@ -36,6 +36,15 @@ function groupBy(list, keyGetter) {
   return map;
 }
 
+function sortBy(list, sortByKey, sortOrder = true) {
+  return list.sort((p1, p2) => {
+    if (sortOrder) {
+      return (p1[sortByKey] > p2[sortByKey]) ? 1 : (p1[sortByKey] < p2[sortByKey]) ? -1 : 0;
+    }
+    return (p1[sortByKey] < p2[sortByKey]) ? 1 : (p1[sortByKey] > p2[sortByKey]) ? -1 : 0;
+  });
+}
+
 const toCapitalizeCase = (str, isFirstOnly = false) => {
   if (isFirstOnly) {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -58,6 +67,7 @@ const parseStringObject = (str, defaultValue = {}) => {
 export {
   removeEmpty,
   groupBy,
+  sortBy,
   toCapitalizeCase,
   parseStringObject,
 }
