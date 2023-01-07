@@ -136,6 +136,18 @@ export default function ProductForm(
             </Col>
           </Row>
           <Form.Item
+            label="Design URL"
+            name="designUrl"
+            rules={[
+              {
+                type: 'url',
+                message: 'Url invalid!',
+              },
+            ]}
+          >
+            <InputText placeholder="..."  />
+          </Form.Item>
+          <Form.Item
             label="Images"
             name="imageFiles"
             valuePropName="fileList"

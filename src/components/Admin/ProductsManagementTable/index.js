@@ -30,6 +30,11 @@ const columns = [
     dataIndex: 'name',
   },
   {
+    title: 'Design URL',
+    dataIndex: 'designUrl',
+    render: (designUrl) => !!designUrl ? <a href={designUrl} target='_blank' rel='noreferrer'>{designUrl}</a> : ''
+  },
+  {
     title: 'Variant',
     dataIndex: 'productOptions',
     width: '15%',

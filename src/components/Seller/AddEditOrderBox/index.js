@@ -71,6 +71,13 @@ export default function AddEditOrderBox({ isEdit, data, product, onOk, onCancel,
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    form.setFieldsValue({
+      designUrl: selectedProduct ? selectedProduct.designUrl : '',
+    })
+    // eslint-disable-next-line
+  }, [selectedProduct]);
+
   const handleOk = (values) => {
     const newData = cui.removeEmpty({
       productId: selectedProduct.id,

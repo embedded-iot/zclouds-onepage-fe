@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 
-import './style.scss';
-import { format } from 'utils';
+import { download, format } from 'utils';
 import Icon from 'components/Common/Icon';
 import plusIcon from 'images/plus-icon.svg';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
+import './style.scss';
 
 export default function ProductInfo({ product = {}, onAddOrder = () => {}}) {
   const [productOptions, setProductOptions] = useState({});
@@ -39,9 +39,11 @@ export default function ProductInfo({ product = {}, onAddOrder = () => {}}) {
   }, [productOptions]);
 
   const buttonList = [
-    <Button className="product-info__download-button" type='primary' icon={<DownloadOutlined />}>Download Mockup & Template Design</Button>,
     <Button type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => onAddOrder(product.id)}>Order now</Button>
   ];
+  if (!!product.designUrl) {
+    buttonList.unshift(<Button className="product-info__download-button" type='primary' icon={<DownloadOutlined />} onClick={() => download(product.designUrl)}>Download Mockup & Template Design</Button>);
+  }
   return (
     <div className='product-info__wrapper'>
       <div className='product-info__title'>{productDetail.name}</div>
