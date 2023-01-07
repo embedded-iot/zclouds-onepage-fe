@@ -10,7 +10,7 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {}, 
   return (
     <BoxCard className="sign-in-form__wrapper" style={{ maxWidth: 400 }}>
       <BoxHeader
-        title="Sign in to Creative Space"
+        title="Sign in to CS Fulfill"
         description="Log in with your data that you entered during registration."
       />
       <Form

@@ -1,7 +1,7 @@
 import React from 'react';
 import UserActions from 'components/FrontUser/UserActions';
 import { WEBSITE_NAME } from 'components/contants';
-import logo from 'images/logo.svg';
+import logo from 'images/logo-3.svg';
 
 import './style.scss';
 
