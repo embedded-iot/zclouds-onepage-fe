@@ -195,6 +195,7 @@ const HelmetMeta = (props) => (
 const App = (props) => {
   const [isLoadedCheckLogin, setIsLoadedCheckLogin] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(0);
+  const isAdminMode = props.isAdminMode;
   // const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   // const backdropPosition = isMobile ? 40 : 23;
   const redirectTo = path => {
@@ -203,7 +204,7 @@ const App = (props) => {
   const signOut = () => {
     authentication.clearToken();
     props.setGlobalStore({
-      isAdminMode: false,
+      isAdminMode: isAdminMode,
       isLogin: false,
       isAdmin: false,
       currentUser: {},
@@ -267,7 +268,6 @@ const App = (props) => {
     restoreLoginPreviousSection();
     // eslint-disable-next-line
   }, []);
-  const isAdminMode = props.isAdminMode;
   const currentRouter = props.router.location.pathname;
   const isFrontUserRouter = FRONT_USER_ROUTER.find(path => {
     return (path === currentRouter) || matchPath(currentRouter, {

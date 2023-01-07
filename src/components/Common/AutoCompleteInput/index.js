@@ -3,7 +3,7 @@ import { AutoComplete } from 'antd';
 import Icon from 'components/Common/Icon';
 import closeIcon from "images/close-icon.svg";
 
-import './style.scss';
+import './style.less';
 
 export default function AutoCompleteInput({ name, value, options, onChange, onSelect, onFocus, placeholder, theme, autoFilterOptions = true, ...restProps }) {
   const filterOptions = (inputValue, option) => {

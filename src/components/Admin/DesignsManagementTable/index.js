@@ -4,7 +4,7 @@ import { AdminDesignsService } from 'services';
 import { events } from 'utils';
 import Icon from 'components/Common/Icon';
 
-import searchGreenIcon from 'images/search_green.svg';
+import searchGreenIcon from 'images/search_purple_icon.svg';
 import BoxCard from 'components/Share/BoxCard';
 import { Button } from 'antd';
 import EditDesignModal from './EditDesignModal';

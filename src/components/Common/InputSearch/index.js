@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input } from 'antd';
 
-import './style.scss';
+import './style.less';
 
 export default function InputSearch({ name, value, onChange, placeholder, theme, ...restProps }) {
   const handlerOnchange = (e) => onChange(e.target.value, name);

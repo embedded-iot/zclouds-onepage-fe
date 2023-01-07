@@ -4,7 +4,7 @@ import { Thumb } from "./Thumb";
 // eslint-disable-next-line
 import ReactImageZoom from "react-image-zoom";
 
-import "./style.scss";
+import "./style.less";
 
 const ImageGalleryView = ({ images }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);

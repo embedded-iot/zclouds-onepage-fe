@@ -2,7 +2,7 @@ import React from 'react';
 import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
 
-import './style.scss';
+import './style.less';
 
 const BreadcrumbBox = ({ routes = [], absolutePath = true, className }) => {
 

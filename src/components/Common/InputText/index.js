@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from 'antd';
-import './style.scss';
+import './style.less';
 
 const { TextArea } = Input;
 

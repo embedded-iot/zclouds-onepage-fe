@@ -21,8 +21,8 @@ import {
 
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import Icon from 'components/Common/Icon';
-import exportIcon from 'images/export_green_icon.svg';
-import importIcon from 'images/import_green_icon.svg';
+import exportIcon from 'images/export_green_purple_icon.svg';
+import importIcon from 'images/import_green_purple_icon.svg';
 import CheckboxGroupBox from 'components/Common/CheckboxGroupBox';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DatePickerSelect from 'components/Common/DatePickerSelect';
@@ -32,9 +32,9 @@ import ImportOrdersModal from './ImportOrdersModal';
 import UpdateOrderTrackingModal from './UpdateOrderTrackingModal';
 import UpdateOrderPriceModal from './UpdateOrderPriceModal';
 import StatusTag from 'components/Share/StatusTag';
+import UpdateOrderProducerModal from './UpdateOrderProducerModal';
 
 import './style.scss';
-import UpdateOrderProducerModal from 'components/Admin/OrdersManagementTable/UpdateOrderProducerModal';
 
 
 const ACTION_KEYS = {

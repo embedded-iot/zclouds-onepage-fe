@@ -9,7 +9,7 @@ import {
 import DropdownSelect from 'components/Common/DropdownSelect';
 import Icon from 'components/Common/Icon';
 
-import searchGreenIcon from 'images/search_green.svg';
+import searchGreenIcon from 'images/search_purple_icon.svg';
 import BoxCard from 'components/Share/BoxCard';
 import { Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';

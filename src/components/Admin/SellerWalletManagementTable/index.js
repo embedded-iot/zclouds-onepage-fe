@@ -6,7 +6,7 @@ import { Button } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 
 import plusIcon from 'images/plus-icon.svg';
-import walletIcon from 'images/wallet_black_icon.svg';
+import walletIcon from 'images/wallet_purple_icon.svg';
 import Icon from 'components/Common/Icon';
 import userIcon from 'images/user_black_icon-2.svg';
 import editIcon from 'images/edit_black_icon.svg';
@@ -158,7 +158,7 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.TOP_UP_RESELLER} icon={<Icon src={walletIcon} width={24} height={24} /> } onClick={showTopUpTable}>Top up / Withdraw</Button>,
+        render: <Button key={ACTION_KEYS.TOP_UP_RESELLER} icon={<Icon src={walletIcon} width={24} height={24} /> } type="primary" ghost onClick={showTopUpTable}>Top up / Withdraw</Button>,
         align: 'right',
       },
       {

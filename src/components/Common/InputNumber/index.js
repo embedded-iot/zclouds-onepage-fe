@@ -1,7 +1,7 @@
 import React from 'react';
 import { InputNumber as AntdInputNumber } from 'antd';
 
-import './style.scss';
+import './style.less';
 
 export default function InputNumber({ name, value, onChange, placeholder, theme, ...restProps }) {
   const handlerOnchange = (value) => onChange(value, name);

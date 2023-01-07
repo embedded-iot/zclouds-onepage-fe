@@ -8,10 +8,18 @@ import { ADMIN_ROLES, DATETIME_FORMAT } from 'components/contants';
 export default function LoginBox({ setGlobalStore = () => {}, isAdminMode = false, redirectTo = () => {}, onFinish = () => {}}) {
   const getUserInfo = (callback) => {
     UserService.getUserInfo(response => {
+      const isAdminRole = ADMIN_ROLES.includes(response.role);
+      if (process.env.NODE_ENV === 'production' && isAdminRole !== isAdminMode) {
+        authentication.clearToken();
+        notification.error({
+          message: "Login failure. You can't login the account in this portal!",
+        });
+        return;
+      }
       setGlobalStore({
         isLogin: true,
-        isAdminMode: ADMIN_ROLES.includes(response.role),
-        isAdmin: ADMIN_ROLES.includes(response.role),
+        isAdminMode: isAdminRole,
+        isAdmin: isAdminRole,
         currentUser: {
           ...response,
           convertedLastLogin: datetime.convert(new Date(), DATETIME_FORMAT),

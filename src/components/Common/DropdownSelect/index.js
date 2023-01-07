@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select } from 'antd';
 
-import './style.scss';
+import './style.less';
 
 export default function DropdownSelect({ name, defaultValue, value, options, onChange, placeholder, theme, ...restProps }) {
   const handlerOnChange = (inputValue) => {

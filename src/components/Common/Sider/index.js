@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu } from 'antd';
 
-import 'components/Common/Sider/style.scss';
+import './style.less';
 import { matchPath } from 'react-router-dom';
 
 export function getItem(label, key, icon, children, type) {
