@@ -10,6 +10,14 @@ class Authentication {
   clearToken() {
     localStorage.removeItem('accessToken');
   }
+
+  setPermissions(permissions = []) {
+    this.permissions = permissions;
+  }
+
+  getPermission(permissionKey = '') {
+    return (this.permissions || []).includes(permissionKey);
+  }
 }
 
 const authentication = new Authentication();

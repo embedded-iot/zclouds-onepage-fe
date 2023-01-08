@@ -4,11 +4,12 @@ import { BaseService, SellerIntegrationsService } from 'services';
 import { notification, Tag } from 'antd';
 import Icon from 'components/Common/Icon';
 import searchGreenIcon from 'images/search_green.svg';
-import { STORE_TYPE_ICONS } from 'components/contants';
+import { PERMISSION_VALUES, STORE_TYPE_ICONS } from 'components/contants';
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 
 import './style.scss';
-import { events } from 'utils';
+import { authentication, events } from 'utils';
+import { filterListByPermission } from 'services/BaseService';
 
 
 const ACTION_KEYS = {
@@ -68,7 +69,8 @@ const columns = [
     dataIndex: 'id',
     render: (id, record) => {
       return <ActionDropdownMenu items={actionItems} record={record} ACTION_EVENT_KEY={ACTION_KEYS.ACTION_EVENTS} />
-    }
+    },
+    permission: authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER),
   },
 ];
 
@@ -76,7 +78,7 @@ export default function IntegrationOrdersTable({ type, storeId, successCallback 
   // eslint-disable-next-line
   let ref = useRef({});
   const tableConfig = {
-    columns,
+    columns: filterListByPermission(columns),
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
       SellerIntegrationsService.getIntegrationOrders(type, storeId, { ...restParams, pageSize, pageNum }, successCallback, failureCallback)

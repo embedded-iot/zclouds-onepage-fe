@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { BaseService, SellerOrdersService, SellerStoresService } from 'services';
-import { cui, download, events } from 'utils';
+import { authentication, cui, download, events } from 'utils';
 import { Button, notification, Tag } from 'antd';
 import {
   EditOutlined,
@@ -12,7 +12,7 @@ import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportOrdersModal from 'components/Seller/OrdersTable/ImportOrdersModal';
 import {
   CLONE_DESIGN_LABEL_VALUE_OPTIONS,
-  HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES,
+  HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, PERMISSION_VALUES,
   ROUTERS, SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
   STATE_COLORS, STATE_LABELS, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
@@ -115,11 +115,13 @@ const columns = [
           key: ACTION_KEYS.EDIT_ORDER,
           label: "Edit order",
           icon: <EditOutlined />,
+          permission: authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER),
         },
         {
           key: ACTION_KEYS.CLONE_ORDER,
           label: "Duplicate order",
-          icon: <CopyOutlined />
+          icon: <CopyOutlined />,
+          permission: authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER),
         },
         {
           key: ACTION_KEYS.VIEW_TRACKING,
@@ -150,6 +152,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   const onRowEvents = (record, rowIndex) => {
     return {
       onDoubleClick: event => {
+        if (!authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER)) return;
         events.publish(ACTION_KEYS.ACTION_EVENTS, {
           key: ACTION_KEYS.EDIT_ORDER,
           record,
@@ -426,8 +429,8 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
 
   const buttonList = [
     <Button key={ACTION_KEYS.EXPORT_ORDERS} type="primary" ghost icon={<Icon src={exportIcon} width={24} height={24} />} onClick={exportOrders}>Export orders</Button>,
-    <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={importIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
-    <Button key={ACTION_KEYS.ADD_ORDER} type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => addEditOrder()}>Order</Button>
+    authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER) && <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={importIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
+    authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER) && <Button key={ACTION_KEYS.ADD_ORDER} type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => addEditOrder()}>Order</Button>
   ]
 
   const actionListenerFunc = () => {
@@ -501,7 +504,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
                          align="right"
       />
       <TableGrid configs={tableConfig}
-                 className="orders-table__table"
+                 className={`orders-table__table ${authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER) && 'allow-click-row'}`}
                  headerActionsConfig={headerActionsConfig}
                  secondHeader={StatusCheckboxGroup}
                  paginationConfig={{}}

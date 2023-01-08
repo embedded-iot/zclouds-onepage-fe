@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerUsersService } from 'services';
-import { events } from 'utils';
+import { authentication, events } from 'utils';
 import AddEditAccountStaffModal from './AddEditAccountStaffModal';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import { Button, Col, Row } from 'antd';
@@ -16,6 +16,8 @@ import LastLoginBox from 'components/Seller/MyAccountBox/LastLoginBox';
 
 import './style.scss';
 import StatusTag from 'components/Share/StatusTag';
+import { PERMISSION_VALUES } from 'components/contants';
+import { filterListByPermission } from 'services/BaseService';
 
 const ACTION_KEYS = {
   ACTION_EVENTS: "MY_ACCOUNT_ACTION_EVENTS",
@@ -72,7 +74,8 @@ const columns = [
     dataIndex: 'id',
     render: (id, record) => {
       return <ActionDropdownMenu items={actionItems} record={record} ACTION_EVENT_KEY={ACTION_KEYS.ACTION_EVENTS} />
-    }
+    },
+    permission: authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STAFF),
   },
 ];
 
@@ -82,7 +85,7 @@ export default function MyAccountBox({ currentUser, setGlobalStore,  RELOAD_EVEN
   // eslint-disable-next-line
   let ref = useRef({});
   const tableConfig = {
-    columns,
+    columns: filterListByPermission(columns),
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, type, ...restParams} = params || {};
       SellerUsersService.getAccountsStaff({ ...restParams, pageSize, pageNum }, successCallback, failureCallback)
@@ -161,9 +164,12 @@ export default function MyAccountBox({ currentUser, setGlobalStore,  RELOAD_EVEN
 
   return (
     <>
-      <ButtonListWrapper buttonList={buttonList}
-                         align="right"
-      />
+      {
+        authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STAFF) && (
+        <ButtonListWrapper buttonList={buttonList}
+                           align="right"
+        />
+      )}
       <Row gutter={[23, 23]}>
         <Col span={12}>
           <PersonalInformationBox currentUser={currentUser} onChange={handleCurrentUserChange}/>
@@ -179,15 +185,19 @@ export default function MyAccountBox({ currentUser, setGlobalStore,  RELOAD_EVEN
           </Row>
         </Col>
         <Col span={24}>
-          <TableGrid configs={tableConfig}
-                     headerActionsConfig={headerActionsConfig}
-                     paginationConfig={{}}
-                     defaultParams={{}}
-                     defaultData={{}}
-                     isShowPagination={true}
-                     isAllowSelection={false}
-                     RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
-          />
+          {
+            authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STAFFS) && (
+              <TableGrid configs={tableConfig}
+                         headerActionsConfig={headerActionsConfig}
+                         paginationConfig={{}}
+                         defaultParams={{}}
+                         defaultData={{}}
+                         isShowPagination={true}
+                         isAllowSelection={false}
+                         RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
+              />
+            )
+          }
         </Col>
       </Row>
       {

@@ -4,13 +4,14 @@ import { Menu } from 'antd';
 import './style.less';
 import { matchPath } from 'react-router-dom';
 
-export function getItem(label, key, icon, children, type) {
+export function getItem(label, key, icon, children, type, permission) {
   return {
     key,
     icon,
     children,
     label,
     type,
+    permission,
   };
 }
 export function checkRouterMatch(path, currentRouter) {

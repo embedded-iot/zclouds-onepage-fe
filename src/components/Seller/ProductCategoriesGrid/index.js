@@ -1,7 +1,7 @@
 import React from 'react';
-import { events } from 'utils';
+import { authentication, events } from 'utils';
 import { useMediaQuery } from 'react-responsive';
-import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import TableGrid from 'components/Common/TableGrid';
 import { FrontUserCategoriesService } from 'services';
 import CategoryItem from 'components/FrontUser/CategoriesGrid/CategoryItem';
@@ -30,7 +30,7 @@ const gridItemTemplate = ({ item, redirectTo }) => {
                   {...item}
                   allowClick={false}
                   showDes2={false}
-                  footer={(
+                  footer={ authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER) && (
                     <ButtonListWrapper buttonList={buttonList}
                                        align="right"
                     />

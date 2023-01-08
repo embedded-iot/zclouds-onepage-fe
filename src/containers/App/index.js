@@ -81,7 +81,15 @@ import AdminNotificationsManagementPage from 'containers/Admin/NotificationsMana
 import AdminNotificationsPage from 'containers/Admin/NotificationsPage/Loadable';
 
 
-import { ADMIN_ROLES, DATETIME_FORMAT, ROUTERS, STATE_VALUES, WEBSITE_NAME } from 'components/contants';
+import {
+  ADMIN_ROLES,
+  DATETIME_FORMAT,
+  PERMISSION_VALUES,
+  ROLE_PERMISSIONS_VALUES,
+  ROUTERS,
+  STATE_VALUES,
+  WEBSITE_NAME,
+} from 'components/contants';
 
 import { AdminNotificationsService, SellerNotificationsService, SellerSystemService, UserService } from 'services';
 
@@ -141,16 +149,16 @@ const FrontUserAppContent = (props) => (
 const AppContent = (props) => (
   <Switch>
     <PrivateRoute exact path={ROUTERS.ROOT} component={SellerHomePage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_ORDERS} component={SellerOrdersPage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER} component={SellerOrderDetailPage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER_WITH_PRODUCT} component={SellerOrderDetailPage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_DESIGN_LIBRARY} component={SellerDesignsPage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_STORES} component={SellerStoresPage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_STORE} component={SellerStoreDetailPage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_WITH_VENDOR} component={SellerIntegrationsPage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATION_ORDERS} component={SellerIntegrationOrdersPageR} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsTokenPage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_WALLET} component={SellerWalletPage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_ORDERS} component={SellerOrdersPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_ORDERS)}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER} component={SellerOrderDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER)}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER_WITH_PRODUCT} component={SellerOrderDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER)}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_DESIGN_LIBRARY} component={SellerDesignsPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_DESIGNS)}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_STORES} component={SellerStoresPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STORES)}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_STORE} component={SellerStoreDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE)}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_WITH_VENDOR} component={SellerIntegrationsPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE)}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATION_ORDERS} component={SellerIntegrationOrdersPageR} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STORES)}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsTokenPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE)}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_WALLET} component={SellerWalletPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_WALLET)}/>
     <PrivateRoute exact path={ROUTERS.SELLER_MY_ACCOUNT} component={SellerMyAccountPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.NOTIFICATIONS} component={SellerNotificationsPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_PRODUCT_CATEGORY} component={SellerProductCategoriesPage} isAuthenticated={props.isLogin}/>
@@ -214,6 +222,7 @@ const App = (props) => {
 
   const restoreLoginPreviousSection = () => {
     UserService.getUserInfo(response => {
+      authentication.setPermissions(ROLE_PERMISSIONS_VALUES[response.role]);
       props.setGlobalStore({
         isAdminMode: ADMIN_ROLES.includes(response.role),
         isLogin: true,

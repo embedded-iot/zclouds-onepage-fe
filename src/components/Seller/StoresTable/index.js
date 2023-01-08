@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerStoresService } from 'services';
-import { events } from 'utils';
+import { authentication, events } from 'utils';
 import { Button } from 'antd';
 import {
+  PERMISSION_VALUES,
   ROUTERS,
   STORE_TYPE_ICONS,
   STORE_TYPE_LABEL_VALUE_OPTIONS,
@@ -23,16 +24,6 @@ const ACTION_KEYS = {
   MANUAL_SYNC_ORDERS: "MANUAL_SYNC_ORDERS",
 }
 
-const actionItems = [
-  {
-    key: ACTION_KEYS.EDIT_STORE,
-    label: "Edit store",
-  },
-  {
-    key: ACTION_KEYS.MANUAL_SYNC_ORDERS,
-    label: 'Manual sync orders',
-  },
-];
 
 const columns = [
   {
@@ -69,6 +60,17 @@ const columns = [
     title: 'Action',
     dataIndex: 'id',
     render: (id, record) => {
+      const actionItems = [
+        {
+          key: ACTION_KEYS.EDIT_STORE,
+          label: "Edit store",
+          permission: authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE),
+        },
+        {
+          key: ACTION_KEYS.MANUAL_SYNC_ORDERS,
+          label: 'Manual sync orders',
+        },
+      ];
       return <ActionDropdownMenu items={actionItems} record={record} ACTION_EVENT_KEY={ACTION_KEYS.ACTION_EVENTS} />
     }
   },
@@ -181,7 +183,7 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
       {
         type: 'custom',
         render: <Button type="primary" key={ACTION_KEYS.ADD_STORE} icon={<Icon src={plusIcon} width={24} height={24} />} onClick={createNewStore}>Create new store</Button>,
-        permission: !type
+        permission: !type && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE)
       },
     ],
   }

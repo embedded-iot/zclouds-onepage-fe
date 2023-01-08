@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { BaseService, SellerDesignsService } from 'services';
-import { download, events, fileHelper } from 'utils';
+import { authentication, download, events, fileHelper } from 'utils';
 import { Button, notification } from 'antd';
 import { EditOutlined, DownloadOutlined, FileExcelOutlined } from '@ant-design/icons';
 import AddEditDesignModal from './AddEditDesignModal';
@@ -13,6 +13,7 @@ import searchGreenIcon from 'images/search_green.svg';
 import downloadGreenIcon from 'images/export_green_icon.svg';
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import plusIcon from 'images/plus-icon.svg';
+import { PERMISSION_VALUES } from 'components/contants';
 
 const columns = [
   {
@@ -37,6 +38,21 @@ const columns = [
     title: 'Action',
     dataIndex: 'id',
     render: (id, record) => {
+
+      const actionItems = [
+        {
+          key: ACTION_KEYS.EDIT_DESIGN,
+          label: "Edit design",
+          icon: <EditOutlined />,
+          permission: authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_DESIGN),
+        },
+        {
+          key: ACTION_KEYS.DOWNLOAD_DESIGN,
+          label: "Download design",
+          icon: <DownloadOutlined />,
+        },
+      ];
+
       return <ActionDropdownMenu items={actionItems} record={record} ACTION_EVENT_KEY={ACTION_KEYS.ACTION_EVENTS} />
     }
   },
@@ -50,19 +66,6 @@ const ACTION_KEYS = {
   IMPORT_DESIGNS: "IMPORT_DESIGNS",
   EXPORT_DESIGNS: "EXPORT_DESIGNS",
 }
-
-const actionItems = [
-  {
-    key: ACTION_KEYS.EDIT_DESIGN,
-    label: "Edit design",
-    icon: <EditOutlined />,
-  },
-  {
-    key: ACTION_KEYS.DOWNLOAD_DESIGN,
-    label: "Download design",
-    icon: <DownloadOutlined />,
-  },
-];
 
 export default function DesignsTable({ successCallback = () => {} }) {
   const [openAddDesign, setOpenAddDesign] = useState(false);
@@ -173,8 +176,8 @@ export default function DesignsTable({ successCallback = () => {} }) {
 
   const buttonList = [
       ...(selectedKeys.length ? [<Button key={ACTION_KEYS.EXPORT_DESIGNS} icon={<FileExcelOutlined />} onClick={exportDesigns}>Export</Button>] : []),
-    <Button key={ACTION_KEYS.IMPORT_DESIGNS} type="primary" ghost icon={<Icon src={downloadGreenIcon} width={24} height={24} />} onClick={importDesigns}>Upload multi design</Button>,
-    <Button key={ACTION_KEYS.ADD_DESIGN} type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={addDesign}>Create design sku</Button>
+    authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_DESIGN) && <Button key={ACTION_KEYS.IMPORT_DESIGNS} type="primary" ghost icon={<Icon src={downloadGreenIcon} width={24} height={24} />} onClick={importDesigns}>Upload multi design</Button>,
+    authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_DESIGN) && <Button key={ACTION_KEYS.ADD_DESIGN} type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={addDesign}>Create design sku</Button>
   ]
 
   const actionListenerFunc = () => {

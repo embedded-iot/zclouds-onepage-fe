@@ -36,6 +36,10 @@ const getErrorMessage = (error, defaultMessage) => {
 const getFullPathImage = (imageUrl = '') => !!imageUrl && !imageUrl.startsWith('http') ? (getFrontUserUrl() + imageUrl) : imageUrl;
 const getShortPathImage = (imageUrl = '') => !!imageUrl && imageUrl.startsWith(getFrontUserUrl()) ? imageUrl.replace(getFrontUserUrl(),'') : imageUrl;
 
+const filterListByPermission = (list = [], filterKey = 'permission') => {
+  return list.filter(item => item[filterKey] === undefined || item[filterKey] === true);
+}
+
 export {
   getFrontUserUrl,
   getFrontAdminUrl,
@@ -46,4 +50,5 @@ export {
   getSellerBaseURL,
   getAdminBaseURL,
   getErrorMessage,
+  filterListByPermission,
 }

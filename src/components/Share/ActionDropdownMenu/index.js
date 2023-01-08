@@ -5,6 +5,7 @@ import defaultActionIcon from 'images/action-icon.svg';
 import { events } from 'utils';
 
 import './style.scss';
+import { filterListByPermission } from 'services/BaseService';
 
 export default function ActionDropdownMenu({ items = [], record , onMenuClick, children, trigger, placement, actionIcon, ACTION_EVENT_KEY = ''}) {
   const handleMenuClick = (key) => {
@@ -20,7 +21,7 @@ export default function ActionDropdownMenu({ items = [], record , onMenuClick, c
   }
 
   return (
-    <DropdownMenu items={items}
+    <DropdownMenu items={filterListByPermission(items)}
                   onMenuClick={handleMenuClick}
                   trigger={trigger || ['click']}
                   placement={placement}
