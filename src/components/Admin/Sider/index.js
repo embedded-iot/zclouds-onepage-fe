@@ -1,6 +1,6 @@
 import React from 'react';
 import Sider, { checkRouterMatch, getItem } from 'components/Common/Sider';
-import { ROUTERS } from 'components/contants';
+import { PERMISSION_VALUES, ROUTERS } from 'components/contants';
 import Icon from 'components/Common/Icon';
 import userIcon from 'images/my-account-icon.png';
 import userActiveIcon from 'images/my-account-white-icon.svg';
@@ -28,29 +28,36 @@ import statisticIcon from 'images/dollar_black_icon.svg';
 import statisticActiveIcon from 'images/dollar_white_icon.svg';
 import designsLibraryIcon from 'images/designs-library-icon.png';
 import designsLibraryActiveIcon from 'images/designs-library-white-icon.svg';
+import dashboardIcon from 'images/darhboard-icon.png';
+import dashboardActiveIcon from 'images/darhboard-white-icon.svg';
+import { filterListByPermission } from 'services/BaseService';
+import { authentication } from 'utils';
 
 export default function AdminSider({ selectedRouters = [], redirectTo = () => {}, }) {
   const checkRouterMatchFn = (path) => checkRouterMatch(path, selectedRouters[0]);
-  const items = [
-    getItem('Orders', ROUTERS.ADMIN_ORDERS_MANAGEMENT, <Icon src={ordersIcon} activeSrc={ordersActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_ORDERS_MANAGEMENT)} />),
-    getItem('Products', ROUTERS.ADMIN_PRODUCTS_MANAGEMENT, <Icon src={productIcon} activeSrc={productActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_PRODUCTS_MANAGEMENT)} />),
-    getItem('Stores', ROUTERS.ADMIN_STORES_MANAGEMENT, <Icon src={storesIcon} activeSrc={storesActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_STORES_MANAGEMENT)} />),
-    getItem('Resellers', ROUTERS.ADMIN_SELLERS_MANAGEMENT, <Icon src={userIcon} activeSrc={userActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SELLERS_MANAGEMENT)} />),
-    getItem( 'Designs library', ROUTERS.ADMIN_DESIGNS_MANAGEMENT, <Icon src={designsLibraryIcon} activeSrc={designsLibraryActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_DESIGNS_MANAGEMENT)} />),
-    getItem('Producer', ROUTERS.ADMIN_PRODUCERS_MANAGEMENT, <Icon src={userIcon} activeSrc={userActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_PRODUCERS_MANAGEMENT)} />),
-    getItem('Categories', ROUTERS.ADMIN_CATEGORIES_MANAGEMENT, <Icon src={productCategoryIcon} activeSrc={productCategoryActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_CATEGORIES_MANAGEMENT)} />),
-    getItem('Users', ROUTERS.ADMIN_USERS_MANAGEMENT, <Icon src={userIcon} activeSrc={userActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_USERS_MANAGEMENT)} />),
-    getItem('System Accounting', ROUTERS.ADMIN_SYSTEM_ACCOUNTING_MANAGEMENT, <Icon src={systemAccountingIcon} activeSrc={systemAccountingActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_ACCOUNTING_MANAGEMENT)} />, [
-      getItem('Statistics', ROUTERS.ADMIN_STATISTICS_MANAGEMENT, <Icon src={statisticIcon} activeSrc={statisticActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_STATISTICS_MANAGEMENT)} />),
-      getItem('Transactions', ROUTERS.ADMIN_TRANSACTIONS_MANAGEMENT, <Icon src={transactionIcon} activeSrc={transactionActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_TRANSACTIONS_MANAGEMENT)} />),
-      getItem('Seller wallets', ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT, <Icon src={walletIcon} activeSrc={walletActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT)} />),
-      getItem('Banks', ROUTERS.ADMIN_BANKS_MANAGEMENT, <Icon src={bankIcon} activeSrc={bankActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_BANKS_MANAGEMENT)} />),
-    ]),
-    getItem('System settings', ROUTERS.ADMIN_SYSTEM_SETTINGS_MANAGEMENT, <Icon src={systemSettingIcon} activeSrc={systemSettingActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_SETTINGS_MANAGEMENT)} width={22} height={22}/>, [
-      getItem('Notifications', ROUTERS.ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT, <Icon src={systemNotificationIcon} activeSrc={systemNotificationActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT)} width={22} height={22} />),
-      getItem('Configs', ROUTERS.ADMIN_SYSTEM_CONFIGS_MANAGEMENT, <Icon src={statisticIcon} activeSrc={statisticActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_CONFIGS_MANAGEMENT)} />),
-    ]),
-  ];
+  const items = filterListByPermission([
+    getItem('DASHBOARD', ROUTERS.ROOT, <Icon src={dashboardIcon} activeSrc={dashboardActiveIcon} active={checkRouterMatchFn(ROUTERS.ROOT)} />),
+    getItem('Orders', ROUTERS.ADMIN_ORDERS_MANAGEMENT, <Icon src={ordersIcon} activeSrc={ordersActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_ORDERS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_ORDERS)),
+    getItem('Products', ROUTERS.ADMIN_PRODUCTS_MANAGEMENT, <Icon src={productIcon} activeSrc={productActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_PRODUCTS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_PRODUCTS)),
+    getItem('Stores', ROUTERS.ADMIN_STORES_MANAGEMENT, <Icon src={storesIcon} activeSrc={storesActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_STORES_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_STORES)),
+    getItem('Resellers', ROUTERS.ADMIN_SELLERS_MANAGEMENT, <Icon src={userIcon} activeSrc={userActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SELLERS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_USERS)),
+    getItem( 'Designs library', ROUTERS.ADMIN_DESIGNS_MANAGEMENT, <Icon src={designsLibraryIcon} activeSrc={designsLibraryActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_DESIGNS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_DESIGNS)),
+    getItem('Producer', ROUTERS.ADMIN_PRODUCERS_MANAGEMENT, <Icon src={userIcon} activeSrc={userActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_PRODUCERS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_PRODUCERS)),
+    getItem('Categories', ROUTERS.ADMIN_CATEGORIES_MANAGEMENT, <Icon src={productCategoryIcon} activeSrc={productCategoryActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_CATEGORIES_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_CATEGORIES)),
+    getItem('Users', ROUTERS.ADMIN_USERS_MANAGEMENT, <Icon src={userIcon} activeSrc={userActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_USERS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_USERS)),
+    getItem('System Accounting', ROUTERS.ADMIN_SYSTEM_ACCOUNTING_MANAGEMENT, <Icon src={systemAccountingIcon} activeSrc={systemAccountingActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_ACCOUNTING_MANAGEMENT)} />, filterListByPermission([
+      getItem('Statistics', ROUTERS.ADMIN_STATISTICS_MANAGEMENT, <Icon src={statisticIcon} activeSrc={statisticActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_STATISTICS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_STATISTICS)),
+      getItem('Transactions', ROUTERS.ADMIN_TRANSACTIONS_MANAGEMENT, <Icon src={transactionIcon} activeSrc={transactionActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_TRANSACTIONS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_TRANSACTIONS)),
+      getItem('Seller wallets', ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT, <Icon src={walletIcon} activeSrc={walletActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SELLER_WALLETS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_SELLER_WALLETS)),
+      getItem('Banks', ROUTERS.ADMIN_BANKS_MANAGEMENT, <Icon src={bankIcon} activeSrc={bankActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_BANKS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_BANKS)),
+    ]), undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_STATISTICS) || authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_TRANSACTIONS)
+      || authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_SELLER_WALLETS) || authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_BANKS)
+    ),
+    getItem('System settings', ROUTERS.ADMIN_SYSTEM_SETTINGS_MANAGEMENT, <Icon src={systemSettingIcon} activeSrc={systemSettingActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_SETTINGS_MANAGEMENT)} width={22} height={22}/>, filterListByPermission([
+      getItem('Notifications', ROUTERS.ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT, <Icon src={systemNotificationIcon} activeSrc={systemNotificationActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT)} width={22} height={22} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_NOTIFICATIONS)),
+      getItem('Configs', ROUTERS.ADMIN_SYSTEM_CONFIGS_MANAGEMENT, <Icon src={statisticIcon} activeSrc={statisticActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_CONFIGS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_CONFIGS)),
+    ]), undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_NOTIFICATIONS) || authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_CONFIGS)),
+  ]);
 
   const onClick = (e) => {
     redirectTo(e.key);

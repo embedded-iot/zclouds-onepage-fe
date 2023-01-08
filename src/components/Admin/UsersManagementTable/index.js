@@ -1,12 +1,12 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminUsersService } from 'services';
-import { cui, events } from 'utils';
+import { authentication, cui, events } from 'utils';
 import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import DeleteUserModal from './DeleteUserModal';
 import DropdownSelect from 'components/Common/DropdownSelect';
-import { ROLES_LABEL_VALUE_OPTIONS, ROUTERS } from 'components/contants';
+import { PERMISSION_VALUES, ROLES_LABEL_VALUE_OPTIONS, ROUTERS } from 'components/contants';
 import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
 
@@ -97,10 +97,12 @@ export default function UsersManagementTable({ redirectTo }) {
         type: 'custom',
         render: <Button key={ACTION_KEYS.EDIT_USER} icon={<EditOutlined />} onClick={() => addEditUser(selectedUser.id)}>Edit user</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_USER),
       },      {
         type: 'custom',
         render: <Button key={ACTION_KEYS.DELETE_USER} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteUser}>Delete user</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_USER),
       },
       {
         type: 'searchText',
@@ -151,7 +153,8 @@ export default function UsersManagementTable({ redirectTo }) {
                  isShowPagination={true}
                  isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
-                 isAllowSelection={true}
+                 isAllowSelection={authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_USER) ||
+                   authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_USER)}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
       {

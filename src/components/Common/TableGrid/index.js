@@ -10,6 +10,7 @@ import InputText from 'components/Common/InputText';
 
 import './style.scss';
 import DatePickerSelect from 'components/Common/DatePickerSelect';
+import { filterListByPermission } from 'services/BaseService';
 
 
 const defaultPageSizeOptions = [10, 20, 50, 100];
@@ -236,8 +237,8 @@ export default function TableGrid({
       || (item.requiredSelection === false && selectedRowKeys.length === 0))
   }) : [];
 
-  const leftFilteredHeaderActions = filteredHeaderActions.filter(item => item.align !== 'right');
-  const rightFilteredHeaderActions = filteredHeaderActions.filter(item => item.align === 'right');
+  const leftFilteredHeaderActions = filterListByPermission(filteredHeaderActions).filter(item => item.align !== 'right');
+  const rightFilteredHeaderActions = filterListByPermission(filteredHeaderActions).filter(item => item.align === 'right');
 
   const columns = isShowIndex ? [{ title: '#', dataIndex: 'index', }, ...(configs.columns || []) ] : (configs.columns || []);
   const items = data.items.map((item, index) => isShowIndex ? ({ index: index + 1, ...item }) : item);

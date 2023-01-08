@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminProductsService } from 'services';
-import { events, format } from 'utils';
+import { authentication, events, format } from 'utils';
 import { Button, Tooltip } from 'antd';
 import DeleteProductModal from './DeleteProductModal';
 import { CloseCircleOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import ProductOptionsView from 'components/Share/ProductOptionsView';
 import TableCellView from 'components/Share/TableCellView';
 import BoxCard from 'components/Share/BoxCard';
-import { ROUTERS } from 'components/contants';
+import { PERMISSION_VALUES, ROUTERS } from 'components/contants';
 import PlainText from 'components/Common/PlainText';
 import StatusTag from 'components/Share/StatusTag';
 
@@ -159,12 +159,13 @@ export default function ProductsManagementTable({ redirectTo }) {
         type: 'custom',
         render: <Button key={ACTION_KEYS.DELETE_PRODUCT} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteProduct}>{`Delete product${selectedProductKeys.length > 1 ? 's' : ''}`}</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_PRODUCT),
       },
       {
         type: 'custom',
         render: <Button key={ACTION_KEYS.EDIT_PRODUCT} icon={<EditOutlined />} onClick={() => addEditProduct(true)}>Edit product</Button>,
         requiredSelection: true,
-        permission: selectedProductKeys.length === 1
+        permission: selectedProductKeys.length === 1 && authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_PRODUCT),
       },
       {
         type: 'searchText',
@@ -189,6 +190,7 @@ export default function ProductsManagementTable({ redirectTo }) {
         type: 'custom',
         render: <Button key={ACTION_KEYS.ADD_PRODUCT} type="primary" icon={<PlusCircleOutlined />} onClick={() => addEditProduct()}>Add product</Button>,
         align: 'right',
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_PRODUCT),
       }
     ],
   }
@@ -203,7 +205,8 @@ export default function ProductsManagementTable({ redirectTo }) {
                  isShowPagination={true}
                  isSingleSelection={false}
                  onSelectedItemsChange={onSelectedItemsChange}
-                 isAllowSelection={true}
+                 isAllowSelection={ authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_PRODUCT) ||
+                   authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_PRODUCT)}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
       {

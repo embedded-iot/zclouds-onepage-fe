@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminSystemService } from 'services';
-import { events } from 'utils';
+import { authentication, events } from 'utils';
 import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import AddEditSystemModal from './AddEditSystemModal';
 import DeleteSystemModal from './DeleteSystemModal';
 import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
+import { PERMISSION_VALUES } from 'components/contants';
 
 const columns = [
   {
@@ -88,10 +89,12 @@ export default function SystemManagementTable() {
         type: 'custom',
         render: <Button key={ACTION_KEYS.EDIT_SYSTEM} icon={<EditOutlined />} onClick={editSystem}>Edit system</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_CONFIG),
       },      {
         type: 'custom',
         render: <Button key={ACTION_KEYS.DELETE_SYSTEM} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteSystem}>Delete system</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_CONFIG),
       },
       {
         type: 'custom',
@@ -102,6 +105,7 @@ export default function SystemManagementTable() {
         type: 'custom',
         render: <Button key={ACTION_KEYS.ADD_SYSTEM} type="primary" icon={<PlusCircleOutlined />} onClick={addSystem}>Add system</Button>,
         align: 'right',
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_CONFIG),
       }
     ],
   }
@@ -116,7 +120,8 @@ export default function SystemManagementTable() {
                  isShowPagination={false}
                  isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
-                 isAllowSelection={true}
+                 isAllowSelection={authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_CONFIG) ||
+                   authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_CONFIG)}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
       {

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminNotificationsService } from 'services';
-import { cui, events } from 'utils';
+import { authentication, cui, events } from 'utils';
 import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import AddEditNotificationModal from './AddEditNotificationModal';
@@ -10,7 +10,7 @@ import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
 import PlainText from 'components/Common/PlainText';
 import ReactHtmlParser from 'react-html-parser';
-import { NOTIFICATION_STATE_LABEL_VALUE_OPTIONS } from 'components/contants';
+import { NOTIFICATION_STATE_LABEL_VALUE_OPTIONS, PERMISSION_VALUES } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
 
 const columns = [
@@ -119,10 +119,12 @@ export default function NotificationsManagementTable() {
         type: 'custom',
         render: <Button key={ACTION_KEYS.EDIT_NOTIFICATION} icon={<EditOutlined />} onClick={editNotification}>Edit notification</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_NOTIFICATION),
       },      {
         type: 'custom',
         render: <Button key={ACTION_KEYS.DELETE_NOTIFICATION} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteNotification}>Delete notification</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_NOTIFICATION),
       },
       {
         type: 'searchText',
@@ -152,6 +154,7 @@ export default function NotificationsManagementTable() {
         type: 'custom',
         render: <Button key={ACTION_KEYS.ADD_NOTIFICATION} type="primary" icon={<PlusCircleOutlined />} onClick={addNotification}>Add notification</Button>,
         align: 'right',
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_NOTIFICATION),
       }
     ],
   }
@@ -165,7 +168,8 @@ export default function NotificationsManagementTable() {
                  isShowPagination={true}
                  isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
-                 isAllowSelection={true}
+                 isAllowSelection={authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_NOTIFICATION) ||
+                   authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_NOTIFICATION)}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
       {

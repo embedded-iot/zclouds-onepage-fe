@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminCategoriesService } from 'services';
-import { events } from 'utils';
+import { authentication, events } from 'utils';
 import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import AddEditCategoryModal from './AddEditCategoryModal';
 import DeleteCategoryModal from './DeleteCategoryModal';
 import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
+import { PERMISSION_VALUES } from 'components/contants';
 
 const columns = [
   {
@@ -94,10 +95,12 @@ export default function CategoriesManagementTable() {
         type: 'custom',
         render: <Button key={ACTION_KEYS.EDIT_CATEGORY} icon={<EditOutlined />} onClick={editCategory}>Edit category</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_CATEGORY),
       },      {
         type: 'custom',
         render: <Button key={ACTION_KEYS.DELETE_CATEGORY} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteCategory}>Delete category</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_CATEGORY),
       },
       {
         type: 'custom',
@@ -132,7 +135,8 @@ export default function CategoriesManagementTable() {
                  isShowPagination={true}
                  isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
-                 isAllowSelection={true}
+                 isAllowSelection={authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_CATEGORY) ||
+                   authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_CATEGORY)}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
       {

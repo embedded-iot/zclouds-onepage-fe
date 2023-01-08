@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminTransactionsService } from 'services';
-import { cui, events } from 'utils';
+import { authentication, cui, events } from 'utils';
 import { Button } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 import ConfirmTransactionModal from './ConfirmTransactionModal';
 import CancelTransactionModal from './CancelTransactionModal';
 import BoxCard from 'components/Share/BoxCard';
 import {
+  PERMISSION_VALUES,
   ROUTERS,
   TRANSACTION_STATUS_LABEL_VALUE_OPTIONS, TRANSACTION_TYPE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
@@ -242,7 +243,7 @@ export default function TransactionsManagementTable({ redirectTo }) {
                  isShowPagination={true}
                  isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
-                 isAllowSelection={true}
+                 isAllowSelection={authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_TRANSACTIONS)}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
       {

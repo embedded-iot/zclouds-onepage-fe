@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminProducersService } from 'services';
-import { events } from 'utils';
+import { authentication, events } from 'utils';
 import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import AddEditProducerModal from './AddEditProducerModal';
 import DeleteProducerModal from './DeleteProducerModal';
 import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
+import { PERMISSION_VALUES } from 'components/contants';
 
 const columns = [
   {
@@ -121,10 +122,12 @@ export default function ProducersManagementTable() {
         type: 'custom',
         render: <Button key={ACTION_KEYS.EDIT_PRODUCER} icon={<EditOutlined />} onClick={editProducer}>Edit producer</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_PRODUCER),
       },      {
         type: 'custom',
         render: <Button key={ACTION_KEYS.DELETE_PRODUCER} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteProducer}>Delete producer</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_PRODUCER),
       },
       {
         type: 'searchText',
@@ -149,6 +152,7 @@ export default function ProducersManagementTable() {
         type: 'custom',
         render: <Button key={ACTION_KEYS.ADD_PRODUCER} type="primary" icon={<PlusCircleOutlined />} onClick={addProducer}>Add producer</Button>,
         align: 'right',
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_PRODUCER),
       }
     ],
   }
@@ -163,7 +167,8 @@ export default function ProducersManagementTable() {
                  isShowPagination={true}
                  isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
-                 isAllowSelection={true}
+                 isAllowSelection={authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_PRODUCER) ||
+                   authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_PRODUCER)}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
       {

@@ -1,12 +1,13 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminBanksService } from 'services';
-import { events } from 'utils';
+import { authentication, events } from 'utils';
 import { Button } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import AddEditBankModal from './AddEditBankModal';
 import DeleteBankModal from './DeleteBankModal';
 import BoxCard from 'components/Share/BoxCard';
+import { PERMISSION_VALUES } from 'components/contants';
 
 const columns = [
   {
@@ -88,10 +89,12 @@ export default function CategoriesManagementTable() {
         type: 'custom',
         render: <Button key={ACTION_KEYS.EDIT_BANK} icon={<EditOutlined />} onClick={editBank}>Edit bank</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_BANK),
       },      {
         type: 'custom',
         render: <Button key={ACTION_KEYS.DELETE_BANK} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteBank}>Delete bank</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_BANK),
       },
       {
         type: 'custom',
@@ -102,6 +105,7 @@ export default function CategoriesManagementTable() {
         type: 'custom',
         render: <Button key={ACTION_KEYS.ADD_BANK} type="primary" icon={<PlusCircleOutlined />} onClick={addBank}>Add bank</Button>,
         align: 'right',
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_BANK),
       }
     ],
   }
@@ -116,7 +120,8 @@ export default function CategoriesManagementTable() {
                  isShowPagination={false}
                  isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
-                 isAllowSelection={true}
+                 isAllowSelection={authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_BANK) ||
+                   authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_BANK)}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
       {

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminResellersService } from 'services';
-import { events } from 'utils';
+import { authentication, events } from 'utils';
 import Icon from 'components/Common/Icon';
 
 import searchGreenIcon from 'images/search_purple_icon.svg';
@@ -10,6 +10,7 @@ import { Button } from 'antd';
 import EditSellerModal from './EditSellerModal';
 import { EditOutlined } from '@ant-design/icons';
 import StatusTag from 'components/Share/StatusTag';
+import { PERMISSION_VALUES } from 'components/contants';
 
 
 const columns = [
@@ -126,7 +127,7 @@ export default function SellersManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
                  defaultData={{}}
                  isShowPagination={true}
                  isAllowSelection={true}
-                 isSingleSelection={true}
+                 isSingleSelection={authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_USER)}
                  onSelectedItemsChange={onSelectedItemsChange}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />

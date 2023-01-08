@@ -5,7 +5,7 @@ import {
   AdminStoresService,
   BaseService,
 } from 'services';
-import { cui, download, events } from 'utils';
+import { authentication, cui, download, events } from 'utils';
 import { Button, notification, Tag } from 'antd';
 import {
   EditOutlined,
@@ -14,7 +14,7 @@ import {
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import {
   CLONE_DESIGN_LABEL_VALUE_OPTIONS,
-  HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, ROUTERS,
+  HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, PERMISSION_VALUES, ROUTERS,
   SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
   STATE_COLORS, STATE_LABELS, STATE_VALUES, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
@@ -35,6 +35,7 @@ import StatusTag from 'components/Share/StatusTag';
 import UpdateOrderProducerModal from './UpdateOrderProducerModal';
 
 import './style.scss';
+import { filterListByPermission } from 'services/BaseService';
 
 
 const ACTION_KEYS = {
@@ -173,7 +174,9 @@ const columns = [
                             actionIcon={actionIcon}
         />
       );
-    }
+    },
+
+    permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_ORDER),
   },
 ];
 
@@ -200,6 +203,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   const onRowEvents = (record, rowIndex) => {
     return {
       onDoubleClick: event => {
+        if (!authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_ORDER)) return;
         events.publish(ACTION_KEYS.ACTION_EVENTS, {
           key: ACTION_KEYS.EDIT_ORDER,
           record,
@@ -208,7 +212,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     };
   };
   const tableConfig = {
-    columns,
+    columns: filterListByPermission(columns),
     onRow: onRowEvents,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, listStatus, resellerId: sellerId, ...restParams} = params || {};
@@ -502,7 +506,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
 
   const buttonList = [
     <Button key={ACTION_KEYS.EXPORT_ORDERS} type="primary" ghost icon={<Icon src={exportIcon} width={24} height={24} />} onClick={exportOrders}>Export orders</Button>,
-    <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={importIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
+    authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_ORDER) && <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={importIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
   ]
 
   const actionListenerFunc = () => {
@@ -615,7 +619,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
                          align="right"
       />
       <TableGrid configs={tableConfig}
-                 className="orders-management__table"
+                 className={`orders-management__table ${authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_ORDER) && 'allow-click-row'}`}
                  headerActionsConfig={headerActionsConfig}
                  secondHeader={StatusCheckboxGroup}
                  paginationConfig={{}}

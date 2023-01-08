@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminStoresService } from 'services';
-import { events } from 'utils';
+import { authentication, events } from 'utils';
 import {
+  PERMISSION_VALUES,
   STORE_TYPE_ICONS,
   STORE_TYPE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
@@ -150,7 +151,7 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
                  defaultParams={{}}
                  defaultData={{}}
                  isShowPagination={true}
-                 isAllowSelection={true}
+                 isAllowSelection={authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_STORE)}
                  isSingleSelection={true}
                  onSelectedItemsChange={onSelectedItemsChange}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}

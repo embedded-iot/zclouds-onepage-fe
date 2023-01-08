@@ -6,9 +6,14 @@ import { AdminUsersService, BaseService } from 'services';
 export default function AddEditUserBox({ data, role, onOk }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
+  const originData = data;
   const handleOk = (values) => {
+    const userData = { ...values };
+    if (originData && originData.password === userData.password) {
+      delete userData.password;
+    }
     if (isEdit) {
-      AdminUsersService.updateUser(data.id, values, response => {
+      AdminUsersService.updateUser(data.id, userData, response => {
         notification.success({
           message: "Update user successful!",
         });
@@ -19,7 +24,7 @@ export default function AddEditUserBox({ data, role, onOk }) {
         });
       })
     } else {
-      AdminUsersService.createUser(values, response => {
+      AdminUsersService.createUser(userData, response => {
         notification.success({
           message: "Create user successful!",
         });

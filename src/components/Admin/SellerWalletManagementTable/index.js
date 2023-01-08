@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminWalletsService } from 'services';
-import { cui, events } from 'utils';
+import { authentication, cui, events } from 'utils';
 import { Button } from 'antd';
 import { CloseCircleOutlined } from '@ant-design/icons';
 
@@ -13,7 +13,7 @@ import editIcon from 'images/edit_black_icon.svg';
 import infoIcon from 'images/info_black_icon.svg';
 import TopUpTable from './TopUpTable';
 
-import { ROLE_VALUES, ROUTERS } from 'components/contants';
+import { PERMISSION_VALUES, ROLE_VALUES, ROUTERS } from 'components/contants';
 import DeleteUserModal from 'components/Admin/UsersManagementTable/DeleteUserModal';
 import './style.scss';
 
@@ -140,11 +140,13 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
         type: 'custom',
         render: <Button key={ACTION_KEYS.EDIT_RESELLER} icon={<Icon src={editIcon} width={18} height={18} /> } onClick={editReseller}>Edit</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_USER),
       },
       {
         type: 'custom',
         render: <Button key={ACTION_KEYS.DELETE_RESELLER} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteReseller}>Delete</Button>,
         requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_USER),
       },
       {
         type: 'custom',
@@ -160,11 +162,13 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
         type: 'custom',
         render: <Button key={ACTION_KEYS.TOP_UP_RESELLER} icon={<Icon src={walletIcon} width={24} height={24} /> } type="primary" ghost onClick={showTopUpTable}>Top up / Withdraw</Button>,
         align: 'right',
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_SELLER_WALLETS),
       },
       {
         type: 'custom',
         render: <Button key={ACTION_KEYS.ADD_RESELLER} icon={<Icon src={plusIcon} width={18} height={18} /> } type="primary" onClick={addReseller}>Create new seller</Button>,
         align: 'right',
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_USER),
       },
     ],
   }
