@@ -1,26 +1,14 @@
 import React from 'react';
-import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
-import { STATE_LABELS } from 'components/contants';
-import ShippingEventsTimeLine from 'components/Share/ShippingEventsTimeLine';
-import { cui } from 'utils';
+import { datetime } from 'utils';
+import TimelineBox from 'components/Common/TimelineBox';
+import { DATETIME_FORMAT } from 'components/contants';
 
-export default function TrackingEventModal({ open, data, onCancel }) {
-  const shippingEvents = cui.parseStringObject(data.shippingEvent || '[]', []);
+export default function ShippingEventsTimeLine({ events }) {
+  const items = events.map(event => ({
+    label: datetime.convert(event.timestamp, DATETIME_FORMAT),
+    children: <>The order: <b>{event.description || '-'}</b> {!!event.address && `(${event.address})`} successfully.</>
+  }))
   return (
-    <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
-               open={open}
-               title={"Shipping Event"}
-               hideOklBtn={true}
-               onCancel={onCancel}
-    >
-      <div>
-        <span>Tracking Number: {!!data.trackingNumber ? <a href={`https://t.17track.net/en#nums=${data.trackingNumber}`} target='_blank' rel='noreferrer'>{data.trackingNumber}</a> : ''}</span><br/>
-        <span>Carrier: {!!data.carrier ? data.carrier : ''}</span><br/>
-        <span>Carrier Supply: {!!data.carrier ? data.carrier : ''}</span><br/>
-        <span>Shipping Status: {!!data.shippingStatus ? data.shippingStatus : ''}</span><br/>
-        <span>Destination: {!!data.shippingStatus ? STATE_LABELS[data.shippingStatus] : ''}</span><br/><br/>
-        { !!shippingEvents.length ? <ShippingEventsTimeLine events={shippingEvents} /> : '' }
-      </div>
-    </ModalView>
+    <TimelineBox items={items} mode='left'/>
   )
 }

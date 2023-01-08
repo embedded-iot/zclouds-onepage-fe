@@ -36,7 +36,7 @@ import { authentication } from 'utils';
 export default function AdminSider({ selectedRouters = [], redirectTo = () => {}, }) {
   const checkRouterMatchFn = (path) => checkRouterMatch(path, selectedRouters[0]);
   const items = filterListByPermission([
-    getItem('DASHBOARD', ROUTERS.ROOT, <Icon src={dashboardIcon} activeSrc={dashboardActiveIcon} active={checkRouterMatchFn(ROUTERS.ROOT)} />),
+    getItem('Dashboard', ROUTERS.ROOT, <Icon src={dashboardIcon} activeSrc={dashboardActiveIcon} active={checkRouterMatchFn(ROUTERS.ROOT)} />),
     getItem('Orders', ROUTERS.ADMIN_ORDERS_MANAGEMENT, <Icon src={ordersIcon} activeSrc={ordersActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_ORDERS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_ORDERS)),
     getItem('Products', ROUTERS.ADMIN_PRODUCTS_MANAGEMENT, <Icon src={productIcon} activeSrc={productActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_PRODUCTS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_PRODUCTS)),
     getItem('Stores', ROUTERS.ADMIN_STORES_MANAGEMENT, <Icon src={storesIcon} activeSrc={storesActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_STORES_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_STORES)),

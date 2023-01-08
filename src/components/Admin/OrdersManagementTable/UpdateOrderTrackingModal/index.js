@@ -7,18 +7,17 @@ import OrderTrackingForm from './OrderTrackingForm';
 export default function UpdateOrderTrackingModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
   const handleOk = (values) => {
-    const shippingEvents = (!!values.shippingEventDescription || values.shippingEventAddress) ? [{
+    const shippingEvent = (!!values.shippingEventDescription || values.shippingEventAddress) ? [{
       timestamp: values.shippingEventDate,
       description: values.shippingEventDescription,
       address: values.shippingEventAddress,
-    }, ...values.shippingEvents] : values.shippingEvents;
+    }, ...values.shippingEvent] : values.shippingEvent;
     const trackingData = {
       carrier: values.carrier,
       carrierSup: values.carrierSup,
       shippingStatus: values.shippingStatus,
       trackingNumber: values.trackingNumber,
-      destination: values.destination,
-      event: JSON.stringify(shippingEvents),
+      shippingEvent: JSON.stringify(shippingEvent),
     }
     AdminOrdersService.updateOrderTracking(data.id, trackingData, response => {
       notification.success({

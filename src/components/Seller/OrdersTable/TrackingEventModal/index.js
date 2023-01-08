@@ -5,7 +5,7 @@ import ShippingEventsTimeLine from 'components/Share/ShippingEventsTimeLine';
 import { cui } from 'utils';
 
 export default function TrackingEventModal({ open, data, onCancel }) {
-  const shippingEvents = cui.parseStringObject(data.shippingEvent || '[]', []);
+  const shippingEvent = cui.parseStringObject(data.shippingEvent || '[]', []);
   return (
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                open={open}
@@ -19,7 +19,7 @@ export default function TrackingEventModal({ open, data, onCancel }) {
         <span>Carrier Supply: {!!data.carrier ? data.carrier : ''}</span><br/>
         <span>Shipping Status: {!!data.shippingStatus ? data.shippingStatus : ''}</span><br/>
         <span>Destination: {!!data.shippingStatus ? STATE_LABELS[data.shippingStatus] : ''}</span><br/><br/>
-        { !!shippingEvents.length ? <ShippingEventsTimeLine events={shippingEvents} /> : '' }
+        { !!shippingEvent.length ? <ShippingEventsTimeLine events={shippingEvent} /> : '' }
       </div>
     </ModalView>
   )

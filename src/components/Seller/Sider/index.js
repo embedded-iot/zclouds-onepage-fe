@@ -38,7 +38,7 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
   const [selectedKey, setSelectedKey] = useState('');
   const checkRouterMatchFn = (path) => ([ROUTERS.SELLER_CHAT_WITH_ME, ROUTERS.SELLER_CREATOR_COMMUNITY ].includes(selectedKey) === false) && checkRouterMatch(path, selectedRouters[0]);
   const items = filterListByPermission([
-    getItem('DASHBOARD', ROUTERS.ROOT, <Icon src={dashboardIcon} activeSrc={dashboardActiveIcon} active={checkRouterMatchFn(ROUTERS.ROOT)} />),
+    getItem('Dashboard', ROUTERS.ROOT, <Icon src={dashboardIcon} activeSrc={dashboardActiveIcon} active={checkRouterMatchFn(ROUTERS.ROOT)} />),
     getItem('Functions', 'functions', undefined, filterListByPermission([
       getItem('Orders', ROUTERS.SELLER_ORDERS, <Icon src={ordersIcon} activeSrc={ordersActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_ORDERS)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_ORDERS)),
       getItem( 'Designs library', ROUTERS.SELLER_DESIGN_LIBRARY, <Icon src={designsLibraryIcon} activeSrc={designsLibraryActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_DESIGN_LIBRARY)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_DESIGNS)),

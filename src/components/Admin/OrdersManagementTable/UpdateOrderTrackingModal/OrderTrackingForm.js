@@ -15,7 +15,7 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
     ...restShippingStatus
   ]
   // eslint-disable-next-line
-  const shippingEvents = cui.parseStringObject(initialValues && initialValues.shippingEvent || '[]', []);
+  const shippingEvent = cui.parseStringObject(initialValues && initialValues.shippingEvent || '[]', []);
 
   return (
     <Form
@@ -29,7 +29,7 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
         shippingEventDate: Date.now(),
         shippingEventAddress: '',
         shippingEventDescription: '',
-        shippingEvents: shippingEvents,
+        shippingEvent: shippingEvent,
         ...initialValues,
       }}
       {...restProps}
@@ -91,12 +91,6 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
         </Col>
       </Row>
       <Form.Item
-        label="Destination"
-        name="destination"
-      >
-        <InputText placeholder="Destination" />
-      </Form.Item>
-      <Form.Item
         label="Shipping Event Date"
         name="shippingEventDate"
         hidden={true}
@@ -114,7 +108,7 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
         </Col>
         <Col span={12}>
           <Form.Item
-            label="Shipping Event Description (Optional)"
+            label="Shipping Event Address (Optional)"
             name="shippingEventAddress"
           >
             <InputText placeholder="Address" />
@@ -123,9 +117,9 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
       </Row>
       <Form.Item
         label="Shipping Events History"
-        name="shippingEvents"
+        name="shippingEventsHistory"
       >
-        { !!shippingEvents.length ? <ShippingEventsTimeLine events={shippingEvents} /> : 'No events' }
+        { !!shippingEvent.length ? <ShippingEventsTimeLine events={shippingEvent} /> : 'No events' }
       </Form.Item>
     </Form>
   )
