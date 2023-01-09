@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row } from 'antd';
+import { Col, Empty, Row } from 'antd';
 
 const GridView = ({
                 dataSource = [],
@@ -20,6 +20,11 @@ const GridView = ({
           </Col>
         ))
       }
+      { !dataSource.length && (
+        <Col span={24}>
+          <Empty />
+        </Col>
+      ) }
     </Row>
   )
 }

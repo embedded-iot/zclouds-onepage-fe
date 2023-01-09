@@ -9,7 +9,6 @@ import * as  SellerOrdersService from './Seller/OrdersService';
 import * as  SellerWalletService from './Seller/WalletService';
 import * as  SellerUsersService from './Seller/UsersService';
 import * as  SellerBanksService from './Seller/BanksService';
-import * as  SellerStatisticsService from './Seller/StatisticsService';
 import * as  SellerNotificationsService from './Seller/NotificationsService';
 import * as  SellerSystemService from './Seller/SystemService';
 import * as  SellerDashboardService from './Seller/DashboardService';
@@ -54,7 +53,6 @@ export {
   SellerWalletService,
   SellerUsersService,
   SellerBanksService,
-  SellerStatisticsService,
   SellerNotificationsService,
   SellerSystemService,
   SellerDashboardService,

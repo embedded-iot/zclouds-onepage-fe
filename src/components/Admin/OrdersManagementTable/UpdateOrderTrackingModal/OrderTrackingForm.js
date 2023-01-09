@@ -29,8 +29,8 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
         shippingEventDate: Date.now(),
         shippingEventAddress: '',
         shippingEventDescription: '',
-        shippingEvent: shippingEvent,
         ...initialValues,
+        shippingEvent: shippingEvent,
       }}
       {...restProps}
     >
@@ -117,7 +117,7 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
       </Row>
       <Form.Item
         label="Shipping Events History"
-        name="shippingEventsHistory"
+        name="shippingEvent"
       >
         { !!shippingEvent.length ? <ShippingEventsTimeLine events={shippingEvent} /> : 'No events' }
       </Form.Item>

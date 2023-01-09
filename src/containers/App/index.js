@@ -260,9 +260,9 @@ const App = (props) => {
 
   useEffect(() => {
     let notificationInterval = null;
+    getSystemConfigs();
     if (props.isLogin) {
       getNewNotifications(props.isAdminMode);
-      getSystemConfigs();
       notificationInterval = setInterval(() => {
         getNewNotifications(props.isAdminMode);
       }, 60000);
@@ -335,7 +335,7 @@ const App = (props) => {
               />
             )}
             content={<FrontUserAppContent isLogin={props.isLogin}/>}
-            footer={isFrontFooter && <FrontUserFooter />}
+            footer={isFrontFooter && <FrontUserFooter systemConfigs={props.systemConfigs} />}
             router={props.router}
           />
         )
@@ -354,7 +354,7 @@ const App = (props) => {
             )}
             sider={<SellerSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore} systemConfigs={props.systemConfigs}/>}
             content={<AppContent isLogin={props.isLogin}/>}
-            footer={<SellerFooter />}
+            footer={<SellerFooter systemConfigs={props.systemConfigs} />}
             router={props.router}
           />
         )

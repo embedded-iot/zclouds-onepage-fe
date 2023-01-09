@@ -1,6 +1,7 @@
-import { getSellerBaseURL } from 'services/BaseService';
-import { cui, datetime, makeGetWithConfigs } from 'utils';
+import { getFullPathImage, getSellerBaseURL } from 'services/BaseService';
+import { cui, datetime, format, makeGetWithConfigs } from 'utils';
 import { DATE_FORMAT } from 'components/contants';
+import shirt_sku from 'images/t-shirt_sku.svg';
 
 const transformOrdersOverview = item => {
   return {
@@ -52,7 +53,32 @@ function transformOrdersOverviewChartData(items = []) {
   }
 }
 
+const transformTopSellingProducts = item => {
+  return {
+    ...item,
+    name: item.product.name,
+    avatar: getFullPathImage(item.product.featureImage) || shirt_sku,
+    sku: item.product.slug,
+    ordersCount: item.orderCount,
+    convertedCost: !!item.product.price ? format.formatCurrency(item.product.price) : 0,
+  }
+}
+
+function getTopSellingProducts(params, successCallback, failureCallback) {
+  const config = {
+    params
+  }
+  const url = getSellerBaseURL() + '/dashboard/top-selling-products';
+  makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
+    const items = response ? response.map(transformTopSellingProducts) : []
+    return {
+      items: items,
+    };
+  })
+}
+
 export {
   getOrdersOverview,
   transformOrdersOverviewChartData,
+  getTopSellingProducts,
 }

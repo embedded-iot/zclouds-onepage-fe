@@ -37,8 +37,8 @@ export default function AddMoneyToWalletModal({ open, systemConfigs = [], onCanc
     )
   }))
 
-  const minTopUp = +(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.MIN_TOP_UP) || '0');
-  const rate = +(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.RATE) || '0');
+  const minTopUp = +(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_MIN_TOP_UP) || '0');
+  const rate = +(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_RATE_VND_USD) || '0');
   const convertedMinTopUp = format.formatCurrency(minTopUp);
   const convertedRate = format.formatCurrency(rate, 'VND');
   const minVNDTopUp = minTopUp * rate;

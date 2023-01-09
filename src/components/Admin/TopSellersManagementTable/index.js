@@ -8,7 +8,7 @@ import './style.scss';
 
 export default function TopSellersManagementTable() {
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_TRANSACTIONS_TABLE_EVENT_KEY';
-  const [mode, setMode] = useState('topday');
+  const [mode, setMode] = useState('day');
   const columns = [
     {
       title: 'Seller',
@@ -23,8 +23,8 @@ export default function TopSellersManagementTable() {
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize, pageNum, ...restParams} = params || {};
-      AdminStatisticsService.getTopSellers( cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
+      const { pageSize, pageNum, mode, ...restParams} = params || {};
+      AdminStatisticsService.getTopSellers( cui.removeEmpty({ ...restParams, period: mode }), successCallback, failureCallback)
     },
     successCallback: (response) => {
     },
@@ -37,46 +37,32 @@ export default function TopSellersManagementTable() {
     events.publish(RELOAD_EVENT_KEY, filters);
   }
 
-  const headerActionsConfig = {
-    buttonList: [
-      {
-        type: 'searchText',
-        props: {
-          placeholder: 'Search by name...',
-        }
-      },
-      {
-        type: 'searchButton',
-      },
-    ],
-  }
-
   const switchItems = [
     {
       label: 'Top day',
-      value: 'topday',
+      value: 'day',
     },
     {
       label: 'Top month',
-      value: 'topmonth',
+      value: 'month',
     }
   ];
 
   const handleModeChange = selectedMode => {
     setMode(selectedMode);
     reloadTable({
-      mode
+      mode: selectedMode
     });
   }
 
   return (
     <TableGrid configs={tableConfig}
-               headerActionsConfig={headerActionsConfig}
+               headerActionsConfig={{}}
                secondHeader={<SwitchBar items={switchItems} value={mode} onChange={handleModeChange}/>}
                paginationConfig={{}}
                defaultParams={{ mode }}
                defaultData={{}}
-               isShowPagination={true}
+               isShowPagination={false}
                isSingleSelection={true}
                isAllowSelection={false}
                RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}

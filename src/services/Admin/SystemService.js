@@ -1,6 +1,6 @@
 import { getAdminBaseURL } from 'services/BaseService';
 import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
-import { STATE_LABELS } from 'components/contants';
+import { STATE_LABELS, SYSTEM_CONFIG_VALUE } from 'components/contants';
 
 const transformSystem = item => {
   return {
@@ -43,9 +43,24 @@ function deleteSystem(id, successCallback, failureCallback) {
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+const getConfigsOptions = () => {
+  const options = [];
+  Object.keys(SYSTEM_CONFIG_VALUE).forEach(key => {
+    options.push({
+      label: SYSTEM_CONFIG_VALUE[key],
+      value: SYSTEM_CONFIG_VALUE[key],
+    })
+  })
+  return [
+    { label: 'Select config name', value: ''},
+    ...options
+  ];
+}
+
 export {
   getSystem,
   createSystem,
   updateSystem,
   deleteSystem,
+  getConfigsOptions,
 }

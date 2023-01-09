@@ -14,11 +14,10 @@ export default function TrackingEventModal({ open, data, onCancel }) {
                onCancel={onCancel}
     >
       <div>
-        <span>Tracking Number: {!!data.trackingNumber ? <a href={`https://t.17track.net/en#nums=${data.trackingNumber}`} target='_blank' rel='noreferrer'>{data.trackingNumber}</a> : ''}</span><br/>
-        <span>Carrier: {!!data.carrier ? data.carrier : ''}</span><br/>
-        <span>Carrier Supply: {!!data.carrier ? data.carrier : ''}</span><br/>
-        <span>Shipping Status: {!!data.shippingStatus ? data.shippingStatus : ''}</span><br/>
-        <span>Destination: {!!data.shippingStatus ? STATE_LABELS[data.shippingStatus] : ''}</span><br/><br/>
+        <span>Tracking Number: {!!data.trackingNumber ? <a href={`https://t.17track.net/en#nums=${data.trackingNumber}`} target='_blank' rel='noreferrer'>{data.trackingNumber}</a> : '-'}</span><br/>
+        <span>Carrier: {!!data.carrier ? data.carrier : '-'}</span><br/>
+        <span>Carrier Supply: {!!data.carrier ? data.carrier : '-'}</span><br/>
+        <span>Shipping Status: {!!data.shippingStatus ? (STATE_LABELS[data.shippingStatus] || data.shippingStatus) : '-'}</span><br/><br/>
         { !!shippingEvent.length ? <ShippingEventsTimeLine events={shippingEvent} /> : '' }
       </div>
     </ModalView>

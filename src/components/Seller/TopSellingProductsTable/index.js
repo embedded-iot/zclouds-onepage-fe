@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
-import { SellerStatisticsService, SellerStoresService } from 'services';
+import { SellerDashboardService, SellerStoresService } from 'services';
 import { cui, events } from 'utils';
 import bagIcon from 'images/bag_blue_icon.svg';
 import Icon from 'components/Common/Icon';
@@ -8,10 +8,11 @@ import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import { PERIOD_STATE_LABEL_VALUE_OPTIONS } from 'components/contants';
 import TopSellingProductsBox from 'components/Seller/TopSellingProductsTable/TopSellingProductsBox';
+import { Empty } from 'antd';
 
 const renderOrdersOverviewBody = ({ dataSource = [] }) => {
   return (
-    <TopSellingProductsBox products={dataSource} />
+    dataSource.length ? <TopSellingProductsBox products={dataSource} /> : <Empty />
   )
 }
 
@@ -25,8 +26,8 @@ export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP
   const tableConfig = {
     customBodyTemplate: renderOrdersOverviewBody,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize, pageNum, type, ...restParams} = params || {};
-      SellerStatisticsService.getTopsellingProducts(cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
+      const { pageSize, pageNum, ...restParams} = params || {};
+      SellerDashboardService.getTopSellingProducts(cui.removeEmpty({ ...restParams }), successCallback, failureCallback)
     },
     successCallback: (response) => {
     },
@@ -103,7 +104,7 @@ export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP
           <DropdownSelect
             name="period"
             options={PERIOD_STATE_LABEL_VALUE_OPTIONS}
-            defaultValue={''}
+            defaultValue={1}
             onChange={handleFilterChange}
             theme='light'
             style={{width: 300}}

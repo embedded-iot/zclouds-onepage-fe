@@ -15,10 +15,10 @@ export default function OrdersAccountingOverviewChart({ data = [], fromDate = da
     categories.unshift(dateStr);
     currentDay = datetime.getPreviousDay(currentDay);
     const selectedDay = data.find(item => item.convertedOrderDate === dateStr);
-    revenueData.unshift(!!selectedDay ? selectedDay.orderCount : 0);
-    costData.unshift(!!selectedDay ? selectedDay.orderCount : 0);
+    revenueData.unshift(!!selectedDay ? selectedDay.revenue : 0);
+    costData.unshift(!!selectedDay ? selectedDay.expense : 0);
     ordersData.unshift(!!selectedDay ? selectedDay.orderCount : 0);
-    profitData.unshift(!!selectedDay ? selectedDay.orderCount : 0);
+    profitData.unshift(!!selectedDay ? selectedDay.profit : 0);
   }
 
   const options = {

@@ -1,52 +1,57 @@
-import { format, makeGetWithConfigs } from 'utils';
+import { datetime, format, makeGetWithConfigs } from 'utils';
 import { getAdminBaseURL } from '../BaseService';
+import { DATE_FORMAT } from 'components/contants';
 
 const transformTopSeller = item => {
   return {
     ...item,
+    seller: item.seller.username,
     convertedRevenue: !!item.revenue ? format.formatCurrency(item.revenue) : 0,
   }
 }
 
-const items = [];
-for (let i = 0; i < 10; i++) {
-  items.push(transformTopSeller({
-    seller: "Seller " + i,
-    revenue: 100,
-  }))
-}
-
 function getTopSellers(params, successCallback, failureCallback) {
-  successCallback({
-    items,
-    totalCount: 100,
-  })
   const config = {
     params
   }
-  const url = getAdminBaseURL() + '/top-sellers';
+  const url = getAdminBaseURL() + '/dashboard/top-sellers';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
-    const items = response.content.map(transformTopSeller)
+    const items = response ? response.map(transformTopSeller) : []
     return {
       items: items,
-      totalCount: response.totalElement,
-      pageNum: response.currentPage,
-      totalPage: response.totalPage,
     };
   })
 }
+
+
+const transformOrdersOverview = item => {
+  return {
+    ...item,
+    orderCount: item.orderCount || 0,
+    expense: item.expense || 0,
+    profit: item.profit || 0,
+    revenue: item.revenue || 0,
+    convertedOrderDate: datetime.convert(item.orderDate, DATE_FORMAT),
+  }
+}
+
+const calcTotal = (list, key) => list.reduce((accumulator, currentValue) => {
+  return accumulator + currentValue[key];
+}, 0)
+
 function getSellersAccounting(params, successCallback, failureCallback) {
   const config = {
     params
   }
-  const url = getAdminBaseURL() + '/sellers-accounting';
+  const url = getAdminBaseURL() + '/dashboard/orders-overview';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
+    const items = response ? response.map(transformOrdersOverview) : []
     return {
-      categories: response.categories || [],
-      revenueData: response.revenueData || [],
-      costData: response.costData || [],
-      ordersData: response.ordersData || [],
-      profitData: response.profitData || [],
+      items,
+      convertedTotalRevenue: format.formatCurrency(calcTotal(items, 'revenue')),
+      convertedTotalCost: format.formatCurrency(calcTotal(items, 'expense')),
+      convertedTotalProfit: format.formatCurrency(calcTotal(items, 'profit')),
+      convertedTotalOrder: calcTotal(items, 'orderCount'),
     };
   })
 }

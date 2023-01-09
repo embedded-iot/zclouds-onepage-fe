@@ -1,21 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
-import { AdminResellersService, AdminStatisticsService, SellerDashboardService } from 'services';
-import { cui, events } from 'utils';
+import { AdminResellersService, AdminStatisticsService } from 'services';
+import { cui, datetime, events } from 'utils';
 import OrdersAccountingOverviewChart from './OrdersAccountingOverviewChart';
 import TableGrid from 'components/Common/TableGrid';
 import OrdersAccountingStatus from 'components/Admin/SellersAccountingManagementChart/OrdersAccountingStatus';
+import { DATA_DATE_FORMAT } from 'components/contants';
 import './style.scss';
 
 
 const renderOrdersOverviewBody = ({ params = {}, dataSource = [] }) => {
-  const { ordersCounts} = SellerDashboardService.transformOrdersOverviewChartData(dataSource);
   return (
     <div className="sellers-accounting__chart">
       <OrdersAccountingOverviewChart
         fromDate={!!params.fromDate ? new Date(params.fromDate) : undefined}
         toDate={!!params.toDate ? new Date(params.toDate) : undefined}
-        data={ordersCounts}
+        data={dataSource}
       />
     </div>
   );
@@ -119,7 +119,10 @@ export default function SellersAccountingManagementChart({ RELOAD_EVENT_KEY = 'R
                headerActionsConfig={headerActionsConfig}
                secondHeader={<OrdersAccountingStatus data={summaryData} /> }
                paginationConfig={{}}
-               defaultParams={{}}
+               defaultParams={{
+                 fromDate: datetime.convert(datetime.getPreviousDay(new Date(), 6), DATA_DATE_FORMAT),
+                 toDate: datetime.convert(new Date(), DATA_DATE_FORMAT)
+               }}
                defaultData={{}}
                isShowPagination={true}
                isAllowSelection={false}

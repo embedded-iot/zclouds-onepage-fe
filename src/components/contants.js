@@ -58,6 +58,7 @@ export const ROUTERS = {
 
 export const DATETIME_FORMAT = "DD/MM/YYYY HH:MM";
 export const DATE_FORMAT = "DD/MM/YYYY";
+export const DATA_DATE_FORMAT = "YYYY-MM-DD";
 
 export const RESPONSIVE_MEDIAS = {
   MOBILE: { query: '(max-width: 768px)' },
@@ -506,17 +507,25 @@ export const PRODUCER_STATE_LABEL_VALUE_OPTIONS = [
 ];
 
 export const SYSTEM_CONFIG_VALUE = {
-  MIN_TOP_UP: 'MIN_TOP_UP',
-  RATE: 'RATE',
-  CHAT_WITH_ME: 'CHAT_WITH_ME',
-  CREATOR_COMMUNITY: 'CREATOR_COMMUNITY',
+  SELLER_MIN_TOP_UP: 'SELLER_MIN_TOP_UP',
+  SELLER_RATE_VND_USD: 'SELLER_RATE_VND_USD',
+  SELLER_CHAT_WITH_ME: 'SELLER_CHAT_WITH_ME',
+  SELLER_CREATOR_COMMUNITY: 'SELLER_CREATOR_COMMUNITY',
+  SELLER_FULFILL: 'SELLER_FULFILL',
+  SELLER_FULFILL_FULFILLMENT_COMMUNITY: 'SELLER_FULFILL_FULFILLMENT_COMMUNITY',
+  SELLER_EMAIL_SUPPORT: 'SELLER_EMAIL_SUPPORT',
+  SELLER_HOTLINE: 'SELLER_HOTLINE',
+  HOME_LOGO_MESSENGER: 'HOME_LOGO_MESSENGER',
+  HOME_LOGO_PHONE_CALL: 'HOME_LOGO_PHONE_CALL',
+  HOME_LOGO_ZALO: 'HOME_LOGO_ZALO',
+  HOME_LOGO_FACEBOOK: 'HOME_LOGO_FACEBOOK',
 };
 
 export const PERIOD_STATE_LABEL_VALUE_OPTIONS = [
   { label: 'Select period', value: '' },
-  { label: 'Today', value: 'today' },
-  { label: 'Last 7 days', value: 'last7' },
-  { label: 'Last 14 days', value: 'last14' },
-  { label: 'Last 30 days', value: 'last30' },
-  { label: 'Last 60 days', value: 'last60' },
+  { label: 'Today', value: 1 },
+  { label: 'Last 7 days', value: 7 },
+  { label: 'Last 14 days', value: 14 },
+  { label: 'Last 30 days', value: 30 },
+  { label: 'Last 60 days', value: 60 },
 ];

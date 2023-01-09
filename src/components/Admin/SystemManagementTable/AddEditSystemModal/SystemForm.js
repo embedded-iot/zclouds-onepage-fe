@@ -6,13 +6,14 @@ import {
 import DropdownSelect from 'components/Common/DropdownSelect';
 import InputText from 'components/Common/InputText';
 
-export default function SystemForm({ form, initialValues, ...restProps }) {
+export default function SystemForm({ form, initialValues, configsOptions, ...restProps }) {
   return (
     <Form
       name="basic"
       form={form}
       autoComplete="off"
       initialValues={{
+        configName: '',
         ...initialValues,
         status: !!initialValues && !!initialValues.configStatus ? initialValues.configStatus : '',
       }}
@@ -26,11 +27,11 @@ export default function SystemForm({ form, initialValues, ...restProps }) {
         rules={[
           {
             required: true,
-            message: 'Please enter config name!',
+            message: 'Please select config name!',
           },
         ]}
       >
-        <InputText placeholder="Config name"  />
+        <DropdownSelect options={configsOptions} />
       </Form.Item>
       <Form.Item
         label="Config Value"

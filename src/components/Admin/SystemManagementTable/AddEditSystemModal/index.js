@@ -7,6 +7,7 @@ import { AdminSystemService, BaseService } from 'services';
 export default function AddEditSystemModal({ open, data, onOk, onCancel }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
+  const configsOptions = AdminSystemService.getConfigsOptions();
   const handleOk = (values) => {
     if (isEdit) {
       AdminSystemService.updateSystem(data.id, values, response => {
@@ -45,6 +46,7 @@ export default function AddEditSystemModal({ open, data, onOk, onCancel }) {
       <SystemForm
         form={form}
         initialValues={data}
+        configsOptions={configsOptions}
       />
     </ModalView>
   )

@@ -63,10 +63,10 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
     setSelectedKey(e.key);
     switch (e.key) {
       case ROUTERS.SELLER_CHAT_WITH_ME:
-        window.open(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.CHAT_WITH_ME), '_blank');
+        window.open(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_CHAT_WITH_ME), '_blank');
         break;
       case ROUTERS.SELLER_CREATOR_COMMUNITY:
-        window.open(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.CREATOR_COMMUNITY),'_blank');
+        window.open(SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_CREATOR_COMMUNITY),'_blank');
         break;
       default:
         redirectTo(e.key);

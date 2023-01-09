@@ -6,10 +6,11 @@ import messenger from 'images/messenger.png';
 import call from 'images/call.png';
 import zalo from 'images/zalo.png';
 import facebook from 'images/facebook.png';
-
+import { SellerSystemService } from 'services';
+import { SYSTEM_CONFIG_VALUE } from 'components/contants';
 import './style.scss';
 
-export default function Footer() {
+export default function Footer({ systemConfigs = []}) {
   return (
     <div className="public-footer__wrapper">
       <div className='public-footer__contents'>
@@ -26,10 +27,18 @@ export default function Footer() {
               <div className='public-footer__detail-contact'>
                 <div className='public-footer__detail-contact-label'>Liên hệ với chúng tôi qua</div>
                 <div className='public-footer__social-contact'>
-                  <img src={messenger} alt='messenger' />
-                  <img src={call} alt='call' />
-                  <img src={zalo} alt='zalo' />
-                  <img src={facebook} alt='facebook' />
+                  <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_LOGO_MESSENGER)} target='_blank' rel="noreferrer">
+                    <img src={messenger} alt='messenger' />
+                  </a>
+                  <span className="cursor-pointer" onClick={() => window.open(`tel:${SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_LOGO_PHONE_CALL)}`, '_self')}>
+                    <img src={call} alt='call' />
+                  </span>
+                  <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_LOGO_ZALO)} target='_blank' rel="noreferrer">
+                    <img src={zalo} alt='zalo' />
+                  </a>
+                  <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_LOGO_FACEBOOK)} target='_blank' rel="noreferrer">
+                    <img src={facebook} alt='facebook' />
+                  </a>
                 </div>
               </div>
             </div>

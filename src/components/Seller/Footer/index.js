@@ -8,8 +8,10 @@ import flagGreen from 'images/flag-green-icon.png';
 import supportAvatar from 'images/support-avatar.png';
 
 import './style.scss';
+import { SellerSystemService } from 'services';
+import { SYSTEM_CONFIG_VALUE } from 'components/contants';
 
-export default function Footer() {
+export default function Footer({ systemConfigs = [] }) {
   return (
     <div className="seller-footer__wrapper">
       <div className='seller-footer__contents'>
@@ -18,20 +20,27 @@ export default function Footer() {
             <div className='seller-footer__title'>Thank you for sticking with Fulfill. Follow us now</div>
             <div className='seller-footer__text'>
               <Icon src={facebook} height={12} width={12} />
-              Fulfill
+              <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_LOGO_MESSENGER)} target='_blank' rel="noreferrer">
+                Fulfill
+              </a>
             </div>
             <div className='seller-footer__text'>
               <Icon src={facebook} height={12} width={12} />
-              Fulfill - Fulfillment Community
+              <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_FULFILL_FULFILLMENT_COMMUNITY)} target='_blank' rel="noreferrer">
+                Fulfill - Fulfillment Community
+              </a>
             </div>
             <div className='seller-footer__title seller-footer__title--margin-top'>Contact us</div>
             <div className='seller-footer__text'>
               <Icon src={email} height={10} width={13} />
-              Email: support@fulfill.com
+              Email: {SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_EMAIL_SUPPORT) || 'support@cs-fulfill.com'}
             </div>
             <div className='seller-footer__text'>
               <Icon src={call} height={14} width={14} />
-              Hotline: +84 888 553 888
+              Hotline:
+              <span className="cursor-pointer margin-left-8" onClick={() => window.open(`tel:${SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_HOTLINE)}`, '_self')}>
+                {SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_HOTLINE)}
+              </span>
             </div>
             <div className='seller-footer__title seller-footer__title--margin-top'>How does Fulfill work</div>
             <div className='seller-footer__link'>Instructions to Use Fulfill Seller v3</div>
