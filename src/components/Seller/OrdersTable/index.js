@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { BaseService, SellerOrdersService, SellerStoresService } from 'services';
-import { authentication, cui, download, events } from 'utils';
+import { authentication, cui, datetime, events } from 'utils';
 import { Button, notification, Tag } from 'antd';
 import {
   EditOutlined,
@@ -11,7 +11,7 @@ import {
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportOrdersModal from 'components/Seller/OrdersTable/ImportOrdersModal';
 import {
-  CLONE_DESIGN_LABEL_VALUE_OPTIONS, DATA_DATE_FORMAT,
+  CLONE_DESIGN_LABEL_VALUE_OPTIONS, DATA_DATE_FORMAT, DATETIME_FORMAT,
   HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, PERMISSION_VALUES,
   ROUTERS, SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
   STATE_COLORS, STATE_LABELS, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
@@ -31,6 +31,7 @@ import StatusTag from 'components/Share/StatusTag';
 
 import './style.scss';
 import moment from 'moment/moment';
+import { downloadFile } from 'utils/requests';
 
 
 const ACTION_KEYS = {
@@ -189,7 +190,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   const exportOrders = () => {
     const params = selectedKeys.length ? { listOrderId: [...selectedKeys].join(',') } : { ...ref.current.params, }
     SellerOrdersService.exportOrders(params, response => {
-      response && download(response.url);
+      downloadFile(response, `orders_${datetime.convert(new Date(), DATETIME_FORMAT)}.xlsx`);
       notification.success({
         message: "Export orders successful!",
       });

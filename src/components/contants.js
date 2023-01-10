@@ -56,7 +56,7 @@ export const ROUTERS = {
   ADMIN_SYSTEM_SETTINGS_MANAGEMENT: '/system-settings-management',
 }
 
-export const DATETIME_FORMAT = "DD/MM/YYYY HH:MM";
+export const DATETIME_FORMAT = "DD/MM/YYYY HH:mm";
 export const DATE_FORMAT = "DD/MM/YYYY";
 export const DATA_DATE_FORMAT = "YYYY-MM-DD";
 

@@ -83,7 +83,8 @@ function cloneOrder(id, successCallback, failureCallback) {
 
 function exportOrders(params, successCallback, failureCallback) {
   const config = {
-    params
+    params,
+    responseType: 'blob'
   };
   const url = getSellerBaseURL() + '/orders/export';
   makeGetWithConfigs(url, config, successCallback, failureCallback);

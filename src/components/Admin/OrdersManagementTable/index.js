@@ -5,7 +5,7 @@ import {
   AdminStoresService,
   BaseService,
 } from 'services';
-import { authentication, cui, download, events } from 'utils';
+import { authentication, cui, datetime, events } from 'utils';
 import { Button, notification, Tag } from 'antd';
 import {
   EditOutlined,
@@ -13,7 +13,7 @@ import {
 } from '@ant-design/icons';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import {
-  CLONE_DESIGN_LABEL_VALUE_OPTIONS, DATA_DATE_FORMAT,
+  CLONE_DESIGN_LABEL_VALUE_OPTIONS, DATA_DATE_FORMAT, DATETIME_FORMAT,
   HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, PERMISSION_VALUES, ROUTERS,
   SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
   STATE_COLORS, STATE_LABELS, STATE_VALUES, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
@@ -34,9 +34,10 @@ import UpdateOrderPriceModal from './UpdateOrderPriceModal';
 import StatusTag from 'components/Share/StatusTag';
 import UpdateOrderProducerModal from './UpdateOrderProducerModal';
 
-import './style.scss';
 import { filterListByPermission } from 'services/BaseService';
 import moment from 'moment';
+import { downloadFile } from 'utils/requests';
+import './style.scss';
 
 
 const ACTION_KEYS = {
@@ -242,7 +243,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   const exportOrders = () => {
     const params = selectedKeys.length ? { listOrderId: [...selectedKeys].join(',') } : { ...ref.current.params, }
     AdminOrdersService.exportOrders(params, response => {
-      response && download(response.url);
+      downloadFile(response, `orders_${datetime.convert(new Date(), DATETIME_FORMAT)}.xlsx`);
       notification.success({
         message: "Export orders successful!",
       });

@@ -114,7 +114,8 @@ function getOrdersStatus(successCallback, failureCallback) {
 
 function exportOrders(params, successCallback, failureCallback) {
   const config = {
-    params
+    params,
+    responseType: 'blob'
   };
   const url = getAdminBaseURL() + '/orders/export';
   makeGetWithConfigs(url, config, successCallback, failureCallback);
