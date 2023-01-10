@@ -20,7 +20,7 @@ export default function BannerBox4({ customClass, redirectTo }) {
             <div className='home-box__description'>
               Let's see what the sellers who are using our service have to say about Fulfill
             </div>
-            <PostsGrid />
+            <PostsGrid className="banner-box-4__blog-list" />
           </div>
         </Col>
       </Row>

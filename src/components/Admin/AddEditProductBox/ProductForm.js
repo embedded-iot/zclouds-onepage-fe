@@ -30,7 +30,7 @@ export default function ProductForm(
 
   const removeUnusedImagesBefore = (successCallback = () => {}, submit = false) => {
     const { imageFiles = [] } = form.getFieldsValue();
-    const newUploadedImages = imageFiles.map(imageFile => imageFile.response).filter(image => !image.existing);
+    const newUploadedImages = imageFiles.map(imageFile => imageFile.response).filter(image =>  image && !image.existing);
     const newUploadedImagesInDeletedImage = deletedImages.filter(image => !image.existing);
     const unusedImages = submit ? deletedImages : [...newUploadedImagesInDeletedImage, ...newUploadedImages];
     if (!unusedImages.length) {

@@ -6,10 +6,11 @@ import {
 } from '@ant-design/icons';
 import { ROLE_LABELS, ROUTERS } from 'components/contants';
 import systemNotificationIcon from 'images/bell_gray_icon.svg';
+import myAccountIcon from 'images/my-account-icon.png';
 import Icon from 'components/Common/Icon';
 import './style.scss';
 
-export default function UserInfo({ notificationsCount = 0, isAdmin = false, currentUser = {}, redirectTo = () => {}, signOut = () => {}}) {
+export default function UserInfo({ notificationsCount = 0, isAdmin = false, currentUser = {}, selectedRouters = [], redirectTo = () => {}, goBack = () => {}, signOut = () => {}}) {
   const handleMenuClick = (e) => {
     switch (e.key) {
       case ROUTERS.LOGOUT:
@@ -26,17 +27,30 @@ export default function UserInfo({ notificationsCount = 0, isAdmin = false, curr
       onClick={handleMenuClick}
       items={[
         {
+          label: 'My account',
+          key: ROUTERS.SELLER_MY_ACCOUNT,
+          icon: <Icon src={myAccountIcon} width={20} height={20} />
+        },
+        {
           label: 'Logout',
           key: ROUTERS.LOGOUT,
-          icon: <LogoutOutlined />,
+          icon: <LogoutOutlined style={{ fontSize: 18, color: '#626F86' }}/>,
         },
       ]}
     />
   );
 
+  const handleShowNotices = () => {
+    if (selectedRouters[0] !== ROUTERS.NOTIFICATIONS) {
+      redirectTo(ROUTERS.NOTIFICATIONS)
+    } else {
+      goBack();
+    }
+  }
+
   return (
     <div className="user-info__wrapper">
-      <span className="cursor-pointer" onClick={() => redirectTo(ROUTERS.NOTIFICATIONS)}>
+      <span className="cursor-pointer" onClick={handleShowNotices}>
         <Badge count={notificationsCount}>
           <Icon src={systemNotificationIcon}/>
         </Badge>
@@ -54,7 +68,7 @@ export default function UserInfo({ notificationsCount = 0, isAdmin = false, curr
               backgroundColor: '#87d068',
               cursor: 'pointer'
             }}
-            src={currentUser.avatar}
+            src={currentUser.convertedAvatar}
             icon={<UserOutlined />}
           />
           <div className="user-info__title">

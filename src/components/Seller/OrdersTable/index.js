@@ -11,7 +11,7 @@ import {
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportOrdersModal from 'components/Seller/OrdersTable/ImportOrdersModal';
 import {
-  CLONE_DESIGN_LABEL_VALUE_OPTIONS,
+  CLONE_DESIGN_LABEL_VALUE_OPTIONS, DATA_DATE_FORMAT,
   HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, PERMISSION_VALUES,
   ROUTERS, SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
   STATE_COLORS, STATE_LABELS, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
@@ -30,6 +30,7 @@ import TrackingEventModal from './TrackingEventModal';
 import StatusTag from 'components/Share/StatusTag';
 
 import './style.scss';
+import moment from 'moment/moment';
 
 
 const ACTION_KEYS = {
@@ -234,6 +235,10 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     reloadTable(newFilters);
   }
 
+  const handleClear = () => {
+    setFilters({});
+  }
+
   const handleStoreInputChange = (value, name) => {
     setStoresInput({
       ...storesInput,
@@ -310,7 +315,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
         span: defaultSpan,
         render: (
           <DatePickerSelect name="date"
-                            value={storesInput.value}
+                            value={[!!filters['fromDate'] ? moment(filters['fromDate'], DATA_DATE_FORMAT) : undefined, !!filters['toDate'] ? moment(filters['toDate'], DATA_DATE_FORMAT) : undefined]}
                             onChange={handleDateChange}
                             theme='light'
           />
@@ -410,6 +415,12 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
       },
       {
         type: 'searchButton',
+      },
+      {
+        type: 'clearButton',
+        props: {
+          handleClear
+        }
       },
     ],
   }

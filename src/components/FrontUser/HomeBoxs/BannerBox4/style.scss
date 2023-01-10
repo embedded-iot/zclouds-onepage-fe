@@ -13,10 +13,13 @@
     justify-content: center;
   }
   &__contents {
-    max-width: 1000px;
+    max-width: 100%;
     text-align: center;
   }
   &__link {
     color: #D97008;
+  }
+  &__blog-list {
+    margin-top: 40px;
   }
 }

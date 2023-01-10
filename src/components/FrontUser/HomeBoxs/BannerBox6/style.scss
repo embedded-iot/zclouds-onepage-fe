@@ -10,7 +10,7 @@
     justify-content: center;
   }
   &__contents {
-    max-width: 1000px;
+    max-width: 100%;
   }
   &__link {
     color: #0065FF;
@@ -22,7 +22,7 @@
       position: unset;
     }
     .react-multiple-carousel__arrow {
-      top: 59px;
+      //top: 59px;
       &--left {
         left: -59px;
       }

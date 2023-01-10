@@ -15,7 +15,7 @@ const { Header, Footer, Sider, Content } = Layout;
 const TabletAndDesktopLayout = props => {
   const [isMenu, setMenu] = useState(true);
   return (
-    <Layout className="layout__wrapper">
+    <Layout className={`layout__wrapper ${props.className}`}>
       {
         isMenu && (
           <Sider theme="light" width={239} >
@@ -54,7 +54,7 @@ const MobileLayout = props => {
     // eslint-disable-next-line
   }, [props.router.location])
   return (
-    <Layout className="layout__wrapper layout__wrapper--mobile">
+    <Layout className={`layout__wrapper layout__wrapper--mobile ${props.className}`}>
       <Header>
         {props.header}
       </Header>
@@ -82,6 +82,7 @@ const LayoutWrapper = (props) => {
 }
 
 LayoutWrapper.propTypes = {
+  className: PropTypes.string,
   sider: PropTypes.element,
   header: PropTypes.element,
   content: PropTypes.element,

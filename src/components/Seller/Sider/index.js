@@ -14,8 +14,6 @@ import ordersIcon from 'images/orders-icon.png';
 import ordersActiveIcon from 'images/orders-white-icon.svg';
 import designsLibraryIcon from 'images/designs-library-icon.png';
 import designsLibraryActiveIcon from 'images/designs-library-white-icon.svg';
-import myAccountIcon from 'images/my-account-icon.png';
-import myAccountActiveIcon from 'images/my-account-white-icon.svg';
 import storesIcon from 'images/stores-icon.png';
 import storesActiveIcon from 'images/stores-white-icon.svg';
 import walletIcon from 'images/wallet-icon.png';
@@ -42,7 +40,6 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
     getItem('Functions', 'functions', undefined, filterListByPermission([
       getItem('Orders', ROUTERS.SELLER_ORDERS, <Icon src={ordersIcon} activeSrc={ordersActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_ORDERS)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_ORDERS)),
       getItem( 'Designs library', ROUTERS.SELLER_DESIGN_LIBRARY, <Icon src={designsLibraryIcon} activeSrc={designsLibraryActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_DESIGN_LIBRARY)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_DESIGNS)),
-      getItem('My Account', ROUTERS.SELLER_MY_ACCOUNT, <Icon src={myAccountIcon} activeSrc={myAccountActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_MY_ACCOUNT)} />),
       getItem('Stores', ROUTERS.SELLER_STORES, <Icon src={storesIcon} activeSrc={storesActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_STORES)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STORES)),
       getItem('Wallet', ROUTERS.SELLER_WALLET, <Icon src={walletIcon} activeSrc={walletActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_WALLET)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_WALLET)),
       getItem('Integrations', ROUTERS.SELLER_INTEGRATIONS, <Icon src={integrationsIcon} activeSrc={integrationsActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_INTEGRATIONS)} />, [

@@ -8,9 +8,11 @@ import InputSearch from 'components/Common/InputSearch';
 import PaginationBox from 'components/Common/PaginationBox';
 import InputText from 'components/Common/InputText';
 
-import './style.scss';
 import DatePickerSelect from 'components/Common/DatePickerSelect';
 import { filterListByPermission } from 'services/BaseService';
+import { DATA_DATE_FORMAT } from 'components/contants';
+import moment from 'moment';
+import './style.scss';
 
 
 const defaultPageSizeOptions = [10, 20, 50, 100];
@@ -39,6 +41,7 @@ export default function TableGrid({
                                     isShowSelectedLabel = false,
                                     isAllowSelection = false,
                                     RELOAD_EVENT_KEY = '',
+                                    CLEAR_EVENT_KEY = '',
                                   }) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [pageNumOptions, setPageNumOptions] = useState([]);
@@ -155,8 +158,8 @@ export default function TableGrid({
     } else {
       const newFilters = {
         ...filters,
-        fromDate: '',
-        toDate: '',
+        [name[0]]: '',
+        [name[1]]: '',
       };
       setFilters(newFilters);
     }
@@ -168,11 +171,26 @@ export default function TableGrid({
     getDataFunc(newParams);
   };
 
+  const handleClear = (clearProps) => {
+    const newParams = {
+      pageSize: 20,
+      pageNum: 1,
+      ...defaultParams
+    };
+    !!clearProps.handleClear && clearProps.handleClear()
+    setFilters({});
+    setParams(newParams);
+    getDataFunc(newParams);
+  };
+
+
   const getFilterActionComponent = (item, index, hasCol = false) => {
+    const datetimeNames = (item.props && item.props.name) || ['fromDate', 'toDate'];
     const ACTION_TYPES = {
       'searchText': (
         <InputSearch
           name={configs.searchTextKey || (item.props && item.props.name) || "keyword"}
+          value={filters[configs.searchTextKey || (item.props && item.props.name) || "keyword"]}
           placeholder={configs.searchPlaceholder || (item.props && item.props.name)}
           onChange={onInputChange}
           {...item.props}
@@ -181,6 +199,7 @@ export default function TableGrid({
       'inputText': (
         <InputText
           name={(item.props && item.props.name) || "inputText"}
+          value={filters[(item.props && item.props.name) || "inputText"]}
           placeholder={item.props && item.props.placeholder}
           onChange={onInputChange}
           style={{ width: !hasCol && 'auto'}}
@@ -190,6 +209,7 @@ export default function TableGrid({
       'datePicker': (
         <DatePickerSelect
           name={(item.props && item.props.name) || ['fromDate', 'toDate']}
+          value={[!!filters[datetimeNames[0]] ? moment(filters[datetimeNames[0]], DATA_DATE_FORMAT) : undefined, !!filters[datetimeNames[1]] ? moment(filters[datetimeNames[1]], DATA_DATE_FORMAT) : undefined]}
           onChange={onDateChange}
           style={{ width: !hasCol && 'auto'}}
           {...item.props}
@@ -200,6 +220,7 @@ export default function TableGrid({
           name="pageNum"
           options={pageNumOptions}
           defaultValue={params.pageNum.toString()}
+          value={params.pageNum.toString()}
           onChange={onDropdownChange}
           style={{ width: !hasCol && 'auto'}}
           {...item.props}
@@ -210,6 +231,7 @@ export default function TableGrid({
           name="pageSize"
           options={pageSizeOptions}
           defaultValue={params.pageSize.toString()}
+          value={params.pageSize.toString()}
           onChange={onDropdownChange}
           style={{ width: !hasCol && 'auto'}}
           {...item.props}
@@ -222,6 +244,17 @@ export default function TableGrid({
                 {...item.props}
         >
           Find
+        </Button>
+      ),
+      'clearButton': (
+        <Button type='primary'
+                ghost
+                danger
+                onClick={() => handleClear(item.props)}
+                style={{ width: !hasCol && 'auto'}}
+                {...item.props}
+        >
+          Clear
         </Button>
       ),
     }

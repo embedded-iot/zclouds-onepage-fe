@@ -10,7 +10,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route, withRouter, Redirect, matchPath } from 'react-router-dom';
-import { push } from 'connected-react-router';
+import { goBack, push } from 'connected-react-router';
 // import { BackTop } from 'antd';
 // import { UpCircleOutlined } from '@ant-design/icons';
 // import { useMediaQuery } from 'react-responsive';
@@ -209,6 +209,9 @@ const App = (props) => {
   const redirectTo = path => {
     props.push(path);
   }
+  const goBack = () => {
+    props.goBack();
+  }
   const signOut = () => {
     authentication.clearToken();
     props.setGlobalStore({
@@ -302,12 +305,15 @@ const App = (props) => {
       <AppWrapper>
         <HelmetMeta />
         <LayoutWrapper
+          className="layout__admin-mode"
           header={(
             <Header logoName={WEBSITE_NAME}
                     isLogin={props.isLogin}
                     isAdmin={props.isAdmin}
                     currentUser={props.currentUser}
+                    selectedRouters={selectedRouters}
                     redirectTo={redirectTo}
+                    goBack={goBack}
                     signOut={signOut}
                     notificationsCount={notificationsCount}
             />
@@ -348,6 +354,8 @@ const App = (props) => {
                       isLogin={props.isLogin}
                       currentUser={props.currentUser}
                       redirectTo={redirectTo}
+                      selectedRouters={selectedRouters}
+                      goBack={goBack}
                       signOut={signOut}
                       notificationsCount={notificationsCount}
               />
@@ -383,6 +391,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setGlobalStore: options => dispatch(setGlobalStore(options)),
     push: path => dispatch(push(path)),
+    goBack: path => dispatch(goBack()),
   };
 }
 

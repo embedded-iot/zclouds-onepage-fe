@@ -15,6 +15,8 @@ module.exports = {
               'menu-item-active-bg': isAdminMode ? '#8270DB' : '#0065FF',
               // 'menu-highlight-color': isAdminMode ? '#fff' : '#fff',
               'border-radius-base': '4px',
+              'font-size-base': '16px',
+              'line-height-base': '24px',
             },
             javascriptEnabled: true,
           },

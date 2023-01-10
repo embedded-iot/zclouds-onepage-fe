@@ -16,6 +16,7 @@ export default function DatePickerSelect({ name, defaultValue, value, options, o
       className={`date-picker-select ${theme}`}
       onChange={handlerOnChange}
       clearIcon={<Icon src={closeIcon} width={18} height={18} />}
+      value={value}
       {...restProps}
     />
   )

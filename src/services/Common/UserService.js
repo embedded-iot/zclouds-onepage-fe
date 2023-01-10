@@ -1,5 +1,5 @@
-import { makeGetWithConfigs, makePostWithConfigs } from 'utils';
-import { getFrontUserBaseURL } from '../BaseService';
+import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs } from 'utils';
+import { getFrontUserBaseURL, getFullPathImage } from '../BaseService';
 
 function login(data, successCallback, failureCallback) {
   const url = getFrontUserBaseURL() + '/users/authenticate';
@@ -34,9 +34,36 @@ function forgotPassword(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback)
 }
 
+const transformUser = item => {
+  const convertedAvatarImages = (!!item.avatar ? [item.avatar] : []).map(image => ({
+    url: getFullPathImage(image),
+    existing: true,
+  }));
+  return {
+    ...item,
+    convertedAvatar: getFullPathImage(item.avatar),
+    convertedAvatarImages
+  }
+}
 function getUserInfo(successCallback, failureCallback) {
   const url = getFrontUserBaseURL() + '/users/me';
-  makeGetWithConfigs(url, {}, successCallback, failureCallback)
+  makeGetWithConfigs(url, {}, successCallback, failureCallback, response => {
+    return transformUser(response);
+  })
+}
+
+function getUploadImageUrl() {
+  return getFrontUserBaseURL() + '/files/images';
+}
+
+function deleteImage(path, successCallback, failureCallback) {
+  const config = {
+    params: {
+      path
+    }
+  }
+  const url = getFrontUserBaseURL() + '/files/images/';
+  makeDeleteWithConfigs(url, config, successCallback, failureCallback);
 }
 
 export {
@@ -44,4 +71,7 @@ export {
   register,
   getUserInfo,
   forgotPassword,
+  getUploadImageUrl,
+  deleteImage,
+  transformUser,
 }

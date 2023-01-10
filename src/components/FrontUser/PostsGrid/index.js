@@ -9,7 +9,7 @@ const gridItemTemplate = ({ item, index }) => {
   return <PostItem {...item} />
 }
 
-export default function PostsGrid({ redirectTo }) {
+export default function PostsGrid({ className }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const RELOAD_EVENT_KEY = 'RELOAD_POSTS_TABLE_EVENT_KEY';
@@ -31,6 +31,7 @@ export default function PostsGrid({ redirectTo }) {
 
   return (
     <TableGrid type='grid'
+               className={className}
                configs={gridConfig}
                paginationConfig={{}}
                actionButtonList={{}}
