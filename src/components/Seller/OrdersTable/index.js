@@ -236,6 +236,10 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   }
 
   const handleClear = () => {
+    setStoresInput({
+      ...storesInput,
+      value: '',
+    });
     setFilters({});
   }
 
@@ -254,6 +258,10 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
 
   const handleStoreInputSelect = (value, options, name) => {
     handleFilterChange(value, name);
+  }
+
+  const handleAutoCompleteFocus = (value) => {
+    getStoresOptions(!!value ? { keyword: value } : {});
   }
 
   const handleDateChange = (date, dateString) => {
@@ -303,6 +311,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
                              value={storesInput.value}
                              onChange={handleStoreInputChange}
                              onSelect={handleStoreInputSelect}
+                             onFocus={() => handleAutoCompleteFocus(storesInput.value)}
                              placeholder={"All Stores"}
                              options={storesInput.options}
                              autoFilterOptions={false}
@@ -329,6 +338,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             name="haveTracking"
             options={TRACKING_STATUS_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['haveTracking'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -342,6 +352,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             name="shippingStatus"
             options={SHIPPING_STATUS_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['shippingStatus'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -355,6 +366,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             name="haveDesign"
             options={HAVE_DESIGN_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['haveDesign'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -368,6 +380,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             name="cloneDesign"
             options={CLONE_DESIGN_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['cloneDesign'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -395,6 +408,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             name="typeDate"
             options={TYPE_DATE_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['typeDate'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -408,6 +422,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             name="sortOrder"
             options={SORT_BY_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['sortOrder'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -484,7 +499,6 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   useEffect(() => {
     const reloadListener = actionListenerFunc();
     getOrdersStatus();
-    getStoresOptions( {});
     return () => {
       reloadListener && reloadListener.remove();
     };
