@@ -27,6 +27,10 @@ const columns = [
     dataIndex: 'fullName',
   },
   {
+    title: 'Last Login',
+    dataIndex: 'convertedLastLogin',
+  },
+  {
     title: 'First Name',
     dataIndex: 'firstName',
   },

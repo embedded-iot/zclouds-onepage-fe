@@ -28,8 +28,8 @@ const columns = [
     dataIndex: 'phone',
   },
   {
-    title: 'Store Name',
-    dataIndex: 'storeName',
+    title: 'Last Login',
+    dataIndex: 'convertedLastLogin',
   },
   {
     title: 'Role',

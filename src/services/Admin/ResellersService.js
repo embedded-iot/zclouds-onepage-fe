@@ -1,6 +1,6 @@
 import { getAdminBaseURL } from 'services/BaseService';
-import { makeGetWithConfigs, makePostWithConfigs } from 'utils';
-import { STATE_LABELS, STATE_VALUES } from 'components/contants';
+import { datetime, makeGetWithConfigs, makePostWithConfigs } from 'utils';
+import { DATETIME_FORMAT, STATE_LABELS, STATE_VALUES } from 'components/contants';
 
 const transformReseller = item => {
   const state = item.state || STATE_VALUES.ACTIVATED;
@@ -9,6 +9,7 @@ const transformReseller = item => {
     state,
     storeCount: item.storeCount || 0,
     convertedStatus: STATE_LABELS[state] || state,
+    convertedLastLogin: !!item.lastLogin ? datetime.convert(item.lastLogin, DATETIME_FORMAT) : '',
   }
 }
 

@@ -1,6 +1,6 @@
-import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
+import { datetime, makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import { getAdminBaseURL } from '../BaseService';
-import { ROLE_LABELS, STATE_LABELS } from 'components/contants';
+import { DATETIME_FORMAT, ROLE_LABELS, STATE_LABELS } from 'components/contants';
 
 const transformUser = item => {
   return {
@@ -8,6 +8,7 @@ const transformUser = item => {
     fullName: (item.fullName || '') || `${item.firstName || ''} ${item.lastName || ''}`,
     convertedState: STATE_LABELS[item.state] || item.state,
     convertedRole: ROLE_LABELS[item.role] || item.role,
+    convertedLastLogin: !!item.lastLogin ? datetime.convert(item.lastLogin, DATETIME_FORMAT) : '',
   }
 }
 
