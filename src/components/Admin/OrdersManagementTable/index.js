@@ -13,7 +13,7 @@ import {
 } from '@ant-design/icons';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import {
-  CLONE_DESIGN_LABEL_VALUE_OPTIONS,
+  CLONE_DESIGN_LABEL_VALUE_OPTIONS, DATA_DATE_FORMAT,
   HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, PERMISSION_VALUES, ROUTERS,
   SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
   STATE_COLORS, STATE_LABELS, STATE_VALUES, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
@@ -36,6 +36,7 @@ import UpdateOrderProducerModal from './UpdateOrderProducerModal';
 
 import './style.scss';
 import { filterListByPermission } from 'services/BaseService';
+import moment from 'moment';
 
 
 const ACTION_KEYS = {
@@ -297,6 +298,18 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     reloadTable(newFilters);
   }
 
+  const handleClear = () => {
+    setStoresInput({
+      ...storesInput,
+      value: '',
+    });
+    setResellersInput({
+      ...resellersInput,
+      value: '',
+    });
+    setFilters({});
+  }
+
   const handleAutoCompleteInputChange = (value, name) => {
     if (name === 'storeId') {
       setStoresInput({
@@ -324,6 +337,14 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
 
   const handleAutoCompleteInputSelect = (value, options, name) => {
     handleFilterChange(value, name);
+  }
+
+  const handleAutoCompleteFocus = (value, name) => {
+    if (name === 'storeId') {
+      getStoresOptions(!!value ? { keyword: value } : {});
+    } else if (name === 'resellerId') {
+      getResellersOptions(!!value ? { keyword: value } : {});
+    }
   }
 
   const handleDateChange = (date, dateString) => {
@@ -373,6 +394,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
                              value={storesInput.value}
                              onChange={handleAutoCompleteInputChange}
                              onSelect={handleAutoCompleteInputSelect}
+                             onFocus={() => handleAutoCompleteFocus(storesInput.value, 'storeId')}
                              placeholder={"All Stores"}
                              options={storesInput.options}
                              autoFilterOptions={false}
@@ -385,7 +407,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
         span: defaultSpan,
         render: (
           <DatePickerSelect name="date"
-                            value={storesInput.value}
+                            value={[!!filters['fromDate'] ? moment(filters['fromDate'], DATA_DATE_FORMAT) : undefined, !!filters['toDate'] ? moment(filters['toDate'], DATA_DATE_FORMAT) : undefined]}
                             onChange={handleDateChange}
                             theme='light'
           />
@@ -399,6 +421,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
             name="haveTracking"
             options={TRACKING_STATUS_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['haveTracking'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -412,6 +435,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
             name="shippingStatus"
             options={SHIPPING_STATUS_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['shippingStatus'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -425,6 +449,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
             name="haveDesign"
             options={HAVE_DESIGN_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['haveDesign'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -438,6 +463,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
             name="cloneDesign"
             options={CLONE_DESIGN_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['cloneDesign'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -465,6 +491,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
             name="typeDate"
             options={TYPE_DATE_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['typeDate'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -478,6 +505,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
             name="sortOrder"
             options={SORT_BY_LABEL_VALUE_OPTIONS}
             defaultValue={''}
+            value={filters['sortOrder'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -491,6 +519,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
                              value={resellersInput.value}
                              onChange={handleAutoCompleteInputChange}
                              onSelect={handleAutoCompleteInputSelect}
+                             onFocus={() => handleAutoCompleteFocus(resellersInput.value, 'resellerId')}
                              placeholder={"All Resellers"}
                              options={resellersInput.options}
                              autoFilterOptions={false}
@@ -500,6 +529,12 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
       },
       {
         type: 'searchButton',
+      },
+      {
+        type: 'clearButton',
+        props: {
+          handleClear
+        }
       },
     ],
   }
@@ -586,8 +621,6 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     const reloadListener = actionListenerFunc();
     const statusListener = statusListenerFunc();
     getOrdersStatus();
-    getStoresOptions( {});
-    getResellersOptions( {});
     return () => {
       statusListener && statusListener.remove();
       reloadListener && reloadListener.remove();
