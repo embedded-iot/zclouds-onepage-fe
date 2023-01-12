@@ -16,13 +16,14 @@ import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 import './style.scss';
+import BannerBox7 from 'components/FrontUser/HomeBoxs/BannerBox7';
+import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
 
 function HomePage(props) {
   const isDesktop = useMediaQuery(RESPONSIVE_MEDIAS.DESKTOP);
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   // eslint-disable-next-line
   const customClass = !!isTablet && 'home-box__wrapper--tablet' || !!isDesktop && 'home-box__wrapper--desktop';
-
   return (
     <div className="page-wrapper--full-width home-page__wrapper">
       <Helmet>
@@ -57,7 +58,10 @@ function HomePage(props) {
           customClass={customClass}
           redirectTo={props.push}
         />
-
+        <BannerBox7
+          customClass={customClass}
+        />
+        <SignUpBannerBox />
       </div>
     </div>
   );

@@ -121,6 +121,11 @@ function exportOrders(params, successCallback, failureCallback) {
   makeGetWithConfigs(url, config, successCallback, failureCallback);
 }
 
+function getOrderEvents(id, successCallback, failureCallback) {
+  const url = getAdminBaseURL() + '/order-events/' + id;
+  makeGetWithConfigs(url, {}, successCallback, failureCallback);
+}
+
 export {
   getOrders,
   getOrder,
@@ -133,4 +138,5 @@ export {
   updateOrderProducer,
   importOrders,
   exportOrders,
+  getOrderEvents,
 }

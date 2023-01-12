@@ -78,6 +78,7 @@ import AdminWalletTransactionsManagementPage from 'containers/Admin/WalletTransa
 import AdminSystemManagementPage from 'containers/Admin/SystemManagementPage/Loadable';
 import AdminStatisticsManagementPage from 'containers/Admin/StatisticsManagementPage/Loadable';
 import AdminNotificationsManagementPage from 'containers/Admin/NotificationsManagementPage/Loadable';
+import AdminFAQsManagementPage from 'containers/Admin/FAQsManagementPage/Loadable';
 import AdminNotificationsPage from 'containers/Admin/NotificationsPage/Loadable';
 
 
@@ -186,7 +187,8 @@ const AdminAppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.ADMIN_SELLER_WALLET_DETAILS_MANAGEMENT} component={AdminWalletTransactionsManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_SELLER_WALLETS)}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_SYSTEM_CONFIGS_MANAGEMENT} component={AdminSystemManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_CONFIGS)}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_STATISTICS_MANAGEMENT} component={AdminStatisticsManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_STATISTICS)}/>
-    <PrivateRoute exact path={ROUTERS.ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT} component={AdminNotificationsManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_NOTIFICATIONS)}/>
+    <PrivateRoute exact path={ROUTERS.ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT} component={AdminNotificationsManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_FAQS)}/>
+    <PrivateRoute exact path={ROUTERS.ADMIN_SYSTEM_FAQS_MANAGEMENT} component={AdminFAQsManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_NOTIFICATIONS)}/>
     <PrivateRoute exact path={ROUTERS.NOTIFICATIONS} component={AdminNotificationsPage} isAuthenticated={props.isLogin && props.isAdmin}/>
   </Switch>
 )

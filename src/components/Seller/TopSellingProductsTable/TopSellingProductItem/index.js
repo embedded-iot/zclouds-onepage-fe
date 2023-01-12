@@ -12,7 +12,7 @@ export default function TopSellingProductItem(props) {
       key={id}
     >
       <div className='top-selling-product-item__title'>{name}</div>
-      <div className='top-selling-product-item__description-1'>{sku} - {ordersCount}</div>
+      <div className='top-selling-product-item__description-1'>SKU {sku} - {ordersCount} Sold</div>
       <div className='top-selling-product-item__description-2'>{convertedCost}</div>
     </Card>
   )

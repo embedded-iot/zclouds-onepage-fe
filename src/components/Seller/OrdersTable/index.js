@@ -32,6 +32,7 @@ import StatusTag from 'components/Share/StatusTag';
 import './style.scss';
 import moment from 'moment/moment';
 import { downloadFile } from 'utils/requests';
+import OrderEventsModal from 'components/Seller/OrdersTable/OrderEventsModal';
 
 
 const ACTION_KEYS = {
@@ -42,6 +43,7 @@ const ACTION_KEYS = {
   IMPORT_ORDERS: "IMPORT_ORDERS",
   EXPORT_ORDERS: "EXPORT_ORDERS",
   VIEW_TRACKING: "VIEW_TRACKING",
+  VIEW_ORDER_EVENTS: "VIEW_ORDER_EVENTS",
 }
 
 
@@ -131,6 +133,11 @@ const columns = [
           icon: <SendOutlined />,
           disabled: !record.orderTracking,
         },
+        {
+          key: ACTION_KEYS.VIEW_ORDER_EVENTS,
+          label: "View order events",
+          icon: <SendOutlined />,
+        },
       ];
       return <ActionDropdownMenu items={actionItems} record={record} ACTION_EVENT_KEY={ACTION_KEYS.ACTION_EVENTS} />
     }
@@ -141,6 +148,7 @@ const columns = [
 export default function OrdersTable({ redirectTo, successCallback = () => {}  }) {
   const [openImportOrders, setOpenImportOrders] = useState(false);
   const [openTrackingEvents, setOpenTrackingEvents] = useState(false);
+  const [openOrderEvents, setOpenOrderEvents] = useState(false);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderStatus, setOrderStatus] = useState([]);
@@ -208,6 +216,11 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   const viewTrackingEvent = (selectedOrder) => {
     setSelectedOrder(selectedOrder);
     setOpenTrackingEvents(true);
+  }
+
+  const viewOrderEvents = (selectedOrder) => {
+    setSelectedOrder(selectedOrder);
+    setOpenOrderEvents(true);
   }
 
   const addEditOrder = (selectedOrder = {}) => {
@@ -473,6 +486,9 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
         case ACTION_KEYS.VIEW_TRACKING:
           viewTrackingEvent(record);
           break;
+        case ACTION_KEYS.VIEW_ORDER_EVENTS:
+          viewOrderEvents(record);
+          break;
         default:
       }
     });
@@ -558,6 +574,16 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
             onOk={reloadTable}
             data={!!selectedOrder && !!selectedOrder.orderTracking ? selectedOrder.orderTracking : {} }
             onCancel={() => { setOpenTrackingEvents(false); }}
+          />
+        )
+      }
+      {
+        openOrderEvents && (
+          <OrderEventsModal
+            open={openOrderEvents}
+            onOk={reloadTable}
+            data={selectedOrder}
+            onCancel={() => { setOpenOrderEvents(false); }}
           />
         )
       }

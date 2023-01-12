@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Col, Row } from 'antd';
 import BlogsSlideBox from 'components/FrontUser/BlogsSlideBox';
-import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
 
 import './style.scss';
 
@@ -28,7 +27,6 @@ export default function BannerBox6({ customClass, redirectTo }) {
             <div className='banner-box-6__buttons'>
               <Button>See more posts</Button>
             </div>
-            <SignUpBannerBox />
           </div>
         </Col>
       </Row>

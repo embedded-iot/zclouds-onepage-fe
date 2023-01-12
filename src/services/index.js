@@ -2,6 +2,7 @@ import * as  BaseService from "./BaseService";
 import * as  UserService from "./Common/UserService";
 import * as  FrontUserCategoriesService from './FrontUser/CategoriesService';
 import * as  FrontUserPostsService from './FrontUser/PostsService';
+import * as  FrontUserFAQsService from './FrontUser/FAQsService';
 import * as  SellerDesignsService from './Seller/DesignsService';
 import * as  SellerStoresService from './Seller/StoresService';
 import * as  SellerIntegrationsService from './Seller/IntegrationsService';
@@ -26,12 +27,14 @@ import * as  AdminProducersService from './Admin/ProducersService';
 import * as  AdminSystemService from './Admin/SystemService';
 import * as  AdminStatisticsService from './Admin/StatisticsService';
 import * as  AdminNotificationsService from './Admin/NotificationsService';
+import * as  AdminFAQsService from './Admin/FAQsService';
 
 export {
   BaseService,
   UserService,
   FrontUserCategoriesService,
   FrontUserPostsService,
+  FrontUserFAQsService,
   AdminUsersService,
   AdminProductsService,
   AdminCategoriesService,
@@ -46,6 +49,7 @@ export {
   AdminSystemService,
   AdminStatisticsService,
   AdminNotificationsService,
+  AdminFAQsService,
   SellerDesignsService,
   SellerStoresService,
   SellerIntegrationsService,

@@ -5,6 +5,7 @@ import BannerBox3 from './BannerBox3';
 import BannerBox4 from './BannerBox4';
 import BannerBox5 from './BannerBox5';
 import BannerBox6 from './BannerBox6';
+import BannerBox7 from './BannerBox7';
 
 import './style.scss';
 
@@ -16,4 +17,5 @@ export {
   BannerBox4,
   BannerBox5,
   BannerBox6,
+  BannerBox7,
 }

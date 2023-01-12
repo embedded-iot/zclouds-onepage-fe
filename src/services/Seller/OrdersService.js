@@ -90,6 +90,11 @@ function exportOrders(params, successCallback, failureCallback) {
   makeGetWithConfigs(url, config, successCallback, failureCallback);
 }
 
+function getOrderEvents(id, successCallback, failureCallback) {
+  const url = getSellerBaseURL() + '/order-events/' + id;
+  makeGetWithConfigs(url, {}, successCallback, failureCallback);
+}
+
 export {
   getOrders,
   getOrdersStatus,
@@ -99,4 +104,5 @@ export {
   exportOrders,
   getOrder,
   cloneOrder,
+  getOrderEvents,
 }

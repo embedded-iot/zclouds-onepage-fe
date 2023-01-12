@@ -1,6 +1,8 @@
 import React from 'react';
 import { Timeline } from 'antd';
 
+import './style.scss';
+
 export default function TimelineBox({ items = [], mode, ...restProps }) {
   return (
     <Timeline mode={mode}
