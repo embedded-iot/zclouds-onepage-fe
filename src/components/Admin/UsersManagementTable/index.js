@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminUsersService, BaseService } from 'services';
-import { authentication, cui, events, format } from 'utils';
+import { authentication, cui, events } from 'utils';
 import { Button, notification } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import DeleteUserModal from './DeleteUserModal';
@@ -10,10 +10,7 @@ import { PERMISSION_VALUES, ROLES_LABEL_VALUE_OPTIONS, ROUTERS } from 'component
 import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
 import RoleDropdownSelect from 'components/Admin/UsersManagementTable/RoleDropdownSelect';
-import TableCellView from 'components/Share/TableCellView';
 
-
-const UPDATE_DATA_EVENT_KEY = 'UPDATE_STATUS_TABLE_EVENT_KEY';
 
 const ACTION_KEYS = {
   ADD_USER: "ADD_USER",
@@ -60,8 +57,18 @@ export default function UsersManagementTable({ redirectTo }) {
       title: 'Role',
       dataIndex: 'convertedRole',
       render: (role, record) => {
+        if (!authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_USER))
+          return record.convertedRole;
         const handleRoleChange = (newRole, successCallback) => {
-          const data = { role: newRole};
+          const data = {
+            firstName: record.firstName,
+            lastName: record.lastName,
+            fullName: record.fullName,
+            state: record.state,
+            email: record.email,
+            phone: record.phone,
+            role: newRole
+          };
           updateRole(record.id, data, successCallback)
         }
         return (
@@ -177,6 +184,7 @@ export default function UsersManagementTable({ redirectTo }) {
         type: 'custom',
         render: <Button key={ACTION_KEYS.ADD_USER} type="primary" icon={<PlusCircleOutlined />} onClick={() => addEditUser()}>Add user</Button>,
         align: 'right',
+        permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_USER),
       }
     ],
   }
