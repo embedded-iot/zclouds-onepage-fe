@@ -46,7 +46,7 @@ export default function BannerBox3({ customClass, redirectTo }) {
             </div>
             <Row gutter={[20, 0]} className="banner-box-3__first-category">
               <Col span={8}>
-                <CategorySlideItem {...category} customClass="banner-box-3__first-category-slide" />
+                <CategorySlideItem category={category} redirectTo={redirectTo}  customClass="banner-box-3__first-category-slide" />
               </Col>
               <Col span={16}>
                 <RelatedProductsBox
