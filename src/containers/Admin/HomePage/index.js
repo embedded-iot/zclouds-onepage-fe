@@ -6,6 +6,8 @@ import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
+import DashboardBox from 'components/Admin/DashboardBox';
+import DashboardActions from 'components/Admin/DashboardActions';
 
 function HomePage(props) {
   return (
@@ -17,7 +19,9 @@ function HomePage(props) {
         title="Dashboard"
       />
       <div className="page-contents">
+        <DashboardActions />
         <NotificationsList isExplain={false} redirectTo={props.push} noData='No notifications'/>
+        <DashboardBox />
       </div>
     </div>
   );

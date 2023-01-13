@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { events } from 'utils';
 
-export default function TableCellView({ name, className, initialValue, UPDATE_VALUE_EVENT,  }) {
+export default function TableCellView({ name, className, initialValue, UPDATE_VALUE_EVENT, format,  }) {
   const [value, setValue] = useState(initialValue);
   useEffect(() => {
     let reloadListener = null;
@@ -16,5 +16,5 @@ export default function TableCellView({ name, className, initialValue, UPDATE_VA
     // eslint-disable-next-line
   }, []);
 
-  return <span className={className}>{value}</span>;
+  return <span className={className}>{format ? format(value) : value}</span>;
 }

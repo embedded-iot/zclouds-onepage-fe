@@ -5,6 +5,7 @@ import {
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import InputText from 'components/Common/InputText';
+import TextEditor from 'components/Common/TextEditor';
 
 export default function NotificationForm({ form, initialValues, ...restProps }) {
   return (
@@ -42,10 +43,7 @@ export default function NotificationForm({ form, initialValues, ...restProps }) 
           },
         ]}
       >
-        <InputText type="TextArea"
-                   rows={4}
-                   placeholder="Vietnamese content"
-        />
+        <TextEditor />
       </Form.Item>
       <Form.Item
         label="English content"
@@ -57,10 +55,7 @@ export default function NotificationForm({ form, initialValues, ...restProps }) 
           },
         ]}
       >
-        <InputText type="TextArea"
-                   rows={4}
-                   placeholder="English content"
-        />
+        <TextEditor />
       </Form.Item>
       <Form.Item
         label="Status"

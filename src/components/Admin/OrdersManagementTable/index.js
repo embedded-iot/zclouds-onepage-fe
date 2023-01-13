@@ -50,6 +50,7 @@ const ACTION_KEYS = {
   EDIT_ORDER: "EDIT_ORDER",
   IMPORT_ORDERS: "IMPORT_ORDERS",
   EXPORT_ORDERS: "EXPORT_ORDERS",
+  EXPORT_FOR_PRODUCER: "EXPORT_FOR_PRODUCER",
   VIEW_ORDER_EVENTS: "VIEW_ORDER_EVENTS",
 }
 
@@ -252,6 +253,20 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     const params = selectedKeys.length ? { listOrderId: [...selectedKeys].join(',') } : { ...ref.current.params, }
     AdminOrdersService.exportOrders(params, response => {
       downloadFile(response, `orders_${datetime.convert(new Date(), DATETIME_FORMAT)}.xlsx`);
+      notification.success({
+        message: "Export orders successful!",
+      });
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error,"Export orders failure!"),
+      });
+    })
+  }
+
+  const exportForProducer = () => {
+    const params = selectedKeys.length ? { listOrderId: [...selectedKeys].join(',') } : { ...ref.current.params, }
+    AdminOrdersService.exportForProducer(params, response => {
+      downloadFile(response, `orders-for-producer_${datetime.convert(new Date(), DATETIME_FORMAT)}.xlsx`);
       notification.success({
         message: "Export orders successful!",
       });
@@ -555,6 +570,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
 
   const buttonList = [
     <Button key={ACTION_KEYS.EXPORT_ORDERS} type="primary" ghost icon={<Icon src={exportIcon} width={24} height={24} />} onClick={exportOrders}>Export orders</Button>,
+    <Button key={ACTION_KEYS.EXPORT_FOR_PRODUCER} type="primary" ghost icon={<Icon src={exportIcon} width={24} height={24} />} onClick={exportForProducer}>Export for producer</Button>,
     authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_ORDER) && <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={importIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
   ]
 

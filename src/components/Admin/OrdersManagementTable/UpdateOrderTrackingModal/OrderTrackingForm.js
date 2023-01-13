@@ -6,6 +6,7 @@ import { SHIPPING_STATUS_LABEL_VALUE_OPTIONS } from 'components/contants';
 import ShippingEventsTimeLine from 'components/Share/ShippingEventsTimeLine';
 import './style.scss';
 import { cui } from 'utils';
+import InputNumber from 'components/Common/InputNumber';
 
 
 export default function OrderTrackingForm({ form, initialValues, ...restProps }) {
@@ -29,6 +30,7 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
         shippingEventDate: Date.now(),
         shippingEventAddress: '',
         shippingEventDescription: '',
+        costPrice: 0,
         ...initialValues,
         shippingEvent: shippingEvent,
       }}
@@ -90,6 +92,12 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
           </Form.Item>
         </Col>
       </Row>
+      <Form.Item
+        label="Producer price"
+        name="costPrice"
+      >
+        <InputNumber min={0} placeholder="Tracking Number" />
+      </Form.Item>
       <Form.Item
         label="Shipping Event Date"
         name="shippingEventDate"

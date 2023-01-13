@@ -5,6 +5,7 @@ import {
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import InputText from 'components/Common/InputText';
+import TextEditor from 'components/Common/TextEditor';
 
 export default function FAQForm({ form, initialValues, ...restProps }) {
   return (
@@ -19,7 +20,6 @@ export default function FAQForm({ form, initialValues, ...restProps }) {
       layout="vertical"
       {...restProps}
     >
-
       <Form.Item
         label="Question"
         name="question"
@@ -42,10 +42,7 @@ export default function FAQForm({ form, initialValues, ...restProps }) {
           },
         ]}
       >
-        <InputText type="TextArea"
-                   rows={4}
-                   placeholder="Answer"
-        />
+        <TextEditor />
       </Form.Item>
       <Form.Item
         label="Display order"

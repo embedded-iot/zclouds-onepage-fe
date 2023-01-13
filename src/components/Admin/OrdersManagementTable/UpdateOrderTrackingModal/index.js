@@ -17,6 +17,7 @@ export default function UpdateOrderTrackingModal({ open, data, onOk, onCancel })
       carrierSup: values.carrierSup,
       shippingStatus: values.shippingStatus,
       trackingNumber: values.trackingNumber,
+      costPrice: values.costPrice,
       shippingEvent: JSON.stringify(shippingEvent),
     }
     AdminOrdersService.updateOrderTracking(data.id, trackingData, response => {
@@ -42,7 +43,7 @@ export default function UpdateOrderTrackingModal({ open, data, onOk, onCancel })
     >
       <OrderTrackingForm
         form={form}
-        initialValues={data.orderTracking}
+        initialValues={{ ...(data && data.orderTracking ? data.orderTracking : {}), costPrice: (data && data.costPrice ? data.costPrice : 0) }}
       />
     </ModalView>
   )

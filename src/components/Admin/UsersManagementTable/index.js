@@ -1,48 +1,19 @@
 import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
-import { AdminUsersService } from 'services';
-import { authentication, cui, events } from 'utils';
-import { Button } from 'antd';
+import { AdminUsersService, BaseService } from 'services';
+import { authentication, cui, events, format } from 'utils';
+import { Button, notification } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import DeleteUserModal from './DeleteUserModal';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import { PERMISSION_VALUES, ROLES_LABEL_VALUE_OPTIONS, ROUTERS } from 'components/contants';
 import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
+import RoleDropdownSelect from 'components/Admin/UsersManagementTable/RoleDropdownSelect';
+import TableCellView from 'components/Share/TableCellView';
 
-const columns = [
-  {
-    title: 'User name',
-    dataIndex: 'username',
-  },
-  {
-    title: 'Full Name',
-    dataIndex: 'fullName',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-  },
-  {
-    title: 'Phone',
-    dataIndex: 'phone',
-  },
-  {
-    title: 'Last Login',
-    dataIndex: 'convertedLastLogin',
-  },
-  {
-    title: 'Role',
-    dataIndex: 'convertedRole',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'convertedState',
-    render: (convertedStatus, record) => {
-      return (<StatusTag value={record.state} label={convertedStatus}/>);
-    }
-  },
-];
+
+const UPDATE_DATA_EVENT_KEY = 'UPDATE_STATUS_TABLE_EVENT_KEY';
 
 const ACTION_KEYS = {
   ADD_USER: "ADD_USER",
@@ -50,11 +21,66 @@ const ACTION_KEYS = {
   DELETE_USER: "DELETE_USER",
 }
 
+const getRolesOptions = (firstLabel = '') => {
+  const [, ...restOptions] = ROLES_LABEL_VALUE_OPTIONS;
+  return [
+    { label: firstLabel || 'Select role', value: '' },
+    ...restOptions
+  ]
+}
+
 export default function UsersManagementTable({ redirectTo }) {
   const [openDeleteUser, setOpenDeleteUser] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_USERS_TABLE_EVENT_KEY';
   let ref = useRef({});
+
+  const columns = [
+    {
+      title: 'User name',
+      dataIndex: 'username',
+    },
+    {
+      title: 'Full Name',
+      dataIndex: 'fullName',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'phone',
+    },
+    {
+      title: 'Last Login',
+      dataIndex: 'convertedLastLogin',
+    },
+    {
+      title: 'Role',
+      dataIndex: 'convertedRole',
+      render: (role, record) => {
+        const handleRoleChange = (newRole, successCallback) => {
+          const data = { role: newRole};
+          updateRole(record.id, data, successCallback)
+        }
+        return (
+          <RoleDropdownSelect value={role}
+                              options={getRolesOptions()}
+                              onChange={handleRoleChange}
+          />
+        )
+      }
+    },
+    {
+      title: 'Status',
+      dataIndex: 'convertedState',
+      render: (convertedStatus, record) => {
+        return (<StatusTag value={record.state} label={convertedStatus}/>);
+      }
+    },
+  ];
+
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -90,7 +116,19 @@ export default function UsersManagementTable({ redirectTo }) {
     reloadTable({ role })
   }
 
-  ROLES_LABEL_VALUE_OPTIONS[0].label = "All Role";
+  const updateRole = (id, userData, successCallback = () => {}) => {
+    AdminUsersService.updateUser(id, userData, response => {
+      notification.success({
+        message: "Update user role successful!",
+      });
+      successCallback()
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error,"Update user role failure!"),
+      });
+    })
+  }
+
   const headerActionsConfig = {
     buttonList: [
       {
@@ -115,7 +153,7 @@ export default function UsersManagementTable({ redirectTo }) {
         type: 'custom',
         render: (
           <DropdownSelect
-            options={ROLES_LABEL_VALUE_OPTIONS}
+            options={getRolesOptions('All Roles')}
             defaultValue={''}
             onChange={onRoleChange}
             style={{width: 'auto'}}

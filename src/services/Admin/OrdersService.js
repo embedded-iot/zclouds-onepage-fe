@@ -121,6 +121,15 @@ function exportOrders(params, successCallback, failureCallback) {
   makeGetWithConfigs(url, config, successCallback, failureCallback);
 }
 
+function exportForProducer(params, successCallback, failureCallback) {
+  const config = {
+    params,
+    responseType: 'blob'
+  };
+  const url = getAdminBaseURL() + '/orders/export-for-producer';
+  makeGetWithConfigs(url, config, successCallback, failureCallback);
+}
+
 function getOrderEvents(id, successCallback, failureCallback) {
   const url = getAdminBaseURL() + '/order-events/' + id;
   makeGetWithConfigs(url, {}, successCallback, failureCallback);
@@ -138,5 +147,6 @@ export {
   updateOrderProducer,
   importOrders,
   exportOrders,
+  exportForProducer,
   getOrderEvents,
 }
