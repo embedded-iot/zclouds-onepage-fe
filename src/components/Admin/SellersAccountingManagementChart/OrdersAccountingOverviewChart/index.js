@@ -23,7 +23,7 @@ export default function OrdersAccountingOverviewChart({ data = [], fromDate = da
 
   const options = {
     chart: {
-      type: 'column'
+      zoomType: 'xy'
     },
     title: {
       text: 'Orders overview',
@@ -40,16 +40,27 @@ export default function OrdersAccountingOverviewChart({ data = [], fromDate = da
       categories: categories,
       crosshair: true
     },
-    yAxis: {
-      min: 0,
+    yAxis: [{ // Primary yAxis
       title: {
-        enabled: false,
-      }
+        text: 'Amount ($)',
+      },
+      labels: {
+        format: '{value} S',
+      },
     },
+      {
+      title: {
+        text: 'Orders Count',
+      },
+      opposite: true
+    }],
     tooltip: {
+      shared: true
+    },
+    tooltip1: {
       headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
       pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+        '<td style="padding:0"><b>{point.y:.1f} {series.unit}</b></td></tr>',
       footerFormat: '</table>',
       shared: true,
       useHTML: true
@@ -61,19 +72,33 @@ export default function OrdersAccountingOverviewChart({ data = [], fromDate = da
       }
     },
     series: [{
+      type: 'column',
       name: 'Revenue',
       color: '#0065FF',
+      tooltip: {
+        valueSuffix: ' $'
+      },
       data: revenueData,
     }, {
+      type: 'column',
       name: 'Cost',
+      unit: '$',
       color: '#8270DB',
+      tooltip: {
+        valueSuffix: ' $'
+      },
       data: costData,
     }, {
+      type: 'spline',
       name: 'Order',
       color: '#D97008',
       data: ordersData,
     }, {
+      type: 'column',
       name: 'Profit',
+      tooltip: {
+        valueSuffix: ' $'
+      },
       color: '#22A06B',
       data: profitData,
     }]

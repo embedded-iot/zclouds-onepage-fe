@@ -54,8 +54,8 @@ export default function BannerBox3({ customClass, redirectTo }) {
                   itemClass="banner-box-3__related-product-item"
                   redirectTo={redirectTo}
                   defaultParams={{
-                    orderBy: "displayOrder",
-                    orderDir: "asc",
+                    sortBy: "displayOrder",
+                    sortDirection: "asc",
                   }}
                   responsive={{
                     desktop: {
