@@ -22,7 +22,7 @@ const RegisterPage = (props) => {
       notification.success({
         message: "Register successful!",
       });
-      props.push(ROUTERS.LOGIN);
+      props.push(ROUTERS.ROOT);
     }, error => {
       notification.error({
         message: BaseService.getErrorMessage(error, "Register failure!"),
