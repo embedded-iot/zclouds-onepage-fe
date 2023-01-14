@@ -6,10 +6,10 @@ import { ROUTERS } from 'components/contants';
 
 import './style.scss';
 
-export default function RelatedProductsBox({ categoryId, redirectTo, containerClass, itemClass, responsive, ...restProps }) {
+export default function RelatedProductsBox({ categoryId, defaultParams = {}, redirectTo, containerClass, itemClass, responsive, ...restProps }) {
   const [products, setProducts] = useState([]);
   const getProductsByCategoryId = () => {
-    FrontUserCategoriesService.getCategories({ categoryId }, response => {
+    FrontUserCategoriesService.getCategories({ categoryId, ...defaultParams }, response => {
       setProducts(response.items);
     })
   }

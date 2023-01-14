@@ -67,6 +67,7 @@ export default function ProductForm(
         state: STATE_VALUES.ACTIVATED,
         categoryId: '',
         price: 0,
+        displayOrder: 0,
         ...initialValues,
         imageFiles: upload.getFileListFromList((initialValues ? initialValues.convertedProductImages : [])),
         productOptions: AdminProductsService.buildProductOptions(initialValues ? initialValues.productOptions : []),
@@ -128,13 +129,19 @@ export default function ProductForm(
             </Col>
             <Col span={12}>
               <Form.Item
-                label="Note"
-                name="note"
+                label="Display Order"
+                name="displayOrder"
               >
-                <InputText placeholder="Note" />
+                <InputNumber min={0} placeholder="Display Order"  />
               </Form.Item>
             </Col>
           </Row>
+          <Form.Item
+            label="Note"
+            name="note"
+          >
+            <InputText placeholder="Note" />
+          </Form.Item>
           <Form.Item
             label="Design URL"
             name="designUrl"

@@ -33,6 +33,7 @@ export default function AddEditProductBox({ data, onOk, onCancel, redirectTo }) 
       state: values.state,
       categoryId: values.categoryId,
       designUrl: values.designUrl,
+      displayOrder: values.displayOrder,
       listImgId: images.map(image => image.id),
     }
 

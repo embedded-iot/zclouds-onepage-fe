@@ -100,6 +100,10 @@ const columns = [
     ),
   },
   {
+    title: 'Display order',
+    dataIndex: 'displayOrder',
+  },
+  {
     title: 'Status',
     dataIndex: 'convertedState',
     render: (convertedStatus, record) => {
@@ -123,8 +127,8 @@ export default function ProductsManagementTable({ redirectTo }) {
   const tableConfig = {
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
-      const { pageSize: size, pageNum: page, searchText, ...restParams} = params || {};
-      AdminProductsService.getProducts({ ...restParams, page, size, searchText }, successCallback, failureCallback)
+      const { pageSize, pageNum, searchText, ...restParams} = params || {};
+      AdminProductsService.getProducts({ ...restParams, pageNum, pageSize, searchText }, successCallback, failureCallback)
     },
     successCallback: (response) => {
       ref.current.items = response.items;

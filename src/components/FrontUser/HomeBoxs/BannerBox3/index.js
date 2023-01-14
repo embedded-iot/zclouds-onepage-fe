@@ -53,7 +53,10 @@ export default function BannerBox3({ customClass, redirectTo }) {
                   containerClass="banner-box-3__related-products"
                   itemClass="banner-box-3__related-product-item"
                   redirectTo={redirectTo}
-                  categoryId={category.categoryId}
+                  defaultParams={{
+                    orderBy: "displayOrder",
+                    orderDir: "asc",
+                  }}
                   responsive={{
                     desktop: {
                       items: 3,
