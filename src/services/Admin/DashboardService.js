@@ -18,7 +18,7 @@ function getTopSellingProducts(params, successCallback, failureCallback) {
   const config = {
     params
   }
-  const url = getAdminBaseURL() + '/dashboard/top-selling-products';
+  const url = getAdminBaseURL() + '/dashboard/top-selling-designs';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     const items = response ? response.map(transformTopSellingProducts) : []
     return {

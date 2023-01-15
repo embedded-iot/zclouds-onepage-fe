@@ -8,6 +8,7 @@ import { Col, Row } from 'antd';
 import PageHeader from 'components/Share/PageHeader';
 import TopSellersManagementTable from 'components/Admin/TopSellersManagementTable';
 import SellersAccountingManagementChart from 'components/Admin/SellersAccountingManagementChart';
+import TopSellingProductsTable from 'components/Admin/TopSellingProductsTable';
 
 function StatisticsManagementPage(props) {
   return (
@@ -27,6 +28,7 @@ function StatisticsManagementPage(props) {
             <TopSellersManagementTable />
           </Col>
         </Row>
+        <TopSellingProductsTable />
       </div>
     </div>
   );

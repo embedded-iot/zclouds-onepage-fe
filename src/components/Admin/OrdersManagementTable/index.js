@@ -227,7 +227,9 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     onRow: onRowEvents,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, listStatus, resellerId: sellerId, ...restParams} = params || {};
-      AdminOrdersService.getOrders(cui.removeEmpty({ ...restParams, pageSize, pageNum, sellerId, listStatus: listStatus ? listStatus.join('|') : '' }), successCallback, failureCallback)
+      const requestParams = cui.removeEmpty({ ...restParams, pageSize, pageNum, sellerId, listStatus: listStatus ? listStatus.join('|') : '' });
+      ref.current.params = requestParams;
+      AdminOrdersService.getOrders(requestParams, successCallback, failureCallback)
     },
     successCallback: (response) => {
       successCallback(response);

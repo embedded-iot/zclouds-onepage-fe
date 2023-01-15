@@ -1,12 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
-import { AdminResellersService, AdminStatisticsService } from 'services';
+import { AdminDashboardService, AdminResellersService, AdminStatisticsService, BaseService } from 'services';
 import { cui, datetime, events } from 'utils';
 import OrdersAccountingOverviewChart from './OrdersAccountingOverviewChart';
 import TableGrid from 'components/Common/TableGrid';
 import OrdersAccountingStatus from 'components/Admin/SellersAccountingManagementChart/OrdersAccountingStatus';
-import { DATA_DATE_FORMAT } from 'components/contants';
+import { DATA_DATE_FORMAT, DATETIME_FORMAT } from 'components/contants';
 import './style.scss';
+import { downloadFile } from 'utils/requests';
+import { Button, notification } from 'antd';
+import Icon from 'components/Common/Icon';
+import exportIcon from 'images/export_green_purple_icon.svg';
+import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 
 
 const renderOrdersOverviewBody = ({ params = {}, dataSource = [] }) => {
@@ -33,7 +38,9 @@ export default function SellersAccountingManagementChart({ RELOAD_EVENT_KEY = 'R
     customBodyTemplate: renderOrdersOverviewBody,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
-      AdminStatisticsService.getSellersAccounting(cui.removeEmpty(restParams), successCallback, failureCallback)
+      const requestParams = cui.removeEmpty(restParams);
+      ref.current.params = requestParams;
+      AdminStatisticsService.getSellersAccounting(requestParams, successCallback, failureCallback)
     },
     successCallback: (response) => {
       setSummaryData(response)
@@ -112,21 +119,42 @@ export default function SellersAccountingManagementChart({ RELOAD_EVENT_KEY = 'R
       },
     ],
   }
+  const exportOrders = () => {
+    const params = ref.current.params || {};
+    AdminDashboardService.exportStatistics(params, response => {
+      downloadFile(response, `dashboard-statistics_${datetime.convert(new Date(), DATETIME_FORMAT)}.xlsx`);
+      notification.success({
+        message: "Export dashboard statistics successful!",
+      });
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error,"Export dashboard statistics failure!"),
+      });
+    })
+  }
+  const buttonList = [
+    <Button type="primary" ghost icon={<Icon src={exportIcon} width={24} height={24} />} onClick={exportOrders}>Export statistics</Button>,
+  ]
 
   return (
-    <TableGrid configs={tableConfig}
-               type="custom"
-               headerActionsConfig={headerActionsConfig}
-               secondHeader={<OrdersAccountingStatus data={summaryData} /> }
-               paginationConfig={{}}
-               defaultParams={{
-                 fromDate: datetime.convert(datetime.getPreviousDay(new Date(), 6), DATA_DATE_FORMAT),
-                 toDate: datetime.convert(new Date(), DATA_DATE_FORMAT)
-               }}
-               defaultData={{}}
-               isShowPagination={true}
-               isAllowSelection={false}
-               RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
-    />
+    <>
+      <ButtonListWrapper buttonList={buttonList}
+                         align="right"
+      />
+      <TableGrid configs={tableConfig}
+                 type="custom"
+                 headerActionsConfig={headerActionsConfig}
+                 secondHeader={<OrdersAccountingStatus data={summaryData} /> }
+                 paginationConfig={{}}
+                 defaultParams={{
+                   fromDate: datetime.convert(datetime.getPreviousDay(new Date(), 6), DATA_DATE_FORMAT),
+                   toDate: datetime.convert(new Date(), DATA_DATE_FORMAT)
+                 }}
+                 defaultData={{}}
+                 isShowPagination={true}
+                 isAllowSelection={false}
+                 RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
+      />
+    </>
   );
 }

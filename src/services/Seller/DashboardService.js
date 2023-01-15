@@ -1,5 +1,5 @@
 import { getFullPathImage, getSellerBaseURL } from 'services/BaseService';
-import { cui, datetime, format, makeGetWithConfigs } from 'utils';
+import { cui, datetime, makeGetWithConfigs } from 'utils';
 import { DATE_FORMAT } from 'components/contants';
 import shirt_sku from 'images/t-shirt_sku.svg';
 
@@ -56,11 +56,10 @@ function transformOrdersOverviewChartData(items = []) {
 const transformTopSellingProducts = item => {
   return {
     ...item,
-    name: item.product.name,
-    avatar: getFullPathImage(item.product.featureImage) || shirt_sku,
-    sku: item.product.slug,
+    seller: item.owner.username,
+    avatar: getFullPathImage(item.mockupUrl) || shirt_sku,
+    sku: item.design ? item.design.slug : '-',
     ordersCount: item.orderCount,
-    convertedCost: !!item.product.price ? format.formatCurrency(item.product.price) : 0,
   }
 }
 
