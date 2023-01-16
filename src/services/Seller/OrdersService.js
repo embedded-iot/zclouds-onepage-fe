@@ -71,9 +71,7 @@ function validateOrdersData(data, successCallback, failureCallback) {
     data
   };
   const url = getSellerBaseURL() + '/orders/import-excel';
-  makePostWithConfigs(url, config, successCallback, failureCallback, response => {
-    return response.map(transformOrderDataRow)
-  });
+  makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
 function importOrders(data, successCallback, failureCallback) {
@@ -122,6 +120,7 @@ export {
   updateOrder,
   importOrders,
   validateOrdersData,
+  transformOrderDataRow,
   exportOrders,
   getOrder,
   cloneOrder,

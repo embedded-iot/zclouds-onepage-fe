@@ -4,15 +4,21 @@ import DraggerUploadBox from 'components/Common/DraggerUploadBox';
 import { upload } from 'utils';
 import OrderDataRowsTable from './OrderDataRowsTable';
 import { getFrontUserUrl } from 'services/BaseService';
-import { SellerSystemService } from 'services';
+import { SellerOrdersService, SellerSystemService } from 'services';
 import { SYSTEM_CONFIG_VALUE } from 'components/contants';
+import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 
 import './style.scss';
 
 
-export default function ImportOrdersForm({ form, systemConfigs, orderDataRows, onFileChange, ...restProps }) {
+export default function ImportOrdersForm({ form, systemConfigs, orderDataRows, onFileChange,
+                                           storesInputValue, storesOptions,
+                                           onInputChange, onInputSelect, ...restProps
+}) {
   const handleValuesChange = (value, values) => {
-    onFileChange(value.file && value.file.length ? value.file[0] : null);
+    if (value.file) {
+      onFileChange(value.file.length ? value.file[0] : null);
+    }
   }
   const skuLink = getFrontUserUrl() + '/sku';
   const guildLink = getFrontUserUrl() + '/blog/import-order-by-csv-exel-files';
@@ -65,9 +71,38 @@ export default function ImportOrdersForm({ form, systemConfigs, orderDataRows, o
         <DraggerUploadBox autoUpload={false} maxCount={1} />
       </Form.Item>
       <Form.Item
+        label="Store"
+        name="storeInput"
+        hidden={!orderDataRows.length}
+        rules={[
+          {
+            required: true,
+            message: 'Please select store!',
+          },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              const existingStore = storesOptions.find(item => item.label === value || item.value === value);
+              if (!value || existingStore) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('Store is not existing!'));
+            },
+          }),
+        ]}
+      >
+        <AutoCompleteInput name="storeAutoCompleteInput"
+                           value={storesInputValue}
+                           onChange={onInputChange}
+                           onSelect={onInputSelect}
+                           placeholder={"All Stores"}
+                           options={storesOptions}
+                           autoFilterOptions={false}
+        />
+      </Form.Item>
+      <Form.Item
         hidden={!orderDataRows.length}
       >
-        <OrderDataRowsTable items={orderDataRows} />
+        <OrderDataRowsTable items={orderDataRows.map(SellerOrdersService.transformOrderDataRow)} />
       </Form.Item>
     </Form>
   )
