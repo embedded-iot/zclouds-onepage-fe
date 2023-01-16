@@ -87,6 +87,16 @@ export default function TableGrid({
     return reloadListener;
   }
 
+  const clearListenerFunc = () => {
+    let reloadListener = null;
+    if (!!CLEAR_EVENT_KEY) {
+      reloadListener = events.subscribe(CLEAR_EVENT_KEY, (payload = {}) => {
+        handleClear(payload)
+      })
+    }
+    return reloadListener;
+  }
+
   useEffect(() => {
     if (!isAllowUpdateDefaultData)
       return;
@@ -100,9 +110,11 @@ export default function TableGrid({
   useEffect(() => {
     getDataFunc(params);
     const reloadListener = reloadListenerFunc();
+    const clearListener = clearListenerFunc();
 
     return () => {
       reloadListener && reloadListener.remove();
+      clearListener && clearListener.remove();
     };
     // eslint-disable-next-line
   }, []);

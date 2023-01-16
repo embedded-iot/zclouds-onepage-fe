@@ -36,7 +36,7 @@ export default function CategoriesSlideBox({ redirectTo, successCallback }) {
       }}
     >
       {
-        categories.map((category) => <CategorySlideItem {...category} onClick={handleClick} />)
+        categories.map((category) => <CategorySlideItem redirectTo={redirectTo} category={category} onClick={handleClick} />)
       }
     </MultiCarouselView>
   )

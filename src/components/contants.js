@@ -375,8 +375,8 @@ export const DESIGN_DETAIL_TYPE_VALUES = {
 
 export const TRACKING_STATUS_LABEL_VALUE_OPTIONS = [
   { label: 'Tracking status All', value: '' },
-  { label: 'Have tracking', value: 'Yes' },
-  { label: 'No tracking', value: 'No' },
+  { label: 'Have tracking', value: 'yes' },
+  { label: 'No tracking', value: 'no' },
 ];
 
 export const SHIPPING_STATUS_VALUES = {
@@ -407,26 +407,26 @@ export const SHIPPING_STATUS_LABEL_VALUE_OPTIONS = [
 
 export const HAVE_DESIGN_LABEL_VALUE_OPTIONS = [
   { label: 'Have design All', value: '' },
-  { label: 'Yes', value: 'Yes' },
-  { label: 'No', value: 'No' },
+  { label: 'Yes', value: 'yes' },
+  { label: 'No', value: 'no' },
 ];
 
 export const CLONE_DESIGN_LABEL_VALUE_OPTIONS = [
   { label: 'Clone design All', value: '' },
-  { label: 'Yes', value: 'Yes' },
-  { label: 'No', value: 'No' },
+  { label: 'Yes', value: 'yes' },
+  { label: 'No', value: 'no' },
 ];
 
 export const TYPE_DATE_LABEL_VALUE_OPTIONS = [
   { label: 'Sort by time', value: '' },
-  { label: 'Create date', value: 'create_date' },
-  { label: 'Upload tracking date', value: 'tracking_date' },
+  { label: 'Create date', value: 'dateOrder' },
+  { label: 'Upload tracking date', value: 'trackingDate' },
 ];
 
 export const SORT_BY_LABEL_VALUE_OPTIONS = [
   { label: 'Sort by order', value: '' },
-  { label: <><span>New - Old </span><ArrowDownOutlined /> </>, value: 'time_order_desc' },
-  { label: <><span>Old - New </span><ArrowUpOutlined /> </>, value: 'time_order_acs' },
+  { label: <><span>New - Old </span><ArrowDownOutlined /> </>, value: 'desc' },
+  { label: <><span>Old - New </span><ArrowUpOutlined /> </>, value: 'acs' },
 ];
 
 
@@ -531,6 +531,8 @@ export const SYSTEM_CONFIG_VALUE = {
   SELLER_FULFILL_FULFILLMENT_COMMUNITY: 'SELLER_FULFILL_FULFILLMENT_COMMUNITY',
   SELLER_EMAIL_SUPPORT: 'SELLER_EMAIL_SUPPORT',
   SELLER_HOTLINE: 'SELLER_HOTLINE',
+  ADMIN_ORDER_2D_TEMPLATE: 'ADMIN_ORDER_2D_TEMPLATE',
+  ADMIN_ORDER_3D_TEMPLATE: 'ADMIN_ORDER_3D_TEMPLATE',
   HOME_LOGO_MESSENGER: 'HOME_LOGO_MESSENGER',
   HOME_LOGO_PHONE_CALL: 'HOME_LOGO_PHONE_CALL',
   HOME_LOGO_ZALO: 'HOME_LOGO_ZALO',

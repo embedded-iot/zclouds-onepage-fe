@@ -24,6 +24,7 @@ function OrdersPage(props) {
       <div className="page-contents">
         <OrdersTable redirectTo={props.push}
                      successCallback={successCallback}
+                     systemConfigs={props.systemConfigs}
         />
       </div>
     </div>
@@ -33,6 +34,7 @@ function OrdersPage(props) {
 function mapStateToProps(state) {
   return {
     router: state.router,
+    systemConfigs: state.global.systemConfigs || [],
   }
 }
 

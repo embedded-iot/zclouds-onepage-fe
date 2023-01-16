@@ -449,10 +449,10 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
         span: defaultSpan,
         render: (
           <DropdownSelect
-            name="haveTracking"
+            name="haveTrackingNum"
             options={TRACKING_STATUS_LABEL_VALUE_OPTIONS}
             defaultValue={''}
-            value={filters['haveTracking'] || ''}
+            value={filters['haveTrackingNum'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -519,10 +519,10 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
         span: defaultSpan,
         render: (
           <DropdownSelect
-            name="typeDate"
+            name="sortBy"
             options={TYPE_DATE_LABEL_VALUE_OPTIONS}
             defaultValue={''}
-            value={filters['typeDate'] || ''}
+            value={filters['sortBy'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -533,10 +533,10 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
         span: defaultSpan,
         render: (
           <DropdownSelect
-            name="sortOrder"
+            name="sortDirection"
             options={SORT_BY_LABEL_VALUE_OPTIONS}
             defaultValue={''}
-            value={filters['sortOrder'] || ''}
+            value={filters['sortDirection'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -573,7 +573,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   const buttonList = [
     <Button key={ACTION_KEYS.EXPORT_ORDERS} type="primary" ghost icon={<Icon src={exportIcon} width={24} height={24} />} onClick={exportOrders}>Export orders</Button>,
     <Button key={ACTION_KEYS.EXPORT_FOR_PRODUCER} type="primary" ghost icon={<Icon src={exportIcon} width={24} height={24} />} onClick={exportForProducer}>Export for producer</Button>,
-    authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_ORDER) && <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={importIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
+    false && authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_ORDER) && <Button key={ACTION_KEYS.IMPORT_ORDERS} type="primary" ghost icon={<Icon src={importIcon} width={24} height={24} />} onClick={importOrders}>Import orders</Button>,
   ]
 
   const actionListenerFunc = () => {

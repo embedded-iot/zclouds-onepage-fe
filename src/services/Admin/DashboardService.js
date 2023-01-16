@@ -1,16 +1,15 @@
 import { getAdminBaseURL, getFullPathImage } from 'services/BaseService';
-import { format, makeGetWithConfigs } from 'utils';
+import { makeGetWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
 
 
 const transformTopSellingProducts = item => {
   return {
     ...item,
-    name: item.product.name,
-    avatar: getFullPathImage(item.product.featureImage) || shirt_sku,
-    sku: item.product.slug,
+    name: item.owner && item.owner.username,
+    avatar: getFullPathImage(item.mockupUrl) || shirt_sku,
+    sku: item.design && item.design.slug,
     ordersCount: item.orderCount,
-    convertedCost: !!item.product.price ? format.formatCurrency(item.product.price) : 0,
   }
 }
 

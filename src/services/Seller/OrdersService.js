@@ -56,11 +56,31 @@ function updateOrder(orderId, data, successCallback, failureCallback) {
   makePutWithConfigs(url, config, successCallback, failureCallback);
 }
 
+const transformOrderDataRow = item => {
+  const convertedMockupUrl = !!item.mockupUrl && getFullPathImage(item.mockupUrl);
+  const convertedDesignUrl = !!item.designUrl && getFullPathImage(item.designUrl);
+  return {
+    ...item,
+    convertedMockupUrl: convertedMockupUrl || shirt_sku,
+    convertedDesignUrl: convertedDesignUrl || shirt_sku,
+  }
+}
+
+function validateOrdersData(data, successCallback, failureCallback) {
+  const config = {
+    data
+  };
+  const url = getSellerBaseURL() + '/orders/import-excel';
+  makePostWithConfigs(url, config, successCallback, failureCallback, response => {
+    return response.map(transformOrderDataRow)
+  });
+}
+
 function importOrders(data, successCallback, failureCallback) {
   const config = {
     data
   };
-  const url = getSellerBaseURL() + '/orders/import';
+  const url = getSellerBaseURL() + '/orders/import-orders';
   makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
@@ -101,6 +121,7 @@ export {
   createOrder,
   updateOrder,
   importOrders,
+  validateOrdersData,
   exportOrders,
   getOrder,
   cloneOrder,

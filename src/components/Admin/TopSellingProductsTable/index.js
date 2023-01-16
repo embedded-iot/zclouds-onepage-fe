@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
-import { AdminDashboardService } from 'services';
+import { AdminDashboardService, AdminResellersService } from 'services';
 import { cui, events } from 'utils';
 import bagIcon from 'images/bag_blue_icon.svg';
 import Icon from 'components/Common/Icon';
@@ -8,6 +8,8 @@ import DropdownSelect from 'components/Common/DropdownSelect';
 import { PERIOD_STATE_LABEL_VALUE_OPTIONS } from 'components/contants';
 import TopSellingProductsBox from './TopSellingProductsBox';
 import { Empty } from 'antd';
+import AutoCompleteInput from 'components/Common/AutoCompleteInput';
+import './style.scss';
 
 const renderOrdersOverviewBody = ({ dataSource = [] }) => {
   return (
@@ -17,6 +19,11 @@ const renderOrdersOverviewBody = ({ dataSource = [] }) => {
 
 export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP_SELLING_PRODUCTS_TABLE_EVENT_KEY' }) {
   const [filters, setFilters] = useState({});
+  const [resellersInput, setResellersInput] = useState({
+    value: '',
+    options: [],
+  });
+  let ref = useRef({});
   const tableConfig = {
     customBodyTemplate: renderOrdersOverviewBody,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -44,8 +51,52 @@ export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP
     reloadTable(newFilters);
   }
 
+  const getResellersOptions = (params = {}) => {
+    AdminResellersService.getResellers( cui.removeEmpty({ pageNum: 1, pageSize: 100, ...params }), response => {
+      const newOptions = AdminResellersService.getResellersOptions(response.items, false);
+      setResellersInput((prevState) => {
+        return {
+          ...prevState,
+          options: newOptions,
+        }
+      });
+    }, () => {})
+  }
+
+  const handleAutoCompleteInputChange = (value, name) => {
+    setResellersInput({
+      ...resellersInput,
+      value: value,
+    });
+
+    if (ref.current.timeoutStoreChange) {
+      clearTimeout(ref.current.timeoutStoreChange);
+    }
+    ref.current.timeoutStoreChange = setTimeout(() => {
+      getResellersOptions({ keyword: value });
+    }, 200);
+  }
+
+  const handleAutoCompleteInputSelect = (value, options, name) => {
+    handleFilterChange(value, name);
+  }
+
   const headerActionsConfig = {
     buttonList: [
+      {
+        type: 'custom',
+        render: (
+          <AutoCompleteInput name="sellerId"
+                             value={resellersInput.value}
+                             onChange={handleAutoCompleteInputChange}
+                             onSelect={handleAutoCompleteInputSelect}
+                             placeholder={"All Resellers"}
+                             options={resellersInput.options}
+                             autoFilterOptions={false}
+                             style={{width: 300}}
+          />
+        )
+      },
       {
         type: 'custom',
         render: (
@@ -54,7 +105,6 @@ export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP
             options={PERIOD_STATE_LABEL_VALUE_OPTIONS}
             defaultValue={1}
             onChange={handleFilterChange}
-            theme='light'
             style={{width: 300}}
           />
         ),
@@ -70,6 +120,11 @@ export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP
       },
     ],
   }
+
+  useEffect(() => {
+    getResellersOptions( {});
+  }, []);
+
 
   return (
     <>

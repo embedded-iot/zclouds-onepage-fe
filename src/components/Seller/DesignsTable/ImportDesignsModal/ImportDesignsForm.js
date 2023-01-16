@@ -46,7 +46,10 @@ export default function ImportDesignsForm({ form, initialValues, ...restProps })
           },
         ]}
       >
-        <DraggerUploadBox />
+        <DraggerUploadBox
+          multiple={true}
+          autoUpload={false}
+        />
       </Form.Item>
     </Form>
   )

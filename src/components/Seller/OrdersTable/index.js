@@ -145,7 +145,7 @@ const columns = [
 ];
 
 
-export default function OrdersTable({ redirectTo, successCallback = () => {}  }) {
+export default function OrdersTable({ redirectTo, systemConfigs = [], successCallback = () => {}  }) {
   const [openImportOrders, setOpenImportOrders] = useState(false);
   const [openTrackingEvents, setOpenTrackingEvents] = useState(false);
   const [openOrderEvents, setOpenOrderEvents] = useState(false);
@@ -158,6 +158,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     options: [],
   });
   const RELOAD_EVENT_KEY = 'RELOAD_Seller_ORDERS_TABLE_EVENT_KEY';
+  const CLEAR_EVENT_KEY = 'CLEAR_Seller_ORDERS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const onRowEvents = (record, rowIndex) => {
     return {
@@ -189,6 +190,7 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
   };
 
   const reloadTable = (filters ={}, hasReloadStatus = false) => {
+    setOpenImportOrders(false);
     events.publish(RELOAD_EVENT_KEY, filters);
     if (hasReloadStatus) {
       getOrdersStatus();
@@ -349,10 +351,10 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
         span: defaultSpan,
         render: (
           <DropdownSelect
-            name="haveTracking"
+            name="haveTrackingNum"
             options={TRACKING_STATUS_LABEL_VALUE_OPTIONS}
             defaultValue={''}
-            value={filters['haveTracking'] || ''}
+            value={filters['haveTrackingNum'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -419,10 +421,10 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
         span: 3,
         render: (
           <DropdownSelect
-            name="typeDate"
+            name="sortBy"
             options={TYPE_DATE_LABEL_VALUE_OPTIONS}
             defaultValue={''}
-            value={filters['typeDate'] || ''}
+            value={filters['sortBy'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -433,10 +435,10 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
         span: 3,
         render: (
           <DropdownSelect
-            name="sortOrder"
+            name="sortDirection"
             options={SORT_BY_LABEL_VALUE_OPTIONS}
             defaultValue={''}
-            value={filters['sortOrder'] || ''}
+            value={filters['sortDirection'] || ''}
             onChange={handleFilterChange}
             theme='light'
           />
@@ -530,6 +532,12 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
     })
   });
 
+  const handleImportOrderFinish = () => {
+    setOpenImportOrders(false);
+    reloadTable({}, true);
+    events.publish(CLEAR_EVENT_KEY, {});
+    handleClear();
+  }
   const StatusCheckboxGroup = (
     <div className="orders-table__status-checkbox-group">
       <CheckboxGroupBox options={StatusCheckboxOptions}
@@ -557,12 +565,14 @@ export default function OrdersTable({ redirectTo, successCallback = () => {}  })
                  onSelectedItemsChange={onSelectedItemsChange}
                  isAllowSelection={true}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
+                 CLEAR_EVENT_KEY={CLEAR_EVENT_KEY}
       />
       {
         openImportOrders && (
           <ImportOrdersModal
             open={openImportOrders}
-            onOk={reloadTable}
+            systemConfigs={systemConfigs}
+            onOk={handleImportOrderFinish}
             onCancel={() => { setOpenImportOrders(false); }}
           />
         )

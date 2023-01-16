@@ -62,11 +62,14 @@ function downloadDesign(id, successCallback, failureCallback) {
   });
 }
 
-function importDesigns(data, successCallback, failureCallback) {
+function importDesigns(type, data, successCallback, failureCallback) {
   const config = {
-    data
+    data,
+    params: {
+      type
+    },
   };
-  const url = getSellerBaseURL() + '/designs/import';
+  const url = getSellerBaseURL() + '/designs/upload-multiple';
   makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
