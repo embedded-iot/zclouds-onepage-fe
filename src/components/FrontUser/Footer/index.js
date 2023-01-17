@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Col, Row } from 'antd';
 import logo from 'images/logo-white.svg';
 import call from 'images/call.png';
 import zalo from 'images/zalo.png';
 import facebook from 'images/facebook.png';
+import messenger from 'images/messenger.png';
 import { SellerSystemService } from 'services';
 import { SYSTEM_CONFIG_VALUE } from 'components/contants';
+import { MessengerChat, showDialog, hideDialog} from 'react-messenger-chat-plugin';
 import './style.scss';
 
 export default function Footer({ systemConfigs = []}) {
+  let ref = useRef(false);
+  const handleShowMessenger = () =>  {
+    ref.current = !ref.current;
+    if (ref.current) {
+      showDialog()
+    } else {
+      hideDialog();
+    }
+  }
   return (
     <div className="public-footer__wrapper">
       <div className='public-footer__contents'>
@@ -66,6 +77,10 @@ export default function Footer({ systemConfigs = []}) {
         <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK)} target='_blank' rel="noreferrer">
           <img src={facebook} alt='facebook' />
         </a>
+        <span className="cursor-pointer" onClick={handleShowMessenger}>
+          <img src={messenger} alt='messenger' />
+        </span>
+        <MessengerChat pageId={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK_PAGE_ID)} />
       </div>
     </div>
   );
