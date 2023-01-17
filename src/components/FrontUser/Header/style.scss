@@ -1,0 +1,19 @@
+.header {
+  &__wrapper {
+    flex-shrink: 0;
+    display: flex;
+    .logo-portal {
+      margin-right: 74px;
+    }
+  }
+  &__actions {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+  }
+  &__menu {
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+}

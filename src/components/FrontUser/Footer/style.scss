@@ -1,0 +1,64 @@
+.public-footer {
+  &__wrapper {
+    margin: -24px -50px;
+    padding: 48px 20px 44px;
+    background: url("~images/front-footer.png") center center no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+  }
+  &__contents {
+    max-width: 1000px;
+    width: 100%;
+    color: #FFFFFF;
+  }
+  &__right-block {
+    display: flex !important;
+    align-items: center;
+  }
+  &__description {
+    margin-top: 8px;
+  }
+  &__contact {
+    margin-top: 16px;
+    border-radius: 18px;
+    background: rgba(44, 62, 93, 0.4);
+    backdrop-filter: blur(2.5px);
+    padding: 14px 20px;
+    display: flex;
+  }
+  &__detail-contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  &__detail-contact-label {
+    font-weight: 600;
+    margin-right: 10px;
+  }
+  &__social-contact {
+    img {
+      margin-right: 24px;
+    }
+  }
+  &__title {
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 8px;
+    &--margin-top {
+      margin-top: 16px;
+    }
+  }
+  &__link {
+    margin-bottom: 5px;
+  }
+  &__social-contact--fixed {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 10px;
+  }
+}

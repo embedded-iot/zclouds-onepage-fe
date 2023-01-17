@@ -1,0 +1,45 @@
+.banner-box-6 {
+  &__wrapper {
+    background: #FAFBFC;
+    .category-slides__wrapper {
+      margin-top: 20px;
+    }
+  }
+  &__center-box {
+    display: flex;
+    justify-content: center;
+  }
+  &__contents {
+    max-width: 100%;
+  }
+  &__link {
+    color: #0065FF;
+  }
+  &__blog-list {
+    margin: 32px -13px 0;
+    position: relative;
+    .react-multi-carousel-list {
+      position: unset;
+    }
+    .react-multiple-carousel__arrow {
+      //top: 59px;
+      &--left {
+        left: -59px;
+      }
+      &--right {
+        right: -59px;
+      }
+    }
+  }
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0 64px;
+    button {
+      color: #8270DB !important;
+      padding: 0 39px !important;
+      background: #F1F2F4 !important;
+      border: 1px solid #8270DB !important;
+    }
+  }
+}

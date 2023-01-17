@@ -1,0 +1,67 @@
+import React, { useState } from 'react';
+import { Modal, Upload } from 'antd';
+import { getAuthorizationHeaders } from 'utils';
+import uploadIcon from 'images/upload-icon.svg';
+import Icon from 'components/Common/Icon';
+import './style.scss';
+
+const getBase64 = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+});
+
+export default function UploadBox({ action, onRemove, headers, selectLabel, maxFileUpload = 50, ...restProps }) {
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  // const [fileList, setFileList] = useState(defaultFileList);
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+  };
+  // const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+  const uploadButton = (
+    <div>
+      <Icon src={uploadIcon} width={24} height={24} />
+      <div className="upload-box__select-label">{selectLabel || 'Upload'}</div>
+    </div>
+  );
+
+  const handleCancel = () => setPreviewOpen(false);
+  const handleRemove = (file) => {
+    console.log(file);
+    !!onRemove && onRemove(file.response);
+    return true;
+  };
+  return (
+    <div className="upload-box__wrapper">
+      <Upload
+        {...restProps}
+        headers={getAuthorizationHeaders()}
+        action={action || 'https://www.mocky.io/v2/5cc8019d300000980a055e76'}
+        listType="picture-card"
+        // // fileList={fileList}
+        onPreview={handlePreview}
+        // onChange={handleChange}
+        onRemove={handleRemove}
+      >
+        { restProps.fileList && restProps.fileList.length >= maxFileUpload ? null : uploadButton }
+      </Upload>
+      <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
+        <img
+          alt="example"
+          style={{
+            width: '100%',
+          }}
+          src={previewImage}
+        />
+      </Modal>
+    </div>
+  );
+}

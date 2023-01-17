@@ -1,0 +1,21 @@
+.switch-bar {
+  &__wrapper {
+    background: #F1F2F4;
+    border-radius: 24px;
+    padding: 4px;
+    display: flex;
+  }
+  &__item {
+    font-weight: 600;
+    font-size: 14px;
+    color: #8993A5;
+    flex-grow: 1;
+    text-align: center;
+    border-radius: 24px;
+    cursor: pointer;
+    &.active {
+      background: #FFFFFF;
+      color: #2C3E5D;
+    }
+  }
+}

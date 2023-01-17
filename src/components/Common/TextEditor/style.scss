@@ -1,0 +1,15 @@
+.text-editor {
+    &__wrapper-class {
+      color: #2C3E5D;
+      background: #F7F8F9;
+    }
+    &__editor-class {
+      padding: 0 16px;
+      border: 1px solid #DCDFE4;
+      border-radius: 4px;
+    }
+    &__toolbar-class {
+      border: 1px solid #DCDFE4;
+    }
+  }
+  

@@ -1,0 +1,30 @@
+.add-money-to-wallet {
+  &__min-top-up {
+    background: rgba(34, 160, 107, 0.1);
+    border-radius: 4px;
+    padding: 8px;
+    display: inline-block;
+    color: #2C3E5D;
+  }
+  &__currency {
+    color: #22A06B;
+    font-weight: 600;
+  }
+  &__bank-info {
+    color: #2C3E5D;
+    & > div {
+      margin-bottom: 4px;
+    }
+  }
+  &__bank-name {
+    font-weight: 600;
+  }
+  &__transfer-content {
+    .value {
+      color: #22A06B;
+    }
+  }
+  &__transfer-note {
+    color: red
+  }
+}

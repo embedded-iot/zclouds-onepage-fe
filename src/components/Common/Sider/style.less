@@ -1,0 +1,31 @@
+.ant-menu-horizontal {
+  height: 100%;
+  font-weight: 600;
+  &.ant-menu-horizontal {
+    border-bottom: none;
+  }
+  .ant-menu-item {
+    &:after {
+      border-bottom: none !important;
+    }
+  }
+}
+
+.ant-menu-inline {
+  background: transparent !important;
+  border-right: none !important;
+  font-weight: 600;
+  .ant-menu-item, .ant-menu-submenu-title {
+    //padding-left: 21px !important;
+    &:after {
+      border-right: none !important;
+    }
+    img {
+      margin-right: 14px;
+    }
+    &.ant-menu-item-selected {
+      color: #FFFFFF !important;
+    }
+  }
+}
+

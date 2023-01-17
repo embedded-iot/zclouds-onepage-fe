@@ -1,0 +1,60 @@
+.sign-in {
+  &__image {
+    position: absolute;
+    &--top-logo {
+      top: 59px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &--left {
+      background: url("~images/login-img-1.png") center center no-repeat;
+      background-size: cover;
+      height: 441px;
+      width: 464px;
+      left: 0;
+      bottom: 0;
+    }
+    &--right {
+      background: url("~images/login-img-2.png") center center no-repeat;
+      background-size: cover;
+      height: 441px;
+      width: 575px;
+      right: 0;
+      bottom: 0;
+    }
+    &--bottom-logo {
+      bottom: 54px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__contents {
+    position: relative;
+    min-height: 768px;
+  }
+  &__logo {
+    text-align: center;
+    &--top {
+      margin: 59px 0 162px;
+    }
+    &--bottom {
+      margin: 162px 0 54px;
+    }
+  }
+}
+.sign-in-admin {
+  &__wrapper {
+    background: url("~images/sign-in-admin-bg.png") center center no-repeat;
+    background-size: cover;
+  }
+  &__login-form {
+    position: relative;
+  }
+  &__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -142px;
+  }
+}

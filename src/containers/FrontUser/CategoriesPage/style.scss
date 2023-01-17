@@ -1,0 +1,10 @@
+.categories-page {
+  &__search-box {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    .input-search {
+      max-width: 470px;
+    }
+  }
+}

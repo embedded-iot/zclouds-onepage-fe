@@ -1,0 +1,25 @@
+.input-password {
+  width: 100%;
+  .ant-input-password {
+    height: 36px;
+    padding: 0 16px;
+    color: #2C3E5D;
+    background: #F7F8F9;
+    border: 1px solid #DCDFE4;
+    border-radius: 4px;
+    box-shadow: none !important;
+    input {
+      background: transparent;
+
+      &::placeholder {
+        color: #758195;
+      }
+    }
+    &:focus {
+      border: 1px solid @primary-color;
+    }
+    &.ant-input-affix-wrapper-status-error {
+      border: 1px solid #E34935 !important;
+    }
+  }
+}

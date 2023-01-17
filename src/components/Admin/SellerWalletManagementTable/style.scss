@@ -1,0 +1,39 @@
+.seller-wallet-table {
+  &__summary-box {
+    background: #FFFFFF;
+    border: 1px solid #F1F2F4;
+    border-radius: 8px;
+    display: flex;
+    padding: 20px;
+    gap: 48px;
+  }
+  &__summary-item {
+    display: flex;
+    align-items: center;
+  }
+  &__summary-title {
+    margin-left: 8px;
+    color: #2C3E5D;
+  }
+  &__summary-value {
+    font-weight: 600;
+    font-size: 20px;
+    margin-left: 4px;
+    color: #2C3E5D;
+  }
+  &__table-header {
+    height: 60px;
+  }
+  &__table-wrapper {
+    &.hide-table {
+      .table-view__wrapper, br , .pagination-box {
+        display: none;
+      }
+    }
+  }
+  &__top-up-table {
+    &.hide-table {
+      display: none;
+    }
+  }
+}

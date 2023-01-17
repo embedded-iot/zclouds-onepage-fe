@@ -1,0 +1,80 @@
+image: node
+
+stages:
+  - deploy-reseller-stg
+  - deploy-admin-stg
+  - deploy-reseller-prod
+  - deploy-admin-prod
+  - deploy-home-prod
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan 34.124.147.163 >> ~/.ssh/known_hosts
+  - ssh-keyscan -p 26266 45.124.84.108 >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - git config --global user.email "huytd92@gmail.com"
+  - git config --global user.name "Duc Huy Ta"
+
+deploy-reseller-stg:
+  stage: deploy-reseller-stg
+  environment:
+    name: staging
+  script:
+    - yarn install
+    - yarn run build-stg:reseller
+    - scp -r build/* root@34.124.147.163:/var/www/html/reseller/
+  only:
+    - main
+
+deploy-admin-stg:
+  stage: deploy-admin-stg
+  environment:
+    name: staging
+  script:
+    - yarn install
+    - yarn run build-stg:admin
+    - scp -r build/* root@45.124.84.108:/var/www/html/admin/
+  only:
+    - main
+
+deploy-reseller-prod:
+  stage: deploy-reseller-prod
+  environment:
+    name: production
+  script:
+    - yarn install
+    - yarn run build:seller
+    - scp -P 26266 -r build/* root@45.124.84.108:/var/www/html/seller.cs-fulfill.com/
+  only:
+    - master
+
+deploy-admin-prod:
+  stage: deploy-admin-prod
+  environment:
+    name: production
+  script:
+    - yarn install
+    - yarn run build:admin
+    - scp -P 26266 -r build/* root@45.124.84.108:/var/www/html/quanly.cs-fulfill.com/
+  only:
+    - master
+
+deploy-home-prod:
+  stage: deploy-home-prod
+  environment:
+    name: production
+  script:
+    - yarn install
+    - yarn run build
+    - scp -P 26266 -r build/* root@45.124.84.108:/var/www/html/cs-fulfill.com/
+  only:
+    - master
+

@@ -1,0 +1,21 @@
+.account-staff-form {
+  &__wrapper {
+    .ant-radio-group {
+      display: flex;
+    }
+    .ant-radio-wrapper {
+      flex-basis: 50%;
+      align-items: center;
+      .ant-radio {
+        top: auto;
+      }
+    }
+  }
+  &__type-select {
+    display: flex;
+    justify-content: center;
+    img {
+      margin-right: 8px;
+    }
+  }
+}

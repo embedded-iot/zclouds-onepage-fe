@@ -1,0 +1,29 @@
+.blog-slide-item {
+  &__wrapper {
+
+  }
+  &__image {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__header-title {
+    font-size: 12px;
+    color: #B3B9C4;
+    line-height: 18px;
+    margin-top: 13px;
+  }
+  &__title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #000000;
+    margin-top: 4px;
+  }
+  &__content {
+    color: #626F86;
+    letter-spacing: -0.02em;
+    line-height: 20px;
+    margin-top: 4px;
+  }
+}

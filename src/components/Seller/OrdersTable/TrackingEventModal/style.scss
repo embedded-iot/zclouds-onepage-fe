@@ -1,0 +1,16 @@
+.import-orders-form {
+    &__label {
+      color: #2C3E5D;
+      margin-bottom: 5px;
+      &--red {
+        color: red;
+      }
+      &--green {
+        color: #0065FF;
+      }
+      &--link {
+        text-decoration: underline;
+      }
+    }
+  }
+  
