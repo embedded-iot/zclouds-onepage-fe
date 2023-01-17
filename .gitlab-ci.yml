@@ -3,6 +3,7 @@ image: node
 stages:
   - deploy-reseller-stg
   - deploy-admin-stg
+  - deploy-home-stg
   - deploy-reseller-prod
   - deploy-admin-prod
   - deploy-home-prod
@@ -41,7 +42,18 @@ deploy-admin-stg:
   script:
     - yarn install
     - yarn run build-stg:admin
-    - scp -r build/* root@45.124.84.108:/var/www/html/admin/
+    - scp -r build/* root@34.124.147.163:/var/www/html/admin/
+  only:
+    - main
+
+deploy-home-stg:
+  stage: deploy-home-stg
+  environment:
+    name: staging
+  script:
+    - yarn install
+    - yarn run build-stg
+    - scp -r build/* root@34.124.147.163:/var/www/html/home/
   only:
     - main
 
