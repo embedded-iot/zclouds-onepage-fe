@@ -8,16 +8,16 @@ import {
   BannerBox4,
   BannerBox5,
   BannerBox6,
+  BannerBox7,
 } from 'components/FrontUser/HomeBoxs';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
+import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
 
 import './style.scss';
-import BannerBox7 from 'components/FrontUser/HomeBoxs/BannerBox7';
-import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
 
 function HomePage(props) {
   const isDesktop = useMediaQuery(RESPONSIVE_MEDIAS.DESKTOP);
@@ -50,6 +50,9 @@ function HomePage(props) {
           customClass={customClass}
           redirectTo={props.push}
         />
+        <BannerBox7
+          customClass={customClass}
+        />
         <BannerBox5
           customClass={customClass}
           redirectTo={props.push}
@@ -57,9 +60,6 @@ function HomePage(props) {
         <BannerBox6
           customClass={customClass}
           redirectTo={props.push}
-        />
-        <BannerBox7
-          customClass={customClass}
         />
         <SignUpBannerBox />
       </div>

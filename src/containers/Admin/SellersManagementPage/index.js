@@ -10,10 +10,10 @@ function SellersManagementPage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Resellers management</title>
+        <title>Sellers management</title>
       </Helmet>
       <PageHeader
-        title="Resellers management"
+        title="Sellers management"
       />
       <div className="page-contents">
         <SellersManagementTable />

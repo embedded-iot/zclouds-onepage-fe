@@ -1,6 +1,6 @@
 const CracoLessPlugin = require('craco-less');
 
-const isAdminMode = process.env.REACT_APP_ADMIN_MODE === 'true';
+const isAdminMode = process.env.REACT_APP_MODE === 'admin';
 
 module.exports = {
   plugins: [

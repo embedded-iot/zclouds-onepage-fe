@@ -36,7 +36,7 @@ export default function ConfirmTransactionForm({ form, filters, resellersInput, 
                            value={resellersInput.value}
                            onChange={onAutoCompleteInputChange}
                            onSelect={onAutoCompleteInputSelect}
-                           placeholder={"All Resellers"}
+                           placeholder={"All sellers"}
                            options={resellersInput.options}
                            autoFilterOptions={false}
         />

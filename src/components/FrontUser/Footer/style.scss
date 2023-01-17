@@ -12,8 +12,11 @@
     width: 100%;
     color: #FFFFFF;
   }
+  &__right-block {
+    display: flex !important;
+    align-items: center;
+  }
   &__description {
-    color: #B3B9C4;
     margin-top: 8px;
   }
   &__contact {
@@ -24,18 +27,14 @@
     padding: 14px 20px;
     display: flex;
   }
-  &__avatar {
-    padding: 10px;
-    border-radius: 100%;
-    background: #cccccc;
-    margin-right: 10px;
-    img {
-      height: 64px;
-      width: 64px;
-    }
+  &__detail-contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
   }
   &__detail-contact-label {
     font-weight: 600;
+    margin-right: 10px;
   }
   &__social-contact {
     img {
@@ -52,5 +51,14 @@
   }
   &__link {
     margin-bottom: 5px;
+  }
+  &__social-contact--fixed {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 10px;
   }
 }

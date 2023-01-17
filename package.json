@@ -44,10 +44,15 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "env-cmd -f .env craco start",
+    "start:seller": "env-cmd -f .env.seller craco start",
     "start:admin": "env-cmd -f .env.admin craco start",
-    "build": "craco build",
-    "build:admin": "env-cmd -f .env.admin craco build",
+    "build": "env-cmd -f .env.prod craco build",
+    "build:seller": "env-cmd -f .env.seller.prod craco build",
+    "build:admin": "env-cmd -f .env.admin.prod craco build",
+    "build-stg": "env-cmd -f .env craco build",
+    "build-stg:seller": "env-cmd -f .env.seller craco build",
+    "build-stg:admin": "env-cmd -f .env.admin craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

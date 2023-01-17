@@ -20,7 +20,7 @@ export default function Footer({ systemConfigs = [] }) {
             <div className='seller-footer__title'>Thank you for sticking with Fulfill. Follow us now</div>
             <div className='seller-footer__text'>
               <Icon src={facebook} height={12} width={12} />
-              <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_LOGO_MESSENGER)} target='_blank' rel="noreferrer">
+              <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_MESSENGER)} target='_blank' rel="noreferrer">
                 Fulfill
               </a>
             </div>

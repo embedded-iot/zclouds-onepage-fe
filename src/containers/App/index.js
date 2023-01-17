@@ -9,7 +9,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route, withRouter, Redirect, matchPath } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { goBack, push } from 'connected-react-router';
 // import { BackTop } from 'antd';
 // import { UpCircleOutlined } from '@ant-design/icons';
@@ -94,18 +94,7 @@ import {
 
 import { AdminNotificationsService, SellerNotificationsService, SellerSystemService, UserService } from 'services';
 
-
 import './style.scss';
-
-const FRONT_USER_ROUTER = [
-  ROUTERS.ROOT,
-  ROUTERS.FRONT_USER_ALL_PRODUCTS,
-  ROUTERS.FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY,
-  ROUTERS.FRONT_USER_PRODUCT_DETAIL,
-  ROUTERS.FRONT_USER_SKU,
-  ROUTERS.FRONT_USER_REGISTER,
-];
-
 
 const AppWrapper = styled.div`
   display: flex;
@@ -158,7 +147,7 @@ const AppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_STORE} component={SellerStoreDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE)}/>
     <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_WITH_VENDOR} component={SellerIntegrationsPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE)}/>
     <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATION_ORDERS} component={SellerIntegrationOrdersPageR} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STORES)}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsTokenPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE)}/>
+    <Route exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsTokenPage} />
     <PrivateRoute exact path={ROUTERS.SELLER_WALLET} component={SellerWalletPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_WALLET)}/>
     <PrivateRoute exact path={ROUTERS.SELLER_MY_ACCOUNT} component={SellerMyAccountPage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.NOTIFICATIONS} component={SellerNotificationsPage} isAuthenticated={props.isLogin}/>
@@ -206,6 +195,7 @@ const App = (props) => {
   const [isLoadedCheckLogin, setIsLoadedCheckLogin] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(0);
   const isAdminMode = props.isAdminMode;
+  const isSellerMode = props.isSellerMode;
   // const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   // const backdropPosition = isMobile ? 40 : 23;
   const redirectTo = path => {
@@ -283,13 +273,6 @@ const App = (props) => {
     // eslint-disable-next-line
   }, []);
   const currentRouter = props.router.location.pathname;
-  const isFrontUserRouter = FRONT_USER_ROUTER.find(path => {
-    return (path === currentRouter) || matchPath(currentRouter, {
-      path,
-      exact: true,
-      strict: false
-    });
-  });
   const selectedRouters = [currentRouter];
   if (!isLoadedCheckLogin) return null;
   if (currentRouter.startsWith(ROUTERS.LOGIN)) {
@@ -328,57 +311,54 @@ const App = (props) => {
       </AppWrapper>
     )
   }
+  if (isSellerMode) {
+    return (
+      <AppWrapper>
+        <HelmetMeta />
+        <LayoutWrapper
+          header={(
+            <Header logoName={WEBSITE_NAME}
+                    isLogin={props.isLogin}
+                    currentUser={props.currentUser}
+                    redirectTo={redirectTo}
+                    selectedRouters={selectedRouters}
+                    goBack={goBack}
+                    signOut={signOut}
+                    notificationsCount={notificationsCount}
+            />
+          )}
+          sider={<SellerSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore} systemConfigs={props.systemConfigs}/>}
+          content={<AppContent isLogin={props.isLogin}/>}
+          footer={<SellerFooter systemConfigs={props.systemConfigs} />}
+          router={props.router}
+        />
+      </AppWrapper>
+    )
+  }
   const isFrontFooter = currentRouter !== ROUTERS.FRONT_USER_REGISTER;
   return (
     <AppWrapper>
       <HelmetMeta />
-      {
-        isFrontUserRouter && !props.isLogin && (
-          <PublicLayoutWrapper
-            header={(
-              <FrontUserHeader
-                logoName={WEBSITE_NAME}
-                sider={<FrontUserSider selectedRouters={selectedRouters} redirectTo={redirectTo} />}
-                redirectTo={redirectTo}
-              />
-            )}
-            content={<FrontUserAppContent isLogin={props.isLogin}/>}
-            footer={isFrontFooter && <FrontUserFooter systemConfigs={props.systemConfigs} />}
-            router={props.router}
+      <PublicLayoutWrapper
+        header={(
+          <FrontUserHeader
+            logoName={WEBSITE_NAME}
+            sider={<FrontUserSider selectedRouters={selectedRouters} redirectTo={redirectTo} />}
+            redirectTo={redirectTo}
           />
-        )
-      }
-      {
-        props.isLogin && (
-          <LayoutWrapper
-            header={(
-              <Header logoName={WEBSITE_NAME}
-                      isLogin={props.isLogin}
-                      currentUser={props.currentUser}
-                      redirectTo={redirectTo}
-                      selectedRouters={selectedRouters}
-                      goBack={goBack}
-                      signOut={signOut}
-                      notificationsCount={notificationsCount}
-              />
-            )}
-            sider={<SellerSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore} systemConfigs={props.systemConfigs}/>}
-            content={<AppContent isLogin={props.isLogin}/>}
-            footer={<SellerFooter systemConfigs={props.systemConfigs} />}
-            router={props.router}
-          />
-        )
-      }
-      {/*<BackTop style={{ right: backdropPosition, bottom: backdropPosition}}>*/}
-      {/*  <UpCircleOutlined style={{ fontSize: 30, color: 'yellow'}}/>*/}
-      {/*</BackTop>*/}
+        )}
+        content={<FrontUserAppContent />}
+        footer={isFrontFooter && <FrontUserFooter systemConfigs={props.systemConfigs} />}
+        router={props.router}
+      />
     </AppWrapper>
   );
 }
 
 function mapStateToProps(state) {
-  const { isAdminMode, isLogin, isAdmin, currentUser, products, systemConfigs } = state.global;
+  const { isSellerMode, isAdminMode, isLogin, isAdmin, currentUser, products, systemConfigs } = state.global;
   return {
+    isSellerMode,
     isAdminMode,
     isLogin,
     isAdmin,

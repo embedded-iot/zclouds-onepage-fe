@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { authentication, events } from 'utils';
 import { useMediaQuery } from 'react-responsive';
 import { PERMISSION_VALUES, RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
@@ -12,25 +12,35 @@ import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import Icon from 'components/Common/Icon';
 import plusIcon from 'images/plus-icon.svg';
 import { Button } from 'antd';
+import ProductDetailModal from './ProductDetailModal';
+import infoIcon from 'images/info_black_icon.svg';
 
 const ACTION_KEYS = {
+  ACTION_EVENTS: "ACTION_EVENTS",
   ADD_ORDER: "ADD_DESIGN",
+  VIEW_PRODUCT_DETAIL: "VIEW_PRODUCT_DETAIL",
 }
-
 
 const gridItemTemplate = ({ item, redirectTo }) => {
   const addEditOrder = productId => {
     redirectTo(ROUTERS.SELLER_ORDERS + '/0/productId/' + productId );
   }
+  const viewProductDetail = record => {
+    events.publish(ACTION_KEYS.ACTION_EVENTS, {
+      key: ACTION_KEYS.VIEW_PRODUCT_DETAIL,
+      record,
+    })
+  }
   const buttonList = [
-    <Button key={ACTION_KEYS.ADD_ORDER} type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => addEditOrder(item.id)}>Order now</Button>
+    <Button key={ACTION_KEYS.VIEW_PRODUCT_DETAIL} icon={<Icon src={infoIcon} width={24} height={24} /> } onClick={() => viewProductDetail(item)}>View details</Button>,
+    authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER) && <Button key={ACTION_KEYS.ADD_ORDER} type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => addEditOrder(item.id)}>Order now</Button>
   ]
   return (
     <CategoryItem className="product-categories__product-item"
                   {...item}
                   allowClick={false}
                   showDes2={false}
-                  footer={ authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER) && (
+                  footer={ (
                     <ButtonListWrapper buttonList={buttonList}
                                        align="right"
                     />
@@ -40,6 +50,8 @@ const gridItemTemplate = ({ item, redirectTo }) => {
 }
 
 export default function ProductCategoriesGrid({ successCallback = () => {}, redirectTo  = () => {} }) {
+  const [openProductDetail, setOpenProductDetail] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const isExTablet = useMediaQuery(RESPONSIVE_MEDIAS.EX_TABLET);
@@ -97,24 +109,63 @@ export default function ProductCategoriesGrid({ successCallback = () => {}, redi
     ]
   }
 
+  const viewProductDetail = product => {
+    setSelectedProduct(product);
+    setOpenProductDetail(true);
+  }
+
+  const actionListenerFunc = () => {
+    let reloadListener = null;
+    reloadListener = events.subscribe(ACTION_KEYS.ACTION_EVENTS, ({ key, record }) => {
+      switch (key) {
+        case ACTION_KEYS.VIEW_PRODUCT_DETAIL:
+          viewProductDetail(record);
+          break;
+        default:
+      }
+    });
+    return reloadListener;
+  }
+
+  useEffect(() => {
+    const reloadListener = actionListenerFunc();
+    return () => {
+      reloadListener && reloadListener.remove();
+    };
+    // eslint-disable-next-line
+  }, []);
+
   return (
-    <TableGrid type='grid'
-               configs={gridConfig}
-               headerActionsConfig={headerActionsConfig}
-               secondHeader={(
-                 <CategoriesFilters className="product-categories__category-list"
-                                    onChange={onFiltersChange}
-                                    formatCount={count => `(${count})`}
-                                    showTitle={false}
-                 />
-               )}
-               paginationConfig={{}}
-               actionButtonList={{}}
-               defaultParams={{}}
-               defaultData={{}}
-               isShowPagination={true}
-               onSelectedItemsChange={onSelectedItemsChange}
-               RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
-    />
+    <>
+      <TableGrid type='grid'
+                 configs={gridConfig}
+                 headerActionsConfig={headerActionsConfig}
+                 secondHeader={(
+                   <CategoriesFilters className="product-categories__category-list"
+                                      onChange={onFiltersChange}
+                                      formatCount={count => `(${count})`}
+                                      showTitle={false}
+                   />
+                 )}
+                 paginationConfig={{}}
+                 actionButtonList={{}}
+                 defaultParams={{}}
+                 defaultData={{}}
+                 isShowPagination={true}
+                 onSelectedItemsChange={onSelectedItemsChange}
+                 RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
+      />
+      {
+        openProductDetail && (
+          <ProductDetailModal
+            open={openProductDetail}
+            onOk={reloadTable}
+            redirectTo={redirectTo}
+            data={!!selectedProduct ? selectedProduct : {} }
+            onCancel={() => { setOpenProductDetail(false); }}
+          />
+        )
+      }
+    </>
   );
 }

@@ -103,7 +103,7 @@ export default function SellersAccountingManagementChart({ RELOAD_EVENT_KEY = 'R
                              value={resellersInput.value}
                              onChange={handleAutoCompleteInputChange}
                              onSelect={handleAutoCompleteInputSelect}
-                             placeholder={"All Resellers"}
+                             placeholder={"All sellers"}
                              options={resellersInput.options}
                              autoFilterOptions={false}
           />

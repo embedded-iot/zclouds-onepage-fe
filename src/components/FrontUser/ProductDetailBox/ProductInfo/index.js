@@ -8,7 +8,7 @@ import plusIcon from 'images/plus-icon.svg';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import './style.scss';
 
-export default function ProductInfo({ product = {}, onAddOrder = () => {}}) {
+export default function ProductInfo({ product = {}, isAddOrder = true, onAddOrder = () => {}}) {
   const [productOptions, setProductOptions] = useState({});
   const [productDetail, setProductDetail] = useState(product);
 
@@ -39,11 +39,9 @@ export default function ProductInfo({ product = {}, onAddOrder = () => {}}) {
   }, [productOptions]);
 
   const buttonList = [
-    <Button type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => onAddOrder(product.id)}>Order now</Button>
+    !!product.designUrl && <Button className="product-info__download-button" type='primary' icon={<DownloadOutlined />} onClick={() => download(product.designUrl)}>Download Mockup & Template Design</Button>,
+    isAddOrder && <Button type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => onAddOrder(product.id)}>Order now</Button>,
   ];
-  if (!!product.designUrl) {
-    buttonList.unshift(<Button className="product-info__download-button" type='primary' icon={<DownloadOutlined />} onClick={() => download(product.designUrl)}>Download Mockup & Template Design</Button>);
-  }
   return (
     <div className='product-info__wrapper'>
       <div className='product-info__title'>{productDetail.name}</div>

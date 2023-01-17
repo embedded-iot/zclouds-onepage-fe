@@ -8,6 +8,7 @@ import { ROLE_LABELS, ROUTERS } from 'components/contants';
 import systemNotificationIcon from 'images/bell_gray_icon.svg';
 import myAccountIcon from 'images/my-account-icon.png';
 import Icon from 'components/Common/Icon';
+import { filterListByPermission } from 'services/BaseService';
 import './style.scss';
 
 export default function UserInfo({ notificationsCount = 0, isAdmin = false, currentUser = {}, selectedRouters = [], redirectTo = () => {}, goBack = () => {}, signOut = () => {}}) {
@@ -25,18 +26,19 @@ export default function UserInfo({ notificationsCount = 0, isAdmin = false, curr
   const menu = (
     <Menu
       onClick={handleMenuClick}
-      items={[
+      items={filterListByPermission([
         {
           label: 'My account',
           key: ROUTERS.SELLER_MY_ACCOUNT,
-          icon: <Icon src={myAccountIcon} width={20} height={20} />
+          icon: <Icon src={myAccountIcon} width={20} height={20} />,
+          permission: !isAdmin,
         },
         {
           label: 'Logout',
           key: ROUTERS.LOGOUT,
           icon: <LogoutOutlined style={{ fontSize: 18, color: '#626F86' }}/>,
         },
-      ]}
+      ])}
     />
   );
 

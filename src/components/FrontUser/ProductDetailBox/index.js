@@ -5,11 +5,12 @@ import ProductImagesPreview from './ProductImagesPreview';
 import ProductInfo from './ProductInfo';
 import PlainText from 'components/Common/PlainText';
 import { ROUTERS } from 'components/contants';
+import { getSellerUrl } from 'services/BaseService';
 
 import './style.scss';
 
-export default function ProductDetailBox({ productId, redirectTo }) {
-  const [product, setProduct] = useState(null);
+export default function ProductDetailBox({ defaultProduct = null, isAddOrder, productId, redirectTo }) {
+  const [product, setProduct] = useState(defaultProduct);
 
   const getProductDetail = () => {
     FrontUserCategoriesService.getProductDetail(productId, response => {
@@ -26,7 +27,7 @@ export default function ProductDetailBox({ productId, redirectTo }) {
   }
 
   const handleAddOrder = productId => {
-    redirectTo(ROUTERS.LOGIN + `?redirect=${ROUTERS.SELLER_ORDERS + '/0/productId/' + productId}`);
+    window.open(getSellerUrl() + ROUTERS.LOGIN + `?redirect=${ROUTERS.SELLER_ORDERS + '/0/productId/' + productId}`, '_self');
   }
 
   return (
@@ -36,7 +37,10 @@ export default function ProductDetailBox({ productId, redirectTo }) {
           <ProductImagesPreview product={product}/>
         </Col>
         <Col span={12}>
-          <ProductInfo product={product} onAddOrder={handleAddOrder}/>
+          <ProductInfo product={product}
+                       onAddOrder={handleAddOrder}
+                       isAddOrder={isAddOrder}
+          />
         </Col>
         <Col span={24}>
           <div className='product-detail-box__title'>

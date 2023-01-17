@@ -5,27 +5,63 @@ const items = [
   {
     content: '‘’Còn gì vui hơn khi LODY nhận được những lời feedback chân thực nhất của khách hàng về sản phẩm thời trang đồ da. Đó hoàn toàn là niềm vinh dự và cũng trở’’',
     avatar: avatar,
-    name: 'Lubos Volkov',
+    name: 'Lubos Volkov 1',
     work: 'Lead designer at Toptal'
   },
   {
     content: '‘’Còn gì vui hơn khi LODY nhận được những lời feedback chân thực nhất của khách hàng về sản phẩm thời trang đồ da. Đó hoàn toàn là niềm vinh dự và cũng trở thành động lực giúp LODY cố gắng hơn’’',
     avatar: avatar,
-    name: 'Lubos Volkov',
+    name: 'Lubos Volkov 2',
     work: 'Lead designer at Toptal'
   },
   {
     content: '‘’Còn gì vui hơn khi LODY nhận được những lời feedback chân thực nhất của khách hàng về sản phẩm thời trang đồ da’’',
     avatar: avatar,
-    name: 'Lubos Volkov',
+    name: 'Lubos Volkov 3',
+    work: 'Lead designer at Toptal'
+  },
+  {
+    content: '‘’Còn gì vui hơn khi LODY nhận được những lời feedback chân thực nhất của khách hàng về sản phẩm thời trang đồ da. Đó hoàn toàn là niềm vinh dự và cũng trở’’',
+    avatar: avatar,
+    name: 'Lubos Volkov 4',
+    work: 'Lead designer at Toptal'
+  },
+  {
+    content: '‘’Còn gì vui hơn khi LODY nhận được những lời feedback chân thực nhất của khách hàng về sản phẩm thời trang đồ da. Đó hoàn toàn là niềm vinh dự và cũng trở thành động lực giúp LODY cố gắng hơn’’',
+    avatar: avatar,
+    name: 'Lubos Volkov 5',
+    work: 'Lead designer at Toptal'
+  },
+  {
+    content: '‘’Còn gì vui hơn khi LODY nhận được những lời feedback chân thực nhất của khách hàng về sản phẩm thời trang đồ da’’',
+    avatar: avatar,
+    name: 'Lubos Volkov 6',
+    work: 'Lead designer at Toptal'
+  },{
+    content: '‘’Còn gì vui hơn khi LODY nhận được những lời feedback chân thực nhất của khách hàng về sản phẩm thời trang đồ da. Đó hoàn toàn là niềm vinh dự và cũng trở’’',
+    avatar: avatar,
+    name: 'Lubos Volkov 7',
+    work: 'Lead designer at Toptal'
+  },
+  {
+    content: '‘’Còn gì vui hơn khi LODY nhận được những lời feedback chân thực nhất của khách hàng về sản phẩm thời trang đồ da. Đó hoàn toàn là niềm vinh dự và cũng trở thành động lực giúp LODY cố gắng hơn’’',
+    avatar: avatar,
+    name: 'Lubos Volkov 8',
+    work: 'Lead designer at Toptal'
+  },
+  {
+    content: '‘’Còn gì vui hơn khi LODY nhận được những lời feedback chân thực nhất của khách hàng về sản phẩm thời trang đồ da’’',
+    avatar: avatar,
+    name: 'Lubos Volkov 9',
     work: 'Lead designer at Toptal'
   },
 ];
 
 function getPosts(params, successCallback, failureCallback) {
+  const { pageNum, pageSize } = params;
   successCallback({
-    items: items,
-    totalCount: 30,
+    items: items.filter((item, index) => Math.floor(index / pageSize) === (pageNum - 1) ),
+    totalCount: items.length,
   });
 }
 
@@ -43,7 +79,7 @@ for (let i = 1; i < 20; i++) {
 function getBlogs(params, successCallback, failureCallback) {
   successCallback({
     items: blogsItems,
-    totalCount: 30,
+    totalCount: blogsItems.length,
   });
 }
 

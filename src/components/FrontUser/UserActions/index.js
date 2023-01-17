@@ -6,6 +6,7 @@ import {
 } from '@ant-design/icons';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
+import { getSellerUrl } from 'services/BaseService';
 
 import './style.scss';
 
@@ -14,7 +15,7 @@ export default function UserActions({ redirectTo = () => {}}) {
   return (
     <div className={`user-action__wrapper ${!!isMobile && 'user-action__wrapper--mobile'}`} >
       <Button icon={<LoginOutlined />} onClick={() => redirectTo(ROUTERS.FRONT_USER_REGISTER)}>Sign Up</Button>
-      <Button icon={<UserOutlined />} onClick={() => redirectTo(ROUTERS.LOGIN)}>Log in</Button>
+      <Button icon={<UserOutlined />} onClick={() => window.open(getSellerUrl() + ROUTERS.LOGIN, '_self')}>Log in</Button>
     </div>
   );
 }

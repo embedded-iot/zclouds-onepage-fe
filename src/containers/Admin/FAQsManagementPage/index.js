@@ -11,10 +11,10 @@ function FAQsManagementPage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>FQAs management</title>
+        <title>FAQs management</title>
       </Helmet>
       <PageHeader
-        title="FQAs management"
+        title="FAQs management"
       />
       <div className="page-contents">
         <FAQsManagementTable />

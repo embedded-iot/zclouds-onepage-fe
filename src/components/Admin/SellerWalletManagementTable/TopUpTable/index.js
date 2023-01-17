@@ -89,7 +89,7 @@ export default function TopUpTable({ onCancel, onOk, className, currentUser }) {
                              onFocus={() => handleAutoCompleteFocus(resellerInput)}
                              onChange={(value, name) => handleAutoCompleteInputChange(value, name, record.id)}
                              onSelect={(value, options, name) => handleAutoCompleteInputSelect(value, options,'resellerId', record.id)}
-                             placeholder={"All Resellers"}
+                             placeholder={"All sellers"}
                              options={resellersOptions}
                              autoFilterOptions={false}
                              theme="light"

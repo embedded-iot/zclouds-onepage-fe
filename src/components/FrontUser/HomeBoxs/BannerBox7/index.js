@@ -14,7 +14,7 @@ export default function BannerBox7({ customClass, successCallback }) {
         <Col span={24} className="banner-box-7__center-box">
           <div className='banner-box-7__contents'>
             <div className='home-box__title'>
-              FAQs
+              <span className="link link--text banner-box-7__link">FAQs</span>
             </div>
             <div className='banner-box-7__fqa-list'>
               <FAQsBox successCallback={handleSuccessCallback} />

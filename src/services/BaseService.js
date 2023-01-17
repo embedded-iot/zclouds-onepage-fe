@@ -6,7 +6,11 @@ const getFrontUserUrl = () => {
   return process.env.REACT_APP_FE;
 }
 
-const getFrontAdminUrl = () => {
+const getSellerUrl = () => {
+  return process.env.REACT_APP_SELLER_FE;
+}
+
+const getAdminUrl = () => {
   return process.env.REACT_APP_ADMIN_FE;
 }
 
@@ -42,7 +46,8 @@ const filterListByPermission = (list = [], filterKey = 'permission') => {
 
 export {
   getFrontUserUrl,
-  getFrontAdminUrl,
+  getSellerUrl,
+  getAdminUrl,
   getFullPathImage,
   getShortPathImage,
   getBaseURL,

@@ -551,7 +551,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
                              onChange={handleAutoCompleteInputChange}
                              onSelect={handleAutoCompleteInputSelect}
                              onFocus={() => handleAutoCompleteFocus(resellersInput.value, 'resellerId')}
-                             placeholder={"All Resellers"}
+                             placeholder={"All sellers"}
                              options={resellersInput.options}
                              autoFilterOptions={false}
                              theme='light'
