@@ -12,7 +12,7 @@ import { SET_GLOBAL_STORE } from './constants';
 
 // The initial state of the App
 export const initialState = {
-  isSellerMode: process.env.REACT_APP_MODE === 'seller' || true,
+  isSellerMode: process.env.REACT_APP_MODE === 'seller' || false,
   isAdminMode: process.env.REACT_APP_MODE === 'admin' || false,
   isLogin: false,
   isAdmin: false,
