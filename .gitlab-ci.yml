@@ -30,7 +30,7 @@ deploy-reseller-stg:
     name: staging
   script:
     - yarn install
-    - yarn run build-stg:reseller
+    - yarn run build-stg:seller
     - scp -r build/* root@34.124.147.163:/var/www/html/reseller/
   only:
     - main
