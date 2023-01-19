@@ -4,6 +4,8 @@ import BoxHeader from 'components/Share/BoxHeader';
 import BoxCard from 'components/Share/BoxCard';
 import InputText from 'components/Common/InputText';
 import InputPassword from 'components/Common/InputPassword';
+import { getSellerBaseURL } from 'services/BaseService';
+import { ROUTERS } from 'components/contants';
 
 import './style.scss';
 
@@ -88,7 +90,7 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
         </Form.Item>
         <Form.Item>
           <div className="sign-up-form__note">
-            Already have an account? <span className="link" onClick={() => redirectTo("/login")}>Log In</span>
+            Already have an account? <span className="link" onClick={() => redirectTo(getSellerBaseURL() + ROUTERS.LOGIN)}>Log In</span>
           </div>
         </Form.Item>
       </Form>
