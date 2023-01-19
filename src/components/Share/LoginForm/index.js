@@ -6,6 +6,7 @@ import InputPassword from 'components/Common/InputPassword';
 import InputText from 'components/Common/InputText';
 import { getFrontUserUrl } from 'services/BaseService';
 import './style.scss';
+import { ROUTERS } from 'components/contants';
 export default function LoginForm({ onFinish = () => {}, redirectTo = () => {}, isAdminMode = false }) {
   return (
     <BoxCard className="sign-in-form__wrapper" style={{ maxWidth: 400 }}>
@@ -51,7 +52,7 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {}, 
           !isAdminMode && (
             <Form.Item>
               <div className="sign-in-form__note">
-                Don't have an account? <span className="link" onClick={() => redirectTo(getFrontUserUrl() + "/register")}>Sign up</span>.
+                Don't have an account? <span className="link" onClick={() => window.open(getFrontUserUrl() + ROUTERS.FRONT_USER_REGISTER, '_self')}>Sign up</span>.
               </div>
             </Form.Item>
           )
