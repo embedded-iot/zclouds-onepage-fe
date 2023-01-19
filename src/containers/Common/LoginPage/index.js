@@ -10,6 +10,7 @@ import Logo from 'components/Share/Logo';
 import logoGray from 'images/logo_gray.svg';
 import logoImg from 'images/logo.svg';
 import logoWhite from 'images/logo-white.svg';
+import { ROUTERS } from 'components/contants';
 
 import './style.scss';
 const LoginPage = (props) => {
@@ -19,7 +20,7 @@ const LoginPage = (props) => {
     if (!!redirect) {
       props.push(redirect);
     } else {
-      props.goBack();
+      props.push(ROUTERS.ROOT);
     }
   }
   const isAdminMode = props.isAdminMode;
