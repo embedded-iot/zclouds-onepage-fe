@@ -4,7 +4,7 @@ import BoxHeader from 'components/Share/BoxHeader';
 import BoxCard from 'components/Share/BoxCard';
 import InputPassword from 'components/Common/InputPassword';
 import InputText from 'components/Common/InputText';
-
+import { getFrontUserUrl } from 'services/BaseService';
 import './style.scss';
 export default function LoginForm({ onFinish = () => {}, redirectTo = () => {}, isAdminMode = false }) {
   return (
@@ -51,7 +51,7 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {}, 
           !isAdminMode && (
             <Form.Item>
               <div className="sign-in-form__note">
-                Don't have an account? <span className="link" onClick={() => redirectTo("/register")}>Sign up</span>.
+                Don't have an account? <span className="link" onClick={() => redirectTo(getFrontUserUrl() + "/register")}>Sign up</span>.
               </div>
             </Form.Item>
           )

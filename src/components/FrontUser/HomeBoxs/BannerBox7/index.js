@@ -4,12 +4,12 @@ import FAQsBox from 'components/FrontUser/FAQsBox';
 import './style.scss';
 
 export default function BannerBox7({ customClass, successCallback }) {
-  const [FQAsCount, setFAQsCount] = useState(0);
+  const [FAQsCount, setFAQsCount] = useState(0);
   const handleSuccessCallback = ({ activatedFAQs = [] }) => {
     setFAQsCount(activatedFAQs.length);
   }
   return (
-    <div className={`home-box__wrapper ${customClass} banner-box-7__wrapper ${FQAsCount ? 'show' : ''}`}>
+    <div className={`home-box__wrapper ${customClass} banner-box-7__wrapper ${FAQsCount ? 'show' : ''}`}>
       <Row>
         <Col span={24} className="banner-box-7__center-box">
           <div className='banner-box-7__contents'>

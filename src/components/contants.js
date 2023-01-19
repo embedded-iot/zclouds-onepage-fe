@@ -495,7 +495,7 @@ export const DESIGN_STATE_LABEL_VALUE_OPTIONS = [
 ];
 
 export const FAQ_STATE_LABEL_VALUE_OPTIONS = [
-  { label: 'Select FQA state', value: '' },
+  { label: 'Select FAQ state', value: '' },
   { label: STATE_LABELS[STATE_VALUES.ACTIVATED], value: STATE_VALUES.ACTIVATED },
   { label: STATE_LABELS[STATE_VALUES.DEACTIVATED], value: STATE_VALUES.DEACTIVATED },
 ];

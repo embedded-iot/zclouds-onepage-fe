@@ -54,11 +54,12 @@
   }
   &__social-contact--fixed {
     position: fixed;
-    bottom: 50px;
-    right: 50px;
+    right: 20px;
+    bottom: 81px;
     display: flex;
     flex-flow: column;
     align-items: center;
     gap: 10px;
+
   }
 }

@@ -1,25 +1,16 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Col, Row } from 'antd';
 import logo from 'images/logo-white.svg';
 import call from 'images/call.png';
 import zalo from 'images/zalo.png';
 import facebook from 'images/facebook.png';
-import messenger from 'images/messenger.png';
 import { SellerSystemService } from 'services';
 import { SYSTEM_CONFIG_VALUE } from 'components/contants';
-import { MessengerChat, showDialog, hideDialog} from 'react-messenger-chat-plugin';
+import { MessengerChat } from 'react-messenger-chat-plugin';
 import './style.scss';
 
 export default function Footer({ systemConfigs = []}) {
-  let ref = useRef(false);
-  const handleShowMessenger = () =>  {
-    ref.current = !ref.current;
-    if (ref.current) {
-      showDialog()
-    } else {
-      hideDialog();
-    }
-  }
+  const pageID = SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK_PAGE_ID);
   return (
     <div className="public-footer__wrapper">
       <div className='public-footer__contents'>
@@ -69,18 +60,17 @@ export default function Footer({ systemConfigs = []}) {
       </div>
       <div className='public-footer__social-contact--fixed'>
         <span className="cursor-pointer" onClick={() => window.open(`tel:${SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_PHONE_CALL)}`, '_self')}>
-          <img src={call} alt='call' />
+          <img src={call} alt='call' style={{width: 50}}/>
         </span>
         <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_CALL)} target='_blank' rel="noreferrer">
-          <img src={zalo} alt='zalo' />
+          <img src={zalo} alt='zalo' style={{width: 75}}/>
         </a>
         <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK)} target='_blank' rel="noreferrer">
-          <img src={facebook} alt='facebook' />
+          <img src={facebook} alt='facebook' style={{width: 60}}/>
         </a>
-        <span className="cursor-pointer" onClick={handleShowMessenger}>
-          <img src={messenger} alt='messenger' />
-        </span>
-        <MessengerChat pageId={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK_PAGE_ID)} />
+        {
+          !!pageID && <MessengerChat pageId={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK_PAGE_ID)} />
+        }
       </div>
     </div>
   );
