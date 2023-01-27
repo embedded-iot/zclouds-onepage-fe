@@ -21,7 +21,7 @@ export default function Footer({ systemConfigs = []}) {
             </div>
             <div className='public-footer__description'>Address: {SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_ADDRESS)}</div>
             <div className='public-footer__description'>Email: {SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_EMAIL)}</div>
-            <div className='public-footer__description'>Phone: {SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_ADDRESS)}</div>
+            <div className='public-footer__description'>Phone: {SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_PHONE_CALL)}</div>
             <div className='public-footer__contact'>
               <div className='public-footer__detail-contact'>
                 <div className='public-footer__detail-contact-label'>Social network:</div>
@@ -29,7 +29,7 @@ export default function Footer({ systemConfigs = []}) {
                   <span className="cursor-pointer" onClick={() => window.open(`tel:${SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_PHONE_CALL)}`, '_self')}>
                     <img src={call} alt='call' />
                   </span>
-                  <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_CALL)} target='_blank' rel="noreferrer">
+                  <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_ZALO)} target='_blank' rel="noreferrer">
                     <img src={zalo} alt='zalo' />
                   </a>
                   <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK)} target='_blank' rel="noreferrer">
@@ -62,7 +62,7 @@ export default function Footer({ systemConfigs = []}) {
         <span className="cursor-pointer" onClick={() => window.open(`tel:${SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_PHONE_CALL)}`, '_self')}>
           <img src={call} alt='call' style={{width: 50}}/>
         </span>
-        <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_CALL)} target='_blank' rel="noreferrer">
+        <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_ZALO)} target='_blank' rel="noreferrer">
           <img src={zalo} alt='zalo' style={{width: 75}}/>
         </a>
         <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK)} target='_blank' rel="noreferrer">

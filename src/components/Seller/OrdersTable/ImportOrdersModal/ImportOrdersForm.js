@@ -22,8 +22,8 @@ export default function ImportOrdersForm({ form, systemConfigs, orderDataRows, o
   }
   const skuLink = getFrontUserUrl() + '/sku';
   const guildLink = getFrontUserUrl() + '/blog/import-order-by-csv-exel-files';
-  const order2DTemplateLink = SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.ADMIN_ORDER_2D_TEMPLATE);
-  const order3DTemplateLink = SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.ADMIN_ORDER_3D_TEMPLATE);
+  const order2DTemplateLink = SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_ORDER_2D_TEMPLATE);
+  const order3DTemplateLink = SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_ORDER_3D_TEMPLATE);
 
   return (
     <Form
