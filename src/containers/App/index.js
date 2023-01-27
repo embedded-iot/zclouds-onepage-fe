@@ -50,7 +50,7 @@ import SellerOrderDetailPage from 'containers/Seller/OrderDetailPage/Loadable';
 import SellerDesignsPage from 'containers/Seller/DesignsPage/Loadable';
 import SellerStoresPage from 'containers/Seller/StoresPage/Loadable';
 import SellerIntegrationsPage from 'containers/Seller/IntegrationsPage/Loadable';
-import SellerIntegrationOrdersPageR from 'containers/Seller/IntegrationOrdersPage/Loadable';
+import SellerIntegrationOrdersPage from 'containers/Seller/IntegrationOrdersPage/Loadable';
 import SellerStoreDetailPage from 'containers/Seller/StoreDetailPage/Loadable';
 import SellerWalletPage from 'containers/Seller/WalletPage/Loadable';
 import SellerMyAccountPage from 'containers/Seller/MyAccountPage/Loadable';
@@ -146,7 +146,7 @@ const AppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.SELLER_STORES} component={SellerStoresPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STORES)}/>
     <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_STORE} component={SellerStoreDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE)}/>
     <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATIONS_WITH_VENDOR} component={SellerIntegrationsPage} />
-    <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATION_ORDERS} component={SellerIntegrationOrdersPageR} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STORES)}/>
+    <Route exact path={ROUTERS.SELLER_INTEGRATION_ORDERS} component={SellerIntegrationOrdersPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STORES)}/>
     <Route exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsTokenPage} />
     <PrivateRoute exact path={ROUTERS.SELLER_WALLET} component={SellerWalletPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_WALLET)}/>
     <PrivateRoute exact path={ROUTERS.SELLER_MY_ACCOUNT} component={SellerMyAccountPage} isAuthenticated={props.isLogin}/>
