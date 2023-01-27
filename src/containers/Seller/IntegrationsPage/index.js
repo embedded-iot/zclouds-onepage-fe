@@ -47,6 +47,7 @@ function IntegrationsPage(props) {
           <Col span={10}>
             <IntegrationsStore type={vendorId}
                                storeTypeLabel={storeTypeLabel}
+                               systemConfigs={props.systemConfigs}
                                onFinish={handleReloadStoresTable}
             />
           </Col>
@@ -65,6 +66,7 @@ function IntegrationsPage(props) {
 function mapStateToProps(state) {
   return {
     router: state.router,
+    systemConfigs: state.global.systemConfigs || [],
   }
 }
 

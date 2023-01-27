@@ -1,9 +1,9 @@
 import React from 'react';
 import { notification } from 'antd';
 import { ShopBaseForm, ShopifyForm, WooCommerceForm } from './Vendors';
-import { BaseService, SellerIntegrationsService } from 'services';
+import { BaseService, SellerIntegrationsService, SellerSystemService } from 'services';
 import ConnectStoreBox from './ConnectStoreBox';
-import { STORE_TYPE_VALUES } from 'components/contants';
+import { STORE_TYPE_VALUES, SYSTEM_CONFIG_VALUE } from 'components/contants';
 
 const CONNECT_FORMS = {
   [STORE_TYPE_VALUES.SHOPIFY]: ShopifyForm,
@@ -11,7 +11,7 @@ const CONNECT_FORMS = {
   [STORE_TYPE_VALUES.WOO_COMMERCE]: WooCommerceForm,
 }
 
-export default function IntegrationsStore({ type, storeTypeLabel, onFinish, redirectTo }) {
+export default function IntegrationsStore({ type, storeTypeLabel, onFinish, systemConfigs = [] }) {
   const getDomain = (type, domain) => {
     switch (type) {
       case STORE_TYPE_VALUES.SHOP_BASE:
@@ -97,11 +97,11 @@ export default function IntegrationsStore({ type, storeTypeLabel, onFinish, redi
   }
 
   const ConnectForm = CONNECT_FORMS[type];
-
+  const videoSrc = SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE[`SELLER_CONNECT_${type.toUpperCase()}_STORE_INSTRUCTIONS_VIDEO`]);
   return (
     <ConnectStoreBox
-        description={`You need to setting on your ${storeTypeLabel} first. Watch video instructions to sync orders with ${storeTypeLabel}.`}
-       videoSrc={'https://www.youtube.com/watch?v=XO-n9U-UwSk&feature=emb_title'}
+      description={`You need to setting on your ${storeTypeLabel} first. Watch video instructions to sync orders with ${storeTypeLabel}.`}
+      videoSrc={videoSrc}
     >
       <ConnectForm onFinish={handleConnect}/>
     </ConnectStoreBox>

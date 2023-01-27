@@ -12,14 +12,21 @@ export default function ConnectStoreBox({ title, description, videoSrc, children
           bordered={false}
     >
       <div className='connect-store__description'>
-        {
-          description
-        }
       </div>
-      <iframe width="100%" height="242" src="https://www.youtube.com/embed/XO-n9U-UwSk" title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen></iframe>
+      {
+        !!videoSrc && (
+          <>
+            {
+              description
+            }
+            <iframe width="100%" height="242" src={videoSrc} title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen></iframe>
+          </>
+        )
+      }
+
       <div className='connect-store__sub-title'>
         Connect your store now!
       </div>
