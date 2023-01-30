@@ -17,17 +17,17 @@ export default function Footer({ systemConfigs = [] }) {
       <div className='seller-footer__contents'>
         <Row gutter={[66, 0]}>
           <Col span={12}>
-            <div className='seller-footer__title'>Thank you for sticking with Fulfill. Follow us now</div>
+            <div className='seller-footer__title'>Thank you for sticking with CS Fulfill. Follow us now</div>
             <div className='seller-footer__text'>
               <Icon src={facebook} height={12} width={12} />
               <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_FULFILL)} target='_blank' rel="noreferrer">
-                Fulfill
+                Fanpage
               </a>
             </div>
             <div className='seller-footer__text'>
               <Icon src={facebook} height={12} width={12} />
               <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_FULFILL_FULFILLMENT_COMMUNITY)} target='_blank' rel="noreferrer">
-                Fulfill - Fulfillment Community
+                CS FULFILL - Group
               </a>
             </div>
             <div className='seller-footer__title seller-footer__title--margin-top'>Contact us</div>
@@ -49,27 +49,27 @@ export default function Footer({ systemConfigs = [] }) {
           <Col span={12}>
             <div className='seller-footer__title'>
               <Icon src={flagGreen} height={12} width={14} />
-              How does Fulfill work
+              Dedicated support team
             </div>
             <Row className='seller-footer__contact-list' gutter={[12,12]}>
               <Col span={8}>
                 <div className='seller-footer__contact-item' >
                   <Icon src={supportAvatar} />
-                  <div className='seller-footer__contact-name'>Hong Nguyen</div>
+                  <div className='seller-footer__contact-name'>Le Khanh</div>
                   <div className='seller-footer__contact-work'>Support</div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className='seller-footer__contact-item' >
                   <Icon src={supportAvatar} />
-                  <div className='seller-footer__contact-name'>Hong Nguyen</div>
+                  <div className='seller-footer__contact-name'>Nguyen Hao</div>
                   <div className='seller-footer__contact-work'>Support</div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className='seller-footer__contact-item' >
                   <Icon src={supportAvatar} />
-                  <div className='seller-footer__contact-name'>Hong Nguyen</div>
+                  <div className='seller-footer__contact-name'>Tran Huy</div>
                   <div className='seller-footer__contact-work'>Support</div>
                 </div>
               </Col>

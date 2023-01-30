@@ -12,29 +12,33 @@ export default function BannerBox({ customClass, redirectTo }) {
         <Col span={12} className="home-box__left-box">
           <div className='banner-box__contents'>
             <div className='home-box__title'>
-              <span className="link link--text">Sell Your Custom Print</span> On Demand Products
+              <span className="link link--text">Selling Your Personalized</span> Products
             </div>
             <div className='home-box__description'>
-              We are a printing and manufacturing system that helps you sell POD products and deliver directly to customers around the world.
+              We are a Multi-platform Integration specializing in direct delivery to customers around the world. Everything you need to buy, we have it.
             </div>
             <div className='home-box__checkbox-list'>
               <div className='home-box__checkbox-item'>
                 <div className='home-box__item-icon' />
-                <div className='home-box__item-label'>300+ custom products and more are constantly being added</div>
+                <div className='home-box__item-label'>All types of items (Customize, Dropship)</div>
               </div>
               <div className='home-box__checkbox-item'>
                 <div className='home-box__item-icon' />
-                <div className='home-box__item-label'>Stable production and delivery time
-                </div>
+                <div className='home-box__item-label'>Production time and delivery time are extremely stable</div>
               </div>
               <div className='home-box__checkbox-item'>
                 <div className='home-box__item-icon' />
-                <div className='home-box__item-label'>Easy to use</div>
+                <div className='home-box__item-label'>Update the trend of best-selling models every day</div>
+              </div>
+              <div className='home-box__checkbox-item'>
+                <div className='home-box__item-icon' />
+                <div className='home-box__item-label'>Easy order management, transparency in production and shipping</div>
               </div>
             </div>
             <div className='home-box__buttons'>
-              <Button type="primary" onClick={() => redirectTo(ROUTERS.FRONT_USER_REGISTER)}>Sign Up Now</Button>
-              <Button>Learn More</Button>
+              <Button type="primary" onClick={() => redirectTo(ROUTERS.FRONT_USER_REGISTER)}>Register now</Button>
+              <Button onClick={() => redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS)}>Sample products</Button>
+              <Button>Contact now</Button>
             </div>
           </div>
         </Col>

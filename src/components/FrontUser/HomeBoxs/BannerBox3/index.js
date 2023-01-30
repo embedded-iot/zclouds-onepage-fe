@@ -22,7 +22,7 @@ export default function BannerBox3({ customClass, redirectTo }) {
               WHAT WE SELL
             </div>
             <div className='home-box__title'>
-              <span className="link link--text banner-box-3__link">300+ Custom Products</span> And More Are Frequently Added
+              We have <span className="link link--text banner-box-3__link">all types of items</span> you need <br/>(Customize, Dropship, Etc..) and especially you can personalize your brand.
             </div>
             <div className='home-box__description'>
               We are a printing and manufacturing system that helps you sell POD products and deliver directly to customers around the world.
@@ -30,15 +30,15 @@ export default function BannerBox3({ customClass, redirectTo }) {
             <div className='home-box__checkbox-list banner-box-3__checkbox-list'>
               <div className='home-box__checkbox-item'>
                 <div className='home-box__item-icon' />
-                <div className='home-box__item-label'>Competitive Base Cost.</div>
+                <div className='home-box__item-label'>Competitive base cost.</div>
               </div>
               <div className='home-box__checkbox-item'>
                 <div className='home-box__item-icon' />
-                <div className='home-box__item-label'> High standard product quality.</div>
+                <div className='home-box__item-label'>Strict quality criteria.</div>
               </div>
               <div className='home-box__checkbox-item'>
                 <div className='home-box__item-icon' />
-                <div className='home-box__item-label'>Automated tracking system. Minimize slow shipping of items.</div>
+                <div className='home-box__item-label'>Seamless automated process saves you a ton of time.</div>
               </div>
             </div>
             <div className='home-box__buttons home-box__buttons--center'>

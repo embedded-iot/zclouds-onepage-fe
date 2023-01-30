@@ -15,7 +15,7 @@ export default function BannerBox2({ customClass, redirectTo }) {
               HOW WE WORK
             </div>
             <div className='home-box__title'>
-              <span className="link link--text">Easy To Create An Order</span> With Fulfil
+              <span className="link link--text">Easy to create an order</span> with CS- Fulfillment
             </div>
             <div className='banner-box-2__checkbox-list'>
               <div className='banner-box-2__checkbox-item'>
@@ -27,13 +27,13 @@ export default function BannerBox2({ customClass, redirectTo }) {
                 <div className='banner-box-2__item-icon banner-box-2__item-icon--second'>2</div>
                 <div className='banner-box-2__item-label'>Place an order</div>
               </div>
-              <div className='banner-box-2__item-description'>Using CSV, excel file to upload on our site or you can place a single order directly on our site.
-                Check your order one more time to make sure about the information you provided.</div>
+              <div className='banner-box-2__item-description'>Simply connect your integrated selling store with us and sync your order to the website.
+                Select an order and choose products from our catalog and make designs. Check your order again to make sure about the information you provided.</div>
               <div className='banner-box-2__checkbox-item'>
                 <div className='banner-box-2__item-icon banner-box-2__item-icon--third'>3</div>
                 <div className='banner-box-2__item-label'>Order confirmation</div>
               </div>
-              <div className='banner-box-2__item-description'>SOur supporters will check your order again before taking it into production in the next day.</div>
+              <div className='banner-box-2__item-description'>Your supporters will check your order again before taking it into production in the next day.</div>
               <div className='banner-box-2__checkbox-item'>
                 <div className='banner-box-2__item-icon banner-box-2__item-icon--fourth'>4</div>
                 <div className='banner-box-2__item-label'>Production and shipment</div>

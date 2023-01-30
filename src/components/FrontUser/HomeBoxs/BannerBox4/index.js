@@ -15,10 +15,10 @@ export default function BannerBox4({ customClass, redirectTo }) {
               TESTIMONIAL
             </div>
             <div className='home-box__title'>
-              <span className="link link--text banner-box-4__link">Trusted By Over</span> 50.000 Sellers
+              <span className="link link--text banner-box-4__link">Trusted By Over</span> 10.000 Sellers
             </div>
             <div className='home-box__description'>
-              Let's see what the sellers who are using our service have to say about Fulfill
+              Let's see what the sellers who are using our service have to say about CS-Fulfillment
             </div>
             <PostsGrid className="banner-box-4__blog-list" />
           </div>
