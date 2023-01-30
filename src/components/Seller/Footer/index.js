@@ -54,22 +54,22 @@ export default function Footer({ systemConfigs = [] }) {
             <Row className='seller-footer__contact-list' gutter={[12,12]}>
               <Col span={8}>
                 <div className='seller-footer__contact-item' >
-                  <Icon src={supportAvatar} />
-                  <div className='seller-footer__contact-name'>Le Khanh</div>
+                  <Icon src={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_SUPPORT_AVATAR_1) || supportAvatar} />
+                  <div className='seller-footer__contact-name'>{SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_SUPPORT_NAME_1) || 'Le Khanh'}</div>
                   <div className='seller-footer__contact-work'>Support</div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className='seller-footer__contact-item' >
-                  <Icon src={supportAvatar} />
-                  <div className='seller-footer__contact-name'>Nguyen Hao</div>
+                  <Icon src={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_SUPPORT_AVATAR_2) || supportAvatar} />
+                  <div className='seller-footer__contact-name'>{SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_SUPPORT_NAME_2) || 'Nguyen Hao'}</div>
                   <div className='seller-footer__contact-work'>Support</div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className='seller-footer__contact-item' >
-                  <Icon src={supportAvatar} />
-                  <div className='seller-footer__contact-name'>Tran Huy</div>
+                  <Icon src={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_SUPPORT_AVATAR_3) || supportAvatar} />
+                  <div className='seller-footer__contact-name'>{SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_SUPPORT_NAME_3) || 'Tran Huy'}</div>
                   <div className='seller-footer__contact-work'>Support</div>
                 </div>
               </Col>
