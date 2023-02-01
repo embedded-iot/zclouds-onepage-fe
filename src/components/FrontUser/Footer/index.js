@@ -5,17 +5,19 @@ import call from 'images/call.png';
 import zalo from 'images/zalo.png';
 import facebook from 'images/facebook.png';
 import { SellerSystemService } from 'services';
-import { SYSTEM_CONFIG_VALUE } from 'components/contants';
+import { RESPONSIVE_MEDIAS, SYSTEM_CONFIG_VALUE } from 'components/contants';
 import { MessengerChat } from 'react-messenger-chat-plugin';
+import { useMediaQuery } from 'react-responsive';
 import './style.scss';
 
 export default function Footer({ systemConfigs = []}) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const pageID = SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK_PAGE_ID);
   return (
-    <div className="public-footer__wrapper">
+    <div className={`public-footer__wrapper ${isMobile && 'public-footer__wrapper--mobile'}`}>
       <div className='public-footer__contents'>
-        <Row gutter={[66, 0]}>
-          <Col span={12}>
+        <Row gutter={[66, 24]}>
+          <Col span={isMobile ? 24 : 12}>
             <div className='public-footer__logo'>
               <img src={logo} alt='logo' />
             </div>
@@ -39,16 +41,16 @@ export default function Footer({ systemConfigs = []}) {
               </div>
             </div>
           </Col>
-          <Col span={12} className="public-footer__right-block">
-            <Row gutter={[42, 0]}>
-              <Col span={12}>
+          <Col span={isMobile ? 24 : 12} className="public-footer__right-block">
+            <Row gutter={[42, 42]}>
+              <Col span={isMobile ? 24 : 12}>
                 <div className='public-footer__title'>Support</div>
                 <div className='public-footer__link'>About Us</div>
                 <div className='public-footer__link'>Contact Us</div>
                 <div className='public-footer__link'>Term of Services</div>
                 <div className='public-footer__link'>Return And Refund Policies</div>
               </Col>
-              <Col span={12}>
+              <Col span={isMobile ? 24 : 12}>
                 <div className='public-footer__title'>Integration</div>
                 <div className='public-footer__link'>Shopbase</div>
                 <div className='public-footer__link'>Shopify</div>

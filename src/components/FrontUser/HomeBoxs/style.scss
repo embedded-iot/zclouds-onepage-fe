@@ -9,6 +9,9 @@
     &--tablet {
       padding: 55px;
     }
+    &--mobile {
+      padding: 24px 0;
+    }
     & > div {
       width: 100%;
     }
@@ -47,11 +50,10 @@
   &__buttons {
     margin-top: 24px;
     display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
     &--center {
       justify-content: center;
-    }
-    button {
-      margin-right: 16px;
     }
   }
 

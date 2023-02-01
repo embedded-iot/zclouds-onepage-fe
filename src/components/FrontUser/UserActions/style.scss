@@ -14,8 +14,10 @@
     &--mobile {
       display: flex;
       flex-flow: column;
+      align-items: flex-start;
       button {
         margin: 15px 0 0;
+        background: #F1F2F4 !important;
         &:last-of-type {
           margin-top: 15px;
         }

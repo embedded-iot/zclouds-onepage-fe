@@ -19,6 +19,10 @@
     flex-flow: nowrap;
     gap: 30px;
     justify-content: center;
+    &--mobile {
+      flex-flow: column;
+      gap: 12px;
+    }
   }
 
   &__img {

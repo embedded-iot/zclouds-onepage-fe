@@ -1,14 +1,17 @@
 import React from 'react';
 import { Button, Col, Row } from 'antd';
 import BlogsSlideBox from 'components/FrontUser/BlogsSlideBox';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 import './style.scss';
 
 export default function BannerBox6({ customClass, redirectTo }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
     <div className={`home-box__wrapper ${customClass} banner-box-6__wrapper`}>
       <Row>
-        <Col span={24} className="banner-box-6__center-box">
+        <Col span={24} className={`banner-box-6__center-box ${isMobile && 'padding-box--mobile'}`}>
           <div className='banner-box-6__contents'>
             <div className='home-box__header-text'>
               LATEST CONTENT

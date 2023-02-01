@@ -1,15 +1,16 @@
 import React from 'react';
 import bannerImg from 'images/banner-img.png';
 import { Button, Col, Row } from 'antd';
-import { ROUTERS } from 'components/contants';
-
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 import './style.scss';
 
 export default function BannerBox({ customClass, redirectTo }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
-    <div className={`home-box__wrapper ${customClass} banner-box__wrapper`}>
+    <div className={`home-box__wrapper ${customClass} banner-box__wrapper ${isMobile && 'banner-box__wrapper--mobile'}`}>
       <Row>
-        <Col span={12} className="home-box__left-box">
+        <Col span={isMobile ? 24 : 12} className={`home-box__left-box ${isMobile && 'padding-box--mobile'}`}>
           <div className='banner-box__contents'>
             <div className='home-box__title'>
               <span className="link link--text">Selling Your Personalized</span> Products
@@ -42,7 +43,7 @@ export default function BannerBox({ customClass, redirectTo }) {
             </div>
           </div>
         </Col>
-        <Col span={12} className="home-box__img-box">
+        <Col span={isMobile ? 24 : 12} className="home-box__img-box">
           <div className='banner-box__img'>
             <img src={bannerImg} alt="banner img" />
           </div>

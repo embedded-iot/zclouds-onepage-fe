@@ -4,12 +4,15 @@ import bannerImg22 from 'images/banner-img-2-2.png';
 import { Button, Col, Row } from 'antd';
 
 import './style.scss';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 export default function BannerBox2({ customClass, redirectTo }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
     <div className={`home-box__wrapper ${customClass} banner-box-2__wrapper`}>
       <Row>
-        <Col span={12} className="home-box__left-box">
+        <Col span={isMobile ? 24 : 12} className={`home-box__left-box ${isMobile && 'padding-box--mobile'}`}>
           <div className='banner-box-2__contents'>
             <div className='home-box__header-text'>
               HOW WE WORK
@@ -45,10 +48,14 @@ export default function BannerBox2({ customClass, redirectTo }) {
             </div>
           </div>
         </Col>
-        <Col span={12} className="home-box__img-box">
-          <div className='banner-box-2-2__img'>
-            <img src={bannerImg22} alt="banner img" />
-            <img src={bannerImg21} alt="banner img" />
+        <Col span={isMobile ? 24 : 12} className={`home-box__img-box ${isMobile && 'banner-box-2__img-box--mobile'}`}>
+          <div className='banner-box-2__img'>
+            <div>
+              <img src={bannerImg22} alt="banner img" />
+            </div>
+            <div>
+              <img src={bannerImg21} alt="banner img" />
+            </div>
           </div>
         </Col>
       </Row>

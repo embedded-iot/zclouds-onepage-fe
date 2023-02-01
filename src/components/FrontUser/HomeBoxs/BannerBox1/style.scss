@@ -4,6 +4,9 @@
     padding-bottom: 44px !important;
     background: #FFFFFF;
     margin: 24px 27px;
+    &--mobile {
+      margin: 0;
+    }
   }
   &__buttons {
     button {
@@ -17,7 +20,10 @@
     display: flex;
     flex-flow: nowrap;
     gap: 20px;
-
+    &--mobile {
+      flex-flow: column;
+      gap: 12px;
+    }
   }
   &__link {
     color: #D97008;

@@ -3,6 +3,17 @@
     background: url("~images/banner-bg.svg") center center no-repeat;
     background-size: cover;
     min-height: 550px;
+    &--mobile {
+      background: none;
+      .banner-box__img {
+        background: url("~images/logo_4.svg") center center no-repeat;
+        margin: 25px 0 20px;
+        width: 80%;
+      }
+      .home-box__img-box {
+        background: #0065FF;
+      }
+    }
   }
   &__contents {
     //max-width: 391px;

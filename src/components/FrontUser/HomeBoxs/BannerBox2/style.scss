@@ -9,12 +9,18 @@
     //max-width: 391px;
     margin-left: auto;
   }
-
+  &__img-box {
+    &--mobile {
+      padding: 25px;
+    }
+  }
   &__img {
-    //margin-left: 107px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
     img {
       width: 100%;
-      height: 100%;
+      height: auto;
       max-width: 389px;
       max-height: 389px;
     }

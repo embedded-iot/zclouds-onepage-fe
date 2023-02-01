@@ -2,8 +2,9 @@ import { Layout } from 'antd';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMediaQuery } from 'react-responsive';
-import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
+import Icon from 'components/Common/Icon';
+import dashboard from 'images/darhboard-black-icon.svg';
 
 import './style.scss';
 
@@ -36,7 +37,6 @@ const TabletAndDesktopLayout = props => {
 
 const MobileLayout = props => {
   const [isMenu, setMenu] = useState(false);
-  const MenuIcon = isMenu ? CloseOutlined : MenuOutlined;
   useEffect(() => {
     setMenu(isMenu ? false : isMenu);
     // eslint-disable-next-line
@@ -45,7 +45,7 @@ const MobileLayout = props => {
     <Layout className={`public-layout__wrapper public-layout__wrapper--mobile ${!!isMenu && 'show-menu'}`}>
       <Header>
         {props.header}
-        <MenuIcon className="menu-icon" style={{ fontSize: 20}} onClick={() => setMenu(!isMenu)} />
+        <Icon src={dashboard} className="menu-icon" style={{ fontSize: 20}} onClick={() => setMenu(!isMenu)} />
       </Header>
       {
         !!props.content && (

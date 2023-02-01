@@ -6,13 +6,16 @@ import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import CategoriesGrid from 'components/FrontUser/CategoriesGrid';
 import InputSearch from 'components/Common/InputSearch';
+import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 import './style.scss';
-import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
 
 function CategoriesPage(props) {
   const { categoryId } = props.match ? props.match.params : {};
   const [searchText, setSearchText] = useState('');
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   let ref = useRef({});
   const onSearchChange = (value) => {
     if (!!ref.current.searchTimeout) {
@@ -23,11 +26,11 @@ function CategoriesPage(props) {
     }, 500)
   };
   return (
-    <div className="page-wrapper categories-page__wrapper">
+    <div className={`${isMobile ? 'page-wrapper--full-width' : 'page-wrapper'} categories-page__wrapper`}>
       <Helmet>
         <title>All Products</title>
       </Helmet>
-      <div className="categories-page__search-box">
+      <div className={`categories-page__search-box ${isMobile && 'box-card--mobile'}`}>
         <InputSearch
           name={"searchText"}
           placeholder="Search in Object Mockups"

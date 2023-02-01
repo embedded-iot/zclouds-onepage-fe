@@ -64,7 +64,7 @@ export default function CategoriesGrid({ searchTextKey = 'searchText', searchTex
   return (
     <Row gutter={[45, 0]}>
       <Col span={ isMobile ? 24 : 6 }>
-        <CategoriesFilters categoryId={categoryId} onChange={onFiltersChange} />
+        <CategoriesFilters className={`${isMobile && 'box-card--mobile'}`} categoryId={categoryId} onChange={onFiltersChange} />
       </Col>
       <Col span={ isMobile ? 24 : 18 }>
         <TableGrid type='grid'

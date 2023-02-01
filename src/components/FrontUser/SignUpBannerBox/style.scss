@@ -4,6 +4,15 @@
     background-size: cover;
     border-radius: 16px;
     margin: 40px 0 0;
+    &--mobile {
+      background: url("~images/sign-up-banner-bg.svg") center center no-repeat;
+      background-size: cover;
+      margin: 0 20px 40px !important;
+      padding: 0 20px;
+      .signup-banner__contents {
+        padding: 20px 14px;
+      }
+    }
   }
   &__contents {
     padding: 37px 15px 45px 57px;
@@ -26,6 +35,9 @@
     flex-flow: nowrap;
     gap: 8px;
     margin-top: 14px;
+    &--mobile {
+      flex-flow: column;
+    }
   }
   &__button {
     color: #0065FF !important;

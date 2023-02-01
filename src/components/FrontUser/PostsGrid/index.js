@@ -14,7 +14,7 @@ export default function PostsGrid({ className }) {
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const RELOAD_EVENT_KEY = 'RELOAD_POSTS_TABLE_EVENT_KEY';
   const gridConfig = {
-    gutter: [62, 0],
+    gutter: [62, 32],
     // eslint-disable-next-line
     colSpan: isMobile && 24 || isTablet && 12 || 8,
     gridItemTemplate: gridItemTemplate,

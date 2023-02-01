@@ -22,8 +22,9 @@ import './style.scss';
 function HomePage(props) {
   const isDesktop = useMediaQuery(RESPONSIVE_MEDIAS.DESKTOP);
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   // eslint-disable-next-line
-  const customClass = !!isTablet && 'home-box__wrapper--tablet' || !!isDesktop && 'home-box__wrapper--desktop';
+  const customClass = !!isMobile && 'home-box__wrapper--mobile' || !!isTablet && 'home-box__wrapper--tablet' || !!isDesktop && 'home-box__wrapper--desktop';
   return (
     <div className="page-wrapper--full-width home-page__wrapper">
       <Helmet>
