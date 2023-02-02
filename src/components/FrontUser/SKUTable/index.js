@@ -4,6 +4,8 @@ import ProductOptionsView from 'components/Share/ProductOptionsView';
 import { FrontUserCategoriesService } from 'services';
 import { events, format } from 'utils';
 import TableCellView from 'components/Share/TableCellView';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 const RELOAD_EVENT_KEY = 'RELOAD_SKU_TABLE_EVENT_KEY';
 const UPDATE_DATA_EVENT_KEY = 'UPDATE_SKU_PRICE_TABLE_EVENT_KEY';
@@ -70,8 +72,9 @@ const columns = [
 ];
 
 export default function SKUTable() {
-
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     searchPlaceholder: "Search in Object Mockups",
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -85,20 +88,30 @@ export default function SKUTable() {
   };
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
     buttonList: [
       {
         type: 'searchText',
+        span: 24,
       },
       {
         type: 'pageNum',
+        span: 8,
       },
       {
         type: 'pageSize',
+        span: 8,
       },
       {
         type: 'searchButton',
+        span: 8,
+        props: isMobile && {
+          style: { width: '100%' }
+        }
       },
     ],
+    className: isMobile && 'box-card--mobile'
   }
 
   return (

@@ -9,10 +9,11 @@ import { ROUTERS } from 'components/contants';
 
 import './style.scss';
 
-export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {}}) {
+export default function RegisterForm({ onFinish = () => {}, hasBoxCard = true }) {
   // eslint-disable-next-line
+  const BoxWrapper = hasBoxCard ? BoxCard : 'div';
   return (
-    <BoxCard className="sign-up-form__wrapper" style={{ maxWidth: 400 }}>
+    <BoxWrapper className="sign-up-form__wrapper" style={{ maxWidth: hasBoxCard && 400 }}>
       <BoxHeader
         title="Sign up"
         description="Log in with your data that you entered during registration."
@@ -94,6 +95,6 @@ export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {
           </div>
         </Form.Item>
       </Form>
-    </BoxCard>
+    </BoxWrapper>
   );
 }

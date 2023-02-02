@@ -7,15 +7,17 @@ import { compose } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import RegisterForm from 'components/Share/RegisterForm';
 import { BaseService, UserService } from 'services';
-import { ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import NormalContent from 'components/Share/NormalContent';
 import bannerImg from 'images/banner-img.png';
 import logoImg from 'images/logo.svg';
 import Logo from 'components/Share/Logo';
+import { useMediaQuery } from 'react-responsive';
 
 import './style.scss'
 
 const RegisterPage = (props) => {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const onFinish = (values) => {
     const { confirmPassword, ...data} = values;
     UserService.register(data, response => {
@@ -36,19 +38,26 @@ const RegisterPage = (props) => {
         <title>Sign up</title>
       </Helmet>
       <Row className="page-contents sign-up__contents">
-        <Col span={14} >
-          <NormalContent>
-            <div>
+        <Col span={isMobile ? 24 : 14} >
+          <NormalContent style={{ background: isMobile && '#fff'}}>
+            <div className="sign-up__box">
               <div className='sign-up__logo'>
-                <Logo src={logoImg} height={64}/>
+                <Logo src={logoImg} height={isMobile ? 38 : 64}/>
               </div>
-              <RegisterForm onFinish={onFinish} redirectTo={props.push} />
+              <RegisterForm onFinish={onFinish}
+                            redirectTo={props.push}
+                            hasBoxCard={!isMobile}
+              />
             </div>
           </NormalContent>
         </Col>
-        <Col span={10} className="sign-up__img">
-          <img src={bannerImg} alt='sign-up' />
-        </Col>
+        {
+          !isMobile && (
+            <Col span={10} className="sign-up__img">
+              <img src={bannerImg} alt='sign-up' />
+            </Col>
+          )
+        }
       </Row>
     </div>
   );

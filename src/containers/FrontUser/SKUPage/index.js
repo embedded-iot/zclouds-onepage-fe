@@ -7,14 +7,18 @@ import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import SKUTable from 'components/FrontUser/SKUTable';
 import SignUpBannerBox from 'components/FrontUser/SignUpBannerBox';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 function SKUPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
-    <div className="page-wrapper">
+    <div className={`${isMobile ? 'page-wrapper--full-width' : 'page-wrapper'}`}>
       <Helmet>
         <title>SKU</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title="Price List - SKU"
         description="Fulfill is a Print-on-demand solution that helps you build a profitable online business. Start a business, with everything you need all in one place."
       />

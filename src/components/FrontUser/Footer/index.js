@@ -16,7 +16,7 @@ export default function Footer({ systemConfigs = []}) {
   return (
     <div className={`public-footer__wrapper ${isMobile && 'public-footer__wrapper--mobile'}`}>
       <div className='public-footer__contents'>
-        <Row gutter={[66, 24]}>
+        <Row gutter={isMobile ? [0, 24] : [66, 0]}>
           <Col span={isMobile ? 24 : 12}>
             <div className='public-footer__logo'>
               <img src={logo} alt='logo' />

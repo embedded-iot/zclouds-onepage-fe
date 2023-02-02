@@ -5,7 +5,7 @@ import { authentication, datetime } from 'utils';
 import LoginForm from 'components/Share/LoginForm';
 import { ADMIN_ROLES, DATETIME_FORMAT, ROLE_PERMISSIONS_VALUES } from 'components/contants';
 
-export default function LoginBox({ setGlobalStore = () => {}, isAdminMode = false, redirectTo = () => {}, onFinish = () => {}}) {
+export default function LoginBox({ setGlobalStore = () => {}, isAdminMode = false, hasBoxCard = true, redirectTo = () => {}, onFinish = () => {}}) {
   const getUserInfo = (callback) => {
     UserService.getUserInfo(response => {
       const isAdminRole = ADMIN_ROLES.includes(response.role);
@@ -52,6 +52,7 @@ export default function LoginBox({ setGlobalStore = () => {}, isAdminMode = fals
     <LoginForm onFinish={handlerFinish}
                redirectTo={redirectTo}
                isAdminMode={isAdminMode}
+               hasBoxCard={hasBoxCard}
     />
   );
 }

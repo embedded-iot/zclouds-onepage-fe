@@ -57,7 +57,8 @@ export default function ProductCategoriesGrid({ successCallback = () => {}, redi
   const isExTablet = useMediaQuery(RESPONSIVE_MEDIAS.EX_TABLET);
   const RELOAD_EVENT_KEY = 'RELOAD_ORDER_TABLE_EVENT_KEY';
   const gridConfig = {
-    gutter: [17, 17],
+    gutter: [16, 16],
+    className: isMobile && 'box-card--mobile',
     // eslint-disable-next-line
     colSpan: isMobile && 24 || isTablet && 12 || isExTablet && 8 || 6,
     gridItemTemplate: (itemProps) => gridItemTemplate({ ...itemProps, redirectTo}),
@@ -106,7 +107,8 @@ export default function ProductCategoriesGrid({ successCallback = () => {}, redi
         type: 'searchButton',
         requiredSelection: false,
       },
-    ]
+    ],
+    className: isMobile && 'box-card--mobile',
   }
 
   const viewProductDetail = product => {
@@ -141,7 +143,7 @@ export default function ProductCategoriesGrid({ successCallback = () => {}, redi
                  configs={gridConfig}
                  headerActionsConfig={headerActionsConfig}
                  secondHeader={(
-                   <CategoriesFilters className="product-categories__category-list"
+                   <CategoriesFilters className={`product-categories__category-list ${isMobile && 'box-card--mobile'}`}
                                       onChange={onFiltersChange}
                                       formatCount={count => `(${count})`}
                                       showTitle={false}

@@ -17,7 +17,8 @@ export default function CategoriesGrid({ searchTextKey = 'searchText', searchTex
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const RELOAD_EVENT_KEY = 'RELOAD_ORDER_TABLE_EVENT_KEY';
   const gridConfig = {
-    gutter: [17, 17],
+    gutter: isMobile ? [0, 16] : [16, 16],
+    className: isMobile && 'box-card--mobile',
     // eslint-disable-next-line
     colSpan: isMobile && 24 || isTablet && 12 || 8,
     searchPlaceholder: 'Search in Object Mockups',
@@ -62,7 +63,7 @@ export default function CategoriesGrid({ searchTextKey = 'searchText', searchTex
     categoryId
   };
   return (
-    <Row gutter={[45, 0]}>
+    <Row gutter={isMobile ? [0, 0] : [45, 0]}>
       <Col span={ isMobile ? 24 : 6 }>
         <CategoriesFilters className={`${isMobile && 'box-card--mobile'}`} categoryId={categoryId} onChange={onFiltersChange} />
       </Col>

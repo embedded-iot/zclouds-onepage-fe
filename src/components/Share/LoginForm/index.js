@@ -7,9 +7,10 @@ import InputText from 'components/Common/InputText';
 import { getFrontUserUrl } from 'services/BaseService';
 import './style.scss';
 import { ROUTERS } from 'components/contants';
-export default function LoginForm({ onFinish = () => {}, redirectTo = () => {}, isAdminMode = false }) {
+export default function LoginForm({ onFinish = () => {}, hasBoxCard = true, isAdminMode = false }) {
+  const BoxWrapper = hasBoxCard ? BoxCard : 'div';
   return (
-    <BoxCard className="sign-in-form__wrapper" style={{ maxWidth: 400 }}>
+    <BoxWrapper className="sign-in-form__wrapper" style={{ maxWidth: hasBoxCard && 400 }}>
       <BoxHeader
         title="Sign in to CS Fulfill"
         description="Log in with your data that you entered during registration."
@@ -58,6 +59,6 @@ export default function LoginForm({ onFinish = () => {}, redirectTo = () => {}, 
           )
         }
       </Form>
-    </BoxCard>
+    </BoxWrapper>
   );
 }

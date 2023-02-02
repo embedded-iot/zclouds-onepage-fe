@@ -10,10 +10,13 @@ import Logo from 'components/Share/Logo';
 import logoGray from 'images/logo_gray.svg';
 import logoImg from 'images/logo.svg';
 import logoWhite from 'images/logo-white.svg';
-import { ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 
 import './style.scss';
 const LoginPage = (props) => {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+  const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const queryParams = new URLSearchParams(props.location.search);
   const onFinish = () => {
     const redirect = queryParams.get("redirect")
@@ -29,24 +32,30 @@ const LoginPage = (props) => {
       <Helmet>
         <title>Sign in</title>
       </Helmet>
-      <div className="page-contents sign-in__contents">
-        <NormalContent fullScreen={true}>
+      <div className={`page-contents sign-in__contents ${isMobile && 'sign-in__contents--mobile'}`}>
+        <NormalContent fullScreen={true} style={{ background: isMobile && '#fff'}}>
           {
             !isAdminMode && (
-              <div>
-                <div className='sign-in__image sign-in__image--top-logo'>
-                  <Logo src={logoImg} height={64}/>
+              <div className="sign-in__box">
+                <div className='sign-in__logo'>
+                  <Logo src={logoImg} height={isMobile ? 38 : 64}/>
                 </div>
                 <LoginBox onFinish={onFinish}
                           redirectTo={props.push}
                           setGlobalStore={props.setGlobalStore}
+                          hasBoxCard={!isMobile}
                 />
-
-                <div className='sign-in__image sign-in__image--left' />
-                <div className='sign-in__image sign-in__image--bottom-logo'>
-                  <Logo src={logoGray} height={32} />
-                </div>
-                <div className='sign-in__image sign-in__image--right' />
+                {
+                  !isMobile && !isTablet && (
+                    <>
+                      <div className='sign-in__image sign-in__image--left' />
+                      <div className='sign-in__image sign-in__image--bottom-logo'>
+                        <Logo src={logoGray} height={32} />
+                      </div>
+                      <div className='sign-in__image sign-in__image--right' />
+                    </>
+                  )
+                }
               </div>
             )
           }
@@ -60,6 +69,7 @@ const LoginPage = (props) => {
                           redirectTo={props.push}
                           setGlobalStore={props.setGlobalStore}
                           isAdminMode={true}
+                          hasBoxCard={!isMobile}
                 />
               </div>
             )

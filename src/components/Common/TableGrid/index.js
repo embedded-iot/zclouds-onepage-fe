@@ -333,6 +333,7 @@ export default function TableGrid({
             pagination={false}
             rowKey={record => record.id}
             onRow={configs.onRow}
+            className={configs.className}
           />
         )
       }
@@ -345,6 +346,7 @@ export default function TableGrid({
             dataSource={items}
             gridItemTemplate={configs.gridItemTemplate}
             onSelectGridItem={onSelectGridItem}
+            className={configs.className}
           />
         )
       }

@@ -3,7 +3,7 @@ import BreadcrumbBox from 'components/Common/BreadcrumbBox';
 import { ROUTERS } from 'components/contants';
 import './style.scss';
 
-export default function PageHeader({ title, description, currentBreadcrumb = '', breadcrumbRouters = []}) {
+export default function PageHeader({ className, title, description, currentBreadcrumb = '', breadcrumbRouters = []}) {
   const showBreadcrumb = !!currentBreadcrumb || breadcrumbRouters.length;
   const routers = [
     ...(!!currentBreadcrumb ? [
@@ -18,7 +18,7 @@ export default function PageHeader({ title, description, currentBreadcrumb = '',
     ...breadcrumbRouters,
   ];
   return (
-    <div className="box-header__wrapper">
+    <div className={`box-header__wrapper ${className}`}>
       <div className='box-header__title'>{title}</div>
       <div className='box-header__description'>{description}</div>
       {

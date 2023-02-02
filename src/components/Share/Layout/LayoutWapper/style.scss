@@ -55,29 +55,34 @@
 
   &--mobile {
     position: relative;
+    background: #f0f2f5 !important;
     .ant-layout-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       position: sticky;
       top: 0;
+      background: #FFFFFF;
     }
-    .ant-layout-sider {
-      position: sticky;
-      top: 66px;
-      z-index: 11;
-      .ant-layout-sider-children {
-        position: relative;
-        & > span {
-          position: absolute;
-          top: -45px;
-          left: 20px;
-        }
-        .sider-container {
-          overflow: auto;
-          height: calc(100vh - 66px);
-        }
-      }
-    }
-    .ant-layout-footer {
-      padding: 15px 20px;
-    }
+    //.ant-layout-sider {
+    //  position: sticky;
+    //  top: 66px;
+    //  z-index: 11;
+    //  .ant-layout-sider-children {
+    //    position: relative;
+    //    & > span {
+    //      position: absolute;
+    //      top: -45px;
+    //      left: 20px;
+    //    }
+    //    .sider-container {
+    //      overflow: auto;
+    //      height: calc(100vh - 66px);
+    //    }
+    //  }
+    //}
+    //.ant-layout-footer {
+    //  padding: 15px 20px;
+    //}
   }
 }

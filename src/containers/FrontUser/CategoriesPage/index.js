@@ -38,6 +38,7 @@ function CategoriesPage(props) {
         />
       </div>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title="Products List"
         description="Fulfill is a Print-on-demand solution that helps you build a profitable online business. Start a business, with everything you need all in one place."
       />

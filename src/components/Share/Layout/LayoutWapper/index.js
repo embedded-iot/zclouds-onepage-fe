@@ -2,11 +2,12 @@ import { Layout } from 'antd';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMediaQuery } from 'react-responsive';
-import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 import Logo from 'components/Share/Logo';
 import logo from 'images/logo.svg';
 import arrowLeft from 'images/arrow-left.png';
+import Icon from 'components/Common/Icon';
+import dashboard from 'images/darhboard-black-icon.svg';
 
 import './style.scss';
 
@@ -48,7 +49,6 @@ const TabletAndDesktopLayout = props => {
 
 const MobileLayout = props => {
   const [isMenu, setMenu] = useState(false);
-  const MenuIcon = isMenu ? CloseOutlined : MenuOutlined;
   useEffect(() => {
     setMenu(isMenu ? false : isMenu);
     // eslint-disable-next-line
@@ -56,18 +56,27 @@ const MobileLayout = props => {
   return (
     <Layout className={`layout__wrapper layout__wrapper--mobile ${props.className}`}>
       <Header>
+        <Icon src={dashboard} className="menu-icon" style={{ fontSize: 20}} onClick={() => setMenu(!isMenu)} />
         {props.header}
       </Header>
-      <Sider theme="light" width={"100%"}>
-        <MenuIcon style={{ fontSize: 20}} onClick={() => setMenu(!isMenu)} />
-        <div className="sider-container" style={{display: isMenu ? 'block' : 'none' }}>{props.sider}</div>
-      </Sider>
-      <Content>
-        {props.content}
-      </Content>
-      <Footer>
-        {props.footer}
-      </Footer>
+      {/*<Sider theme="light" width={"100%"}>*/}
+      {/*  <MenuIcon style={{ fontSize: 20}} onClick={() => setMenu(!isMenu)} />*/}
+      {/*  <div className="sider-container" style={{display: isMenu ? 'block' : 'none' }}>{props.sider}</div>*/}
+      {/*</Sider>*/}
+      {
+        !!props.content && (
+          <Content>
+            {props.content}
+          </Content>
+        )
+      }
+      {
+        !!props.footer && (
+          <Footer>
+            {props.footer}
+          </Footer>
+        )
+      }
     </Layout>
   )
 }

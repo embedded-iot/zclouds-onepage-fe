@@ -5,9 +5,12 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import ProductCategoriesGrid from 'components/Seller/ProductCategoriesGrid';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 function ProductCategoriesPage(props) {
   const [totalCount, setTotalCount] = useState(0);
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const successCallback = (response) => {
     setTotalCount(response.totalCount || 0);
   }
@@ -17,6 +20,7 @@ function ProductCategoriesPage(props) {
         <title>Product Categories</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title="Product Categories"
         description={`We found ${totalCount} results.`}
         currentBreadcrumb="Product Categories"

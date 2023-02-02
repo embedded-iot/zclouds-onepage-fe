@@ -2,10 +2,10 @@ import React from 'react';
 import { Table } from 'antd';
 import './style.scss';
 
-const TableView = (props) => {
+const TableView = ({ className, ...restProps }) => {
   return (
-    <Table className="table-view__wrapper"
-           { ...props }
+    <Table className={`table-view__wrapper ${className}`}
+           { ...restProps }
     />
   )
 }

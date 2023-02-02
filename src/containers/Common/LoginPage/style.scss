@@ -1,11 +1,13 @@
 .sign-in {
+  &__logo {
+    margin-bottom: 52px;
+    text-align: center;
+  }
+  &__box {
+    padding: 40px;
+  }
   &__image {
     position: absolute;
-    &--top-logo {
-      top: 59px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
     &--left {
       background: url("~images/login-img-1.png") center center no-repeat;
       background-size: cover;
@@ -32,6 +34,9 @@
   &__contents {
     position: relative;
     min-height: 768px;
+    &--mobile {
+      min-height: auto;
+    }
   }
   &__logo {
     text-align: center;
