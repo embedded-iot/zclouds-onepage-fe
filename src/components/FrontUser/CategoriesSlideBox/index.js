@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import MultiCarouselView from 'components/Common/MultiCarouselView';
 import { FrontUserCategoriesService } from 'services';
-import { ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import CategorySlideItem from 'components/FrontUser/CategorySlideItem';
 import './style.scss';
+import { useMediaQuery } from 'react-responsive';
 
 export default function CategoriesSlideBox({ redirectTo, successCallback }) {
   const [categories, setCategories] = useState([]);
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const getCategories = () => {
     FrontUserCategoriesService.getCategoriesFilter(response => {
       const [firstCategory, ...restCategories] = response;
@@ -28,7 +30,7 @@ export default function CategoriesSlideBox({ redirectTo, successCallback }) {
     <MultiCarouselView
       deviceType="desktop"
       containerClass="category-slides__wrapper"
-      itemClass="category-card__item"
+      itemClass={`category-card__item  ${isMobile && 'category-card__item--mobile'} `}
       responsive={{
         desktop: {
           items: 3,

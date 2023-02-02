@@ -4,14 +4,15 @@ import { FrontUserCategoriesService } from 'services';
 import ProductImagesPreview from './ProductImagesPreview';
 import ProductInfo from './ProductInfo';
 import PlainText from 'components/Common/PlainText';
-import { ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import { getSellerUrl } from 'services/BaseService';
+import { useMediaQuery } from 'react-responsive';
 
 import './style.scss';
 
 export default function ProductDetailBox({ defaultProduct = null, isAddOrder, productId, redirectTo }) {
   const [product, setProduct] = useState(defaultProduct);
-
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const getProductDetail = () => {
     FrontUserCategoriesService.getProductDetail(productId, response => {
       setProduct(response);
@@ -31,18 +32,18 @@ export default function ProductDetailBox({ defaultProduct = null, isAddOrder, pr
   }
 
   return (
-    <div className='product-detail-box__wrapper'>
-      <Row gutter={[65, 46]}>
-        <Col span={12}>
+    <div className={`${!isMobile && 'product-detail-box__wrapper'}`}>
+      <Row gutter={isMobile ? [0, 8] : [65, 46]}>
+        <Col span={isMobile ? 24 : 12}>
           <ProductImagesPreview product={product}/>
         </Col>
-        <Col span={12}>
+        <Col span={isMobile ? 24 : 12}>
           <ProductInfo product={product}
                        onAddOrder={handleAddOrder}
                        isAddOrder={isAddOrder}
           />
         </Col>
-        <Col span={24}>
+        <Col span={24} className={`${isMobile && 'box-card--mobile'}`}>
           <div className='product-detail-box__title'>
             <span className='product-detail-box__title-icon' />
             Description

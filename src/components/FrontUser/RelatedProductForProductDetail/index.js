@@ -1,11 +1,13 @@
 import React from 'react';
 import RelatedProductsBox from 'components/FrontUser/RelatedProductsBox';
-import { ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 import './style.scss';
 
 export default function RelatedProductForProductDetail({ categoryId, categoryName, redirectTo }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
-    <div className="related-product-for-product-detail-wrapper">
+    <div className={`related-product-for-product-detail-wrapper ${isMobile && 'box-card--mobile'}`}>
       <div className='product-detail-box__title'>
         <span className='product-detail-box__title-icon' />
         <span>Maybe you like</span>

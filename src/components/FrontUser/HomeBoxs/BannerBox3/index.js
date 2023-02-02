@@ -47,14 +47,14 @@ export default function BannerBox3({ customClass, redirectTo }) {
             <div className='home-box__buttons home-box__buttons--center'>
               <Button>View all our products</Button>
             </div>
-            <Row gutter={[20, 0]} className="banner-box-3__first-category">
+            <Row gutter={isMobile ? [0, 16] : [20, 0]} className={`banner-box-3__first-category ${isMobile && 'banner-box-3__first-category--mobile' }`}>
               <Col span={isMobile ? 24 : 8}>
-                <CategorySlideItem category={category} redirectTo={redirectTo}  customClass="banner-box-3__first-category-slide" />
+                <CategorySlideItem category={category} redirectTo={redirectTo} customClass={`banner-box-3__first-category-slide ${isMobile && 'banner-box-3__first-category-slide--mobile'}`} />
               </Col>
               <Col span={isMobile ? 24 : 16}>
                 <RelatedProductsBox
                   containerClass="banner-box-3__related-products"
-                  itemClass="banner-box-3__related-product-item"
+                  itemClass={`banner-box-3__related-product-item ${isMobile && 'banner-box-3__related-product-item--mobile' }`}
                   redirectTo={redirectTo}
                   defaultParams={{
                     sortBy: "displayOrder",

@@ -7,11 +7,13 @@ import Icon from 'components/Common/Icon';
 import plusIcon from 'images/plus-icon.svg';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import './style.scss';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 export default function ProductInfo({ product = {}, isAddOrder = true, onAddOrder = () => {}}) {
   const [productOptions, setProductOptions] = useState({});
   const [productDetail, setProductDetail] = useState(product);
-
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const onOptionsChange = (name, value) => {
     const newProductOptions = {
       ...productOptions,
@@ -43,7 +45,7 @@ export default function ProductInfo({ product = {}, isAddOrder = true, onAddOrde
     isAddOrder && <Button type="primary" icon={<Icon src={plusIcon} width={24} height={24} />} onClick={() => onAddOrder(product.id)}>Order now</Button>,
   ];
   return (
-    <div className='product-info__wrapper'>
+    <div className={`product-info__wrapper ${isMobile && 'box-card--mobile'}`}>
       <div className='product-info__title'>{productDetail.name}</div>
       {/*<div className='product-info__description'>{product.subName || '-'}</div>*/}
       <div className='product-info__price'>From: {productDetail.convertedPrice}</div>

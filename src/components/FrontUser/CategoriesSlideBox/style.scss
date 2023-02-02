@@ -2,5 +2,8 @@
   .category-card__item {
     padding: 0 20px 4px;
     cursor: pointer;
+    &--mobile {
+      padding: 6px;
+    }
   }
 }
