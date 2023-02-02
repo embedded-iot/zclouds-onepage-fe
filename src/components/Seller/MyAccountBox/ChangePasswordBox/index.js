@@ -3,8 +3,11 @@ import BoxCard from 'components/Share/BoxCard';
 import ChangePasswordForm from './ChangePasswordForm';
 import { BaseService, SellerUsersService } from 'services';
 import { notification } from 'antd';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 export default function ChangePasswordBox({ currentUser }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const handOk = values => {
     SellerUsersService.changePassword(values, response => {
       notification.success({
@@ -16,9 +19,10 @@ export default function ChangePasswordBox({ currentUser }) {
       });
     });
   }
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="my-account__box">
+    <BoxWrapper className={isMobile ? 'box-card--mobile' :'my-account__box'}>
       <ChangePasswordForm onFinish={handOk}/>
-    </BoxCard>
+    </BoxWrapper>
   )
 }

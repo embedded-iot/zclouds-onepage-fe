@@ -10,8 +10,9 @@ import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
 import PlainText from 'components/Common/PlainText';
 import ReactHtmlParser from 'react-html-parser';
-import { NOTIFICATION_STATE_LABEL_VALUE_OPTIONS, PERMISSION_VALUES } from 'components/contants';
+import { NOTIFICATION_STATE_LABEL_VALUE_OPTIONS, PERMISSION_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
+import { useMediaQuery } from 'react-responsive';
 
 const columns = [
   {
@@ -60,6 +61,7 @@ const ACTION_KEYS = {
 }
 
 export default function NotificationsManagementTable() {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openAddNotification, setOpenAddNotification] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [openDeleteNotification, setOpenDeleteNotification] = useState(false);
@@ -67,6 +69,7 @@ export default function NotificationsManagementTable() {
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_NOTIFICATIONS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       AdminNotificationsService.getNotifications(cui.removeEmpty(params), successCallback, failureCallback)
@@ -114,6 +117,9 @@ export default function NotificationsManagementTable() {
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
@@ -128,6 +134,7 @@ export default function NotificationsManagementTable() {
       },
       {
         type: 'searchText',
+        span: 24,
         requiredSelection: false,
         props: {
           placeholder: 'Search by id, name...',
@@ -136,30 +143,37 @@ export default function NotificationsManagementTable() {
       {
         type: 'custom',
         requiredSelection: false,
+        span: 24,
         render: (
           <DropdownSelect
             name="status"
             options={notificationsOptions}
             defaultValue={''}
             onChange={handleFilterChange}
-            style={{ width: 200}}
+            style={{ width: isMobile ? '100%' : 200}}
           />
         )
       },
       {
         type: 'searchButton',
         requiredSelection: false,
+        span: 12,
+        props: isMobile && {
+          style: { width: '100%' }
+        }
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.ADD_NOTIFICATION} type="primary" icon={<PlusCircleOutlined />} onClick={addNotification}>Add notification</Button>,
+        render: <Button key={ACTION_KEYS.ADD_NOTIFICATION} type="primary" icon={<PlusCircleOutlined />} style={{ width: isMobile ? '100%' : 'auto' }} onClick={addNotification}>Add notification</Button>,
+        span: 12,
         align: 'right',
         permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_NOTIFICATION),
       }
     ],
   }
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="content-box__wrapper">
+    <BoxWrapper className={!isMobile && 'content-box__wrapper'}>
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -192,6 +206,6 @@ export default function NotificationsManagementTable() {
           />
         )
       }
-    </BoxCard>
+    </BoxWrapper>
   );
 }

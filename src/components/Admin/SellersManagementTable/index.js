@@ -10,7 +10,8 @@ import { Button } from 'antd';
 import EditSellerModal from './EditSellerModal';
 import { EditOutlined } from '@ant-design/icons';
 import StatusTag from 'components/Share/StatusTag';
-import { PERMISSION_VALUES } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 
 
 const columns = [
@@ -52,10 +53,12 @@ const columns = [
 ];
 
 export default function SellersManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN_SELLERS_MANAGEMENT_TABLE_EVENT_KEY' }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [selectedSeller, setSelectedSeller] = useState(null);
   const [openUpdateSeller, setOpenUpdateSeller] = useState(false);
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
@@ -78,6 +81,9 @@ export default function SellersManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
@@ -86,6 +92,7 @@ export default function SellersManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
       },
       {
         type: 'searchText',
+        span: 24,
         props: {
           placeholder: 'Search by name...',
           theme: 'light',
@@ -94,6 +101,7 @@ export default function SellersManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
       },
       {
         type: 'pageNum',
+        span: 12,
         props: {
           theme: 'light',
         },
@@ -101,6 +109,7 @@ export default function SellersManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
       },
       {
         type: 'pageSize',
+        span: 12,
         props: {
           theme: 'light',
         },
@@ -108,7 +117,9 @@ export default function SellersManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
       },
       {
         type: 'searchButton',
+        span: 12,
         props: {
+          style: isMobile ? { width: '100%' } : {},
           ghost: true,
           icon: <Icon src={searchGreenIcon} width={20} height={20} />
         },
@@ -122,8 +133,9 @@ export default function SellersManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
     setSelectedSeller(newSelectedSeller);
   }
 
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="content-box__wrapper">
+    <BoxWrapper className={!isMobile && 'content-box__wrapper'}>
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -145,6 +157,6 @@ export default function SellersManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
           />
         )
       }
-    </BoxCard>
+    </BoxWrapper>
   );
 }

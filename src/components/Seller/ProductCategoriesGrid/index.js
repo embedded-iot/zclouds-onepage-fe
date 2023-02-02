@@ -87,9 +87,13 @@ export default function ProductCategoriesGrid({ successCallback = () => {}, redi
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'searchText',
+        span: 24,
         requiredSelection: false,
         props: {
           placeholder: "Search by id, name..."
@@ -97,10 +101,12 @@ export default function ProductCategoriesGrid({ successCallback = () => {}, redi
       },
       {
         type: 'pageNum',
+        span: 12,
         requiredSelection: false,
       },
       {
         type: 'pageSize',
+        span: 12,
         requiredSelection: false,
       },
       {
@@ -108,7 +114,6 @@ export default function ProductCategoriesGrid({ successCallback = () => {}, redi
         requiredSelection: false,
       },
     ],
-    className: isMobile && 'box-card--mobile',
   }
 
   const viewProductDetail = product => {

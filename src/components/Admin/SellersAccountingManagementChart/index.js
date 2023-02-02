@@ -5,18 +5,19 @@ import { cui, datetime, events } from 'utils';
 import OrdersAccountingOverviewChart from './OrdersAccountingOverviewChart';
 import TableGrid from 'components/Common/TableGrid';
 import OrdersAccountingStatus from 'components/Admin/SellersAccountingManagementChart/OrdersAccountingStatus';
-import { DATA_DATE_FORMAT, DATETIME_FORMAT } from 'components/contants';
-import './style.scss';
+import { DATA_DATE_FORMAT, DATETIME_FORMAT, RESPONSIVE_MEDIAS } from 'components/contants';
 import { downloadFile } from 'utils/requests';
 import { Button, notification } from 'antd';
 import Icon from 'components/Common/Icon';
 import exportIcon from 'images/export_green_purple_icon.svg';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
+import { useMediaQuery } from 'react-responsive';
+import './style.scss';
 
 
-const renderOrdersOverviewBody = ({ params = {}, dataSource = [] }) => {
+const renderOrdersOverviewBody = ({ params = {}, dataSource = [], isMobile = false }) => {
   return (
-    <div className="sellers-accounting__chart">
+    <div className={isMobile ? 'box-card--mobile' : 'sellers-accounting__chart'}>
       <OrdersAccountingOverviewChart
         fromDate={!!params.fromDate ? new Date(params.fromDate) : undefined}
         toDate={!!params.toDate ? new Date(params.toDate) : undefined}
@@ -27,6 +28,7 @@ const renderOrdersOverviewBody = ({ params = {}, dataSource = [] }) => {
 }
 
 export default function SellersAccountingManagementChart({ RELOAD_EVENT_KEY = 'RELOAD_ORDERS_ACCOUNTING_OVERVIEW_CHART_TABLE_EVENT_KEY', }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [summaryData, setSummaryData] = useState({});
   const [resellersInput, setResellersInput] = useState({
     value: '',
@@ -35,7 +37,7 @@ export default function SellersAccountingManagementChart({ RELOAD_EVENT_KEY = 'R
   let ref = useRef({});
 
   const tableConfig = {
-    customBodyTemplate: renderOrdersOverviewBody,
+    customBodyTemplate: (props) => renderOrdersOverviewBody({ ...props, isMobile }),
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
       const requestParams = cui.removeEmpty(restParams);
@@ -95,9 +97,13 @@ export default function SellersAccountingManagementChart({ RELOAD_EVENT_KEY = 'R
   }, []);
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
+        span: 24,
         render: (
           <AutoCompleteInput name="sellerId"
                              value={resellersInput.value}
@@ -111,11 +117,16 @@ export default function SellersAccountingManagementChart({ RELOAD_EVENT_KEY = 'R
       },
       {
         type: 'datePicker',
+        span: 18,
         align: "right"
       },
       {
         type: 'searchButton',
-        align: "right"
+        span: 6,
+        align: "right",
+        props: {
+          style: isMobile ? { width: '100%' } : {}
+        }
       },
     ],
   }
@@ -139,7 +150,8 @@ export default function SellersAccountingManagementChart({ RELOAD_EVENT_KEY = 'R
   return (
     <>
       <ButtonListWrapper buttonList={buttonList}
-                         align="right"
+                         align={!isMobile && 'right'}
+                         className={isMobile && 'box-card--mobile'}
       />
       <TableGrid configs={tableConfig}
                  type="custom"

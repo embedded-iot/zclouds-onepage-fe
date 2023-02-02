@@ -9,26 +9,32 @@ import PageHeader from 'components/Share/PageHeader';
 import TopSellersManagementTable from 'components/Admin/TopSellersManagementTable';
 import SellersAccountingManagementChart from 'components/Admin/SellersAccountingManagementChart';
 import TopSellingProductsTable from 'components/Admin/TopSellingProductsTable';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 function StatisticsManagementPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
     <div className="page-wrapper">
       <Helmet>
         <title>Statistics management</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title="Statistics management"
       />
       <div className="page-contents">
-        <Row gutter={[24, 24]}>
-          <Col span={12}>
+        <Row gutter={isMobile ? [0, 0] : [24, 24]}>
+          <Col span={isMobile ? 24 : 12}>
             <SellersAccountingManagementChart />
           </Col>
-          <Col span={12}>
+          <Col span={isMobile ? 24 : 12}>
             <TopSellersManagementTable />
           </Col>
         </Row>
-        <TopSellingProductsTable />
+        <div className={isMobile && 'box-card--mobile'}>
+          <TopSellingProductsTable />
+        </div>
       </div>
     </div>
   );

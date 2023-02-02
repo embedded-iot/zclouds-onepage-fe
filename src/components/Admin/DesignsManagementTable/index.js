@@ -9,6 +9,8 @@ import BoxCard from 'components/Share/BoxCard';
 import { Button } from 'antd';
 import EditDesignModal from './EditDesignModal';
 import { EditOutlined } from '@ant-design/icons';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 
 const columns = [
@@ -37,10 +39,12 @@ const columns = [
 ];
 
 export default function DesignsManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN_DESIGNS_MANAGEMENT_TABLE_EVENT_KEY' }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [selectedDesign, setSelectedDesign] = useState(null);
   const [openUpdateDesign, setOpenUpdateDesign] = useState(false);
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
@@ -63,6 +67,9 @@ export default function DesignsManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
@@ -71,6 +78,7 @@ export default function DesignsManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
       },
       {
         type: 'searchText',
+        span: 24,
         props: {
           placeholder: 'Search by name, creator...',
           theme: 'light',
@@ -79,6 +87,7 @@ export default function DesignsManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
       },
       {
         type: 'pageNum',
+        span: 12,
         props: {
           theme: 'light',
         },
@@ -86,6 +95,7 @@ export default function DesignsManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
       },
       {
         type: 'pageSize',
+        span: 12,
         props: {
           theme: 'light',
         },
@@ -93,7 +103,9 @@ export default function DesignsManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
       },
       {
         type: 'searchButton',
+        span: 12,
         props: {
+          style: isMobile ? { width: '100%' } : {},
           ghost: true,
           icon: <Icon src={searchGreenIcon} width={20} height={20} />
         },
@@ -106,9 +118,9 @@ export default function DesignsManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
     const newSelectedDesign = ref.current.items.find(item => item.id === keys[0]);
     setSelectedDesign(newSelectedDesign);
   }
-
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="content-box__wrapper">
+    <BoxWrapper className={!isMobile && 'content-box__wrapper'}>
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -130,6 +142,6 @@ export default function DesignsManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMI
           />
         )
       }
-    </BoxCard>
+    </BoxWrapper>
   );
 }

@@ -5,14 +5,18 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import WalletsTable from 'components/Seller/WalletTable';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 function WalletPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
     <div className="page-wrapper">
       <Helmet>
         <title>Wallet</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title="Wallet"
         description={`User: ${props.currentUser.username}`}
         currentBreadcrumb="Wallet"

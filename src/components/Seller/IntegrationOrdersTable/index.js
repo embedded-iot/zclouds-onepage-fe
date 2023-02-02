@@ -4,12 +4,13 @@ import { BaseService, SellerIntegrationsService } from 'services';
 import { notification, Tag } from 'antd';
 import Icon from 'components/Common/Icon';
 import searchGreenIcon from 'images/search_green.svg';
-import { PERMISSION_VALUES, STORE_TYPE_ICONS } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS, STORE_TYPE_ICONS } from 'components/contants';
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 
-import './style.scss';
 import { authentication, events } from 'utils';
 import { filterListByPermission } from 'services/BaseService';
+import { useMediaQuery } from 'react-responsive';
+import './style.scss';
 
 
 const ACTION_KEYS = {
@@ -75,9 +76,11 @@ const columns = [
 ];
 
 export default function IntegrationOrdersTable({ type, storeId, successCallback = () => {}, RELOAD_EVENT_KEY = 'RELOAD_RESELLER_STORE_TABLE_EVENT_KEY' }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   // eslint-disable-next-line
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns: filterListByPermission(columns),
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
@@ -105,9 +108,13 @@ export default function IntegrationOrdersTable({ type, storeId, successCallback 
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'searchText',
+        span: 24,
         props: {
           placeholder: 'Search...',
           theme: 'light',
@@ -115,19 +122,23 @@ export default function IntegrationOrdersTable({ type, storeId, successCallback 
       },
       {
         type: 'pageNum',
+        span: 12,
         props: {
           theme: 'light',
         }
       },
       {
         type: 'pageSize',
+        span: 12,
         props: {
           theme: 'light',
         }
       },
       {
         type: 'searchButton',
+        span: 12,
         props: {
+          style: isMobile ? { width: '100%' } : {},
           ghost: true,
           icon: <Icon src={searchGreenIcon} width={20} height={20} />
         }

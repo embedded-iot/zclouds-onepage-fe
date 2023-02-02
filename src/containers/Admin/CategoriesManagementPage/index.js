@@ -6,14 +6,18 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import CategoriesManagementTable from 'components/Admin/CategoriesManagementTable';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 function ProductManagementPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
     <div className="page-wrapper">
       <Helmet>
         <title>Categories management</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title="Categories management"
       />
       <div className="page-contents">

@@ -6,10 +6,11 @@ import { Button, notification } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import DeleteUserModal from './DeleteUserModal';
 import DropdownSelect from 'components/Common/DropdownSelect';
-import { PERMISSION_VALUES, ROLES_LABEL_VALUE_OPTIONS, ROUTERS } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS, ROLES_LABEL_VALUE_OPTIONS, ROUTERS } from 'components/contants';
 import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
 import RoleDropdownSelect from 'components/Admin/UsersManagementTable/RoleDropdownSelect';
+import { useMediaQuery } from 'react-responsive';
 
 
 const ACTION_KEYS = {
@@ -27,6 +28,7 @@ const getRolesOptions = (firstLabel = '') => {
 }
 
 export default function UsersManagementTable({ redirectTo }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openDeleteUser, setOpenDeleteUser] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_USERS_TABLE_EVENT_KEY';
@@ -89,6 +91,7 @@ export default function UsersManagementTable({ redirectTo }) {
   ];
 
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
@@ -137,13 +140,17 @@ export default function UsersManagementTable({ redirectTo }) {
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
         render: <Button key={ACTION_KEYS.EDIT_USER} icon={<EditOutlined />} onClick={() => addEditUser(selectedUser.id)}>Edit user</Button>,
         requiredSelection: true,
         permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_USER),
-      },      {
+      },
+      {
         type: 'custom',
         render: <Button key={ACTION_KEYS.DELETE_USER} icon={<CloseCircleOutlined />} type="primary" danger ghost onClick={deleteUser}>Delete user</Button>,
         requiredSelection: true,
@@ -151,6 +158,7 @@ export default function UsersManagementTable({ redirectTo }) {
       },
       {
         type: 'searchText',
+        span: 24,
         requiredSelection: false,
         props: {
           placeholder: 'Search by id, name...'
@@ -163,34 +171,42 @@ export default function UsersManagementTable({ redirectTo }) {
             options={getRolesOptions('All Roles')}
             defaultValue={''}
             onChange={onRoleChange}
-            style={{width: 'auto'}}
+            style={{width: isMobile ? '100%' : 'auto'}}
           />
         ),
+        span: 12,
         requiredSelection: false,
       },
       {
         type: 'pageNum',
+        span: 12,
         requiredSelection: false,
       },
       {
         type: 'pageSize',
+        span: 12,
         requiredSelection: false,
       },
       {
         type: 'searchButton',
+        span: 12,
         requiredSelection: false,
+        props: isMobile && {
+          style: { width: '100%' }
+        }
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.ADD_USER} type="primary" icon={<PlusCircleOutlined />} onClick={() => addEditUser()}>Add user</Button>,
+        render: <Button key={ACTION_KEYS.ADD_USER} type="primary" icon={<PlusCircleOutlined />} style={{ width: isMobile ? '100%' : 'auto'}} onClick={() => addEditUser()}>Add user</Button>,
+        span: 12,
         align: 'right',
         permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_USER),
       }
     ],
   }
-
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="content-box__wrapper">
+    <BoxWrapper className={!isMobile && 'content-box__wrapper'}>
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -213,6 +229,6 @@ export default function UsersManagementTable({ redirectTo }) {
           />
         )
       }
-    </BoxCard>
+    </BoxWrapper>
   );
 }

@@ -6,14 +6,18 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import UsersManagementTable from 'components/Admin/UsersManagementTable';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 function UsersManagementPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
     <div className="page-wrapper">
       <Helmet>
         <title>Users management</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title="Users management"
       />
       <div className="page-contents">

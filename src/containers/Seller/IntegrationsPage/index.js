@@ -8,11 +8,13 @@ import StoresTable from 'components/Seller/StoresTable';
 import IntegrationsStore from 'components/Seller/IntegrationsStore';
 import { events } from 'utils';
 import { Col, Row } from 'antd';
-import { ROUTERS, STORE_TYPE_LABELS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS, STORE_TYPE_LABELS } from 'components/contants';
 
 import "./style.scss";
+import { useMediaQuery } from 'react-responsive';
 
 function IntegrationsPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const { vendorId } = props.match ? props.match.params : {};
   const RELOAD_EVENT_KEY = 'RELOAD_RESELLER_INTEGRATION_STORES_TABLE_EVENT_KEY';
   const storeTypeLabel = STORE_TYPE_LABELS[vendorId];
@@ -38,20 +40,20 @@ function IntegrationsPage(props) {
         <title>{storeTypeLabel}</title>
       </Helmet>
       <PageHeader
-        title={`Connect your ${storeTypeLabel} Store`}
+        className={isMobile && 'box-card--mobile'}title={`Connect your ${storeTypeLabel} Store`}
         description={`You can import orders, products and customers automatic. Your ${storeTypeLabel} store content will constant.`}
         breadcrumbRouters={breadcrumbRouters}
       />
       <div className="page-contents">
-        <Row gutter={[16, 16]}>
-          <Col span={10}>
+        <Row gutter={isMobile ? [0, 8] : [16, 16]}>
+          <Col span={isMobile ? 24 : 10}>
             <IntegrationsStore type={vendorId}
                                storeTypeLabel={storeTypeLabel}
                                systemConfigs={props.systemConfigs}
                                onFinish={handleReloadStoresTable}
             />
           </Col>
-          <Col span={14} className="integrations-page__store-table">
+          <Col span={isMobile ? 24 : 14} className={!isMobile && 'integrations-page__store-table'}>
             <StoresTable redirectTo={props.push}
                          type={vendorId}
                          RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}

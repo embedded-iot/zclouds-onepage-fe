@@ -13,10 +13,12 @@ import { getProductsOptions } from 'services/FrontUser/CategoriesService';
 import { cui, format } from 'utils';
 import { getShortPathImage } from 'services/BaseService';
 import OrderForm from './OrderForm';
-
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 import './style.scss';
 
 export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirectTo }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   // eslint-disable-next-line
   const defaultSelectedProduct = isEdit ? { ...data.product, sku: data.orderProductSku || (!!data.product && data.product.sku ? data.product.sku : '') } : {};
   const [selectedProduct, setSelectedProduct] = useState(defaultSelectedProduct);
@@ -169,8 +171,9 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
     })
   }
 
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className={'add-edit-order-box__wrapper'}>
+    <BoxWrapper className={isMobile ? 'box-card--mobile' : 'add-edit-order-box__wrapper'}>
       <>
         <OrderForm
           isEdit={isEdit}
@@ -192,6 +195,6 @@ export default function AddEditOrderBox({ isEdit, data, onOk, onCancel, redirect
           onCreateNewDesign={() => {}}
         />
       </>
-    </BoxCard>
+    </BoxWrapper>
   )
 }

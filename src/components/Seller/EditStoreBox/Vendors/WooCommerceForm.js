@@ -100,8 +100,6 @@ export default function WooCommerceForm({ onFinish, onCancel, onReconnect, initi
           name="autoSyncOrder"
           valuePropName="checked"
           className="edit-store-form__switch"
-          labelCol={{ span: 8}}
-          wrapperCol={{ span: 16}}
         >
           <Switch />
         </Form.Item>
@@ -110,8 +108,6 @@ export default function WooCommerceForm({ onFinish, onCancel, onReconnect, initi
           name="autoApproveOrder"
           valuePropName="checked"
           className="edit-store-form__switch"
-          labelCol={{ span: 8}}
-          wrapperCol={{ span: 16}}
         >
           <Switch />
         </Form.Item>
@@ -120,8 +116,6 @@ export default function WooCommerceForm({ onFinish, onCancel, onReconnect, initi
           name="autoSyncTracking"
           valuePropName="checked"
           className="edit-store-form__switch"
-          labelCol={{ span: 8}}
-          wrapperCol={{ span: 16}}
         >
           <Switch />
         </Form.Item>

@@ -6,9 +6,9 @@ import { download, format } from 'utils';
 import Icon from 'components/Common/Icon';
 import plusIcon from 'images/plus-icon.svg';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
-import './style.scss';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
+import './style.scss';
 
 export default function ProductInfo({ product = {}, isAddOrder = true, onAddOrder = () => {}}) {
   const [productOptions, setProductOptions] = useState({});

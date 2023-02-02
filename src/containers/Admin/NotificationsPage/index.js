@@ -6,15 +6,19 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import NotificationsList from 'components/Admin/NotificationsList';
 import PageHeader from 'components/Share/PageHeader';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 
 function NotificationsPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
     <div className="page-wrapper">
       <Helmet>
         <title>Notifications</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title="Notifications"
       />
       <div className="page-contents">

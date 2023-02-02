@@ -6,9 +6,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import DesignsTable from 'components/Seller/DesignsTable';
-import { ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 
 function DesignsPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [totalCount, setTotalCount] = useState(0);
   const breadcrumbRouters = [
     {
@@ -31,6 +33,7 @@ function DesignsPage(props) {
         <title>Design Sku</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title="Design Sku"
         description={`We found ${totalCount} results.`}
         breadcrumbRouters={breadcrumbRouters}

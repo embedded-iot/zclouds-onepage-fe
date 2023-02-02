@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Alert, Space } from 'antd';
 import { NotificationOutlined } from '@ant-design/icons';
 import { datetime } from 'utils';
-import { DATE_FORMAT, ROUTERS } from 'components/contants';
+import { DATE_FORMAT, RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import PlainText from 'components/Common/PlainText';
 import ReactHtmlParser from 'react-html-parser';
+import { useMediaQuery } from 'react-responsive';
 
 export default function NotificationsBox({ items = [], redirectTo = () => {}, isExplain = true}) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [list, setList] = useState(items);
   const handleShowContent = id => {
     setList(list.map(item => item.id === id ? ({ ...item, showEnglish: !item.showEnglish }) : item));
@@ -16,7 +18,7 @@ export default function NotificationsBox({ items = [], redirectTo = () => {}, is
       direction="vertical"
       style={{
         width: '100%',
-        marginBottom: list.length ? 20 : 0
+        marginBottom: list.length ? (isMobile ? 8 : 20) : 0
       }}
     >
       {

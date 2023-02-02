@@ -5,8 +5,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import OrdersTable from 'components/Seller/OrdersTable';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 function OrdersPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [totalCount, setTotalCount] = useState(0);
   const successCallback = (response) => {
     setTotalCount(response.totalCount || 0);
@@ -17,6 +20,7 @@ function OrdersPage(props) {
         <title>Orders</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title="Orders"
         description={`We found ${totalCount} results.`}
         currentBreadcrumb="Orders"

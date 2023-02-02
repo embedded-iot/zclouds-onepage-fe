@@ -13,7 +13,8 @@ import searchGreenIcon from 'images/search_green.svg';
 import downloadGreenIcon from 'images/export_green_icon.svg';
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import plusIcon from 'images/plus-icon.svg';
-import { PERMISSION_VALUES } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 
 const columns = [
   {
@@ -68,6 +69,7 @@ const ACTION_KEYS = {
 }
 
 export default function DesignsTable({ successCallback = () => {} }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openAddDesign, setOpenAddDesign] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [openDeleteDesign, setOpenDeleteDesign] = useState(false);
@@ -77,6 +79,7 @@ export default function DesignsTable({ successCallback = () => {} }) {
   const RELOAD_EVENT_KEY = 'RELOAD_Seller_DESIGNS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
@@ -144,9 +147,13 @@ export default function DesignsTable({ successCallback = () => {} }) {
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'searchText',
+        span: 24,
         props: {
           placeholder: 'Search by name, creator...',
           theme: 'light',
@@ -154,12 +161,14 @@ export default function DesignsTable({ successCallback = () => {} }) {
       },
       {
         type: 'pageNum',
+        span: 12,
         props: {
           theme: 'light',
         }
       },
       {
         type: 'pageSize',
+        span: 12,
         props: {
           theme: 'light',
         }
@@ -207,7 +216,8 @@ export default function DesignsTable({ successCallback = () => {} }) {
   return (
     <>
       <ButtonListWrapper buttonList={buttonList}
-                         align="right"
+                         align={!isMobile && 'right'}
+                         className={isMobile && 'box-card--mobile'}
       />
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}

@@ -8,10 +8,12 @@ import PageHeader from 'components/Share/PageHeader';
 import WalletTransactionsManagementTable from 'components/Admin/WalletTransactionsManagementTable';
 import arrowLeftIcon from 'images/arrow_left_icon.svg';
 import Icon from 'components/Common/Icon';
-
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 import './style.scss';
 
 function WalletTransactionsManagementPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const sellerId = parseInt(props.match.params.sellerId);
   const pageDescription = `Seller ID: ${sellerId}`;
   return (
@@ -20,6 +22,7 @@ function WalletTransactionsManagementPage(props) {
         <title>Wallet transactions management</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title="View Wallet Details"
         description={pageDescription}
       />

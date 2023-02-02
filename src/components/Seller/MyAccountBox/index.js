@@ -14,10 +14,11 @@ import PersonalInformationBox from './PersonalInformationBox';
 import ChangePasswordBox from 'components/Seller/MyAccountBox/ChangePasswordBox';
 import LastLoginBox from 'components/Seller/MyAccountBox/LastLoginBox';
 
-import './style.scss';
 import StatusTag from 'components/Share/StatusTag';
-import { PERMISSION_VALUES } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
 import { filterListByPermission } from 'services/BaseService';
+import { useMediaQuery } from 'react-responsive';
+import './style.scss';
 
 const ACTION_KEYS = {
   ACTION_EVENTS: "MY_ACCOUNT_ACTION_EVENTS",
@@ -80,11 +81,13 @@ const columns = [
 ];
 
 export default function MyAccountBox({ currentUser, setGlobalStore,  RELOAD_EVENT_KEY = 'RELOAD_RESELLER_MY_ACCOUNT_TABLE_EVENT_KEY' }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openAddEditAccountStaff, setOpenAddEditAccountStaff] = useState(false);
   const [accountStaff, setAccountStaff] = useState(null);
   // eslint-disable-next-line
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns: filterListByPermission(columns),
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, type, ...restParams} = params || {};
@@ -113,6 +116,9 @@ export default function MyAccountBox({ currentUser, setGlobalStore,  RELOAD_EVEN
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
@@ -167,15 +173,16 @@ export default function MyAccountBox({ currentUser, setGlobalStore,  RELOAD_EVEN
       {
         authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STAFF) && (
         <ButtonListWrapper buttonList={buttonList}
-                           align="right"
+                           align={!isMobile && 'right'}
+                           className={isMobile && 'box-card--mobile'}
         />
       )}
-      <Row gutter={[23, 23]}>
-        <Col span={12}>
+      <Row gutter={isMobile ? [0, 8] : [24, 24]}>
+        <Col span={isMobile ? 24 : 12}>
           <PersonalInformationBox currentUser={currentUser} onChange={handleCurrentUserChange}/>
         </Col>
-        <Col span={12}>
-          <Row gutter={[23, 23]}>
+        <Col span={isMobile ? 24 : 12}>
+          <Row gutter={isMobile ? [0, 8] : [24, 24]}>
             <Col span={24}>
               <ChangePasswordBox currentUser={currentUser} />
             </Col>

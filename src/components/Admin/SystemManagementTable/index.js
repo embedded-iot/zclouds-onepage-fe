@@ -8,7 +8,8 @@ import AddEditSystemModal from './AddEditSystemModal';
 import DeleteSystemModal from './DeleteSystemModal';
 import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
-import { PERMISSION_VALUES } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 
 const columns = [
   {
@@ -39,6 +40,7 @@ const ACTION_KEYS = {
 }
 
 export default function SystemManagementTable() {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openAddSystem, setOpenAddSystem] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [openDeleteSystem, setOpenDeleteSystem] = useState(false);
@@ -46,6 +48,7 @@ export default function SystemManagementTable() {
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_CATEGORIES_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       AdminSystemService.getSystem({}, successCallback, failureCallback)
@@ -84,6 +87,9 @@ export default function SystemManagementTable() {
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
@@ -109,9 +115,9 @@ export default function SystemManagementTable() {
       }
     ],
   }
-
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="content-box__wrapper">
+    <BoxWrapper className={!isMobile && 'content-box__wrapper'}>
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -144,6 +150,6 @@ export default function SystemManagementTable() {
           />
         )
       }
-    </BoxCard>
+    </BoxWrapper>
   );
 }

@@ -7,18 +7,20 @@ import circleIcon from 'images/circle-chart-green-icon.svg';
 import { Col, Row } from 'antd';
 import OrdersStatusList from './OrdersStatusList';
 import OrdersCountChart from './OrdersCountChart';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
-const renderOrdersOverviewBody = ({ params = {}, dataSource = [] }) => {
+const renderOrdersOverviewBody = ({ params = {}, dataSource = [], isMobile = false }) => {
   const { ordersCounts, ordersStatus} = SellerDashboardService.transformOrdersOverviewChartData(dataSource);
   return (
-    <Row gutter={[24, 24]}>
-      <Col span={18}>
+    <Row gutter={isMobile ? [0, 8] : [24, 24]}>
+      <Col span={isMobile ? 24 : 18}>
         <OrdersCountChart fromDate={!!params.fromDate ? new Date(params.fromDate) : undefined}
                           toDate={!!params.toDate ? new Date(params.toDate) : undefined}
                           data={ordersCounts}
         />
       </Col>
-      <Col span={6}>
+      <Col span={isMobile ? 24 : 6}>
         <OrdersStatusList data={ordersStatus}/>
       </Col>
     </Row>
@@ -26,8 +28,9 @@ const renderOrdersOverviewBody = ({ params = {}, dataSource = [] }) => {
 }
 
 export default function OrdersOverviewChart({ RELOAD_EVENT_KEY = 'RELOAD_ORDERS_OVERVIEW_CHART_TABLE_EVENT_KEY', systemConfigs = [] }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const tableConfig = {
-    customBodyTemplate: renderOrdersOverviewBody,
+    customBodyTemplate: (props) => renderOrdersOverviewBody({ ...props, isMobile }),
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, type, ...restParams} = params || {};
       SellerDashboardService.getOrdersOverview(cui.removeEmpty({ ...restParams }), successCallback, failureCallback)
@@ -39,6 +42,8 @@ export default function OrdersOverviewChart({ RELOAD_EVENT_KEY = 'RELOAD_ORDERS_
   };
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
     buttonList: [
       {
         type: 'custom',
@@ -47,15 +52,21 @@ export default function OrdersOverviewChart({ RELOAD_EVENT_KEY = 'RELOAD_ORDERS_
             <Icon src={circleIcon}/>
             <span className="dashboard-box__title">Orders overview</span>
           </div>
-        )
+        ),
+        span: 24,
       },
       {
         type: 'datePicker',
-        align: "right"
+        align: "right",
+        span: 18,
       },
       {
         type: 'searchButton',
-        align: "right"
+        align: "right",
+        span: 6,
+        props: isMobile && {
+          style: { width: '100%' }
+        }
       },
     ],
   }

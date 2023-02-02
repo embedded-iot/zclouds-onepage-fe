@@ -33,7 +33,7 @@ const LoginPage = (props) => {
         <title>Sign in</title>
       </Helmet>
       <div className={`page-contents sign-in__contents ${isMobile && 'sign-in__contents--mobile'}`}>
-        <NormalContent fullScreen={true} style={{ background: isMobile && '#fff'}}>
+        <NormalContent fullScreen={true} style={{ background: !isAdminMode && isMobile && '#fff'}}>
           {
             !isAdminMode && (
               <div className="sign-in__box">
@@ -61,7 +61,7 @@ const LoginPage = (props) => {
           }
           {
             isAdminMode && (
-              <div className="sign-in-admin__login-form">
+              <div className="sign-in-admin__box">
                 <div className='sign-in-admin__logo'>
                   <Logo src={logoWhite} height={54}/>
                 </div>
@@ -69,7 +69,6 @@ const LoginPage = (props) => {
                           redirectTo={props.push}
                           setGlobalStore={props.setGlobalStore}
                           isAdminMode={true}
-                          hasBoxCard={!isMobile}
                 />
               </div>
             )

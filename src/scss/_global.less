@@ -188,8 +188,8 @@
 }
 
 .box-card--mobile {
-  padding: 17px;
-  background: #FFFFFF;
+  padding: 17px !important;
+  background: #FFFFFF !important;
   margin-bottom: 8px !important;
 }
 
@@ -201,7 +201,7 @@
   margin-left: 8px;
 }
 
-.layout__admin-mode {
+.layout__admin-mode:not(.layout__admin-mode--mobile) {
   .table-header {
     position: sticky;
     z-index: 1;

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import AddEditUserBox from 'components/Admin/AddEditUserBox';
-import { ROLE_LABELS, ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROLE_LABELS, ROUTERS } from 'components/contants';
 import { AdminUsersService } from 'services';
 import BoxCard from 'components/Share/BoxCard';
 import { Col, Row } from 'antd';
@@ -14,8 +14,10 @@ import arrowLeftIcon from 'images/arrow_left_icon.svg';
 
 import './style.scss';
 import Icon from 'components/Common/Icon';
+import { useMediaQuery } from 'react-responsive';
 
 function UserDetailManagementPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [data, setData] = useState(null);
   const userId = parseInt(props.match.params.userId);
   const role = props.match.params.role;
@@ -50,7 +52,7 @@ function UserDetailManagementPage(props) {
         <title>{pageTitle}</title>
       </Helmet>
       <PageHeader
-        title={pageTitle}
+        className={isMobile && 'box-card--mobile'}title={pageTitle}
         description={pageDescription}
       />
       <div className="page-contents">

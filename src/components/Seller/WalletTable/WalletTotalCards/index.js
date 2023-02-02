@@ -5,9 +5,12 @@ import bagIcon from 'images/bag_green_icon.svg';
 import chartIcon from 'images/column_chart_orange_icon.svg';
 import Icon from 'components/Common/Icon';
 import { SellerWalletService } from 'services';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 import './style.scss';
 
 export default function WalletTotalCards() {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [data, setData] = useState({});
   const getWalletTotal = (params = {}) => {
     SellerWalletService.getWalletTotal(response => {
@@ -41,10 +44,10 @@ export default function WalletTotalCards() {
     }
   ]
   return (
-    <Row gutter={[24, 24]}>
+    <Row gutter={isMobile ? [0, 8] : [24, 0]}>
       {
         items.map((item, index) => (
-          <Col span={24 / (items.length)} key={index}>
+          <Col span={isMobile ? 24 : (24 / (items.length))} key={index}>
             <div className="wallet-total__card">
               <div className='wallet-total__left-border' style={{background: item.leftBorderColor }}></div>
               <div className='wallet-total__contents'>

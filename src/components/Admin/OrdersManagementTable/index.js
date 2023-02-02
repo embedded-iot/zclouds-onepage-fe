@@ -14,7 +14,7 @@ import {
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import {
   CLONE_DESIGN_LABEL_VALUE_OPTIONS, DATA_DATE_FORMAT, DATETIME_FORMAT,
-  HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, PERMISSION_VALUES, ROUTERS,
+  HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, PERMISSION_VALUES, RESPONSIVE_MEDIAS, ROUTERS,
   SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
   STATE_COLORS, STATE_LABELS, STATE_VALUES, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
@@ -39,6 +39,7 @@ import { filterListByPermission } from 'services/BaseService';
 import moment from 'moment';
 import { downloadFile } from 'utils/requests';
 import './style.scss';
+import { useMediaQuery } from 'react-responsive';
 
 
 const ACTION_KEYS = {
@@ -192,6 +193,7 @@ const columns = [
 
 
 export default function OrdersManagementTable({ redirectTo, successCallback = () => {}  }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openImportOrders, setOpenImportOrders] = useState(false);
   const [openUpdateOrderTracking, setOpenUpdateOrderTracking] = useState(false);
   const [openUpdateOrderPrice, setOpenUpdateOrderPrice] = useState(false);
@@ -223,6 +225,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     };
   };
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns: filterListByPermission(columns),
     onRow: onRowEvents,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -392,16 +395,16 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     }
   }
 
-  const defaultSpan = 4;
+  const defaultSpan = isMobile ? 12 : 4;
 
   const headerActionsConfig = {
     allowRowLayout: true,
     gutter: [10, 10],
-    className: 'orders-management__filters-box',
+    className: `orders-management__filters-box ${isMobile && 'box-card--mobile'}`,
     buttonList: [
       {
         type: 'searchText',
-        span: defaultSpan,
+        span: isMobile ? 24 : defaultSpan,
         props: {
           placeholder: 'Keyword...',
           name: 'keyword',
@@ -435,7 +438,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
       },
       {
         type: 'custom',
-        span: defaultSpan,
+        span: isMobile ? 24 : defaultSpan,
         render: (
           <DatePickerSelect name="date"
                             value={[!!filters['fromDate'] ? moment(filters['fromDate'], DATA_DATE_FORMAT) : undefined, !!filters['toDate'] ? moment(filters['toDate'], DATA_DATE_FORMAT) : undefined]}
@@ -544,7 +547,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
       },
       {
         type: 'custom',
-        span: defaultSpan,
+        span: isMobile ? 24 : defaultSpan,
         render: (
           <AutoCompleteInput name="resellerId"
                              value={resellersInput.value}
@@ -560,11 +563,17 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
       },
       {
         type: 'searchButton',
+        span: isMobile ? defaultSpan : undefined,
+        props: isMobile && {
+          style: { width: '100%' }
+        }
       },
       {
         type: 'clearButton',
+        span: isMobile ? defaultSpan : undefined,
         props: {
-          handleClear
+          handleClear,
+          style: isMobile ? { width: '100%' } : {}
         }
       },
     ],
@@ -672,7 +681,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   });
 
   const StatusCheckboxGroup = (
-    <div className="orders-management__status-checkbox-group">
+    <div className={`orders-management__status-checkbox-group ${isMobile && 'box-card--mobile'}`}>
       <CheckboxGroupBox options={StatusCheckboxOptions}
                         name="listStatus"
                         value={filters.listStatus || []}
@@ -684,7 +693,8 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
   return (
     <>
       <ButtonListWrapper buttonList={buttonList}
-                         align="right"
+                         align={!isMobile && 'right'}
+                         className={isMobile && 'box-card--mobile'}
       />
       <TableGrid configs={tableConfig}
                  className={`orders-management__table ${authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_ORDER) && 'allow-click-row'}`}

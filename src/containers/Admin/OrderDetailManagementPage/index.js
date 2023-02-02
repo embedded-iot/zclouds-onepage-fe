@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import AddEditOrderBox from 'components/Admin/AddEditOrderBox';
-import { ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import { FrontUserCategoriesService, AdminOrdersService } from 'services';
+import { useMediaQuery } from 'react-responsive';
 
 function OrderDetailManagementPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [data, setData] = useState(null);
   const orderId = parseInt(props.match.params.orderId);
   const isEdit = true;
@@ -63,7 +65,7 @@ function OrderDetailManagementPage(props) {
         <title>{pageTitle}</title>
       </Helmet>
       <PageHeader
-        title={pageTitle}
+        className={isMobile && 'box-card--mobile'}title={pageTitle}
         description={pageDescription}
       />
       <div className="page-contents">

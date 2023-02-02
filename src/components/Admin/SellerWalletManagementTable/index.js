@@ -13,8 +13,9 @@ import editIcon from 'images/edit_black_icon.svg';
 import infoIcon from 'images/info_black_icon.svg';
 import TopUpTable from './TopUpTable';
 
-import { PERMISSION_VALUES, ROLE_VALUES, ROUTERS } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS, ROLE_VALUES, ROUTERS } from 'components/contants';
 import DeleteUserModal from 'components/Admin/UsersManagementTable/DeleteUserModal';
+import { useMediaQuery } from 'react-responsive';
 import './style.scss';
 
 
@@ -28,6 +29,7 @@ const ACTION_KEYS = {
 }
 
 export default function SellerWalletManagementTable({ currentUser, redirectTo }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [topUpMode, setTopUpMode] = useState(false);
   const [openDeleteUser, setOpenDeleteUser] = useState(false);
   // eslint-disable-next-line
@@ -73,6 +75,7 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
   ];
 
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
@@ -122,7 +125,7 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
   }
 
   const SummaryBox = (
-    <div className='seller-wallet-table__summary-box'>
+    <div className={`seller-wallet-table__summary-box ${isMobile && 'seller-wallet-table__summary-box--mobile' }`}>
       <div className='seller-wallet-table__summary-item'>
         <Icon src={userIcon} width={24} height={24} />
         <span className="seller-wallet-table__summary-title">
@@ -134,7 +137,9 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
   )
 
   const headerActionsConfig = {
-    className: 'seller-wallet-table__table-header',
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: `seller-wallet-table__table-header ${isMobile && 'box-card--mobile'}`,
     buttonList: [
       {
         type: 'custom',

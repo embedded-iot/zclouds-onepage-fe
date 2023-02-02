@@ -15,9 +15,12 @@ import { cui, download, format } from 'utils';
 import { getShortPathImage } from 'services/BaseService';
 import AddEditDesignModal from 'components/Seller/DesignsTable/AddEditDesignModal';
 
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 import './style.scss';
 
 export default function AddEditOrderBox({ isEdit, data, product, onOk, onCancel, redirectTo }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openAddDesign, setOpenAddDesign] = useState(false);
   // eslint-disable-next-line
   const defaultSelectedProduct = isEdit ? { ...data.product, sku: data.orderProductSku || (!!data.product && data.product.sku ? data.product.sku : '') } : (product || {});
@@ -196,9 +199,9 @@ export default function AddEditOrderBox({ isEdit, data, product, onOk, onCancel,
   const handleCreateNewDesign = () => {
     setOpenAddDesign(true);
   }
-
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className={'add-edit-order-box__wrapper'}>
+    <BoxWrapper className={isMobile ? 'box-card--mobile' : 'add-edit-order-box__wrapper'}>
       <>
         <OrderForm
           isEdit={isEdit}
@@ -231,6 +234,6 @@ export default function AddEditOrderBox({ isEdit, data, product, onOk, onCancel,
           )
         }
       </>
-    </BoxCard>
+    </BoxWrapper>
   )
 }

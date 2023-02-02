@@ -4,10 +4,12 @@ import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
-import { ROUTERS, STORE_TYPE_LABELS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS, STORE_TYPE_LABELS } from 'components/contants';
 import IntegrationOrdersTable from 'components/Seller/IntegrationOrdersTable';
+import { useMediaQuery } from 'react-responsive';
 
 function IntegrationOrdersPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [totalCount, setTotalCount] = useState(0);
   const { vendorId, storeId, storeName } = props.match ? props.match.params : {};
   const RELOAD_EVENT_KEY = 'RELOAD_RESELLER_INTEGRATION_ORDERS_TABLE_EVENT_KEY';
@@ -38,6 +40,7 @@ function IntegrationOrdersPage(props) {
         <title>{storeTypeLabel}</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         title={`Manual sync ${storeTypeLabel} orders`}
         description={`We found about ${totalCount} related results of your orders`}
         breadcrumbRouters={breadcrumbRouters}

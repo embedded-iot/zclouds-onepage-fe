@@ -4,9 +4,12 @@
     border: 1px solid #F1F2F4;
     border-radius: 8px;
     display: flex;
+    flex-wrap: wrap;
     padding: 20px;
-    gap: 48px;
-    height: 60px;
+    gap: 16px;
+    &--mobile {
+      gap: 8px;
+    }
   }
   &__summary-item {
     color: #2C3E5D;

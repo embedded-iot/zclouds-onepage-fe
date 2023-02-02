@@ -8,7 +8,8 @@ import AddEditProducerModal from './AddEditProducerModal';
 import DeleteProducerModal from './DeleteProducerModal';
 import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
-import { PERMISSION_VALUES } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 
 const columns = [
   {
@@ -71,6 +72,7 @@ const ACTION_KEYS = {
 }
 
 export default function ProducersManagementTable() {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openAddProducer, setOpenAddProducer] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [openDeleteProducer, setOpenDeleteProducer] = useState(false);
@@ -78,6 +80,7 @@ export default function ProducersManagementTable() {
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_PRODUCERS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
@@ -117,6 +120,9 @@ export default function ProducersManagementTable() {
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
@@ -131,6 +137,7 @@ export default function ProducersManagementTable() {
       },
       {
         type: 'searchText',
+        span: 24,
         requiredSelection: false,
         props: {
           placeholder: "Search by id, name..."
@@ -138,27 +145,34 @@ export default function ProducersManagementTable() {
       },
       {
         type: 'pageNum',
+        span: 12,
         requiredSelection: false,
       },
       {
         type: 'pageSize',
+        span: 12,
         requiredSelection: false,
       },
       {
         type: 'searchButton',
+        span: 12,
         requiredSelection: false,
+        props: {
+          style: isMobile ? { width: '100%' } : {}
+        }
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.ADD_PRODUCER} type="primary" icon={<PlusCircleOutlined />} onClick={addProducer}>Add producer</Button>,
+        render: <Button key={ACTION_KEYS.ADD_PRODUCER} type="primary" icon={<PlusCircleOutlined />} style={{ width: isMobile ? '100%' : 'auto' }} onClick={addProducer}>Add producer</Button>,
+        span: 12,
         align: 'right',
         permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_PRODUCER),
       }
     ],
   }
-
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="content-box__wrapper">
+    <BoxWrapper className={!isMobile && 'content-box__wrapper'}>
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -191,6 +205,6 @@ export default function ProducersManagementTable() {
           />
         )
       }
-    </BoxCard>
+    </BoxWrapper>
   );
 }

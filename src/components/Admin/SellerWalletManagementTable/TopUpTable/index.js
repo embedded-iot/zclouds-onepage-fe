@@ -8,7 +8,12 @@ import plusBlack from 'images/plus-black-icon.svg';
 
 import './style.scss';
 import { cui, datetime } from 'utils';
-import { DATE_FORMAT, TRANSACTION_TYPE_LABEL_VALUE_OPTIONS, TRANSACTION_TYPE_VALUES } from 'components/contants';
+import {
+  DATE_FORMAT,
+  RESPONSIVE_MEDIAS,
+  TRANSACTION_TYPE_LABEL_VALUE_OPTIONS,
+  TRANSACTION_TYPE_VALUES,
+} from 'components/contants';
 import InputText from 'components/Common/InputText';
 import InputNumber from 'components/Common/InputNumber';
 import plusIcon from 'images/plus_green_icon.svg';
@@ -16,8 +21,10 @@ import minusIcon from 'images/minus_green_icon.svg';
 import removeIcon from 'images/remove_round_gray_icon.svg';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DropdownSelect from 'components/Common/DropdownSelect';
+import { useMediaQuery } from 'react-responsive';
 
 export default function TopUpTable({ onCancel, onOk, className, currentUser }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [resellerWallets, setResellerWallets] = useState([]);
   const [resellersOptions, setResellerSOptions] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
@@ -150,6 +157,7 @@ export default function TopUpTable({ onCancel, onOk, className, currentUser }) {
 
 
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
   };
 

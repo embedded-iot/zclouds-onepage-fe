@@ -9,8 +9,8 @@ import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 function ProductCategoriesPage(props) {
-  const [totalCount, setTotalCount] = useState(0);
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+  const [totalCount, setTotalCount] = useState(0);
   const successCallback = (response) => {
     setTotalCount(response.totalCount || 0);
   }

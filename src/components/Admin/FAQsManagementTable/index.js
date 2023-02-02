@@ -10,7 +10,8 @@ import BoxCard from 'components/Share/BoxCard';
 import StatusTag from 'components/Share/StatusTag';
 import PlainText from 'components/Common/PlainText';
 import ReactHtmlParser from 'react-html-parser';
-import { PERMISSION_VALUES } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 
 const columns = [
   {
@@ -48,6 +49,7 @@ const ACTION_KEYS = {
 }
 
 export default function FAQsManagementTable() {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openAddFAQ, setOpenAddFAQ] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [openDeleteFAQ, setOpenDeleteFAQ] = useState(false);
@@ -55,6 +57,7 @@ export default function FAQsManagementTable() {
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_FAQS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       AdminFAQsService.getFAQs(cui.removeEmpty(params), successCallback, failureCallback)
@@ -93,6 +96,9 @@ export default function FAQsManagementTable() {
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
@@ -107,6 +113,7 @@ export default function FAQsManagementTable() {
       },
       {
         type: 'searchText',
+        span: 24,
         requiredSelection: false,
         props: {
           placeholder: 'Search by question...',
@@ -115,17 +122,23 @@ export default function FAQsManagementTable() {
       {
         type: 'searchButton',
         requiredSelection: false,
+        span: 12,
+        props: isMobile && {
+          style: { width: '100%' }
+        }
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.ADD_FAQ} type="primary" icon={<PlusCircleOutlined />} onClick={addFAQ}>Add FAQ</Button>,
+        render: <Button key={ACTION_KEYS.ADD_FAQ} type="primary" icon={<PlusCircleOutlined />} style={{ width: isMobile ? '100%' : 'auto' }}  onClick={addFAQ}>Add FAQ</Button>,
+        span: 12,
         align: 'right',
         permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_FAQ),
       }
     ],
   }
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="content-box__wrapper">
+    <BoxWrapper className={!isMobile && 'content-box__wrapper'}>
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -158,6 +171,6 @@ export default function FAQsManagementTable() {
           />
         )
       }
-    </BoxCard>
+    </BoxWrapper>
   );
 }

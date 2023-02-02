@@ -8,9 +8,10 @@ import { CloseCircleOutlined, EditOutlined, PlusCircleOutlined } from '@ant-desi
 import ProductOptionsView from 'components/Share/ProductOptionsView';
 import TableCellView from 'components/Share/TableCellView';
 import BoxCard from 'components/Share/BoxCard';
-import { PERMISSION_VALUES, ROUTERS } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import PlainText from 'components/Common/PlainText';
 import StatusTag from 'components/Share/StatusTag';
+import { useMediaQuery } from 'react-responsive';
 
 
 const UPDATE_DATA_EVENT_KEY = 'UPDATE_SKU_PRICE_TABLE_EVENT_KEY';
@@ -119,12 +120,14 @@ const ACTION_KEYS = {
 }
 
 export default function ProductsManagementTable({ redirectTo }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openDeleteProduct, setOpenDeleteProduct] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedProductKeys, setSelectedProductKeys] = useState([]);
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_PRODUCTS_TABLE_EVENT_KEY';
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, searchText, ...restParams} = params || {};
@@ -158,6 +161,9 @@ export default function ProductsManagementTable({ redirectTo }) {
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
@@ -173,6 +179,7 @@ export default function ProductsManagementTable({ redirectTo }) {
       },
       {
         type: 'searchText',
+        span: 24,
         requiredSelection: false,
         props: {
           placeholder: 'Search by id, name...',
@@ -180,27 +187,35 @@ export default function ProductsManagementTable({ redirectTo }) {
       },
       {
         type: 'pageNum',
+        span: 12,
         requiredSelection: false,
       },
       {
         type: 'pageSize',
+        span: 12,
         requiredSelection: false,
       },
       {
         type: 'searchButton',
         requiredSelection: false,
+        span: 12,
+        props: isMobile && {
+          style: { width: '100%' }
+        }
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.ADD_PRODUCT} type="primary" icon={<PlusCircleOutlined />} onClick={() => addEditProduct()}>Add product</Button>,
+        render: <Button key={ACTION_KEYS.ADD_PRODUCT} type="primary" icon={<PlusCircleOutlined />} style={{ width: isMobile ? '100%' : 'auto'}} onClick={() => addEditProduct()}>Add product</Button>,
+        span: 12,
         align: 'right',
         permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_PRODUCT),
       }
     ],
   }
 
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="content-box__wrapper">
+    <BoxWrapper className={!isMobile && 'content-box__wrapper'}>
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -224,6 +239,6 @@ export default function ProductsManagementTable({ redirectTo }) {
           />
         )
       }
-    </BoxCard>
+    </BoxWrapper>
   );
 }

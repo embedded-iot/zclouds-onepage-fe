@@ -6,9 +6,10 @@ import bagIcon from 'images/bag_blue_icon.svg';
 import Icon from 'components/Common/Icon';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import DropdownSelect from 'components/Common/DropdownSelect';
-import { PERIOD_STATE_LABEL_VALUE_OPTIONS } from 'components/contants';
+import { PERIOD_STATE_LABEL_VALUE_OPTIONS, RESPONSIVE_MEDIAS } from 'components/contants';
 import TopSellingProductsBox from 'components/Seller/TopSellingProductsTable/TopSellingProductsBox';
 import { Empty } from 'antd';
+import { useMediaQuery } from 'react-responsive';
 
 const renderOrdersOverviewBody = ({ dataSource = [] }) => {
   return (
@@ -17,6 +18,7 @@ const renderOrdersOverviewBody = ({ dataSource = [] }) => {
 }
 
 export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP_SELLING_PRODUCTS_TABLE_EVENT_KEY' }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [filters, setFilters] = useState({});
   const [storesInput, setStoresInput] = useState({
     value: '',
@@ -82,6 +84,8 @@ export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP
 
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
     buttonList: [
       {
         type: 'custom',
@@ -94,9 +98,10 @@ export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP
                              options={storesInput.options}
                              autoFilterOptions={false}
                              theme='light'
-                             style={{width: 300}}
+                             style={{width: isMobile ? '100%' : 300}}
           />
-        )
+        ),
+        span: 12,
       },
       {
         type: 'custom',
@@ -107,18 +112,24 @@ export default function TopSellingProductsTable({ RELOAD_EVENT_KEY = 'RELOAD_TOP
             defaultValue={1}
             onChange={handleFilterChange}
             theme='light'
-            style={{width: 300}}
+            style={{width: isMobile ? '100%' : 300}}
           />
         ),
+        span: 12,
       },
       {
         type: 'searchText',
+        span: 18,
         props: {
           placeholder: "Search by product name..."
         }
       },
       {
         type: 'searchButton',
+        span: 6,
+        props: isMobile && {
+          style: { width: '100%' }
+        }
       },
     ],
   }

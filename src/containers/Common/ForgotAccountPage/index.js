@@ -32,6 +32,7 @@ const ForgotAccountPage = (props) => {
         <title>Quên mật khẩu</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         isHome
         goHome={() => props.push('/')}
         title="Quên mật khẩu"

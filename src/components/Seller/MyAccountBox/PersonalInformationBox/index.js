@@ -3,8 +3,11 @@ import BoxCard from 'components/Share/BoxCard';
 import PersonalInformationForm from './PersonalInformationForm';
 import { BaseService, SellerUsersService, UserService } from 'services';
 import { notification } from 'antd';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 export default function PersonalInformationBox({ currentUser, onChange }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const handOk = values => {
     const { fullName, telegramId, email, phone, imageFiles } = values;
     const avatar = !!imageFiles.length ? imageFiles[0].response.url : null;
@@ -19,11 +22,12 @@ export default function PersonalInformationBox({ currentUser, onChange }) {
       });
     });
   }
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="my-account__box">
+    <BoxWrapper className={isMobile ? 'box-card--mobile' :'my-account__box'}>
       <PersonalInformationForm onFinish={handOk}
                                initialValues={currentUser}
       />
-    </BoxCard>
+    </BoxWrapper>
   )
 }

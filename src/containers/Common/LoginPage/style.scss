@@ -53,13 +53,11 @@
     background: url("~images/sign-in-admin-bg.png") center center no-repeat;
     background-size: cover;
   }
-  &__login-form {
-    position: relative;
-  }
   &__logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: -142px;
+    margin-bottom: 52px;
+    text-align: center;
+  }
+  &__box {
+    padding: 20px;
   }
 }

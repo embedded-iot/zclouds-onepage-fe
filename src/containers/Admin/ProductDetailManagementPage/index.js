@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import AddEditProductBox from 'components/Admin/AddEditProductBox';
-import { ROUTERS } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import { AdminProductsService } from 'services';
+import { useMediaQuery } from 'react-responsive';
 
 function ProductDetailManagementPage(props) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [data, setData] = useState(null);
   const productId = parseInt(props.match.params.productId);
   const isEdit = !!productId;
@@ -42,7 +44,7 @@ function ProductDetailManagementPage(props) {
         <title>{pageTitle}</title>
       </Helmet>
       <PageHeader
-        title={pageTitle}
+        className={isMobile && 'box-card--mobile'}title={pageTitle}
         description={pageDescription}
       />
       <div className="page-contents">

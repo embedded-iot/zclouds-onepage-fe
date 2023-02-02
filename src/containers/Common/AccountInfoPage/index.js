@@ -51,24 +51,25 @@ const AccountInfoPage = (props) => {
     });
   }
   return (
-    <div className="page-wrapper">
+    <div className='page-wrapper'>
       <Helmet>
         <title>Thông tin tài khoản</title>
       </Helmet>
       <PageHeader
+        className={isMobile && 'box-card--mobile'}
         isHome
         goHome={() => props.push('/')}
-        title="Thông tin tài khoản"
+        title='Thông tin tài khoản'
       />
 
-      <div className="page-contents">
+      <div className='page-contents'>
         <Row>
-          <Col span={ isMobile ? 24 : 12 }>
+          <Col span={isMobile ? 24 : 12}>
             <UserDetailBox userInfo={props.currentUser} />
           </Col>
         </Row>
         <Row>
-          <Col span={ isMobile ? 24 : 12 }>
+          <Col span={isMobile ? 24 : 12}>
             <UserDetailForm initialValues={initialValues} onFinish={onFinish} />
           </Col>
         </Row>

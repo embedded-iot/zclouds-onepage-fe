@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 // eslint-disable-next-line
 import { notification } from 'antd';
 import { BaseService, SellerIntegrationsService, SellerStoresService } from 'services';
-import { ROUTERS, STORE_TYPE_VALUES } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS, STORE_TYPE_VALUES } from 'components/contants';
 import BoxCard from 'components/Share/BoxCard';
 import ShopifyForm from './Vendors/ShopifyForm';
 import ShopbaseForm from './Vendors/ShopbaseForm';
 import WooCommerceForm from './Vendors/WooCommerceForm';
+import { useMediaQuery } from 'react-responsive';
 
 import './style.scss';
 
@@ -17,6 +18,7 @@ const CONNECT_FORMS = {
 }
 
 export default function EditStoreBox({ id, redirectTo }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [store, setStore] = useState(null);
   const getCategoriesFilter = () => {
     SellerStoresService.getStore(id, response => {
@@ -118,13 +120,14 @@ export default function EditStoreBox({ id, redirectTo }) {
 
   const ConnectForm = CONNECT_FORMS[store.platform.toLowerCase()];
 
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="edit-store-box__wrapper">
+    <BoxWrapper className={isMobile ? 'box-card--mobile' : 'edit-store-box__wrapper'}>
       <ConnectForm onFinish={handleConnect}
                    onCancel={handleCancel}
                    onReconnect={handleReConnect}
                    initialValues={store}
       />
-    </BoxCard>
+    </BoxWrapper>
   )
 }

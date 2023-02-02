@@ -3,10 +3,13 @@ import TableGrid from 'components/Common/TableGrid';
 import { AdminStatisticsService } from 'services';
 import { cui, events } from 'utils';
 import SwitchBar from 'components/Common/SwitchBar';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 import './style.scss';
 
 
 export default function TopSellersManagementTable() {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_TRANSACTIONS_TABLE_EVENT_KEY';
   const [mode, setMode] = useState('day');
   const columns = [
@@ -21,6 +24,7 @@ export default function TopSellersManagementTable() {
   ];
 
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, mode, ...restParams} = params || {};

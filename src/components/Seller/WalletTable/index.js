@@ -11,6 +11,8 @@ import Icon from 'components/Common/Icon';
 import plusIcon from 'images/plus-green-icon.svg';
 import circleIcon from 'images/circle-chart-green-icon.svg';
 
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 import './style.scss';
 
 const columns = [
@@ -49,9 +51,11 @@ const columns = [
 ];
 
 export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLET_TABLE_EVENT_KEY', systemConfigs = [] }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openVerifyTopUp, setOpenVerifyTopUp] = useState(false);
   const [openAddMoneyToWallet, setOpenAddMoneyToWallet] = useState(false);
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, type, ...restParams} = params || {};
@@ -77,6 +81,9 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
@@ -89,11 +96,16 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
       },
       {
         type: 'datePicker',
-        align: "right"
+        align: "right",
+        span: 18,
       },
       {
         type: 'searchButton',
-        align: "right"
+        align: "right",
+        span: 6,
+        props: isMobile && {
+          style: { width: '100%' }
+        }
       },
     ],
   }
@@ -111,8 +123,8 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
   return (
     <>
       <ButtonListWrapper buttonList={buttonList}
-                         align="right"
-                         className="wallet-table__button-list"
+                         align={!isMobile && 'right'}
+                         className={`wallet-table__button-list ${isMobile && 'box-card--mobile'}`}
       />
       <WalletTotalCards />
       <TableGrid configs={tableConfig}
@@ -123,7 +135,7 @@ export default function WalletsTable({ RELOAD_EVENT_KEY = 'RELOAD_RESELLER_WALLE
                  isShowPagination={true}
                  isAllowSelection={false}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
-                 className="wallet-table__table"
+                 className={`wallet-table__table ${isMobile && 'wallet-table__table--mobile'}`}
       />
       {
         openVerifyTopUp && (

@@ -3,7 +3,7 @@ import TableGrid from 'components/Common/TableGrid';
 import { AdminStoresService } from 'services';
 import { authentication, events } from 'utils';
 import {
-  PERMISSION_VALUES,
+  PERMISSION_VALUES, RESPONSIVE_MEDIAS,
   STORE_TYPE_ICONS,
   STORE_TYPE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
@@ -16,6 +16,7 @@ import { Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import EditStoreModal from './EditStoreModal';
 import StatusTag from 'components/Share/StatusTag';
+import { useMediaQuery } from 'react-responsive';
 
 
 const columns = [
@@ -55,10 +56,12 @@ const columns = [
 ];
 
 export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN_STORES_MANAGEMENT_TABLE_EVENT_KEY' }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [selectedStore, setSelectedStore] = useState(null);
   const [openUpdateStore, setOpenUpdateStore] = useState(false);
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, type, ...restParams} = params || {};
@@ -86,6 +89,9 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
   }
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
@@ -94,6 +100,7 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
       },
       {
         type: 'searchText',
+        span: 24,
         props: {
           placeholder: 'Search by id, name...',
           theme: 'light',
@@ -102,12 +109,13 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
       },
       {
         type: 'custom',
+        span: 12,
         render: (
           <DropdownSelect
             options={STORE_TYPE_LABEL_VALUE_OPTIONS}
             defaultValue={''}
             onChange={onStoreTypeChange}
-            style={{width: 'auto'}}
+            style={{width: isMobile ? '100%' : 'auto'}}
             theme='light'
           />
         ),
@@ -115,6 +123,7 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
       },
       {
         type: 'pageNum',
+        span: 12,
         props: {
           theme: 'light',
         },
@@ -122,6 +131,7 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
       },
       {
         type: 'pageSize',
+        span: 12,
         props: {
           theme: 'light',
         },
@@ -129,7 +139,9 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
       },
       {
         type: 'searchButton',
+        span: 12,
         props: {
+          style: isMobile ? { width: '100%' } : {},
           ghost: true,
           icon: <Icon src={searchGreenIcon} width={20} height={20} />
         },
@@ -143,8 +155,9 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
     setSelectedStore(newSelectedStore);
   }
 
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="content-box__wrapper">
+    <BoxWrapper className={!isMobile && 'content-box__wrapper'}>
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -166,6 +179,6 @@ export default function StoresManagementTable({ RELOAD_EVENT_KEY = 'RELOAD_ADMIN
           />
         )
       }
-    </BoxCard>
+    </BoxWrapper>
   );
 }

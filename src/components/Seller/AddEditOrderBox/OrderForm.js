@@ -6,7 +6,8 @@ import InputText from 'components/Common/InputText';
 import AutoCompleteInput from 'components/Common/AutoCompleteInput';
 import ProductSelectBox from 'components/Share/ProductSelectBox';
 import { LinkOutlined } from '@ant-design/icons';
-
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 import './style.scss';
 
 export default function OrderForm(
@@ -19,6 +20,7 @@ export default function OrderForm(
       redirectTo, onCreateNewDesign, ...restProps
     }
   ) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const handleValuesChange = values => {
     console.log(values);
   };
@@ -45,8 +47,8 @@ export default function OrderForm(
       layout="vertical"
       {...restProps}
     >
-      <Row gutter={[42, 0]}>
-        <Col span={12}>
+      <Row gutter={isMobile ? [0, 16] : [42, 0]}>
+        <Col span={isMobile ? 24 : 12}>
           <div className='add-edit-order-box__title'>1. Choose product</div>
           <Form.Item
             label="Product"
@@ -77,7 +79,7 @@ export default function OrderForm(
             With the products have Clone design option, please choose “yes” if you want Fulfill help to clone design or choose “no” if you do it by yourself.
           </div>
           <div className='add-edit-order-box__sub-title'>Info variant:</div>
-          <Row gutter={[24, 24]}>
+          <Row gutter={isMobile ? [8, 16] : [24, 24]}>
             <Col span={12}>
               <Form.Item
                 label="Your Product Name"
@@ -115,7 +117,7 @@ export default function OrderForm(
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={[24, 24]}>
+          <Row gutter={isMobile ? [8, 16] : [24, 24]}>
             <Col span={12}>
               <Form.Item
                 label="Mockup URL"
@@ -157,8 +159,8 @@ export default function OrderForm(
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={[24, 24]}>
-            <Col span={12}>
+          <Row gutter={isMobile ? [8, 16] : [24, 24]}>
+            <Col span={18}>
               <Form.Item
                 label="Design SKU"
                 name="designSKUInput"
@@ -192,19 +194,19 @@ export default function OrderForm(
                 />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col span={6}>
               <Form.Item
                 label={"  "}
               >
-                <Button type="primary" ghost className="add-edit-order-box__create-design" onClick={onCreateNewDesign}>Create</Button>
+                <Button type="primary" ghost className="add-edit-order-box__create-design" style={{ width: '100%'}} onClick={onCreateNewDesign}>Create</Button>
               </Form.Item>
             </Col>
           </Row>
 
         </Col>
-        <Col span={12}>
+        <Col span={isMobile ? 24 : 12}>
           <div className='add-edit-order-box__title'>2. Order Info</div>
-          <Row gutter={[24, 24]}>
+          <Row gutter={isMobile ? [8, 16] : [24, 24]}>
             <Col span={12}>
               <Form.Item
                 label="Store"
@@ -272,7 +274,7 @@ export default function OrderForm(
           }
           <div className='add-edit-order-box__divider' />
           <div className='add-edit-order-box__title'>3. Shipping Info</div>
-          <Row gutter={[24, 24]}>
+          <Row gutter={isMobile ? [8, 16] : [24, 24]}>
             <Col span={12}>
               <Form.Item
                 label="Full Name"
@@ -314,7 +316,7 @@ export default function OrderForm(
           >
             <InputText placeholder="..."  />
           </Form.Item>
-          <Row gutter={[24, 24]}>
+          <Row gutter={isMobile ? [8, 16] : [24, 24]}>
             <Col span={12}>
               <Form.Item
                 label="Country"
@@ -338,7 +340,7 @@ export default function OrderForm(
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={[24, 24]}>
+          <Row gutter={isMobile ? [8, 16] : [24, 24]}>
             <Col span={12}>
               <Form.Item
                 label="State/Region (Optional)"

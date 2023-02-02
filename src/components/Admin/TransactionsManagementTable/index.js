@@ -8,7 +8,7 @@ import ConfirmTransactionModal from './ConfirmTransactionModal';
 import CancelTransactionModal from './CancelTransactionModal';
 import BoxCard from 'components/Share/BoxCard';
 import {
-  PERMISSION_VALUES,
+  PERMISSION_VALUES, RESPONSIVE_MEDIAS,
   ROUTERS,
   TRANSACTION_STATUS_LABEL_VALUE_OPTIONS, TRANSACTION_TYPE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
@@ -18,6 +18,7 @@ import checkboxIcon from 'images/checkbox-green-icon.svg';
 import Icon from 'components/Common/Icon';
 import StatusTag from 'components/Share/StatusTag';
 
+import { useMediaQuery } from 'react-responsive';
 import './style.scss';
 
 
@@ -29,6 +30,7 @@ const ACTION_KEYS = {
 }
 
 export default function TransactionsManagementTable({ redirectTo }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openAddTransaction, setOpenAddTransaction] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [openCancelTransaction, setOpenCancelTransaction] = useState(false);
@@ -86,6 +88,7 @@ export default function TransactionsManagementTable({ redirectTo }) {
   ];
 
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
@@ -172,6 +175,9 @@ export default function TransactionsManagementTable({ redirectTo }) {
   )
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'custom',
@@ -185,6 +191,7 @@ export default function TransactionsManagementTable({ redirectTo }) {
       },
       {
         type: 'searchText',
+        span: 24,
         requiredSelection: false,
         props: {
           placeholder: 'Search by id, transaction_id, name received ...',
@@ -204,13 +211,14 @@ export default function TransactionsManagementTable({ redirectTo }) {
       },
       {
         type: 'custom',
+        span: 12,
         render: (
           <DropdownSelect
             name="type"
             options={TRANSACTION_TYPE_LABEL_VALUE_OPTIONS}
             defaultValue={''}
             onChange={onDropdownChange}
-            style={{maxWidth: 210}}
+            style={{width: isMobile ? '100%' : 'auto', maxWidth: isMobile ? '100%' : 210}}
             theme="light"
           />
         ),
@@ -218,13 +226,14 @@ export default function TransactionsManagementTable({ redirectTo }) {
       },
       {
         type: 'custom',
+        span: 12,
         render: (
           <DropdownSelect
             name="status"
             options={TRANSACTION_STATUS_LABEL_VALUE_OPTIONS}
             defaultValue={''}
             onChange={onDropdownChange}
-            style={{maxWidth: 210}}
+            style={{width: isMobile ? '100%' : 'auto', maxWidth: isMobile ? '100%' : 210}}
             theme="light"
           />
         ),
@@ -232,9 +241,9 @@ export default function TransactionsManagementTable({ redirectTo }) {
       },
     ],
   }
-
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <BoxCard className="content-box__wrapper">
+    <BoxWrapper className={!isMobile && 'content-box__wrapper'}>
       <TableGrid configs={tableConfig}
                  headerActionsConfig={headerActionsConfig}
                  paginationConfig={{}}
@@ -266,6 +275,6 @@ export default function TransactionsManagementTable({ redirectTo }) {
           />
         )
       }
-    </BoxCard>
+    </BoxWrapper>
   );
 }

@@ -85,7 +85,7 @@ import AdminNotificationsPage from 'containers/Admin/NotificationsPage/Loadable'
 import {
   ADMIN_ROLES,
   DATETIME_FORMAT,
-  PERMISSION_VALUES,
+  PERMISSION_VALUES, RESPONSIVE_MEDIAS,
   ROLE_PERMISSIONS_VALUES,
   ROUTERS,
   STATE_VALUES,
@@ -95,6 +95,7 @@ import {
 import { AdminNotificationsService, SellerNotificationsService, SellerSystemService, UserService } from 'services';
 
 import './style.scss';
+import { useMediaQuery } from 'react-responsive';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -192,6 +193,7 @@ const HelmetMeta = (props) => (
 )
 
 const App = (props) => {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [isLoadedCheckLogin, setIsLoadedCheckLogin] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(0);
   const isAdminMode = props.isAdminMode;
@@ -290,7 +292,7 @@ const App = (props) => {
       <AppWrapper>
         <HelmetMeta />
         <LayoutWrapper
-          className="layout__admin-mode"
+          className={`layout__admin-mode ${isMobile && 'layout__admin-mode--mobile'}`}
           header={(
             <Header logoName={WEBSITE_NAME}
                     isLogin={props.isLogin}

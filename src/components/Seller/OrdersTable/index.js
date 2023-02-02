@@ -12,7 +12,7 @@ import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportOrdersModal from 'components/Seller/OrdersTable/ImportOrdersModal';
 import {
   CLONE_DESIGN_LABEL_VALUE_OPTIONS, DATA_DATE_FORMAT, DATETIME_FORMAT,
-  HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, PERMISSION_VALUES,
+  HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, PERMISSION_VALUES, RESPONSIVE_MEDIAS,
   ROUTERS, SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
   STATE_COLORS, STATE_LABELS, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
@@ -28,11 +28,12 @@ import DatePickerSelect from 'components/Common/DatePickerSelect';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import TrackingEventModal from './TrackingEventModal';
 import StatusTag from 'components/Share/StatusTag';
-
-import './style.scss';
 import moment from 'moment/moment';
 import { downloadFile } from 'utils/requests';
 import OrderEventsModal from 'components/Seller/OrdersTable/OrderEventsModal';
+
+import './style.scss';
+import { useMediaQuery } from 'react-responsive';
 
 
 const ACTION_KEYS = {
@@ -146,6 +147,7 @@ const columns = [
 
 
 export default function OrdersTable({ redirectTo, systemConfigs = [], successCallback = () => {}  }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openImportOrders, setOpenImportOrders] = useState(false);
   const [openTrackingEvents, setOpenTrackingEvents] = useState(false);
   const [openOrderEvents, setOpenOrderEvents] = useState(false);
@@ -172,6 +174,7 @@ export default function OrdersTable({ redirectTo, systemConfigs = [], successCal
     };
   };
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     onRow: onRowEvents,
     getDataFunc: (params, successCallback, failureCallback) => {
@@ -294,16 +297,16 @@ export default function OrdersTable({ redirectTo, systemConfigs = [], successCal
     }
   }
 
-  const defaultSpan = 4;
+  const defaultSpan = isMobile ? 12 : 4;
 
   const headerActionsConfig = {
     allowRowLayout: true,
     gutter: [10, 10],
-    className: 'orders-table__filters-box',
+    className: `orders-table__filters-box ${isMobile && 'box-card--mobile'}`,
     buttonList: [
       {
         type: 'searchText',
-        span: defaultSpan,
+        span: isMobile ? 24 : defaultSpan,
         props: {
           placeholder: 'Keyword...',
           name: 'keyword',
@@ -337,7 +340,7 @@ export default function OrdersTable({ redirectTo, systemConfigs = [], successCal
       },
       {
         type: 'custom',
-        span: defaultSpan,
+        span: isMobile ? 24 : defaultSpan,
         render: (
           <DatePickerSelect name="date"
                             value={[!!filters['fromDate'] ? moment(filters['fromDate'], DATA_DATE_FORMAT) : undefined, !!filters['toDate'] ? moment(filters['toDate'], DATA_DATE_FORMAT) : undefined]}
@@ -411,14 +414,14 @@ export default function OrdersTable({ redirectTo, systemConfigs = [], successCal
       },
       {
         type: 'pageSize',
-        span: 3,
+        span: isMobile ? defaultSpan : 3,
         props: {
           theme: 'light',
         }
       },
       {
         type: 'custom',
-        span: 3,
+        span: isMobile ? defaultSpan : 3,
         render: (
           <DropdownSelect
             name="sortBy"
@@ -432,7 +435,7 @@ export default function OrdersTable({ redirectTo, systemConfigs = [], successCal
       },
       {
         type: 'custom',
-        span: 3,
+        span: isMobile ? defaultSpan : 3,
         render: (
           <DropdownSelect
             name="sortDirection"
@@ -446,11 +449,17 @@ export default function OrdersTable({ redirectTo, systemConfigs = [], successCal
       },
       {
         type: 'searchButton',
+        span: isMobile ? defaultSpan : undefined,
+        props: isMobile && {
+          style: { width: '100%' }
+        }
       },
       {
         type: 'clearButton',
+        span: isMobile ? defaultSpan : undefined,
         props: {
-          handleClear
+          handleClear,
+          style: isMobile ? { width: '100%' } : {}
         }
       },
     ],
@@ -539,7 +548,7 @@ export default function OrdersTable({ redirectTo, systemConfigs = [], successCal
     handleClear();
   }
   const StatusCheckboxGroup = (
-    <div className="orders-table__status-checkbox-group">
+    <div className={`orders-table__status-checkbox-group ${isMobile && 'box-card--mobile'}`}>
       <CheckboxGroupBox options={StatusCheckboxOptions}
                         name="listStatus"
                         value={filters.listStatus || []}
@@ -551,7 +560,8 @@ export default function OrdersTable({ redirectTo, systemConfigs = [], successCal
   return (
     <>
       <ButtonListWrapper buttonList={buttonList}
-                         align="right"
+                         align={!isMobile && 'right'}
+                         className={isMobile && 'box-card--mobile'}
       />
       <TableGrid configs={tableConfig}
                  className={`orders-table__table ${authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER) && 'allow-click-row'}`}

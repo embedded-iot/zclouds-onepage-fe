@@ -4,7 +4,7 @@ import { SellerStoresService } from 'services';
 import { authentication, events } from 'utils';
 import { Button } from 'antd';
 import {
-  PERMISSION_VALUES,
+  PERMISSION_VALUES, RESPONSIVE_MEDIAS,
   ROUTERS,
   STORE_TYPE_ICONS,
   STORE_TYPE_LABEL_VALUE_OPTIONS,
@@ -16,6 +16,7 @@ import plusIcon from 'images/plus-icon.svg';
 import searchGreenIcon from 'images/search_green.svg';
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
 import CreateNewStoreModal from 'components/Seller/StoresTable/CreateNewStoreModal';
+import { useMediaQuery } from 'react-responsive';
 
 const ACTION_KEYS = {
   ACTION_EVENTS: "STORE_ACTION_EVENTS",
@@ -77,10 +78,12 @@ const columns = [
 ];
 
 export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELOAD_RESELLER_STORE_TABLE_EVENT_KEY' }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openCreateNewStore, setOpenCreateNewStore] = useState(false);
   // eslint-disable-next-line
   let ref = useRef({});
   const tableConfig = {
+    className: isMobile && 'box-card--mobile',
     columns,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, type, ...restParams} = params || {};
@@ -140,9 +143,13 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
   }, [type]);
 
   const headerActionsConfig = {
+    allowRowLayout: isMobile,
+    gutter: [10, 10],
+    className: isMobile && 'box-card--mobile',
     buttonList: [
       {
         type: 'searchText',
+        span: 24,
         props: {
           placeholder: 'Search by name...',
           theme: 'light',
@@ -150,12 +157,13 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
       },
       {
         type: 'custom',
+        span: 12,
         render: (
           <DropdownSelect
             options={STORE_TYPE_LABEL_VALUE_OPTIONS}
             defaultValue={type || ''}
             onChange={onStoreTypeChange}
-            style={{width: 'auto'}}
+            style={{width: isMobile ? '100%' : 'auto'}}
             theme='light'
           />
         ),
@@ -163,25 +171,30 @@ export default function StoresTable({ type, redirectTo, RELOAD_EVENT_KEY = 'RELO
       },
       {
         type: 'pageNum',
+        span: 12,
         props: {
           theme: 'light',
         }
       },
       {
         type: 'pageSize',
+        span: 12,
         props: {
           theme: 'light',
         }
       },
       {
         type: 'searchButton',
+        span: 12,
         props: {
+          style: isMobile ? { width: '100%' } : {},
           ghost: true,
           icon: <Icon src={searchGreenIcon} width={20} height={20} />
         }
       },
       {
         type: 'custom',
+        span: 12,
         render: <Button type="primary" key={ACTION_KEYS.ADD_STORE} icon={<Icon src={plusIcon} width={24} height={24} />} onClick={createNewStore}>Create new store</Button>,
         permission: !type && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE)
       },

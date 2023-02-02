@@ -2,10 +2,10 @@ import React from 'react';
 import bannerImg21 from 'images/banner-img-2-1.svg';
 import bannerImg22 from 'images/banner-img-2-2.png';
 import { Button, Col, Row } from 'antd';
-
-import './style.scss';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
+
+import './style.scss';
 
 export default function BannerBox2({ customClass, redirectTo }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);

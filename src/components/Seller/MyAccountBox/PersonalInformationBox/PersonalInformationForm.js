@@ -8,8 +8,11 @@ import { upload } from 'utils';
 import UploadBox from 'components/Common/UploadBox';
 import { UserService } from 'services';
 import { getShortPathImage } from 'services/BaseService';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 
 export default function PersonalInformationForm({ onFinish, initialValues }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [form] = Form.useForm();
   const action = UserService.getUploadImageUrl();
   const [deletedImages, setDeletedImages] = useState([]);
@@ -73,8 +76,8 @@ export default function PersonalInformationForm({ onFinish, initialValues }) {
       <Card title={<div className="my-account__card-title"><Icon src={userIcon} width={24} height={24} /><span>Personal Information</span></div>}
             className="my-account__card"
             bordered={false}>
-        <Row>
-          <Col span={16}>
+        <Row gutter={isMobile ? [16, 0] : [24, 24]}>
+          <Col span={14}>
             <Form.Item
               label="Full Name"
               name="fullName"
@@ -94,7 +97,7 @@ export default function PersonalInformationForm({ onFinish, initialValues }) {
               <InputText disabled placeholder="User Name"  />
             </Form.Item>
           </Col>
-          <Col span={8} className="display-flex display-flex--center-align-items display-flex--center-justify-content">
+          <Col span={10} className="display-flex display-flex--center-align-items display-flex--center-justify-content">
             <Form.Item
               noStyle={true}
               name="imageFiles"
