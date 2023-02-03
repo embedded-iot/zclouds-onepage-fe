@@ -31,6 +31,9 @@
   }
   &__table-header {
     height: 60px;
+    &--mobile {
+      height: auto;
+    }
   }
   &__table-wrapper {
     &.hide-table {

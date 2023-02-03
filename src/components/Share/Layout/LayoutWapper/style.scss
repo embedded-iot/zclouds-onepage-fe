@@ -64,25 +64,36 @@
       top: 0;
       background: #FFFFFF;
     }
-    //.ant-layout-sider {
-    //  position: sticky;
-    //  top: 66px;
-    //  z-index: 11;
-    //  .ant-layout-sider-children {
-    //    position: relative;
-    //    & > span {
-    //      position: absolute;
-    //      top: -45px;
-    //      left: 20px;
-    //    }
-    //    .sider-container {
-    //      overflow: auto;
-    //      height: calc(100vh - 66px);
-    //    }
-    //  }
-    //}
-    //.ant-layout-footer {
-    //  padding: 15px 20px;
-    //}
+    &.show-menu {
+      .ant-layout-header {
+        .layout-header__actions {
+          background: #F7F8F9;
+          display: block;
+          position: absolute;
+          overflow: auto;
+          height: auto;
+          max-height: calc(100vh - 60px);
+          width: 100vw;
+          left: 0;
+          top: 86px;
+          padding: 20px;
+          .layout-header__menu {
+            min-width: auto;
+            width: 100%;
+            background: transparent;
+            .ant-menu {
+              box-shadow: none;
+              background: transparent;
+              .ant-menu-item {
+                background: transparent;
+                font-weight: bold;
+                padding: 12px;
+                line-height: normal;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

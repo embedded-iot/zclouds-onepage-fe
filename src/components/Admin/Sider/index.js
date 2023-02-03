@@ -1,6 +1,6 @@
 import React from 'react';
-import Sider, { checkRouterMatch, getItem } from 'components/Common/Sider';
-import { PERMISSION_VALUES, ROUTERS } from 'components/contants';
+import Sider, { checkRouterMatch, getAllItemsFromGroups, getItem } from 'components/Common/Sider';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import Icon from 'components/Common/Icon';
 import userIcon from 'images/my-account-icon.png';
 import userActiveIcon from 'images/my-account-white-icon.svg';
@@ -33,8 +33,10 @@ import dashboardActiveIcon from 'images/darhboard-white-icon.svg';
 import { filterListByPermission } from 'services/BaseService';
 import { authentication } from 'utils';
 import {  QuestionCircleOutlined } from '@ant-design/icons';
+import { useMediaQuery } from 'react-responsive';
 
 export default function AdminSider({ selectedRouters = [], redirectTo = () => {}, }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const checkRouterMatchFn = (path) => checkRouterMatch(path, selectedRouters[0]);
   const items = filterListByPermission([
     getItem('Dashboard', ROUTERS.ROOT, <Icon src={dashboardIcon} activeSrc={dashboardActiveIcon} active={checkRouterMatchFn(ROUTERS.ROOT)} />),
@@ -65,11 +67,11 @@ export default function AdminSider({ selectedRouters = [], redirectTo = () => {}
     redirectTo(e.key);
   };
   return (
-    <Sider items={items}
+    <Sider items={isMobile ? getAllItemsFromGroups(items) : items}
            defaultOpenKeys={[]}
            defaultSelectedKeys={selectedRouters}
            onClick={onClick}
-           mode="inline"
+           mode={!isMobile && "inline" }
     />
   );
 }

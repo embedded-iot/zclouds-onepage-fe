@@ -31,9 +31,9 @@ import StatusTag from 'components/Share/StatusTag';
 import moment from 'moment/moment';
 import { downloadFile } from 'utils/requests';
 import OrderEventsModal from 'components/Seller/OrdersTable/OrderEventsModal';
+import { useMediaQuery } from 'react-responsive';
 
 import './style.scss';
-import { useMediaQuery } from 'react-responsive';
 
 
 const ACTION_KEYS = {
@@ -84,7 +84,7 @@ const columns = [
     render: (quantity, record) => <span>{record.convertedProductPrice} * {quantity}</span>
   },
   {
-    title: 'Product Price',
+    title: 'Total',
     dataIndex: 'convertedPriceTotal',
     render: (convertedPriceTotal) => <span className='table-cell__price-text'>{convertedPriceTotal}</span>
   },

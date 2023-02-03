@@ -5,15 +5,24 @@
     //background-size: cover;
     display: flex;
     justify-content: center;
-
-
     color: #2C3E5D;
+    &--mobile {
+      padding: 0;
+      .seller-footer__contents {
+        padding: 16px;
+      }
+    }
   }
   &__contents {
     max-width: 1110px;
     width: 100%;
     padding: 50px;
     background: url("~images/footer_bg.png") center right no-repeat;
+    &--mobile {
+      padding: 16px;
+      background: url("~images/footer_bg.png") center center no-repeat;
+      background-size: contain;
+    }
   }
 
   &__title {

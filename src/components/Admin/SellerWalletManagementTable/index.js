@@ -139,7 +139,7 @@ export default function SellerWalletManagementTable({ currentUser, redirectTo })
   const headerActionsConfig = {
     allowRowLayout: isMobile,
     gutter: [10, 10],
-    className: `seller-wallet-table__table-header ${isMobile && 'box-card--mobile'}`,
+    className: `seller-wallet-table__table-header ${isMobile && 'seller-wallet-table__table-header--mobile box-card--mobile'}`,
     buttonList: [
       {
         type: 'custom',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Sider, { checkRouterMatch, getItem } from 'components/Common/Sider';
+import Sider, { checkRouterMatch, getAllItemsFromGroups, getItem } from 'components/Common/Sider';
 import {
-  PERMISSION_VALUES,
+  PERMISSION_VALUES, RESPONSIVE_MEDIAS,
   ROUTERS,
   STORE_TYPE_LABELS,
   STORE_TYPE_VALUES,
@@ -28,11 +28,13 @@ import createrCommunityIcon from 'images/creater-community-icon.png';
 import createrCommunityActiveIcon from 'images/creater-community-white-icon.svg';
 import { SellerSystemService } from 'services';
 import { filterListByPermission } from 'services/BaseService';
+import { authentication } from 'utils';
+import { useMediaQuery } from 'react-responsive';
 
 import "./style.scss";
-import { authentication } from 'utils';
 
 export default function UserSider({ selectedRouters = [], redirectTo = () => {}, systemConfigs = []}) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [selectedKey, setSelectedKey] = useState('');
   const checkRouterMatchFn = (path) => ([ROUTERS.SELLER_CHAT_WITH_ME, ROUTERS.SELLER_CREATOR_COMMUNITY ].includes(selectedKey) === false) && checkRouterMatch(path, selectedRouters[0]);
   const items = filterListByPermission([
@@ -70,12 +72,12 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
     }
   };
   return (
-    <Sider items={items}
+    <Sider items={isMobile ? getAllItemsFromGroups(items) : items}
            defaultOpenKeys={defaultOpenKeys}
            defaultSelectedKeys={selectedRouters}
            onClick={onClick}
-           className="seller-sider__wrapper"
-           mode="inline"
+           className={!isMobile && 'seller-sider__wrapper'}
+           mode={!isMobile && "inline" }
     />
   );
 }

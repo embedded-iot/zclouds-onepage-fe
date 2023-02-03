@@ -6,17 +6,19 @@ import facebook from 'images/facebook.png';
 import email from 'images/email-icon.png';
 import flagGreen from 'images/flag-green-icon.png';
 import supportAvatar from 'images/support-avatar.png';
+import { SellerSystemService } from 'services';
+import { RESPONSIVE_MEDIAS, SYSTEM_CONFIG_VALUE } from 'components/contants';
+import { useMediaQuery } from 'react-responsive';
 
 import './style.scss';
-import { SellerSystemService } from 'services';
-import { SYSTEM_CONFIG_VALUE } from 'components/contants';
 
 export default function Footer({ systemConfigs = [] }) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
-    <div className="seller-footer__wrapper">
-      <div className='seller-footer__contents'>
-        <Row gutter={[66, 0]}>
-          <Col span={12}>
+    <div className={`seller-footer__wrapper ${isMobile && 'seller-footer__wrapper--mobile'}`}>
+      <div className={`seller-footer__contents ${isMobile && 'seller-footer__contents--mobile'}`}>
+        <Row gutter={isMobile ? [0, 24] : [66, 0]}>
+          <Col span={isMobile ? 24 : 12}>
             <div className='seller-footer__title'>Thank you for sticking with CS Fulfill. Follow us now</div>
             <div className='seller-footer__text'>
               <Icon src={facebook} height={12} width={12} />
@@ -46,7 +48,7 @@ export default function Footer({ systemConfigs = [] }) {
             <div className='seller-footer__link'>Instructions to Use Fulfill Seller v3</div>
             <div className='seller-footer__link'>Term of Services</div>
           </Col>
-          <Col span={12}>
+          <Col span={isMobile ? 24 : 12}>
             <div className='seller-footer__title'>
               <Icon src={flagGreen} height={12} width={14} />
               Dedicated support team

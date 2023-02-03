@@ -112,6 +112,10 @@ export default function ProductCategoriesGrid({ successCallback = () => {}, redi
       {
         type: 'searchButton',
         requiredSelection: false,
+        span: 12,
+        props: isMobile && {
+          style: { width: '100%' }
+        }
       },
     ],
   }

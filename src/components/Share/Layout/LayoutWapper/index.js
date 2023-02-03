@@ -54,15 +54,20 @@ const MobileLayout = props => {
     // eslint-disable-next-line
   }, [props.router.location])
   return (
-    <Layout className={`layout__wrapper layout__wrapper--mobile ${props.className}`}>
+    <Layout className={`layout__wrapper layout__wrapper--mobile ${props.className} ${!!isMenu && 'show-menu'}`}>
       <Header>
         <Icon src={dashboard} className="menu-icon" style={{ fontSize: 20}} onClick={() => setMenu(!isMenu)} />
         {props.header}
+        {
+          isMenu && (
+            <div className="layout-header__actions">
+              <div className='layout-header__menu'>
+                {props.sider}
+              </div>
+            </div>
+          )
+        }
       </Header>
-      {/*<Sider theme="light" width={"100%"}>*/}
-      {/*  <MenuIcon style={{ fontSize: 20}} onClick={() => setMenu(!isMenu)} />*/}
-      {/*  <div className="sider-container" style={{display: isMenu ? 'block' : 'none' }}>{props.sider}</div>*/}
-      {/*</Sider>*/}
       {
         !!props.content && (
           <Content>

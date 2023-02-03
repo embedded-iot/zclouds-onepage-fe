@@ -87,9 +87,9 @@ const columns = [
   {
     title: 'Description',
     dataIndex: 'description',
-    ellipsis: {
-      showTitle: false,
-    },
+    // ellipsis: {
+    //   showTitle: false,
+    // },
     render: (description, record) => (
       <Tooltip placement="topLeft" title={(
         <PlainText type="TextArea">
