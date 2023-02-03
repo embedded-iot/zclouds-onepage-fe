@@ -15,7 +15,10 @@
     }
   }
   &__contents {
-    padding: 37px 15px 45px 57px;
+    padding: 37px 15px 15px 57px;
+    .ant-form-item-explain-error {
+      color: #FFFFFF;
+    }
   }
   &__title {
     font-weight: 600;
@@ -23,7 +26,9 @@
     color: #FFFFFF;
     line-height: 29px;
   }
-
+  &__form {
+    flex-wrap: nowrap;
+  }
   &__description {
     font-size: 14px;
     color: #F1F2F4;
@@ -42,5 +47,6 @@
   &__button {
     color: #0065FF !important;
     font-weight: 600;
+    height: 36px;
   }
 }

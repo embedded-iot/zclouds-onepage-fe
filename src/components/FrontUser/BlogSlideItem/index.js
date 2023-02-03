@@ -1,17 +1,20 @@
 import React from 'react';
+import { Col, Row } from 'antd';
 
 import './style.scss';
 
-export default function BlogSlideItem({ onClick = () => {}, ...restProps }) {
-  const { image, headerTitle, title, content } = restProps;
+export default function BlogSlideItem({ data = {}, onClick = () => {}, className = '', hasWrap = true  }) {
+  const { image, headerTitle, title, description } = data;
   return (
-    <div className={`blog-slide-item__wrapper ${restProps.customClass}`} onClick={() => onClick(restProps)}>
-      <div className='blog-slide-item__image'>
+    <Row gutter={hasWrap ? [0, 0] : [16, 0] } className={`blog-slide-item__wrapper ${className}`} onClick={() => onClick(data)}>
+      <Col span={hasWrap ? 24 : 16 } className='blog-slide-item__image'>
         <img src={image} alt={title} />
-      </div>
-      <div className='blog-slide-item__header-title'>{headerTitle}</div>
-      <div className='blog-slide-item__title'>{title}</div>
-      <div className='blog-slide-item__content'>{content}</div>
-    </div>
+      </Col>
+      <Col span={hasWrap ? 24 : 8 } className='blog-slide-item__contents'>
+        <div className='blog-slide-item__header-title'>{headerTitle}</div>
+        <div className='blog-slide-item__title'>{title}</div>
+        <div className='blog-slide-item__description'>{description}</div>
+      </Col>
+    </Row>
   )
 }

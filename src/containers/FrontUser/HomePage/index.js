@@ -7,7 +7,7 @@ import {
   BannerBox3,
   BannerBox4,
   BannerBox5,
-  // BannerBox6,
+  BannerBox6,
   BannerBox7,
 } from 'components/FrontUser/HomeBoxs';
 import { push } from 'connected-react-router';
@@ -58,10 +58,10 @@ function HomePage(props) {
           customClass={customClass}
           redirectTo={props.push}
         />
-        {/*<BannerBox6*/}
-        {/*  customClass={customClass}*/}
-        {/*  redirectTo={props.push}*/}
-        {/*/>*/}
+        <BannerBox6
+          customClass={customClass}
+          redirectTo={props.push}
+        />
         <SignUpBannerBox />
       </div>
     </div>

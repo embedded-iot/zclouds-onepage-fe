@@ -29,7 +29,7 @@ export default function BlogsSlideBox({ redirectTo }) {
       }}
     >
       {
-        blogs.map((blog) => <BlogSlideItem {...blog} />)
+        blogs.map((blog) => <BlogSlideItem data={blog} />)
       }
     </MultiCarouselView>
   )

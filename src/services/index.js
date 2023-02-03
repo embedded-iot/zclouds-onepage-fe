@@ -3,6 +3,7 @@ import * as  UserService from "./Common/UserService";
 import * as  FrontUserCategoriesService from './FrontUser/CategoriesService';
 import * as  FrontUserPostsService from './FrontUser/PostsService';
 import * as  FrontUserFAQsService from './FrontUser/FAQsService';
+import * as  FrontUserEmailsService from './FrontUser/EmailsService';
 import * as  SellerDesignsService from './Seller/DesignsService';
 import * as  SellerStoresService from './Seller/StoresService';
 import * as  SellerIntegrationsService from './Seller/IntegrationsService';
@@ -36,6 +37,7 @@ export {
   FrontUserCategoriesService,
   FrontUserPostsService,
   FrontUserFAQsService,
+  FrontUserEmailsService,
   AdminUsersService,
   AdminProductsService,
   AdminCategoriesService,

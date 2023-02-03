@@ -2,6 +2,9 @@ import avatar1 from 'images/avatar_1.jpg';
 import avatar2 from 'images/avatar_2.jpg';
 import avatar3 from 'images/avatar_3.jpg';
 import post from 'images/post.png';
+import { getFrontUserBaseURL } from 'services/BaseService';
+import { datetime, makeGetWithConfigs } from 'utils';
+import { DATE_FORMAT } from 'components/contants';
 
 const items = [
   {
@@ -36,17 +39,44 @@ const blogsItems = [];
 
 for (let i = 1; i < 20; i++) {
   blogsItems.push( {
-    image: post,
-    headerTitle: 'Design and Trends - 10 minute read',
+    id: i,
+    category: 'Design and Trends',
+    updatedTime: 1675421470543,
     title: 'Must-Have Realistic Placeit Mockups That Will Boost Your Sales',
-    content: 'This article will show you the best types of Placeit mockups and where to find them.'
+    description: 'This article will show you the best types of Placeit mockups and where to find them.',
+    content: 'This is blog content',
   })
+}
+
+const transformBlog = item => {
+  const convertedUpdatedDate = !!item.updatedTime ? datetime.convert(item.updatedTime, DATE_FORMAT) : '';
+  return {
+    ...item,
+    image: item.image || post,
+    headerTitle: `${item.category} - ${convertedUpdatedDate}`,
+    title: item.title,
+    description: item.description,
+    content: item.content,
+  }
 }
 
 function getBlogs(params, successCallback, failureCallback) {
   successCallback({
-    items: blogsItems,
+    items: blogsItems.map(transformBlog),
     totalCount: blogsItems.length,
+  });
+  const config = {
+    params
+  };
+  const url = getFrontUserBaseURL() + '/blogs';
+  makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
+    const items = response.content.map(transformBlog)
+    return {
+      items: items,
+      totalCount: response.totalElement,
+      pageNum: response.currentPage,
+      totalPage: response.totalPage,
+    };
   });
 }
 

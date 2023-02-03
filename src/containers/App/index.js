@@ -43,6 +43,7 @@ import FrontUserHomePage from 'containers/FrontUser/HomePage/Loadable';
 import FrontUserAllProductsPage from 'containers/FrontUser/CategoriesPage/Loadable';
 import FrontUserProductDetailPage from 'containers/FrontUser/ProductDetailPage/Loadable';
 import FrontUserSKUPage from 'containers/FrontUser/SKUPage/Loadable';
+import FrontUserBlogsPage from 'containers/FrontUser/BlogsPage/Loadable';
 
 import SellerHomePage from 'containers/Seller/HomePage/Loadable';
 import SellerOrdersPage from 'containers/Seller/OrdersPage/Loadable';
@@ -132,6 +133,7 @@ const FrontUserAppContent = (props) => (
       <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY} component={FrontUserAllProductsPage} />
       <Route exact path={ROUTERS.FRONT_USER_PRODUCT_DETAIL} component={FrontUserProductDetailPage} />
       <Route exact path={ROUTERS.FRONT_USER_SKU} component={FrontUserSKUPage} />
+      <Route exact path={ROUTERS.FRONT_USER_BLOGS} component={FrontUserBlogsPage} />
     </Switch>
   </>
 
