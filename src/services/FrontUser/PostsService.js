@@ -79,8 +79,21 @@ function getBlogs(params, successCallback, failureCallback) {
     };
   });
 }
+function getBlog(id, successCallback, failureCallback) {
+  successCallback(transformBlog( {
+    id: 1,
+    category: 'Design and Trends',
+    updatedTime: 1675421470543,
+    title: 'Must-Have Realistic Placeit Mockups That Will Boost Your Sales',
+    description: 'This article will show you the best types of Placeit mockups and where to find them.',
+    content: 'This is blog content',
+  }))
+  const url = getFrontUserBaseURL() + '/blogs/' + id;
+  makeGetWithConfigs(url, {}, successCallback, failureCallback, transformBlog);
+}
 
 export {
   getPosts,
   getBlogs,
+  getBlog,
 }

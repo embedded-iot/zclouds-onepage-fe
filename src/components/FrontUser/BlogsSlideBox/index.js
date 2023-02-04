@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MultiCarouselView from 'components/Common/MultiCarouselView';
 import { FrontUserPostsService } from 'services';
 import BlogSlideItem from 'components/FrontUser/BlogSlideItem';
+import { ROUTERS } from 'components/contants';
 import './style.scss';
 
 export default function BlogsSlideBox({ redirectTo }) {
@@ -17,6 +18,10 @@ export default function BlogsSlideBox({ redirectTo }) {
     // eslint-disable-next-line
   }, []);
 
+  const handleCLick = (data) => {
+    redirectTo(ROUTERS.FRONT_USER_BLOGS + '/' + data.id)
+  }
+
   return (
     <MultiCarouselView
       deviceType="desktop"
@@ -29,7 +34,7 @@ export default function BlogsSlideBox({ redirectTo }) {
       }}
     >
       {
-        blogs.map((blog) => <BlogSlideItem data={blog} />)
+        blogs.map((blog) => <BlogSlideItem data={blog} onClick={handleCLick}/>)
       }
     </MultiCarouselView>
   )

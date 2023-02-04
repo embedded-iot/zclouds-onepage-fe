@@ -8,6 +8,7 @@ import './style.scss';
 
 export default function BannerBox6({ customClass, redirectTo }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+
   return (
     <div className={`home-box__wrapper ${customClass} banner-box-6__wrapper`}>
       <Row>
@@ -22,7 +23,7 @@ export default function BannerBox6({ customClass, redirectTo }) {
             <div className='home-box__description'>
               Quickly connect with your store. You can even integrate Fulfill with your management system using the API.
             </div>
-            <div className='banner-box-6__blog-list'>
+            <div className={`banner-box-6__blog-list ${isMobile && 'banner-box-6__blog-list--mobile'}`}>
               <BlogsSlideBox
                 redirectTo={redirectTo}
               />

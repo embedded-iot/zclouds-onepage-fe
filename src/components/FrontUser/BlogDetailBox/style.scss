@@ -1,0 +1,24 @@
+.blog-detail-box {
+  &__header-title {
+    color: #B3B9C4;
+    margin-bottom: 4px;
+  }
+  &__title {
+    color: #2C3E5D;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  &__description {
+    color: #626F86;
+    margin-bottom: 12px;
+  }
+  &__image {
+    img {
+      width: 100%;
+    }
+  }
+  &__content {
+    margin-top: 24px;
+  }
+}
