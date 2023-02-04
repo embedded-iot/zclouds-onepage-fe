@@ -30,6 +30,7 @@ import * as  AdminStatisticsService from './Admin/StatisticsService';
 import * as  AdminNotificationsService from './Admin/NotificationsService';
 import * as  AdminFAQsService from './Admin/FAQsService';
 import * as  AdminBlogsService from './Admin/BlogsService';
+import * as  AdminEmailsService from './Admin/EmailsService';
 import * as  AdminDashboardService from './Admin/DashboardService';
 
 export {
@@ -55,6 +56,7 @@ export {
   AdminNotificationsService,
   AdminFAQsService,
   AdminBlogsService,
+  AdminEmailsService,
   AdminDashboardService,
   SellerDesignsService,
   SellerStoresService,
