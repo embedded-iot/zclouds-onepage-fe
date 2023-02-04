@@ -29,6 +29,7 @@ import * as  AdminSystemService from './Admin/SystemService';
 import * as  AdminStatisticsService from './Admin/StatisticsService';
 import * as  AdminNotificationsService from './Admin/NotificationsService';
 import * as  AdminFAQsService from './Admin/FAQsService';
+import * as  AdminBlogsService from './Admin/BlogsService';
 import * as  AdminDashboardService from './Admin/DashboardService';
 
 export {
@@ -53,6 +54,7 @@ export {
   AdminStatisticsService,
   AdminNotificationsService,
   AdminFAQsService,
+  AdminBlogsService,
   AdminDashboardService,
   SellerDesignsService,
   SellerStoresService,

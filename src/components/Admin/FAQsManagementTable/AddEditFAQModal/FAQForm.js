@@ -1,11 +1,12 @@
 import React from 'react';
-import { Form, InputNumber } from 'antd';
+import { Form } from 'antd';
 import {
   FAQ_STATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import InputText from 'components/Common/InputText';
 import TextEditor from 'components/Common/TextEditor';
+import InputNumber from 'components/Common/InputNumber';
 
 export default function FAQForm({ form, initialValues, ...restProps }) {
   return (

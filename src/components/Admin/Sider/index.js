@@ -32,7 +32,7 @@ import dashboardIcon from 'images/darhboard-icon.png';
 import dashboardActiveIcon from 'images/darhboard-white-icon.svg';
 import { filterListByPermission } from 'services/BaseService';
 import { authentication } from 'utils';
-import {  QuestionCircleOutlined } from '@ant-design/icons';
+import {  QuestionCircleOutlined, HighlightOutlined, MailOutlined } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
 
 export default function AdminSider({ selectedRouters = [], redirectTo = () => {}, }) {
@@ -60,6 +60,8 @@ export default function AdminSider({ selectedRouters = [], redirectTo = () => {}
       getItem('Notifications', ROUTERS.ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT, <Icon src={systemNotificationIcon} activeSrc={systemNotificationActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT)} width={22} height={22} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_NOTIFICATIONS)),
       getItem('Configs', ROUTERS.ADMIN_SYSTEM_CONFIGS_MANAGEMENT, <Icon src={statisticIcon} activeSrc={statisticActiveIcon} active={checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_CONFIGS_MANAGEMENT)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_CONFIGS)),
       getItem('FAQs', ROUTERS.ADMIN_SYSTEM_FAQS_MANAGEMENT, <QuestionCircleOutlined style={{ marginRight: 14, marginLeft: 3, fontSize: 18, color: checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_FAQS_MANAGEMENT) ? '#fff' : '#626F86' }} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_FAQS)),
+      getItem('Blogs', ROUTERS.ADMIN_SYSTEM_BLOGS_MANAGEMENT, <HighlightOutlined style={{ marginRight: 14, marginLeft: 3, fontSize: 18, color: checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_BLOGS_MANAGEMENT) ? '#fff' : '#626F86' }} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_BLOGS)),
+      getItem('Subscribe emails', ROUTERS.ADMIN_SYSTEM_EMAILS_MANAGEMENT, <MailOutlined style={{ marginRight: 14, marginLeft: 3, fontSize: 18, color: checkRouterMatchFn(ROUTERS.ADMIN_SYSTEM_EMAILS_MANAGEMENT) ? '#fff' : '#626F86' }} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_EMAILS)),
     ]), undefined, authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_NOTIFICATIONS) || authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_CONFIGS)),
   ]);
 

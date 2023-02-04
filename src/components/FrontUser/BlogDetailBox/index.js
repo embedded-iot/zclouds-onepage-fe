@@ -5,6 +5,7 @@ import PlainText from 'components/Common/PlainText';
 import { RESPONSIVE_MEDIAS} from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
 import BlogsGrid from 'components/FrontUser/BlogsGrid';
+import ReactHtmlParser from 'react-html-parser';
 
 import './style.scss';
 
@@ -40,7 +41,7 @@ export default function BlogDetailBox({ defaultBlog = null, isAddOrder, blogId, 
           </div>
           <div className='blog-detail-box__content'>
             <PlainText type='TextArea'>
-              { blog.content || '-'}
+              {ReactHtmlParser(blog.content || '-')}
             </PlainText>
           </div>
         </Col>
