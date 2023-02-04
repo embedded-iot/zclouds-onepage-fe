@@ -10,6 +10,8 @@ export const ROUTERS = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   NOTIFICATIONS: '/notifications',
+  FORGOT_PASSWORD: '/forgot-password',
+  CHANGE_PASSWORD: '/change-password',
   FRONT_USER_REGISTER: '/register',
   FRONT_USER_ALL_PRODUCTS: '/products',
   FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY: '/products/:categoryName/:categoryId',

@@ -33,6 +33,13 @@ function forgotPassword(data, successCallback, failureCallback) {
   };
   makePostWithConfigs(url, config, successCallback, failureCallback)
 }
+function changePassword(data, successCallback, failureCallback) {
+  const url = getFrontUserBaseURL() + '/users/change-password';
+  const config = {
+    data
+  };
+  makePostWithConfigs(url, config, successCallback, failureCallback)
+}
 
 const transformUser = item => {
   const convertedAvatarImages = (!!item.avatar ? [item.avatar] : []).map(image => ({
@@ -71,6 +78,7 @@ export {
   register,
   getUserInfo,
   forgotPassword,
+  changePassword,
   getUploadImageUrl,
   deleteImage,
   transformUser,

@@ -38,6 +38,8 @@ import AdminSider from 'components/Admin/Sider';
 
 import LoginPage from 'containers/Common/LoginPage/Loadable';
 import RegisterPage from 'containers/Common/RegisterPage/Loadable';
+import ForgotPasswordPage from 'containers/Common/ForgotPasswordPage/Loadable';
+import ChangePasswordPage from 'containers/Common/ChangePasswordPage/Loadable';
 
 import FrontUserHomePage from 'containers/FrontUser/HomePage/Loadable';
 import FrontUserAllProductsPage from 'containers/FrontUser/CategoriesPage/Loadable';
@@ -124,6 +126,8 @@ const PrivateRoute = (props) => {
 const PublicAppContent = (props) => (
   <Switch>
     <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
+    <Route exact path={ROUTERS.FORGOT_PASSWORD} component={ForgotPasswordPage} />
+    <Route exact path={ROUTERS.CHANGE_PASSWORD} component={ChangePasswordPage} />
   </Switch>
 );
 
@@ -285,7 +289,7 @@ const App = (props) => {
   const currentRouter = props.router.location.pathname;
   const selectedRouters = [currentRouter];
   if (!isLoadedCheckLogin) return null;
-  if (currentRouter.startsWith(ROUTERS.LOGIN)) {
+  if (currentRouter.startsWith(ROUTERS.LOGIN) || currentRouter.startsWith(ROUTERS.FORGOT_PASSWORD) || currentRouter.startsWith(ROUTERS.CHANGE_PASSWORD)) {
     return (
       <AppWrapper>
         <HelmetMeta />

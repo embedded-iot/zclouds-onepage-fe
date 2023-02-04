@@ -7,7 +7,7 @@ import InputText from 'components/Common/InputText';
 import { getFrontUserUrl } from 'services/BaseService';
 import './style.scss';
 import { ROUTERS } from 'components/contants';
-export default function LoginForm({ onFinish = () => {}, hasBoxCard = true, isAdminMode = false }) {
+export default function LoginForm({ onFinish = () => {}, hasBoxCard = true, isAdminMode = false, redirectTo = () => {} }) {
   const BoxWrapper = hasBoxCard ? BoxCard : 'div';
   return (
     <BoxWrapper className="sign-in-form__wrapper" style={{ maxWidth: hasBoxCard && 400 }}>
@@ -49,15 +49,19 @@ export default function LoginForm({ onFinish = () => {}, hasBoxCard = true, isAd
             Log in
           </Button>
         </Form.Item>
-        {
-          !isAdminMode && (
-            <Form.Item>
+        <Form.Item>
+          {
+            !isAdminMode && (
               <div className="sign-in-form__note">
                 Don't have an account? <span className="link" onClick={() => window.open(getFrontUserUrl() + ROUTERS.FRONT_USER_REGISTER, '_self')}>Sign up</span>.
               </div>
-            </Form.Item>
-          )
-        }
+            )
+          }
+          <div className="sign-in-form__note">
+            Forgot password? <span className="link" onClick={() => redirectTo(ROUTERS.FORGOT_PASSWORD)}>Here</span>.
+          </div>
+        </Form.Item>
+
       </Form>
     </BoxWrapper>
   );

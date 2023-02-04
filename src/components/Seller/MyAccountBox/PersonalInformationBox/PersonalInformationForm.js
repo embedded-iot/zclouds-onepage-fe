@@ -119,7 +119,7 @@ export default function PersonalInformationForm({ onFinish, initialValues }) {
           <InputText placeholder="Telegram ID"/>
         </Form.Item>
         <Form.Item
-          label="Email Address"
+          label="Email"
           name="email"
           rules={[
             {

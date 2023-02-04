@@ -1,4 +1,4 @@
-.sign-in {
+.change-password {
   &__logo {
     margin-bottom: 52px;
     text-align: center;
@@ -36,7 +36,7 @@
     min-height: 768px;
     &--mobile {
       min-height: auto;
-      .sign-in__box {
+      .change-password__box {
         flex-grow: 1;
       }
     }
@@ -51,7 +51,7 @@
     }
   }
 }
-.sign-in-admin {
+.change-password-admin {
   &__wrapper {
     background: url("~images/sign-in-admin-bg.png") center center no-repeat;
     background-size: cover;

@@ -20,7 +20,7 @@ export default function EmailForm({ form, initialValues, ...restProps }) {
       {...restProps}
     >
       <Form.Item
-        label="Email Address"
+        label="Email"
         name="email"
         rules={[
           {
