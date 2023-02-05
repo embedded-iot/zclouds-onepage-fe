@@ -3,12 +3,12 @@ import { BaseService, UserService } from 'services';
 import { notification } from 'antd';
 import ChangePasswordForm from 'components/Share/ChangePasswordForm';
 
-export default function ChangePasswordBox({ token = '', isAdminMode = false, hasBoxCard = true, redirectTo = () => {}}) {
+export default function ChangePasswordBox({ defaultParams = {}, isAdminMode = false, hasBoxCard = true, redirectTo = () => {}}) {
   const handlerFinish = (values) => {
     const { password } = values;
     const data = {
       password,
-      token,
+      ...defaultParams,
     };
     UserService.changePassword(data, response => {
       notification.success({

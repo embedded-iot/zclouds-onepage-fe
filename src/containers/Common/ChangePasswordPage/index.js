@@ -21,7 +21,8 @@ const ChangePasswordPage = (props) => {
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const isAdminMode = props.isAdminMode;
   const queryParams = new URLSearchParams(props.location.search);
-  const token = queryParams.get("token")
+  const username = queryParams.get("username")
+  const code = queryParams.get("code")
   return (
     <div className={`page-wrapper change-password__wrapper ${isAdminMode && 'change-password-admin__wrapper'}`}>
       <Helmet>
@@ -36,7 +37,7 @@ const ChangePasswordPage = (props) => {
                   <Logo src={logoImg} height={isMobile ? 38 : 64}/>
                 </div>
                 <ChangePasswordBox
-                  token={token}
+                  defaultParams={{ username, code }}
                   redirectTo={props.push}
                   hasBoxCard={!isMobile}
                 />
@@ -61,7 +62,7 @@ const ChangePasswordPage = (props) => {
                   <Logo src={logoWhite} height={54}/>
                 </div>
                 <ChangePasswordBox
-                  token={token}
+                  defaultParams={{ username, code }}
                   redirectTo={props.push}
                   isAdminMode={true}
                 />

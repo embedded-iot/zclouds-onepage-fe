@@ -22,7 +22,7 @@ const RegisterPage = (props) => {
     const { confirmPassword, ...data} = values;
     UserService.register(data, response => {
       notification.success({
-        message: "Register successful!",
+        message: "Register successful! Please check the email and active your account!",
       });
       props.push(ROUTERS.ROOT);
     }, error => {
