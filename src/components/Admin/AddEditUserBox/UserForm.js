@@ -5,7 +5,7 @@ import {
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import InputText from 'components/Common/InputText';
-import InputPassword from 'components/Common/InputPassword';
+import InputPassword , { validatePassword } from 'components/Common/InputPassword';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 
 export default function UserForm({ form, isEdit, role, initialValues, onFinish, ...restProps }) {
@@ -48,6 +48,7 @@ export default function UserForm({ form, isEdit, role, initialValues, onFinish, 
             required: true,
             message: 'Please enter password!',
           },
+          validatePassword
         ]}
       >
         <InputPassword placeholder="Password" />

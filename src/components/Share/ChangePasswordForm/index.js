@@ -3,7 +3,7 @@ import { Button, Form } from 'antd';
 import BoxHeader from 'components/Share/BoxHeader';
 import BoxCard from 'components/Share/BoxCard';
 import { ROUTERS } from 'components/contants';
-import InputPassword from 'components/Common/InputPassword';
+import InputPassword , { validatePassword } from 'components/Common/InputPassword';
 
 import './style.scss';
 
@@ -29,6 +29,7 @@ export default function ChangePasswordForm({ onFinish = () => {}, hasBoxCard = t
               required: true,
               message: 'Please enter password!',
             },
+            validatePassword
           ]}
         >
           <InputPassword placeholder="Password" />
@@ -49,6 +50,7 @@ export default function ChangePasswordForm({ onFinish = () => {}, hasBoxCard = t
                 return Promise.reject(new Error('Confirm password is not matching!'));
               },
             }),
+            validatePassword
           ]}
         >
           <InputPassword placeholder="Confirm password" />

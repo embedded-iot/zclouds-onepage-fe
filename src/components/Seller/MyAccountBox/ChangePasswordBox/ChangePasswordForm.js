@@ -3,7 +3,7 @@ import { Button, Card, Form } from 'antd';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import Icon from 'components/Common/Icon';
 import lockIcon from 'images/lock_black_icon.svg';
-import InputPassword from 'components/Common/InputPassword';
+import InputPassword , { validatePassword } from 'components/Common/InputPassword';
 
 export default function ChangePasswordForm({ onFinish, initialValues }) {
   const buttonList = [
@@ -30,6 +30,7 @@ export default function ChangePasswordForm({ onFinish, initialValues }) {
               required: true,
               message: 'Please enter old password!',
             },
+            validatePassword
           ]}
         >
           <InputPassword placeholder="Old Password" />
@@ -42,6 +43,7 @@ export default function ChangePasswordForm({ onFinish, initialValues }) {
               required: true,
               message: 'Please enter new password!',
             },
+            validatePassword
           ]}
         >
           <InputPassword placeholder="New Password" />

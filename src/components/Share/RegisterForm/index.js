@@ -3,7 +3,7 @@ import { Button, Form } from 'antd';
 import BoxHeader from 'components/Share/BoxHeader';
 import BoxCard from 'components/Share/BoxCard';
 import InputText from 'components/Common/InputText';
-import InputPassword from 'components/Common/InputPassword';
+import InputPassword , { validatePassword } from 'components/Common/InputPassword';
 import { getSellerUrl } from 'services/BaseService';
 import { ROUTERS } from 'components/contants';
 

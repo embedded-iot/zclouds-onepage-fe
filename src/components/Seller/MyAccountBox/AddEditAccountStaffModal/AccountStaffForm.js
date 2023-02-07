@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'antd';
 import InputText from 'components/Common/InputText';
-import InputPassword from 'components/Common/InputPassword';
+import InputPassword , { validatePassword } from 'components/Common/InputPassword';
 import {
   ROLE_VALUES,
   SELLER_STAFF_ROLES_LABEL_VALUE_OPTIONS,
@@ -49,6 +49,7 @@ export default function AccountStaffForm({ isEdit = false, form, initialValues }
                   required: true,
                   message: 'Please enter password!',
                 },
+                validatePassword
               ]}
             >
               <InputPassword placeholder="Password" />
