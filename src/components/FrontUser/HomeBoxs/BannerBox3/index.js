@@ -51,24 +51,57 @@ export default function BannerBox3({ customClass, redirectTo }) {
               <Col span={isMobile ? 24 : 8}>
                 <CategorySlideItem category={category} redirectTo={redirectTo} customClass={`banner-box-3__first-category-slide ${isMobile && 'banner-box-3__first-category-slide--mobile'}`} />
               </Col>
-              <Col span={isMobile ? 24 : 16}>
-                <RelatedProductsBox
-                  containerClass="banner-box-3__related-products"
-                  itemClass={`banner-box-3__related-product-item ${isMobile && 'banner-box-3__related-product-item--mobile' }`}
-                  redirectTo={redirectTo}
-                  defaultParams={{
-                    sortBy: "displayOrder",
-                    sortDirection: "asc",
-                  }}
-                  responsive={{
-                    desktop: {
-                      items: 3,
-                    }
-                  }}
-                />
-              </Col>
+              {
+                !isMobile && (
+                  <Col span={16}>
+                    <RelatedProductsBox
+                      containerClass="banner-box-3__related-products"
+                      itemClass={`banner-box-3__related-product-item ${isMobile && 'banner-box-3__related-product-item--mobile' }`}
+                      redirectTo={redirectTo}
+                      defaultParams={{
+                        sortBy: "displayOrder",
+                        sortDirection: "asc",
+                      }}
+                      responsive={{
+                        desktop: {
+                          items: 3,
+                        },
+                        tablet: {
+                          items: 2,
+                        }
+                      }}
+                    />
+                  </Col>
+                )
+              }
             </Row>
             <CategoriesSlideBox redirectTo={redirectTo} successCallback={getCategoriesCallback} />
+            {
+              isMobile && (
+                <Row>
+                  <Col span={24}>
+                    <RelatedProductsBox
+                      containerClass="banner-box-3__related-products"
+                      itemClass={`banner-box-3__related-product-item ${isMobile && 'banner-box-3__related-product-item--mobile' }`}
+                      redirectTo={redirectTo}
+                      defaultParams={{
+                        sortBy: "displayOrder",
+                        sortDirection: "asc",
+                      }}
+                      responsive={{
+                        desktop: {
+                          items: 3,
+                        },
+                        tablet: {
+                          items: 2,
+                        }
+                      }}
+                    />
+                  </Col>
+                </Row>
+              )
+            }
+
           </div>
         </Col>
       </Row>

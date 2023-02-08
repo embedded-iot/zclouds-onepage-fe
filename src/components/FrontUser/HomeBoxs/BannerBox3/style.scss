@@ -41,7 +41,7 @@
     }
   }
   &__first-category-slide {
-    height: 270px;
+    height: calc(100% - 95px);
     margin: 0 0 0 20px;
     cursor: pointer;
     &--mobile {
@@ -51,7 +51,7 @@
   }
   &__related-products {
     .react-multiple-carousel__arrow {
-      top: 110px;
+      top: auto;
     }
   }
   &__related-product-item {
@@ -60,7 +60,7 @@
       padding: 6px !important;
     }
     .ant-card-cover {
-      height: 270px !important;
+      height: auto !important;
     }
     .ant-card-body {
       text-align: left;

@@ -6,14 +6,20 @@ import './style.scss';
 export default function MultiCarouselView({ children, deviceType, containerClass, responsive, ...restProps }) {
   const responsiveProps = {
     desktop: {
-      breakpoint: { max: 3000, min: 1124 },
+      breakpoint: { max: 3000, min: 1366 },
       items: 4,
       slidesToSlide: 1, // optional, default to 1.
       ...(responsive && responsive.desktop ? responsive.desktop : {})
     },
+    x_tablet: {
+      breakpoint: { max: 1366, min: 1124 },
+      items: 3,
+      slidesToSlide: 1, // optional, default to 1.
+      ...(responsive && responsive.tablet ? responsive.tablet : {})
+    },
     tablet: {
       breakpoint: { max: 1124, min: 768 },
-      items: 3,
+      items: 2,
       slidesToSlide: 1, // optional, default to 1.
       ...(responsive && responsive.tablet ? responsive.tablet : {})
     },
