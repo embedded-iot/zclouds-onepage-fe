@@ -42,6 +42,7 @@ export default function RegisterForm({ onFinish = () => {}, hasBoxCard = true })
               required: true,
               message: 'Please enter password!',
             },
+            validatePassword,
           ]}
         >
           <InputPassword placeholder="Password" />

@@ -83,6 +83,7 @@ import AdminSystemManagementPage from 'containers/Admin/SystemManagementPage/Loa
 import AdminStatisticsManagementPage from 'containers/Admin/StatisticsManagementPage/Loadable';
 import AdminNotificationsManagementPage from 'containers/Admin/NotificationsManagementPage/Loadable';
 import AdminFAQsManagementPage from 'containers/Admin/FAQsManagementPage/Loadable';
+import AdminBlogCategoriesManagementPage from 'containers/Admin/BlogCategoriesManagementPage/Loadable';
 import AdminBlogsManagementPage from 'containers/Admin/BlogsManagementPage/Loadable';
 import AdminEmailsManagementPage from 'containers/Admin/EmailsManagementPage/Loadable';
 import AdminNotificationsPage from 'containers/Admin/NotificationsPage/Loadable';
@@ -189,6 +190,7 @@ const AdminAppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.ADMIN_STATISTICS_MANAGEMENT} component={AdminStatisticsManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_STATISTICS)}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT} component={AdminNotificationsManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_FAQS)}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_SYSTEM_FAQS_MANAGEMENT} component={AdminFAQsManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_NOTIFICATIONS)}/>
+    <PrivateRoute exact path={ROUTERS.ADMIN_SYSTEM_BLOG_CATEGORIES_MANAGEMENT} component={AdminBlogCategoriesManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_BLOGS)}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_SYSTEM_BLOGS_MANAGEMENT} component={AdminBlogsManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_BLOGS)}/>
     <PrivateRoute exact path={ROUTERS.ADMIN_SYSTEM_EMAILS_MANAGEMENT} component={AdminEmailsManagementPage} isAuthenticated={props.isLogin && props.isAdmin && authentication.getPermission(PERMISSION_VALUES.ADMIN_VIEW_EMAILS)}/>
     <PrivateRoute exact path={ROUTERS.NOTIFICATIONS} component={AdminNotificationsPage} isAuthenticated={props.isLogin && props.isAdmin}/>

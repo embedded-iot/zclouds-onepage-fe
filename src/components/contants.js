@@ -59,6 +59,7 @@ export const ROUTERS = {
   ADMIN_SYSTEM_NOTIFICATIONS_MANAGEMENT: '/system-notifications-management',
   ADMIN_SYSTEM_SETTINGS_MANAGEMENT: '/system-settings-management',
   ADMIN_SYSTEM_FAQS_MANAGEMENT: '/system-faqs-management',
+  ADMIN_SYSTEM_BLOG_CATEGORIES_MANAGEMENT: '/system-blog-categories-management',
   ADMIN_SYSTEM_BLOGS_MANAGEMENT: '/system-blogs-management',
   ADMIN_SYSTEM_EMAILS_MANAGEMENT: '/system-emails-management',
 }
@@ -544,6 +545,12 @@ export const PRODUCER_STATE_LABEL_VALUE_OPTIONS = [
   { label: STATE_LABELS[STATE_VALUES.ACTIVATED], value: STATE_VALUES.ACTIVATED },
   { label: STATE_LABELS[STATE_VALUES.BLOCKED], value: STATE_VALUES.BLOCKED },
   { label: STATE_LABELS[STATE_VALUES.DELETED], value: STATE_VALUES.DELETED },
+];
+
+export const BLOG_CATEGORIES_STATE_LABEL_VALUE_OPTIONS = [
+  { label: 'Select blog category state', value: '' },
+  { label: STATE_LABELS[STATE_VALUES.ACTIVATED], value: STATE_VALUES.ACTIVATED },
+  { label: STATE_LABELS[STATE_VALUES.DEACTIVATED], value: STATE_VALUES.DEACTIVATED },
 ];
 
 export const SYSTEM_CONFIG_VALUE = {
