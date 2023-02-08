@@ -3,7 +3,7 @@ import { Input } from 'antd';
 
 import './style.less';
 
-const regexPassword = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&])(?=.{8,}).*$/g;
+const regexPassword = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*.])(?=.{8,}).*$/g;
 
 export const validatePassword = ({ getFieldValue }) => ({
   validator(_, value) {

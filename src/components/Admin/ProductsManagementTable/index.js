@@ -12,106 +12,10 @@ import { PERMISSION_VALUES, RESPONSIVE_MEDIAS, ROUTERS } from 'components/contan
 import PlainText from 'components/Common/PlainText';
 import StatusTag from 'components/Share/StatusTag';
 import { useMediaQuery } from 'react-responsive';
+import { filterListByPermission } from 'services/BaseService';
 
 
 const UPDATE_DATA_EVENT_KEY = 'UPDATE_SKU_PRICE_TABLE_EVENT_KEY';
-
-const columns = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-  },
-  {
-    title: 'Image',
-    dataIndex: 'avatar',
-    render: (avatar, record) => <img className="table-img__icon" src={avatar} alt={record.name} />,
-  },
-  {
-    title: 'Product Name',
-    dataIndex: 'name',
-  },
-  {
-    title: 'Design URL',
-    dataIndex: 'designUrl',
-    render: (designUrl) => !!designUrl ? <a href={designUrl} target='_blank' rel='noreferrer'>{designUrl}</a> : ''
-  },
-  {
-    title: 'Variant',
-    dataIndex: 'productOptions',
-    width: '15%',
-    render: (productOptions, record) => {
-      const onProductOptionsChange = (selectedProductOptions) => {
-        let calcPrice = record.price;
-        let calSku = record.id;
-        for (const [, value] of Object.entries(selectedProductOptions)) {
-          calcPrice += value.priceAdjustment;
-          calSku += '|' + value.slug;
-        }
-        events.publish(UPDATE_DATA_EVENT_KEY + record.key, {
-          convertedPrice: format.formatCurrency(calcPrice),
-          sku: calSku,
-        })
-      }
-      return (
-        <ProductOptionsView productOptions={productOptions}
-                            onProductOptionsChange={onProductOptionsChange}
-        />
-      )
-    },
-  },
-  {
-    title: 'SKU',
-    dataIndex: 'sku',
-    render: (sku, record) => (
-      <TableCellView
-        className="table-img__sku-text"
-        name="sku"
-        initialValue={sku}
-        UPDATE_VALUE_EVENT={UPDATE_DATA_EVENT_KEY + record.key}
-      />
-    )
-  },
-  {
-    title: 'Price',
-    dataIndex: 'convertedPrice',
-    width: '12%',
-    render: (convertedPrice, record) => (
-      <TableCellView
-        className="table-cell__price-text"
-        name="convertedPrice"
-        initialValue={convertedPrice}
-        UPDATE_VALUE_EVENT={UPDATE_DATA_EVENT_KEY + record.key}
-      />
-    )
-  },
-  {
-    title: 'Description',
-    dataIndex: 'description',
-    // ellipsis: {
-    //   showTitle: false,
-    // },
-    render: (description, record) => (
-      <Tooltip placement="topLeft" title={(
-        <PlainText type="TextArea">
-          {description}
-        </PlainText>
-      )}>
-        {description}
-      </Tooltip>
-    ),
-  },
-  {
-    title: 'Display order',
-    dataIndex: 'displayOrder',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'convertedState',
-    render: (convertedStatus, record) => {
-      return (<StatusTag value={record.state} label={convertedStatus}/>);
-    }
-  },
-];
 
 const ACTION_KEYS = {
   ADD_PRODUCT: "ADD_PRODUCT",
@@ -125,10 +29,110 @@ export default function ProductsManagementTable({ redirectTo }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedProductKeys, setSelectedProductKeys] = useState([]);
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_PRODUCTS_TABLE_EVENT_KEY';
+
   let ref = useRef({});
+
+  const columns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+    },
+    {
+      title: 'Image',
+      dataIndex: 'avatar',
+      render: (avatar, record) => <img className="table-img__icon" src={avatar} alt={record.name} />,
+    },
+    {
+      title: 'Product Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Design URL',
+      dataIndex: 'designUrl',
+      render: (designUrl) => !!designUrl ? <a href={designUrl} target='_blank' rel='noreferrer'>{designUrl}</a> : ''
+    },
+    {
+      title: 'Variant',
+      dataIndex: 'productOptions',
+      width: '15%',
+      render: (productOptions, record) => {
+        const onProductOptionsChange = (selectedProductOptions) => {
+          let calcPrice = record.price;
+          let calSku = record.id;
+          for (const [, value] of Object.entries(selectedProductOptions)) {
+            calcPrice += value.priceAdjustment;
+            calSku += '|' + value.slug;
+          }
+          events.publish(UPDATE_DATA_EVENT_KEY + record.key, {
+            convertedPrice: format.formatCurrency(calcPrice),
+            sku: calSku,
+          })
+        }
+        return (
+          <ProductOptionsView productOptions={productOptions}
+                              onProductOptionsChange={onProductOptionsChange}
+          />
+        )
+      },
+    },
+    {
+      title: 'SKU',
+      dataIndex: 'sku',
+      render: (sku, record) => (
+        <TableCellView
+          className="table-img__sku-text"
+          name="sku"
+          initialValue={sku}
+          UPDATE_VALUE_EVENT={UPDATE_DATA_EVENT_KEY + record.key}
+        />
+      )
+    },
+    {
+      title: 'Price',
+      dataIndex: 'convertedPrice',
+      width: '12%',
+      render: (convertedPrice, record) => (
+        <TableCellView
+          className="table-cell__price-text"
+          name="convertedPrice"
+          initialValue={convertedPrice}
+          UPDATE_VALUE_EVENT={UPDATE_DATA_EVENT_KEY + record.key}
+        />
+      )
+    },
+    {
+      title: 'Description',
+      dataIndex: 'description',
+      ellipsis:{
+        showTitle: false,
+      },
+      render: (description, record) => (
+        <Tooltip placement="topLeft" title={(
+          <PlainText type="TextArea">
+            {description}
+          </PlainText>
+        )}>
+          {description}
+        </Tooltip>
+      ),
+      permission: !isMobile
+    },
+    {
+      title: 'Display order',
+      dataIndex: 'displayOrder',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'convertedState',
+      render: (convertedStatus, record) => {
+        return (<StatusTag value={record.state} label={convertedStatus}/>);
+      }
+    },
+  ];
+
   const tableConfig = {
     className: isMobile && 'box-card--mobile',
-    columns,
+    columns: filterListByPermission(columns),
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, searchText, ...restParams} = params || {};
       AdminProductsService.getProducts({ ...restParams, pageNum, pageSize, searchText }, successCallback, failureCallback)
