@@ -1,4 +1,4 @@
-import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs } from 'utils';
+import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import { getFrontUserBaseURL, getFullPathImage } from '../BaseService';
 
 function login(data, successCallback, failureCallback) {
@@ -26,19 +26,19 @@ function register(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback)
 }
 
-function forgotPassword(data, successCallback, failureCallback) {
-  const url = getFrontUserBaseURL() + '/users/forgot-password';
+function forgotPassword(params, successCallback, failureCallback) {
+  const url = getFrontUserBaseURL() + '/users/forgot';
   const config = {
-    data
+    params
   };
-  makePostWithConfigs(url, config, successCallback, failureCallback)
+  makeGetWithConfigs(url, config, successCallback, failureCallback)
 }
 function changePassword(data, successCallback, failureCallback) {
-  const url = getFrontUserBaseURL() + '/users/change-password';
+  const url = getFrontUserBaseURL() + '/users/reset-pass';
   const config = {
     data
   };
-  makePostWithConfigs(url, config, successCallback, failureCallback)
+  makePutWithConfigs(url, config, successCallback, failureCallback)
 }
 
 const transformUser = item => {

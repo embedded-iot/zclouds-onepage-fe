@@ -21,7 +21,7 @@ const ChangePasswordPage = (props) => {
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const isAdminMode = props.isAdminMode;
   const queryParams = new URLSearchParams(props.location.search);
-  const username = queryParams.get("username")
+  const username = queryParams.get("userName") || queryParams.get("username")
   const code = queryParams.get("code")
   return (
     <div className={`page-wrapper change-password__wrapper ${isAdminMode && 'change-password-admin__wrapper'}`}>
