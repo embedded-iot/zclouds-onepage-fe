@@ -59,8 +59,14 @@ export default function RegisterForm({ onFinish = () => {}, hasBoxCard = true })
               message: 'Please enter email!',
             },
           ]}
+          style={{ marginBottom: 20}}
         >
           <InputText placeholder="Email"/>
+        </Form.Item>
+        <Form.Item>
+          <div className="sign-up-form__email-note">
+            Please enter the correct email to receive the account verification code
+          </div>
         </Form.Item>
         <Form.Item
           name="phoneNumber"
