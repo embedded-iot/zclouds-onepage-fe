@@ -46,9 +46,17 @@ function deleteBlogCategory(id, successCallback, failureCallback) {
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function getBlogCategoriesOptions(blogCategories) {
+  return [
+    { label: 'Select blog category', value: '' },
+    ...(blogCategories.map(category => ({ label: category.name, value: category.id })))
+  ]
+}
+
 export {
   getBlogCategories,
   createBlogCategory,
   updateBlogCategory,
   deleteBlogCategory,
+  getBlogCategoriesOptions,
 }

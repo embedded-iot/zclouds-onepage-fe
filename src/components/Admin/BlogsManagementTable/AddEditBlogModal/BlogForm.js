@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'antd';
+import { Button, Col, Form, Row } from 'antd';
 import UploadBox from 'components/Common/UploadBox';
 import {
-  STATE_LABEL_VALUE_OPTIONS,
+  ROUTERS,
+  BLOGS_STATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import { upload } from 'utils';
@@ -13,7 +14,7 @@ import { getShortPathImage } from 'services/BaseService';
 import InputNumber from 'components/Common/InputNumber';
 import TextEditor from 'components/Common/TextEditor';
 
-export default function BlogForm({ form, isEdit, initialValues, onCancel, onFinish, ...restProps }) {
+export default function BlogForm({ form, isEdit, initialValues, blogCategoriesOptions = [], redirectTo, onCancel, onFinish, ...restProps }) {
   const action = AdminBlogsService.getUploadImageUrl();
   const [deletedImages, setDeletedImages] = useState([]);
 
@@ -64,7 +65,9 @@ export default function BlogForm({ form, isEdit, initialValues, onCancel, onFini
       form={form}
       autoComplete="off"
       initialValues={{
-        state: '',
+        status: '',
+        blogCategoryId: '',
+        displayOrder: 0,
         imageFiles: upload.getFileListFromList(initialValues ? initialValues.convertedBlogImages : []),
         ...initialValues,
       }}
@@ -76,30 +79,31 @@ export default function BlogForm({ form, isEdit, initialValues, onCancel, onFini
       layout="vertical"
       {...restProps}
     >
-      <Form.Item
-        label="Image"
-        name="imageFiles"
-        valuePropName="fileList"
-        getValueFromEvent={upload.getValueFromEvent}
-      >
-        <UploadBox action={action}
-                   onRemove={handleRemoveImage}
-                   selectLabel="Choose blog image"
-                   maxFileUpload={1}
-        />
-      </Form.Item>
-      <Form.Item
-        label="Category"
-        name="category"
-        rules={[
-          {
-            required: true,
-            message: 'Please enter category!',
-          },
-        ]}
-      >
-        <InputText placeholder="Category"  />
-      </Form.Item>
+      <Row gutter={[10, 0]}>
+        <Col span={18}>
+          <Form.Item
+            label="Blog category"
+            name="blogCategoryId"
+            rules={[
+              {
+                required: true,
+                message: 'Please select blog category!',
+              },
+            ]}
+          >
+            <DropdownSelect
+              options={blogCategoriesOptions}
+            />
+          </Form.Item>
+        </Col>
+        <Col span={6}>
+          <Form.Item
+            label={"  "}
+          >
+            <Button type="primary" ghost className="add-edit-order-box__create-design" style={{ height: 35, width: '100%'}} onClick={() => redirectTo(ROUTERS.ADMIN_SYSTEM_BLOG_CATEGORIES_MANAGEMENT)}>Create</Button>
+          </Form.Item>
+        </Col>
+      </Row>
       <Form.Item
         label="Title"
         name="title"
@@ -137,6 +141,18 @@ export default function BlogForm({ form, isEdit, initialValues, onCancel, onFini
         <TextEditor />
       </Form.Item>
       <Form.Item
+        label="Image"
+        name="imageFiles"
+        valuePropName="fileList"
+        getValueFromEvent={upload.getValueFromEvent}
+      >
+        <UploadBox action={action}
+                   onRemove={handleRemoveImage}
+                   selectLabel="Choose blog image"
+                   maxFileUpload={1}
+        />
+      </Form.Item>
+      <Form.Item
         label="Display order"
         name="displayOrder"
         rules={[
@@ -149,17 +165,17 @@ export default function BlogForm({ form, isEdit, initialValues, onCancel, onFini
         <InputNumber min={0} placeholder="Display order"  />
       </Form.Item>
       <Form.Item
-        label="State"
-        name="state"
+        label="Status"
+        name="status"
         rules={[
           {
             required: true,
-            message: 'Please select state!',
+            message: 'Please select status!',
           },
         ]}
       >
         <DropdownSelect
-          options={STATE_LABEL_VALUE_OPTIONS}
+          options={BLOGS_STATE_LABEL_VALUE_OPTIONS}
         />
       </Form.Item>
       <div style={{ paddingBottom: 20}}>

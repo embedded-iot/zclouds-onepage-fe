@@ -21,7 +21,7 @@ function BlogsManagementPage(props) {
         title="Blogs management"
       />
       <div className="page-contents">
-        <BlogsManagementTable />
+        <BlogsManagementTable redirectTo={props.push} />
       </div>
     </div>
   );

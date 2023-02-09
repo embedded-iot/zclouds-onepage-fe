@@ -40,7 +40,7 @@ const transformBlog = item => {
   return {
     ...item,
     image: getFullPathImage(item.featureImage) || post,
-    headerTitle: `${item.category} - ${convertedUpdatedDate}`,
+    headerTitle: `${item.blogCategory ? item.blogCategory.name : '-'} - ${convertedUpdatedDate}`,
     title: item.title,
     description: item.description,
     content: item.content,

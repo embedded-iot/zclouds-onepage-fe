@@ -46,7 +46,7 @@ const columns = [
     title: 'Status',
     dataIndex: 'convertedState',
     render: (convertedStatus, record) => {
-      return (<StatusTag value={record.state} label={convertedStatus}/>);
+      return (<StatusTag value={record.status} label={convertedStatus}/>);
     }
   },
   {
@@ -61,7 +61,7 @@ const ACTION_KEYS = {
   DELETE_BLOG: "DELETE_BLOG",
 }
 
-export default function BlogsManagementTable() {
+export default function BlogsManagementTable({ redirectTo }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openAddBlog, setOpenAddBlog] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -175,6 +175,7 @@ export default function BlogsManagementTable() {
         openAddBlog && (
           <AddEditBlogModal
             open={openAddBlog}
+            redirectTo={redirectTo}
             data={isEdit ? selectedBlog : null}
             onOk={reloadTable}
             onCancel={() => { setOpenAddBlog(false); }}

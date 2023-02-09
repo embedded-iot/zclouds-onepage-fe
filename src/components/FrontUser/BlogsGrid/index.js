@@ -62,7 +62,6 @@ export default function BlogsGrid({ redirectTo, showAll = false }) {
     handleCLick(selectItem)
   }
 
-  const defaultParams = {};
 
   if (showAll) {
     return (
@@ -70,7 +69,10 @@ export default function BlogsGrid({ redirectTo, showAll = false }) {
                  configs={gridConfig}
                  paginationConfig={paginationConfig}
                  actionButtonList={{}}
-                 defaultParams={defaultParams}
+                 defaultParams={{
+                   sortBy: "displayOrder",
+                   sortDirection: "asc",
+                 }}
                  defaultData={{}}
                  headerActionsConfig={{}}
                  isShowPagination={true}
@@ -101,7 +103,10 @@ export default function BlogsGrid({ redirectTo, showAll = false }) {
                        configs={gridConfig}
                        paginationConfig={paginationConfig}
                        actionButtonList={{}}
-                       defaultParams={defaultParams}
+                       defaultParams={{
+                         sortBy: "displayOrder",
+                         sortDirection: "asc",
+                       }}
                        defaultData={{}}
                        headerActionsConfig={{}}
                        isShowPagination={true}

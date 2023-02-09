@@ -11,7 +11,7 @@ const transformBlog = item => {
   return {
     ...item,
     featureImage: getFullPathImage(item.featureImage) || post ,
-    convertedState: STATE_LABELS[item.state] || item.state,
+    convertedState: STATE_LABELS[item.status] || item.status,
     convertedUpdatedDate: !!item.updatedTime ? datetime.convert(item.updatedTime, DATE_FORMAT) : '',
     convertedBlogImages
   }

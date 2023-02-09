@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import { Form, notification } from 'antd';
 import BlogForm from './BlogForm';
-import { AdminBlogsService, BaseService } from 'services';
+import { AdminBlogCategoriesService, AdminBlogsService, BaseService } from 'services';
 
-export default function AddEditBlogModal({ open, data, onOk, onCancel }) {
+export default function AddEditBlogModal({ open, data, redirectTo, onOk, onCancel }) {
   const [form] = Form.useForm();
   const isEdit = !!data;
+  const [blogCategoriesOptions, setBlogCategoriesOptions] = useState([]);
+
   const handleOk = (values) => {
-    const { displayOrder, category, title, description, content, state, imageFiles } = values;
+    const { displayOrder, category, title, description, content, status, imageFiles, blogCategoryId } = values;
     const featureImage = !!imageFiles.length ? imageFiles[0].response.url : null;
     const blogData = {
-      displayOrder, category, title, description, content, state, featureImage
+      displayOrder, category, title, description, content, status, featureImage, blogCategoryId,
     }
     if (isEdit) {
       AdminBlogsService.updateBlog(data.id, blogData, response => {
@@ -38,6 +40,16 @@ export default function AddEditBlogModal({ open, data, onOk, onCancel }) {
     }
 
   }
+  const getBlogCategories = () => {
+    AdminBlogCategoriesService.getBlogCategories({ pageNum: 1, pageSize: 100 }, response => {
+      setBlogCategoriesOptions(AdminBlogCategoriesService.getBlogCategoriesOptions(response.items));
+    }, () => {}, true)
+  }
+
+  useEffect(() => {
+    getBlogCategories();
+  }, []);
+
   return (
     <ModalView type={MODAL_TYPES.CONFIRM_MODAL}
                form={form}
@@ -49,6 +61,8 @@ export default function AddEditBlogModal({ open, data, onOk, onCancel }) {
         form={form}
         isEdit={isEdit}
         initialValues={data}
+        blogCategoriesOptions={blogCategoriesOptions}
+        redirectTo={redirectTo}
         onCancel={onCancel}
         onFinish={handleOk}
       />
