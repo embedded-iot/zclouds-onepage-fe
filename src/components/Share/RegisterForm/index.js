@@ -31,6 +31,12 @@ export default function RegisterForm({ onFinish = () => {}, hasBoxCard = true })
               required: true,
               message: 'Please enter user name!',
             },
+            {
+              validator: (_, value) =>
+                !value.includes(" ")
+                  ? Promise.resolve()
+                  : Promise.reject(new Error("No spaces allowed"))
+            }
           ]}
         >
           <InputText placeholder="User Name"  />

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form } from 'antd';
 import BoxHeader from 'components/Share/BoxHeader';
 import BoxCard from 'components/Share/BoxCard';
-import InputPassword , { validatePassword } from 'components/Common/InputPassword';
+import InputPassword from 'components/Common/InputPassword';
 import InputText from 'components/Common/InputText';
 import { getFrontUserUrl } from 'services/BaseService';
 import './style.scss';
@@ -40,7 +40,6 @@ export default function LoginForm({ onFinish = () => {}, hasBoxCard = true, isAd
               required: true,
               message: 'Please enter password!',
             },
-            validatePassword
           ]}
         >
           <InputPassword placeholder="Password" />
