@@ -14,7 +14,7 @@ import ProductOptionsBox from './ProductOptionsBox';
 export default function ProductForm(
   {
     isEdit, form, onFinish, onCancel,
-    initialValues, categoriesOptions,
+    initialValues, categoriesOptions, resellersOptions,
     redirectTo,
     ...restProps
   }
@@ -69,6 +69,7 @@ export default function ProductForm(
         price: 0,
         displayOrder: 0,
         ...initialValues,
+        sellerId: initialValues && initialValues.sellerId ? initialValues.sellerId : '',
         imageFiles: upload.getFileListFromList((initialValues ? initialValues.convertedProductImages : [])),
         productOptions: AdminProductsService.buildProductOptions(initialValues ? initialValues.productOptions : []),
       }}
@@ -140,20 +141,34 @@ export default function ProductForm(
             label="Note"
             name="note"
           >
-            <InputText placeholder="Note" />
+            <InputText type="TextArea" placeholder="Note" />
           </Form.Item>
-          <Form.Item
-            label="Design URL"
-            name="designUrl"
-            rules={[
-              {
-                type: 'url',
-                message: 'Url invalid!',
-              },
-            ]}
-          >
-            <InputText placeholder="..."  />
-          </Form.Item>
+          <Row gutter={[24, 24]}>
+            <Col span={12}>
+              <Form.Item
+                label="Design URL"
+                name="designUrl"
+                rules={[
+                  {
+                    type: 'url',
+                    message: 'Url invalid!',
+                  },
+                ]}
+              >
+                <InputText placeholder="..."  />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="Display for sellers"
+                name="sellerId"
+              >
+                <DropdownSelect
+                  options={resellersOptions}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
           <Form.Item
             label="Images"
             name="imageFiles"

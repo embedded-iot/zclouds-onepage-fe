@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'antd';
 import {
-  STATE_LABEL_VALUE_OPTIONS,
+  EMAILS_STATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
 import InputText from 'components/Common/InputText';
@@ -14,7 +14,7 @@ export default function EmailForm({ form, initialValues, ...restProps }) {
       autoComplete="off"
       initialValues={{
         ...initialValues,
-        state: !!initialValues && !!initialValues.state ? initialValues.state : '',
+        status: !!initialValues && !!initialValues.status ? initialValues.status : '',
       }}
       layout="vertical"
       {...restProps}
@@ -46,7 +46,7 @@ export default function EmailForm({ form, initialValues, ...restProps }) {
         ]}
       >
         <DropdownSelect
-          options={STATE_LABEL_VALUE_OPTIONS}
+          options={EMAILS_STATE_LABEL_VALUE_OPTIONS}
         />
       </Form.Item>
     </Form>

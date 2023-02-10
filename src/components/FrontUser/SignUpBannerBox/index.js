@@ -51,7 +51,7 @@ export default function SignUpBannerBox(props) {
               <InputText placeholder={'Your email address'} />
             </Form.Item>
             <Form.Item>
-              <Button className="signup-banner__button" htmlType="submit" style={{ width: isMobile ? '100%' : 'auto'}} onClick={handleSubscribe}>Subscribe Now!</Button>
+              <Button className="signup-banner__button" htmlType="submit" style={{ width: isMobile ? '100%' : 'auto'}}>Subscribe Now!</Button>
             </Form.Item>
           </Form>
         </div>

@@ -122,6 +122,13 @@ export default function ProductsManagementTable({ redirectTo }) {
       dataIndex: 'displayOrder',
     },
     {
+      title: 'Display for sellers',
+      dataIndex: 'sellerId',
+      render: (sellerId, record) => (
+        sellerId ? <span className="link link--text">{sellerId}</span> : 'All'
+      )
+    },
+    {
       title: 'Status',
       dataIndex: 'convertedState',
       render: (convertedStatus, record) => {

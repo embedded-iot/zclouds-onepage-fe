@@ -24,7 +24,7 @@ export default function DeleteBlogModal({ open, data, onOk, onCancel }) {
                onOk={handleOk}
                onCancel={onCancel}
     >
-    <div>Delete {data ? data.name : 'Blog name'}</div>
+    <div>Delete {data ? data.title : 'Blog title'}</div>
     </ModalView>
   )
 }

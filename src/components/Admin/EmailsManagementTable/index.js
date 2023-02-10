@@ -20,14 +20,10 @@ const columns = [
     dataIndex: 'email',
   },
   {
-    title: 'Created Date',
-    dataIndex: 'convertedCreatedDate',
-  },
-  {
     title: 'Status',
     dataIndex: 'convertedStatus',
     render: (convertedStatus, record) => {
-      return (<StatusTag value={record.state} label={convertedStatus}/>);
+      return (<StatusTag value={record.status} label={convertedStatus}/>);
     }
   },
 ];
@@ -69,7 +65,7 @@ export default function EmailsManagementTable() {
   }
 
   const exportEmails = () => {
-    const params = selectedKeys.length ? { listOrderId: [...selectedKeys].join(',') } : { ...ref.current.params, }
+    const params = selectedKeys.length ? { listSubscriberId: [...selectedKeys].join(',') } : { ...ref.current.params, }
     AdminEmailsService.exportEmails(params, response => {
       downloadFile(response, `emails_${datetime.convert(new Date(), DATETIME_FORMAT)}.xlsx`);
       notification.success({
@@ -120,10 +116,32 @@ export default function EmailsManagementTable() {
         permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_DELETE_EMAIL),
       },
       {
-        type: 'custom',
-        render: <div></div>,
+        type: 'searchText',
+        span: 24,
         requiredSelection: false,
-        permission: !isMobile,
+        props: {
+          placeholder: 'Search by email...',
+        }
+      },
+      {
+        type: 'pageNum',
+        span: 12,
+        requiredSelection: false,
+        align: 'right',
+      },
+      {
+        type: 'pageSize',
+        span: 12,
+        requiredSelection: false,
+        align: 'right',
+      },
+      {
+        type: 'searchButton',
+        span: 12,
+        requiredSelection: false,
+        props: isMobile && {
+          style: { width: '100%' }
+        },
       },
       {
         type: 'custom',

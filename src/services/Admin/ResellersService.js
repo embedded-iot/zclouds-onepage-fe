@@ -29,9 +29,9 @@ function getResellers(params, successCallback, failureCallback) {
   });
 }
 
-function getResellersOptions(stores, isHasDefaultOption = true, defaultValueKey = 'id') {
+function getResellersOptions(stores, isHasDefaultOption = true, defaultValueKey = 'id', defaultLabel = 'Select seller') {
   return [
-    ...(isHasDefaultOption ? [{ label: 'Select store', value: '' }] : []),
+    ...(isHasDefaultOption ? [{ label: defaultLabel, value: '' }] : []),
     ...(stores.map(store => ({ label: store.username, value: store[defaultValueKey] })))
   ]
 }

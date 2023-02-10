@@ -124,7 +124,7 @@ export default function BlogCategoriesManagementTable() {
       },
       {
         type: 'custom',
-        render: <Button key={ACTION_KEYS.ADD_BLOG_CATEGORIES} type="primary" icon={<PlusCircleOutlined />} style={{ width: isMobile ? '100%' : 'auto' }}  onClick={addBlogCategories}>Add BlogCategories</Button>,
+        render: <Button key={ACTION_KEYS.ADD_BLOG_CATEGORIES} type="primary" icon={<PlusCircleOutlined />} style={{ width: isMobile ? '100%' : 'auto' }}  onClick={addBlogCategories}>Add blog category</Button>,
         span: 12,
         align: 'right',
         permission: authentication.getPermission(PERMISSION_VALUES.ADMIN_ADD_EDIT_BLOG),

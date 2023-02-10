@@ -14,11 +14,11 @@ function EmailsManagementPage(props) {
   return (
     <div className="page-wrapper">
       <Helmet>
-        <title>Emails management</title>
+        <title>Subscribers management</title>
       </Helmet>
       <PageHeader
         className={isMobile && 'box-card--mobile'}
-        title="Emails management"
+        title="Subscribers management"
       />
       <div className="page-contents">
         <EmailsManagementTable />

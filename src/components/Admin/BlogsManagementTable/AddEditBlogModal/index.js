@@ -3,6 +3,7 @@ import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import { Form, notification } from 'antd';
 import BlogForm from './BlogForm';
 import { AdminBlogCategoriesService, AdminBlogsService, BaseService } from 'services';
+import { getShortPathImage } from 'services/BaseService';
 
 export default function AddEditBlogModal({ open, data, redirectTo, onOk, onCancel }) {
   const [form] = Form.useForm();
@@ -13,7 +14,7 @@ export default function AddEditBlogModal({ open, data, redirectTo, onOk, onCance
     const { displayOrder, category, title, description, content, status, imageFiles, blogCategoryId } = values;
     const featureImage = !!imageFiles.length ? imageFiles[0].response.url : null;
     const blogData = {
-      displayOrder, category, title, description, content, status, featureImage, blogCategoryId,
+      displayOrder, category, title, description, content, status, featureImage: getShortPathImage(featureImage), blogCategoryId,
     }
     if (isEdit) {
       AdminBlogsService.updateBlog(data.id, blogData, response => {

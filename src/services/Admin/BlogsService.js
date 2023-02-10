@@ -10,9 +10,10 @@ const transformBlog = item => {
   }));
   return {
     ...item,
+    category: item.blogCategory ? item.blogCategory.name : '',
     featureImage: getFullPathImage(item.featureImage) || post ,
     convertedState: STATE_LABELS[item.status] || item.status,
-    convertedUpdatedDate: !!item.updatedTime ? datetime.convert(item.updatedTime, DATE_FORMAT) : '',
+    convertedUpdatedDate: !!item.modifiedAt ? datetime.convert(item.modifiedAt, DATE_FORMAT) : '',
     convertedBlogImages
   }
 }

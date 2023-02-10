@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Form, notification } from 'antd';
 import ProductForm from './ProductForm';
-import { AdminCategoriesService, AdminProductsService, BaseService } from 'services';
+import { AdminCategoriesService, AdminProductsService, AdminResellersService, BaseService } from 'services';
 import { getCategoriesOptions } from 'services/Admin/CategoriesService';
 import BoxCard from 'components/Share/BoxCard';
+import { cui } from 'utils';
 
 import "./style.scss";
 
@@ -11,14 +12,23 @@ export default function AddEditProductBox({ data, onOk, onCancel, redirectTo }) 
   const [form] = Form.useForm();
   const isEdit = !!data;
   const [categoriesOptions, setCategoriesOptions] = useState([]);
+  const [resellersOptions, setResellerSOptions] = useState([]);
   const getCategoriesFilter = () => {
     AdminCategoriesService.getCategories({ pageNum: 1, pageSize: 1000 }, response => {
       setCategoriesOptions(getCategoriesOptions(response.items));
     }, () => {}, true)
   }
 
+  const getResellersOptions = (params = {}) => {
+    AdminResellersService.getResellers( cui.removeEmpty({ pageNum: 1, pageSize: 100, ...params }), response => {
+      const newOptions = AdminResellersService.getResellersOptions(response.items, true, undefined, 'All sellers');
+      setResellerSOptions(newOptions);
+    }, () => {})
+  }
+
   useEffect(() => {
     getCategoriesFilter();
+    getResellersOptions();
   }, []);
 
   const handleOk = (values) => {
@@ -34,6 +44,7 @@ export default function AddEditProductBox({ data, onOk, onCancel, redirectTo }) 
       categoryId: values.categoryId,
       designUrl: values.designUrl,
       displayOrder: values.displayOrder,
+      sellerId: values.sellerId || 0,
       listImgId: images.map(image => image.id),
     }
 
@@ -86,6 +97,7 @@ export default function AddEditProductBox({ data, onOk, onCancel, redirectTo }) 
                    isEdit={isEdit}
                    initialValues={data}
                    categoriesOptions={categoriesOptions}
+                   resellersOptions={resellersOptions}
                    onCancel={onCancel}
                    onFinish={handleOk}
                    redirectTo={redirectTo}

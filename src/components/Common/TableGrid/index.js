@@ -126,7 +126,10 @@ export default function TableGrid({
       label: `Page ${index + 1}`,
       value: (index + 1).toString(),
     }));
-    setPageNumOptions(pageNumOptionList);
+    setPageNumOptions(pageNumOptionList.length ? pageNumOptionList : [{
+      label: `Page 1`,
+      value: '1',
+    }]);
   }, [params, data]);
 
   const onSelectChange = (newSelectedRowKey = []) => {

@@ -133,7 +133,7 @@ export default function BlogsManagementTable({ redirectTo }) {
         span: 24,
         requiredSelection: false,
         props: {
-          placeholder: 'Search by title, description...',
+          placeholder: 'Search by title...',
         }
       },
       {
@@ -147,6 +147,14 @@ export default function BlogsManagementTable({ redirectTo }) {
         span: 12,
         requiredSelection: false,
         align: 'right',
+      },
+      {
+        type: 'searchButton',
+        span: 12,
+        requiredSelection: false,
+        props: isMobile && {
+          style: { width: '100%' }
+        },
       },
       {
         type: 'custom',

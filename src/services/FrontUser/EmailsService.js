@@ -1,10 +1,10 @@
 import { getFrontUserBaseURL } from 'services/BaseService';
 import { makePostWithConfigs } from 'utils';
 
-function subscribeEmail(data, successCallback, failureCallback) {
-  const url = getFrontUserBaseURL() + '/email/subscribe';
+function subscribeEmail(params, successCallback, failureCallback) {
+  const url = getFrontUserBaseURL() + '/subscribers';
   const config = {
-    data
+    params
   };
   makePostWithConfigs(url, config, successCallback, failureCallback)
 }
