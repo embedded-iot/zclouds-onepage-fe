@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { AdminBlogsService } from 'services';
 import { authentication, events } from 'utils';
-import { Button } from 'antd';
+import { Button, Tooltip } from 'antd';
 import { PlusCircleOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import AddEditBlogModal from './AddEditBlogModal';
 import DeleteBlogModal from './DeleteBlogModal';
@@ -12,48 +12,8 @@ import { PERMISSION_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
 import PlainText from 'components/Common/PlainText';
 import ReactHtmlParser from 'react-html-parser';
+import { filterListByPermission } from 'services/BaseService';
 
-const columns = [
-  {
-    title: 'Image',
-    dataIndex: 'featureImage',
-    render: (featureImage, record) => <img className="table-img__icon table-img__icon--width-auto" src={featureImage} alt={record.title} />,
-  },
-  {
-    title: 'Category',
-    dataIndex: 'category',
-  },
-  {
-    title: 'Title',
-    dataIndex: 'title',
-  },
-  {
-    title: 'Description',
-    dataIndex: 'description',
-  },
-  {
-    title: 'Content',
-    dataIndex: 'content',
-    render: (content) => {
-      return <PlainText type="TextArea">{ReactHtmlParser(content)}</PlainText>
-    }
-  },
-  {
-    title: 'Display order',
-    dataIndex: 'displayOrder',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'convertedState',
-    render: (convertedStatus, record) => {
-      return (<StatusTag value={record.status} label={convertedStatus}/>);
-    }
-  },
-  {
-    title: 'Updated Date',
-    dataIndex: 'convertedUpdatedDate',
-  },
-];
 
 const ACTION_KEYS = {
   ADD_BLOG: "ADD_BLOG",
@@ -69,9 +29,61 @@ export default function BlogsManagementTable({ redirectTo }) {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const RELOAD_EVENT_KEY = 'RELOAD_ADMIN_BLOGS_TABLE_EVENT_KEY';
   let ref = useRef({});
+
+
+  const columns = [
+    {
+      title: 'Image',
+      dataIndex: 'featureImage',
+      render: (featureImage, record) => <img className="table-img__icon table-img__icon--width-auto" src={featureImage} alt={record.title} />,
+    },
+    {
+      title: 'Category',
+      dataIndex: 'category',
+    },
+    {
+      title: 'Title',
+      dataIndex: 'title',
+    },
+    {
+      title: 'Description',
+      dataIndex: 'description',
+    },
+    {
+      title: 'Content',
+      dataIndex: 'content',
+      ellipsis:{
+        showTitle: false,
+      },
+      render: (content, record) => (
+        <Tooltip placement="topLeft" title={(
+          <PlainText type="TextArea">{ReactHtmlParser(content)}</PlainText>
+        )}>
+          {ReactHtmlParser(content)}
+        </Tooltip>
+      ),
+      permission: !isMobile
+    },
+    {
+      title: 'Display order',
+      dataIndex: 'displayOrder',
+    },
+    {
+      title: 'Status',
+      dataIndex: 'convertedState',
+      render: (convertedStatus, record) => {
+        return (<StatusTag value={record.status} label={convertedStatus}/>);
+      }
+    },
+    {
+      title: 'Updated Date',
+      dataIndex: 'convertedUpdatedDate',
+    },
+  ];
+
   const tableConfig = {
     className: isMobile && 'box-card--mobile',
-    columns,
+    columns: filterListByPermission(columns),
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
       AdminBlogsService.getBlogs({ ...restParams, pageSize, pageNum }, successCallback, failureCallback)
