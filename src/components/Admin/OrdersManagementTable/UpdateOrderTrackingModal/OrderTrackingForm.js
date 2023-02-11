@@ -93,7 +93,7 @@ export default function OrderTrackingForm({ form, initialValues, ...restProps })
         </Col>
       </Row>
       <Form.Item
-        label="Producer price"
+        label="Cost price"
         name="costPrice"
       >
         <InputNumber min={0} placeholder="Tracking Number" />

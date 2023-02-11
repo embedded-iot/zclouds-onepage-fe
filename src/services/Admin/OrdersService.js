@@ -21,6 +21,7 @@ const transformOrder = item => {
     convertedDesignUrl: convertedDesignUrl ? (convertedDesignUrl.startsWith('https://drive.google.com') ? googleDrive : convertedDesignUrl) : shirt_sku,
     convertedProductPrice: format.formatCurrency(item.productPrice || 0),
     convertedPriceTotal: format.formatCurrency(item.totalPrice || 0),
+    convertedCostPrice: format.formatCurrency(item.costPrice || 0),
     convertedStatus: STATE_LABELS[item.status] || item.status,
     customerFullName: item.orderShipping && item.orderShipping.fullName ,
     convertedShippingStatus: item.orderTracking ? (SHIPPING_STATUS_LABELS[item.orderTracking.shippingStatus] || item.orderTracking.shippingStatus) : '',

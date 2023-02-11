@@ -85,12 +85,13 @@ const columns = [
     render: (convertedDesignUrl, record) => <img className="table-img__icon table-img__icon--circle" src={convertedDesignUrl} alt={record.orderNumber} />,
   },
   {
-    title: 'Design SKU',
-    dataIndex: 'designSKU',
-  },
-  {
     title: 'Date order',
     dataIndex: 'convertedCreatedDate',
+  },
+  {
+    title: 'Cost price',
+    dataIndex: 'convertedCostPrice',
+    render: (convertedCostPrice) => <span className='table-cell__price-text'>{convertedCostPrice}</span>
   },
   {
     title: 'Price/Number',
