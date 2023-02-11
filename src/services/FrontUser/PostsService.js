@@ -36,11 +36,11 @@ function getPosts(params, successCallback, failureCallback) {
 }
 
 const transformBlog = item => {
-  const convertedUpdatedDate = !!item.updatedTime ? datetime.convert(item.updatedTime, DATE_FORMAT) : '';
+  const convertedUpdatedDate = !!item.modifiedAt ? datetime.convert(item.modifiedAt, DATE_FORMAT) : datetime.convert(new Date(), DATE_FORMAT);
   return {
     ...item,
     image: getFullPathImage(item.featureImage) || post,
-    headerTitle: `${item.blogCategory ? item.blogCategory.name : '-'} - ${convertedUpdatedDate}`,
+    headerTitle: `${item.blogCategory ? item.blogCategory.name : 'Blog category'} - ${convertedUpdatedDate}`,
     title: item.title,
     description: item.description,
     content: item.content,

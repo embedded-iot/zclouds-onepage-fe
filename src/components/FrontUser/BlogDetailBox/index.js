@@ -9,7 +9,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 import './style.scss';
 
-export default function BlogDetailBox({ defaultBlog = null, isAddOrder, blogId, redirectTo }) {
+export default function BlogDetailBox({ defaultBlog = null, blogCategoryId, blogId, redirectTo }) {
   const [blog, setBlog] = useState(defaultBlog);
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const getBlogDetail = () => {
@@ -48,6 +48,7 @@ export default function BlogDetailBox({ defaultBlog = null, isAddOrder, blogId, 
         <Col span={isMobile ? 24 : 6}>
           <BlogsGrid redirectTo={redirectTo}
                      showAll={true}
+                     blogCategoryId={blogCategoryId}
           />
         </Col>
       </Row>

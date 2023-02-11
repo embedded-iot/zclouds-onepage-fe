@@ -18,7 +18,7 @@ export const ROUTERS = {
   FRONT_USER_PRODUCT_DETAIL: '/products/:categoryName/:productName/:categoryId/:productId',
   FRONT_USER_SKU: '/sku',
   FRONT_USER_BLOGS: '/blogs',
-  FRONT_USER_DETAIL_BLOG: '/blogs/:blogId',
+  FRONT_USER_BLOG_DETAIL: '/blogs/:blogCategoryName/:blogName/:blogCategoryId/:blogId',
   SELLER_ORDERS: '/orders',
   SELLER_DETAIL_ORDER: '/orders/:orderId',
   SELLER_DETAIL_ORDER_WITH_PRODUCT: '/orders/:orderId/productId/:productId',

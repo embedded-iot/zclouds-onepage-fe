@@ -23,19 +23,12 @@
       }
     }
   }
-  &__blog-list:not(.banner-box-6__blog-list--mobile) {
+  &__blog-list {
     margin: 32px -13px 0;
-    position: relative;
-    .react-multi-carousel-list {
-      position: unset;
-    }
-    .react-multiple-carousel__arrow {
-      //top: 59px;
-      &--left {
-        left: -59px;
-      }
-      &--right {
-        right: -59px;
+    &--no-margin {
+      margin: 0;
+      .blog-card__item {
+        padding: 0;
       }
     }
   }

@@ -142,7 +142,7 @@ const FrontUserAppContent = (props) => (
       <Route exact path={ROUTERS.FRONT_USER_PRODUCT_DETAIL} component={FrontUserProductDetailPage} />
       <Route exact path={ROUTERS.FRONT_USER_SKU} component={FrontUserSKUPage} />
       <Route exact path={ROUTERS.FRONT_USER_BLOGS} component={FrontUserBlogsPage} />
-      <Route exact path={ROUTERS.FRONT_USER_DETAIL_BLOG} component={FrontUserBlogDetailPage} />
+      <Route exact path={ROUTERS.FRONT_USER_BLOG_DETAIL} component={FrontUserBlogDetailPage} />
     </Switch>
   </>
 

@@ -6,20 +6,24 @@ import TableGrid from 'components/Common/TableGrid';
 import { FrontUserPostsService } from 'services';
 import BlogSlideItem from 'components/FrontUser/BlogSlideItem';
 
-const gridItemTemplate = ({ item }) => {
-  return <BlogSlideItem data={item} />
+const gridItemTemplate = ({ item, imageHeight }) => {
+  return <BlogSlideItem data={item} imageHeight={imageHeight}/>
 }
 
-export default function BlogsGrid({ redirectTo, showAll = false }) {
+export default function BlogsGrid({ redirectTo, showAll = false, blogCategoryId}) {
   const [firstBlog, setFirstBlog] = useState(null);
   const [totalCount, setTotalCount] = useState(0);
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
+  const isExTablet = useMediaQuery(RESPONSIVE_MEDIAS.EX_TABLET);
   const RELOAD_EVENT_KEY = 'RELOAD_ORDER_TABLE_EVENT_KEY';
 
   const handleCLick = (data) => {
-    redirectTo(ROUTERS.FRONT_USER_BLOGS + '/' + data.id)
+    const { id, title, blogCategoryId, blogCategory = {}} = data;
+    redirectTo(ROUTERS.FRONT_USER_BLOGS + `/${encodeURIComponent(blogCategory ? blogCategory.name : 'Blog Category')}/${encodeURIComponent(title)}/${blogCategoryId || -1}/${id}`)
   }
+  // eslint-disable-next-line
+  const imageHeight = (showAll || isMobile) && 'auto' || isTablet && 250 || isExTablet && 200 ||  180;
 
   const gridConfig = {
     gutter: showAll || isMobile ? [0, 16] : [16, 16],
@@ -27,7 +31,7 @@ export default function BlogsGrid({ redirectTo, showAll = false }) {
     // eslint-disable-next-line
     colSpan: (showAll || isMobile) && 24 || isTablet && 12 || 8,
     searchPlaceholder: 'Search in Object Mockups',
-    gridItemTemplate: gridItemTemplate,
+    gridItemTemplate: (props) => gridItemTemplate({ ...props, imageHeight }),
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, categoryId, ...restParams} = params || {};
       FrontUserPostsService.getBlogs({ ...restParams, pageSize, pageNum }, response => {
@@ -72,6 +76,7 @@ export default function BlogsGrid({ redirectTo, showAll = false }) {
                  defaultParams={{
                    sortBy: "displayOrder",
                    sortDirection: "asc",
+                   blogCategoryId: blogCategoryId ? blogCategoryId : -1
                  }}
                  defaultData={{}}
                  headerActionsConfig={{}}
@@ -106,6 +111,7 @@ export default function BlogsGrid({ redirectTo, showAll = false }) {
                        defaultParams={{
                          sortBy: "displayOrder",
                          sortDirection: "asc",
+                         blogCategoryId: blogCategoryId ? blogCategoryId : -1
                        }}
                        defaultData={{}}
                        headerActionsConfig={{}}

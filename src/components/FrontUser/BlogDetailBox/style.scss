@@ -1,4 +1,7 @@
 .blog-detail-box {
+  &__wrapper {
+    margin-top: 24px;
+  }
   &__header-title {
     color: #B3B9C4;
     margin-bottom: 4px;
