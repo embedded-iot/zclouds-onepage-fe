@@ -47,7 +47,7 @@ export default function WalletTotalCards() {
   return (
     <Row gutter={isMobile ? [0, 8] : [0, 16]}>
       {
-        data.convertedWalletTotal < 0 && (
+        data.walletTotal < 0 && (
           <Col span={24}>
             <Alert
               message={'Please top up your account to complete the shipping of your order'}
