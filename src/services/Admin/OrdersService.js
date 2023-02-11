@@ -1,6 +1,7 @@
 import { getFullPathImage, getAdminBaseURL } from 'services/BaseService';
 import { datetime, format, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
 import shirt_sku from 'images/t-shirt_sku.svg';
+import googleDrive from 'images/google_drive_icon.svg';
 import {
   DATE_FORMAT,
   SHIPPING_STATUS_LABELS,
@@ -17,7 +18,7 @@ const transformOrder = item => {
     mockupUrl: convertedMockupUrl || '',
     designUrl: convertedDesignUrl || '',
     convertedMockupUrl: convertedMockupUrl || shirt_sku,
-    convertedDesignUrl: convertedDesignUrl || shirt_sku,
+    convertedDesignUrl: convertedDesignUrl ? (convertedDesignUrl.startsWith('https://drive.google.com') ? googleDrive : convertedDesignUrl) : shirt_sku,
     convertedProductPrice: format.formatCurrency(item.productPrice || 0),
     convertedPriceTotal: format.formatCurrency(item.totalPrice || 0),
     convertedStatus: STATE_LABELS[item.status] || item.status,
