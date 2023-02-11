@@ -37,7 +37,7 @@ export default function EmailForm({ form, initialValues, ...restProps }) {
       </Form.Item>
       <Form.Item
         label="Status"
-        name="state"
+        name="status"
         rules={[
           {
             required: true,
