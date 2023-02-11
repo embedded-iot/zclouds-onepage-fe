@@ -1,16 +1,18 @@
 import React from 'react';
-import { Col, Row } from 'antd';
+import { Button, Col, Row } from 'antd';
 import logo from 'images/logo-white.svg';
 import call from 'images/call.png';
 import zalo from 'images/zalo.png';
 import facebook from 'images/facebook.png';
 import { SellerSystemService } from 'services';
-import { RESPONSIVE_MEDIAS, SYSTEM_CONFIG_VALUE } from 'components/contants';
+import { RESPONSIVE_MEDIAS, ROUTERS, SYSTEM_CONFIG_VALUE } from 'components/contants';
 import { MessengerChat } from 'react-messenger-chat-plugin';
 import { useMediaQuery } from 'react-responsive';
+import { DoubleRightOutlined } from '@ant-design/icons';
+
 import './style.scss';
 
-export default function Footer({ systemConfigs = []}) {
+export default function Footer({ systemConfigs = [], redirectTo = () => {}}) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const pageID = SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK_PAGE_ID);
   return (
@@ -61,15 +63,7 @@ export default function Footer({ systemConfigs = []}) {
         </Row>
       </div>
       <div className='public-footer__social-contact--fixed'>
-        <span className="cursor-pointer" onClick={() => window.open(`tel:${SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_PHONE_CALL)}`, '_self')}>
-          <img src={call} alt='call' style={{width: 50}}/>
-        </span>
-        <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_ZALO)} target='_blank' rel="noreferrer">
-          <img src={zalo} alt='zalo' style={{width: 75}}/>
-        </a>
-        <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK)} target='_blank' rel="noreferrer">
-          <img src={facebook} alt='facebook' style={{width: 60}}/>
-        </a>
+        <Button type="primary" shape="round" icon={<DoubleRightOutlined />} size={isMobile ? 'middle' : 'large'} onClick={() => redirectTo(ROUTERS.FRONT_USER_REGISTER)}>Register Now</Button>
         {
           !!pageID && <MessengerChat pageId={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK_PAGE_ID)} />
         }

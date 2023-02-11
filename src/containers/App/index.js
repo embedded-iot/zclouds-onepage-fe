@@ -364,7 +364,7 @@ const App = (props) => {
           />
         )}
         content={<FrontUserAppContent />}
-        footer={isFrontFooter && <FrontUserFooter systemConfigs={props.systemConfigs} />}
+        footer={isFrontFooter && <FrontUserFooter systemConfigs={props.systemConfigs} redirectTo={redirectTo}  />}
         router={props.router}
       />
     </AppWrapper>
