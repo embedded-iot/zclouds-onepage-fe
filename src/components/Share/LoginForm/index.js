@@ -10,7 +10,7 @@ import { ROUTERS } from 'components/contants';
 export default function LoginForm({ onFinish = () => {}, hasBoxCard = true, isAdminMode = false, redirectTo = () => {} }) {
   const BoxWrapper = hasBoxCard ? BoxCard : 'div';
   return (
-    <BoxWrapper className="sign-in-form__wrapper" style={{ maxWidth: hasBoxCard && 400 }}>
+    <BoxWrapper className="sign-in-form__wrapper" style={{ width: hasBoxCard && 400 }}>
       <BoxHeader
         title="Sign in to CS Fulfill"
         description="Log in with your data that you entered during registration."

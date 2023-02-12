@@ -11,7 +11,7 @@ import './style.scss';
 export default function ChangePasswordForm({ onFinish = () => {}, hasBoxCard = true, isAdminMode = false, redirectTo = () => {} }) {
   const BoxWrapper = hasBoxCard ? BoxCard : 'div';
   return (
-    <BoxWrapper className="forgot-password-form__wrapper" style={{ maxWidth: hasBoxCard && 400 }}>
+    <BoxWrapper className="forgot-password-form__wrapper" style={{ width: hasBoxCard && 400 }}>
       <BoxHeader
         title="Create new password"
       />

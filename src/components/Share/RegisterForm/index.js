@@ -13,7 +13,7 @@ export default function RegisterForm({ onFinish = () => {}, hasBoxCard = true })
   // eslint-disable-next-line
   const BoxWrapper = hasBoxCard ? BoxCard : 'div';
   return (
-    <BoxWrapper className="sign-up-form__wrapper" style={{ maxWidth: hasBoxCard && 400 }}>
+    <BoxWrapper className="sign-up-form__wrapper" style={{ width: hasBoxCard && 400 }}>
       <BoxHeader
         title="Sign up"
         description="Log in with your data that you entered during registration."

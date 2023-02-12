@@ -12,7 +12,7 @@ import './style.scss';
 export default function ForgotPasswordForm({ onFinish = () => {}, hasBoxCard = true, isAdminMode = false, redirectTo = () => {} }) {
   const BoxWrapper = hasBoxCard ? BoxCard : 'div';
   return (
-    <BoxWrapper className="forgot-password-form__wrapper" style={{ maxWidth: hasBoxCard && 400 }}>
+    <BoxWrapper className="forgot-password-form__wrapper" style={{ width: hasBoxCard && 400 }}>
       <BoxHeader
         title="Reset Your Password"
         description="Lost your password? Please enter your email address. You will receive a link to create a new password via email."
