@@ -35,18 +35,24 @@ function HomePage(props) {
           customClass={customClass}
           redirectTo={props.push}
         />
-        <BannerBox1
-          customClass={customClass}
-          redirectTo={props.push}
-        />
-        <BannerBox2
-          customClass={customClass}
-          redirectTo={props.push}
-        />
-        <BannerBox3
-          customClass={customClass}
-          redirectTo={props.push}
-        />
+        {
+          !isMobile && (
+            <>
+              <BannerBox1
+                customClass={customClass}
+                redirectTo={props.push}
+              />
+              <BannerBox2
+                customClass={customClass}
+                redirectTo={props.push}
+              />
+              <BannerBox3
+                customClass={customClass}
+                redirectTo={props.push}
+              />
+            </>
+          )
+        }
         <BannerBox4
           customClass={customClass}
           redirectTo={props.push}

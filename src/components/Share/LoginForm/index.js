@@ -5,8 +5,10 @@ import BoxCard from 'components/Share/BoxCard';
 import InputPassword from 'components/Common/InputPassword';
 import InputText from 'components/Common/InputText';
 import { getFrontUserUrl } from 'services/BaseService';
-import './style.scss';
 import { ROUTERS } from 'components/contants';
+
+import './style.scss';
+
 export default function LoginForm({ onFinish = () => {}, hasBoxCard = true, isAdminMode = false, redirectTo = () => {} }) {
   const BoxWrapper = hasBoxCard ? BoxCard : 'div';
   return (
@@ -22,15 +24,19 @@ export default function LoginForm({ onFinish = () => {}, hasBoxCard = true, isAd
         layout="vertical"
       >
         <Form.Item
-          name="userName"
+          name="email"
           rules={[
             {
+              type: 'email',
+              message: 'Email is invalid!',
+            },
+            {
               required: true,
-              message: 'Please enter user name!',
+              message: 'Please enter email!',
             },
           ]}
         >
-          <InputText placeholder="User Name"  />
+          <InputText placeholder="Email"/>
         </Form.Item>
 
         <Form.Item

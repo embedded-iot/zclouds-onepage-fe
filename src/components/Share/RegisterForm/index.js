@@ -25,35 +25,6 @@ export default function RegisterForm({ onFinish = () => {}, hasBoxCard = true })
         layout="vertical"
       >
         <Form.Item
-          name="userName"
-          rules={[
-            {
-              required: true,
-              message: 'Please enter user name!',
-            },
-            {
-              validator: (_, value) =>
-                !value.includes(" ")
-                  ? Promise.resolve()
-                  : Promise.reject(new Error("No spaces allowed"))
-            }
-          ]}
-        >
-          <InputText placeholder="User Name"  />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please enter password!',
-            },
-            validatePassword,
-          ]}
-        >
-          <InputPassword placeholder="Password" />
-        </Form.Item>
-        <Form.Item
           name="email"
           rules={[
             {
@@ -73,6 +44,18 @@ export default function RegisterForm({ onFinish = () => {}, hasBoxCard = true })
           <div className="sign-up-form__email-note">
             Please enter the correct email to receive the account verification code
           </div>
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter password!',
+            },
+            validatePassword,
+          ]}
+        >
+          <InputPassword placeholder="Password" />
         </Form.Item>
         <Form.Item
           name="phoneNumber"
