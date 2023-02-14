@@ -1,6 +1,9 @@
 .banner-box-3 {
   &__wrapper {
     background: #FAFBFC;
+    &--mobile {
+      padding: 0 !important;
+    }
     .category-slides__wrapper {
       margin-top: 20px;
     }

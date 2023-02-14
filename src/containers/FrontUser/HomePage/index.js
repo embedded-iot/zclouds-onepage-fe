@@ -46,13 +46,13 @@ function HomePage(props) {
                 customClass={customClass}
                 redirectTo={props.push}
               />
-              <BannerBox3
-                customClass={customClass}
-                redirectTo={props.push}
-              />
             </>
           )
         }
+        <BannerBox3
+          customClass={customClass}
+          redirectTo={props.push}
+        />
         <BannerBox4
           customClass={customClass}
           redirectTo={props.push}
