@@ -1,12 +1,12 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { BaseService, SellerIntegrationsService } from 'services';
-import { notification, Tag } from 'antd';
+import { Button, notification, Tag } from 'antd';
 import Icon from 'components/Common/Icon';
 import searchGreenIcon from 'images/search_green.svg';
 import { PERMISSION_VALUES, RESPONSIVE_MEDIAS, STORE_TYPE_ICONS } from 'components/contants';
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
-
+import { CopyOutlined } from '@ant-design/icons';
 import { authentication, events } from 'utils';
 import { filterListByPermission } from 'services/BaseService';
 import { useMediaQuery } from 'react-responsive';
@@ -16,6 +16,7 @@ import './style.scss';
 const ACTION_KEYS = {
   ACTION_EVENTS: "INTEGRATION_ORDER_ACTION_EVENTS",
   CLONE_ORDER: "CLONE_ORDER",
+  CLONE_ORDERS: "CLONE_ORDERS",
 }
 
 const actionItems = [
@@ -77,6 +78,7 @@ const columns = [
 
 export default function IntegrationOrdersTable({ type, storeId, successCallback = () => {}, RELOAD_EVENT_KEY = 'RELOAD_RESELLER_STORE_TABLE_EVENT_KEY' }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+  const [selectedKeys, setSelectedKeys] = useState([]);
   // eslint-disable-next-line
   let ref = useRef({});
   const tableConfig = {
@@ -106,6 +108,18 @@ export default function IntegrationOrdersTable({ type, storeId, successCallback 
       });
     } )
   }
+  const cloneOrders = () => {
+    notification.success({
+      message: "Sent the request to clone orders successful!",
+    });
+    SellerIntegrationsService.cloneOrders(type, storeId, selectedKeys , response => {
+
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error,"Sent the request to clone orders failure!"),
+      });
+    } )
+  }
 
   const headerActionsConfig = {
     allowRowLayout: isMobile,
@@ -113,26 +127,35 @@ export default function IntegrationOrdersTable({ type, storeId, successCallback 
     className: isMobile && 'box-card--mobile',
     buttonList: [
       {
+        type: 'custom',
+        render: <Button key={ACTION_KEYS.CLONE_ORDERS} icon={<CopyOutlined />} onClick={cloneOrders}>Clone selected orders</Button>,
+        requiredSelection: true,
+        permission: authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER),
+      },
+      {
         type: 'searchText',
         span: 24,
         props: {
           placeholder: 'Search...',
           theme: 'light',
-        }
+        },
+        requiredSelection: false,
       },
       {
         type: 'pageNum',
         span: 12,
         props: {
           theme: 'light',
-        }
+        },
+        requiredSelection: false,
       },
       {
         type: 'pageSize',
         span: 12,
         props: {
           theme: 'light',
-        }
+        },
+        requiredSelection: false,
       },
       {
         type: 'searchButton',
@@ -141,7 +164,8 @@ export default function IntegrationOrdersTable({ type, storeId, successCallback 
           style: isMobile ? { width: '100%' } : {},
           ghost: true,
           icon: <Icon src={searchGreenIcon} width={20} height={20} />
-        }
+        },
+        requiredSelection: false,
       },
     ],
   }
@@ -168,6 +192,10 @@ export default function IntegrationOrdersTable({ type, storeId, successCallback 
     id: storeId
   };
 
+  const onSelectedItemsChange = (keys) => {
+    setSelectedKeys(keys);
+  }
+
   return (
     <>
       <TableGrid configs={tableConfig}
@@ -176,7 +204,8 @@ export default function IntegrationOrdersTable({ type, storeId, successCallback 
                  defaultParams={defaultParams}
                  defaultData={{}}
                  isShowPagination={true}
-                 isAllowSelection={false}
+                 isAllowSelection={authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER)}
+                 onSelectedItemsChange={onSelectedItemsChange}
                  RELOAD_EVENT_KEY={RELOAD_EVENT_KEY}
       />
     </>

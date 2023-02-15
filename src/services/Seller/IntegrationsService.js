@@ -84,6 +84,16 @@ function cloneOrder(type, storeId, orderId, successCallback, failureCallback) {
   makePostWithConfigs(url, {}, successCallback, failureCallback);
 }
 
+function cloneOrders(type, storeId, orderIds, successCallback, failureCallback) {
+  const config = {
+    params: {
+      orderIds
+    }
+  }
+  const url = getSellerBaseURL() + `/${type}/${storeId}/clone`;
+  makeGetWithConfigs(url, config, successCallback, failureCallback);
+}
+
 export {
   connectShopifyStore,
   connectWooCommerceStore,
@@ -92,4 +102,5 @@ export {
   checkConnectStore,
   getIntegrationOrders,
   cloneOrder,
+  cloneOrders,
 }
