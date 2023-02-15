@@ -296,7 +296,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
     redirectTo(ROUTERS.ADMIN_ORDERS_MANAGEMENT + '/' + (selectedOrder.id || 0));
   }
 
-  const updateOrderStatus = order => {
+  const updateOrderPrice = order => {
     setSelectedOrder(order);
     setOpenUpdateOrderPrice(true);
   }
@@ -597,7 +597,7 @@ export default function OrdersManagementTable({ redirectTo, successCallback = ()
           updateOrderTracking(record);
           break;
         case ACTION_KEYS.UPDATE_ORDER_PRICE:
-          updateOrderStatus(record);
+          updateOrderPrice(record);
           break;
         case ACTION_KEYS.UPDATE_ORDER_PRODUCER:
           updateOrderProducer(record);

@@ -6,7 +6,8 @@ import { Button, notification, Tag } from 'antd';
 import {
   EditOutlined,
   SendOutlined,
-  CopyOutlined
+  CopyOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import ImportOrdersModal from 'components/Seller/OrdersTable/ImportOrdersModal';
@@ -14,7 +15,7 @@ import {
   CLONE_DESIGN_LABEL_VALUE_OPTIONS, DATA_DATE_FORMAT, DATETIME_FORMAT,
   HAVE_DESIGN_LABEL_VALUE_OPTIONS, ORDER_STATE_VALUES, PERMISSION_VALUES, RESPONSIVE_MEDIAS,
   ROUTERS, SHIPPING_STATUS_LABEL_VALUE_OPTIONS, SORT_BY_LABEL_VALUE_OPTIONS,
-  STATE_COLORS, STATE_LABELS, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
+  STATE_COLORS, STATE_LABELS, STATE_VALUES, TRACKING_STATUS_LABEL_VALUE_OPTIONS, TYPE_DATE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 
 import ActionDropdownMenu from 'components/Share/ActionDropdownMenu';
@@ -45,6 +46,7 @@ const ACTION_KEYS = {
   EXPORT_ORDERS: "EXPORT_ORDERS",
   VIEW_TRACKING: "VIEW_TRACKING",
   VIEW_ORDER_EVENTS: "VIEW_ORDER_EVENTS",
+  CANCEL_ORDER: "CANCEL_ORDER",
 }
 
 
@@ -135,6 +137,12 @@ const columns = [
           label: "View order events",
           icon: <SendOutlined />,
         },
+        {
+          key: ACTION_KEYS.CANCEL_ORDER,
+          label: "Cancel order",
+          icon: <DeleteOutlined />,
+          disabled: !([STATE_VALUES.PENDING].includes(record.status)),
+        },
       ];
       return <ActionDropdownMenu items={actionItems} record={record} ACTION_EVENT_KEY={ACTION_KEYS.ACTION_EVENTS} />
     }
@@ -222,6 +230,22 @@ export default function OrdersTable({ redirectTo, systemConfigs = [], successCal
   const viewOrderEvents = (selectedOrder) => {
     setSelectedOrder(selectedOrder);
     setOpenOrderEvents(true);
+  }
+
+  const cancelOrder = (selectedOrder) => {
+    const data = {
+      status: STATE_VALUES.CANCEL,
+    }
+    SellerOrdersService.updateOrderStatus(selectedOrder.id, data , response => {
+      notification.success({
+        message: "Cancel order successful!",
+      });
+      reloadTable({} , true);
+    }, error => {
+      notification.error({
+        message: BaseService.getErrorMessage(error,"Cancel order failure!"),
+      });
+    })
   }
 
   const addEditOrder = (selectedOrder = {}) => {
@@ -495,6 +519,9 @@ export default function OrdersTable({ redirectTo, systemConfigs = [], successCal
           break;
         case ACTION_KEYS.VIEW_ORDER_EVENTS:
           viewOrderEvents(record);
+          break;
+        case ACTION_KEYS.CANCEL_ORDER:
+          cancelOrder(record);
           break;
         default:
       }

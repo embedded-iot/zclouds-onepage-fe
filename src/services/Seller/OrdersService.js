@@ -57,6 +57,14 @@ function updateOrder(orderId, data, successCallback, failureCallback) {
   makePutWithConfigs(url, config, successCallback, failureCallback);
 }
 
+function updateOrderStatus(orderId, data, successCallback, failureCallback) {
+  const config = {
+    data
+  };
+  const url = getSellerBaseURL() + '/orders/' + orderId + '/status';
+  makePostWithConfigs(url, config, successCallback, failureCallback);
+}
+
 const transformOrderDataRow = item => {
   const convertedMockupUrl = !!item.mockupUrl && getFullPathImage(item.mockupUrl);
   const convertedDesignUrl = !!item.designUrl && getFullPathImage(item.designUrl);
@@ -119,6 +127,7 @@ export {
   getOrdersStatus,
   createOrder,
   updateOrder,
+  updateOrderStatus,
   importOrders,
   validateOrdersData,
   transformOrderDataRow,
