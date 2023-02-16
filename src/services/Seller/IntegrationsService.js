@@ -87,11 +87,11 @@ function cloneOrder(type, storeId, orderId, successCallback, failureCallback) {
 function cloneOrders(type, storeId, orderIds, successCallback, failureCallback) {
   const config = {
     params: {
-      orderIds
+      listOrderId: orderIds.join(','),
     }
   }
-  const url = getSellerBaseURL() + `/${type}/${storeId}/clone`;
-  makeGetWithConfigs(url, config, successCallback, failureCallback);
+  const url = getSellerBaseURL() + `/${type}/${storeId}/sync-list`;
+  makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
 export {

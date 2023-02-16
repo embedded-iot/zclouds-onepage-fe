@@ -233,10 +233,7 @@ export default function OrdersTable({ redirectTo, systemConfigs = [], successCal
   }
 
   const cancelOrder = (selectedOrder) => {
-    const data = {
-      status: STATE_VALUES.CANCEL,
-    }
-    SellerOrdersService.updateOrderStatus(selectedOrder.id, data , response => {
+    SellerOrdersService.cancelOrder(selectedOrder.id , response => {
       notification.success({
         message: "Cancel order successful!",
       });

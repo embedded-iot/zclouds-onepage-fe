@@ -57,12 +57,9 @@ function updateOrder(orderId, data, successCallback, failureCallback) {
   makePutWithConfigs(url, config, successCallback, failureCallback);
 }
 
-function updateOrderStatus(orderId, data, successCallback, failureCallback) {
-  const config = {
-    data
-  };
-  const url = getSellerBaseURL() + '/orders/' + orderId + '/status';
-  makePostWithConfigs(url, config, successCallback, failureCallback);
+function cancelOrder(orderId, successCallback, failureCallback) {
+  const url = getSellerBaseURL() + '/orders/' + orderId + '/cancel';
+  makePutWithConfigs(url, {}, successCallback, failureCallback);
 }
 
 const transformOrderDataRow = item => {
@@ -127,7 +124,7 @@ export {
   getOrdersStatus,
   createOrder,
   updateOrder,
-  updateOrderStatus,
+  cancelOrder,
   importOrders,
   validateOrdersData,
   transformOrderDataRow,
