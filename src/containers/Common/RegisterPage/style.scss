@@ -1,0 +1,23 @@
+.sign-up {
+  &__img {
+    background: url("~images/sign-up-img.png") center center no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 80%;
+      max-width: 474px;
+    }
+  }
+  &__box {
+    padding: 40px;
+  }
+  &__contents {
+    min-height: calc(100vh - 56px);
+  }
+  &__logo {
+    margin-bottom: 52px;
+    text-align: center;
+  }
+}

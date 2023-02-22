@@ -1,0 +1,41 @@
+.connect-store {
+  &__wrapper {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: unset;
+    .ant-card-head {
+      border: none;
+      padding: 0 18px;
+      .ant-card-head-title {
+        font-weight: 500;
+        font-size: 16px;
+        color: #2C3E5D;
+      }
+    }
+    .ant-card-body {
+      padding: 0 18px 18px;
+      button {
+        width: 100%;
+        max-width: 316px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 36px;
+        margin: 0 auto;
+        img {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+  &__description {
+    color: #626F86;
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  &__sub-title {
+    font-weight: 500;
+    font-size: 16px;
+    margin: 50px 0 24px;
+  }
+}

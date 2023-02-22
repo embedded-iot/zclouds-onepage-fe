@@ -1,0 +1,16 @@
+.box-header-card {
+  &__wrapper {
+    text-align: center;
+  }
+  &__title {
+    font-weight: 600;
+    color: #2C3E5D;
+    font-size: 20px;
+    line-height: 29px;
+  }
+  &__description {
+    color: #758195;
+    font-size: 14px;
+    margin: 6px 0 22px;
+  }
+}

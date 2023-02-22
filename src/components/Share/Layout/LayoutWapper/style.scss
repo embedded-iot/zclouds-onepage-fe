@@ -1,0 +1,99 @@
+@import 'scss/style';
+
+.layout__wrapper {
+  background: #fff !important;
+  .ant-layout {
+    background: #FAFBFC;
+  }
+  .ant-layout-sider {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    .ant-layout-sider-children {
+      position: fixed;
+      height: 100vh;
+      width: 239px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
+  .ant-layout-header {
+    position: relative;
+    z-index: 10;
+    background: transparent;
+
+    height: 86px;
+    padding: 0 20px;
+    line-height: 86px;
+  }
+  .ant-layout-footer {
+    background: transparent;
+  }
+  .layout__sider-toggle-icon {
+    position: fixed;
+    width: 15px;
+    height: 66px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #FFFFFF;
+    box-shadow: 0px 4px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 0 20px 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 12;
+    border-right: 1px solid #cccccc;
+    &.hide {
+      img {
+        transform: rotate(180deg);
+      }
+    }
+    img {
+      height: 12px;
+      width: 6px;
+    }
+  }
+
+  &--mobile {
+    position: relative;
+    background: #f0f2f5 !important;
+    .ant-layout-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: #FFFFFF;
+    }
+    &.show-menu {
+      .ant-layout-header {
+        .layout-header__actions {
+          background: #F7F8F9;
+          display: block;
+          position: absolute;
+          overflow: auto;
+          height: auto;
+          max-height: calc(100vh - 60px);
+          width: 100vw;
+          left: 0;
+          top: 86px;
+          padding: 20px;
+          .layout-header__menu {
+            min-width: auto;
+            width: 100%;
+            background: transparent;
+            .ant-menu {
+              box-shadow: none;
+              background: transparent;
+              .ant-menu-item {
+                background: transparent;
+                font-weight: bold;
+                padding: 12px;
+                line-height: normal;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

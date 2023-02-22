@@ -1,0 +1,27 @@
+.product-detail-box {
+  &__wrapper {
+    margin-top: 24px;
+  }
+  &__title {
+    font-weight: 600;
+    line-height: 22px;
+    color: #2C3E5D;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  &__description {
+    color: #626F86;
+    margin-bottom: 35px;
+  }
+  &__title-icon {
+    background: url("~images/logo_title_left.svg") center center no-repeat;
+    display: block;
+    height: 12px;
+    width: 10px;
+    margin-right: 5px;
+  }
+  &__link {
+    margin-left: auto;
+  }
+}

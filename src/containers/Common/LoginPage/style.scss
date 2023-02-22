@@ -1,0 +1,66 @@
+.sign-in {
+  &__logo {
+    margin-bottom: 52px;
+    text-align: center;
+  }
+  &__box {
+    padding: 40px;
+  }
+  &__image {
+    position: absolute;
+    &--left {
+      background: url("~images/login-img-1.png") center center no-repeat;
+      background-size: cover;
+      height: 441px;
+      width: 464px;
+      left: 0;
+      bottom: 0;
+    }
+    &--right {
+      background: url("~images/login-img-2.png") center center no-repeat;
+      background-size: cover;
+      height: 441px;
+      width: 575px;
+      right: 0;
+      bottom: 0;
+    }
+    &--bottom-logo {
+      bottom: 54px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__contents {
+    position: relative;
+    min-height: 768px;
+    &--mobile {
+      min-height: auto;
+      .sign-in__box {
+        flex-grow: 1;
+      }
+    }
+  }
+  &__logo {
+    text-align: center;
+    &--top {
+      margin: 59px 0 162px;
+    }
+    &--bottom {
+      margin: 162px 0 54px;
+    }
+  }
+}
+.sign-in-admin {
+  &__wrapper {
+    background: url("~images/sign-in-admin-bg.png") center center no-repeat;
+    background-size: cover;
+  }
+  &__logo {
+    margin-bottom: 52px;
+    text-align: center;
+  }
+  &__box {
+    padding: 20px;
+  }
+}

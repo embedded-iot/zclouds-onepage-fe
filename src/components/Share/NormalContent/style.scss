@@ -1,0 +1,9 @@
+.normal-contents__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  &--full-screen {
+    min-height: 100vh;
+  }
+}

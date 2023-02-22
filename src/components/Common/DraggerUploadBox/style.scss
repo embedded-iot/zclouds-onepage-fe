@@ -1,0 +1,21 @@
+.dragger-upload-box {
+  &__wrapper {
+    .ant-upload-drag {
+      background: #F7F8F9;
+      border: 1px dashed #DCDFE4;
+      border-radius: 8px;
+      height: 130px;
+    }
+    .ant-upload-list-item {
+      height: 30px !important;
+    }
+    .ant-upload-list-item-card-actions-btn {
+      height: 30px !important;
+    }
+  }
+  &__select-label {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #758195;
+  }
+}

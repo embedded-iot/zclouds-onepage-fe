@@ -1,0 +1,14 @@
+.sign-up-form {
+  &__note {
+    text-align: center;
+    color: #5E6C84;
+    .link {
+      color: #0052CC;
+    }
+  }
+  &__email-note {
+    font-size: 14px;
+    color: #B38600;
+    line-height: 18px;
+  }
+}

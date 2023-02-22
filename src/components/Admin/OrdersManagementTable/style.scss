@@ -1,0 +1,26 @@
+.orders-management {
+  &__status {
+    padding: 3px 13px;
+    cursor: pointer;
+  }
+  &__filters-box {
+    background: #F1F2F4;
+    border-radius: 4px;
+    padding: 16px;
+  }
+  &__status-checkbox-group {
+    background: #F1F2F4;
+    border-radius: 4px;
+    padding: 16px;
+    .ant-checkbox-group-item {
+      margin-right: 30px;
+    }
+  }
+  &__table.allow-click-row {
+    tr {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
