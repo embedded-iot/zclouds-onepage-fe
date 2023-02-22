@@ -18,8 +18,8 @@ before_script:
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-  - ssh-keyscan 34.124.147.163 >> ~/.ssh/known_hosts
-  - ssh-keyscan -p 26266 45.124.84.108 >> ~/.ssh/known_hosts
+  - ssh-keyscan 139.144.119.194 >> ~/.ssh/known_hosts
+  - ssh-keyscan -p 26266 139.144.119.195 >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
   - git config --global user.email "huytd92@gmail.com"
   - git config --global user.name "Duc Huy Ta"
@@ -31,7 +31,7 @@ deploy-reseller-stg:
   script:
     - yarn install
     - yarn run build-stg:seller
-    - scp -r build/* root@34.124.147.163:/var/www/html/reseller/
+    - scp -r build/* root@139.144.119.194:/var/www/html/reseller/
   only:
     - main
 
@@ -42,7 +42,7 @@ deploy-admin-stg:
   script:
     - yarn install
     - yarn run build-stg:admin
-    - scp -r build/* root@34.124.147.163:/var/www/html/admin/
+    - scp -r build/* root@139.144.119.194:/var/www/html/admin/
   only:
     - main
 
@@ -53,7 +53,7 @@ deploy-home-stg:
   script:
     - yarn install
     - yarn run build-stg
-    - scp -r build/* root@34.124.147.163:/var/www/html/home/
+    - scp -r build/* root@139.144.119.194:/var/www/html/home/
   only:
     - main
 
@@ -64,7 +64,7 @@ deploy-reseller-prod:
   script:
     - yarn install
     - yarn run build:seller
-    - scp -P 26266 -r build/* root@45.124.84.108:/var/www/html/seller.cs-fulfill.com/
+    - scp -P 26266 -r build/* root@139.144.119.195:/var/www/html/seller.onepage.zclouds.vn/
   only:
     - master
 
@@ -75,7 +75,7 @@ deploy-admin-prod:
   script:
     - yarn install
     - yarn run build:admin
-    - scp -P 26266 -r build/* root@45.124.84.108:/var/www/html/quanly.cs-fulfill.com/
+    - scp -P 26266 -r build/* root@139.144.119.195:/var/www/html/admin.onepage.zclouds.vn/
   only:
     - master
 
@@ -86,7 +86,7 @@ deploy-home-prod:
   script:
     - yarn install
     - yarn run build
-    - scp -P 26266 -r build/* root@45.124.84.108:/var/www/html/cs-fulfill.com/
+    - scp -P 26266 -r build/* root@139.144.119.195:/var/www/html/onepage.zclouds.vn/
   only:
     - master
 

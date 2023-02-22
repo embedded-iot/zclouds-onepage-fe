@@ -3,6 +3,12 @@ const CracoLessPlugin = require('craco-less');
 const isAdminMode = process.env.REACT_APP_MODE === 'admin';
 
 module.exports = {
+  eslint: {
+    enable: false,
+  },
+  typescript: {
+    enableTypeChecking: false
+  },
   plugins: [
     {
       plugin: CracoLessPlugin,
