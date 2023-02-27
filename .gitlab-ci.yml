@@ -1,12 +1,12 @@
 image: node
 
 stages:
-  - deploy-reseller-stg
+  - deploy-seller-stg
   - deploy-admin-stg
   - deploy-home-stg
-  - deploy-reseller-prod
-  - deploy-admin-prod
-  - deploy-home-prod
+#  - deploy-seller-prod
+#  - deploy-admin-prod
+#  - deploy-home-prod
 
 cache:
   paths:
@@ -18,20 +18,19 @@ before_script:
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
-  - ssh-keyscan 139.144.119.194 >> ~/.ssh/known_hosts
-  - ssh-keyscan -p 26266 139.144.119.195 >> ~/.ssh/known_hosts
+  - ssh-keyscan 172.105.122.9 >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
   - git config --global user.email "huytd92@gmail.com"
   - git config --global user.name "Duc Huy Ta"
 
-deploy-reseller-stg:
-  stage: deploy-reseller-stg
+deploy-seller-stg:
+  stage: deploy-seller-stg
   environment:
     name: staging
   script:
     - yarn install
     - yarn run build-stg:seller
-    - scp -r build/* root@139.144.119.194:/var/www/html/reseller/
+    - scp -r build/* root@172.105.122.9:/var/www/html/seller.onepage.zclouds.vn/
   only:
     - main
 
@@ -42,7 +41,7 @@ deploy-admin-stg:
   script:
     - yarn install
     - yarn run build-stg:admin
-    - scp -r build/* root@139.144.119.194:/var/www/html/admin/
+    - scp -r build/* root@172.105.122.9:/var/www/html/admin.onepage.zclouds.vn/
   only:
     - main
 
@@ -53,40 +52,40 @@ deploy-home-stg:
   script:
     - yarn install
     - yarn run build-stg
-    - scp -r build/* root@139.144.119.194:/var/www/html/home/
+    - scp -r build/* root@172.105.122.9:/var/www/html/onepage.zclouds.vn/
   only:
     - main
 
-deploy-reseller-prod:
-  stage: deploy-reseller-prod
-  environment:
-    name: production
-  script:
-    - yarn install
-    - yarn run build:seller
-    - scp -P 26266 -r build/* root@139.144.119.195:/var/www/html/seller.onepage.zclouds.vn/
-  only:
-    - master
-
-deploy-admin-prod:
-  stage: deploy-admin-prod
-  environment:
-    name: production
-  script:
-    - yarn install
-    - yarn run build:admin
-    - scp -P 26266 -r build/* root@139.144.119.195:/var/www/html/admin.onepage.zclouds.vn/
-  only:
-    - master
-
-deploy-home-prod:
-  stage: deploy-home-prod
-  environment:
-    name: production
-  script:
-    - yarn install
-    - yarn run build
-    - scp -P 26266 -r build/* root@139.144.119.195:/var/www/html/onepage.zclouds.vn/
-  only:
-    - master
+#deploy-seller-prod:
+#  stage: deploy-seller-prod
+#  environment:
+#    name: production
+#  script:
+#    - yarn install
+#    - yarn run build:seller
+#    - scp -P 26266 -r build/* root@139.144.119.195:/var/www/html/seller.onepage.zclouds.vn/
+#  only:
+#    - master
+#
+#deploy-admin-prod:
+#  stage: deploy-admin-prod
+#  environment:
+#    name: production
+#  script:
+#    - yarn install
+#    - yarn run build:admin
+#    - scp -P 26266 -r build/* root@139.144.119.195:/var/www/html/admin.onepage.zclouds.vn/
+#  only:
+#    - master
+#
+#deploy-home-prod:
+#  stage: deploy-home-prod
+#  environment:
+#    name: production
+#  script:
+#    - yarn install
+#    - yarn run build
+#    - scp -P 26266 -r build/* root@139.144.119.195:/var/www/html/onepage.zclouds.vn/
+#  only:
+#    - master
 
