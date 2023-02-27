@@ -52,7 +52,15 @@
       width: 6px;
     }
   }
-
+  .layout__sider-wrapper {
+    .ant-layout-sider-children {
+      display: flex;
+      flex-flow: column;
+      & > *:nth-child(2) {
+        flex-grow: 1;
+      }
+    }
+  }
   &--mobile {
     position: relative;
     background: #f0f2f5 !important;

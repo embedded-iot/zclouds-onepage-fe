@@ -31,7 +31,6 @@ import FrontUserFooter from 'components/FrontUser/Footer';
 import FrontUserSider from 'components/FrontUser/Sider';
 
 import SellerSider from 'components/Seller/Sider';
-import SellerFooter from 'components/Seller/Footer';
 
 import AdminSider from 'components/Admin/Sider';
 
@@ -49,6 +48,9 @@ import FrontUserBlogsPage from 'containers/FrontUser/BlogsPage/Loadable';
 import FrontUserBlogDetailPage from 'containers/FrontUser/BlogDetailPage/Loadable';
 
 import SellerHomePage from 'containers/Seller/HomePage/Loadable';
+import SellerSettingsPage from 'containers/Seller/SettingsPage/Loadable';
+import SellerSettingDetailPage from 'containers/Seller/SettingDetailPage/Loadable';
+/*
 import SellerOrdersPage from 'containers/Seller/OrdersPage/Loadable';
 import SellerOrderDetailPage from 'containers/Seller/OrderDetailPage/Loadable';
 import SellerDesignsPage from 'containers/Seller/DesignsPage/Loadable';
@@ -61,6 +63,7 @@ import SellerMyAccountPage from 'containers/Seller/MyAccountPage/Loadable';
 import SellerIntegrationsTokenPage from 'containers/Seller/IntegrationsTokenPage/Loadable';
 import SellerNotificationsPage from 'containers/Seller/NotificationsPage/Loadable';
 import SellerProductCategoriesPage from 'containers/Seller/ProductCategoriesPage/Loadable';
+ */
 
 
 import AdminHomePage from 'containers/Admin/HomePage/Loadable';
@@ -127,6 +130,7 @@ const PrivateRoute = (props) => {
 const PublicAppContent = (props) => (
   <Switch>
     <Route exact path={ROUTERS.LOGIN} component={LoginPage} />
+    <Route exact path={ROUTERS.REGISTER} component={RegisterPage} />
     <Route exact path={ROUTERS.FORGOT_PASSWORD} component={ForgotPasswordPage} />
     <Route exact path={ROUTERS.CHANGE_PASSWORD} component={ChangePasswordPage} />
   </Switch>
@@ -135,7 +139,6 @@ const PublicAppContent = (props) => (
 const FrontUserAppContent = (props) => (
   <>
     <Switch>
-      <Route exact path={ROUTERS.FRONT_USER_REGISTER} component={RegisterPage} />
       <Route exact path={ROUTERS.ROOT} component={FrontUserHomePage} />
       <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS} component={FrontUserAllProductsPage} />
       <Route exact path={ROUTERS.FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY} component={FrontUserAllProductsPage} />
@@ -151,19 +154,20 @@ const FrontUserAppContent = (props) => (
 const AppContent = (props) => (
   <Switch>
     <PrivateRoute exact path={ROUTERS.ROOT} component={SellerHomePage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_ORDERS} component={SellerOrdersPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_ORDERS)}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER} component={SellerOrderDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER)}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER_WITH_PRODUCT} component={SellerOrderDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER)}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_DESIGN_LIBRARY} component={SellerDesignsPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_DESIGNS)}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_STORES} component={SellerStoresPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STORES)}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_STORE} component={SellerStoreDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE)}/>
-    <Route exact path={ROUTERS.SELLER_INTEGRATIONS_WITH_VENDOR} component={SellerIntegrationsPage} />
-    <PrivateRoute exact path={ROUTERS.SELLER_INTEGRATION_ORDERS} component={SellerIntegrationOrdersPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STORES)}/>
-    <Route exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsTokenPage} />
-    <PrivateRoute exact path={ROUTERS.SELLER_WALLET} component={SellerWalletPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_WALLET)}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_MY_ACCOUNT} component={SellerMyAccountPage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.NOTIFICATIONS} component={SellerNotificationsPage} isAuthenticated={props.isLogin}/>
-    <PrivateRoute exact path={ROUTERS.SELLER_PRODUCT_CATEGORY} component={SellerProductCategoriesPage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_SETTINGS} component={SellerSettingsPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_SETTINGS)}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_SETTING} component={SellerSettingDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_SETTINGS)}/>
+    {/*<PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER} component={SellerOrderDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER)}/>*/}
+    {/*<PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER_WITH_PRODUCT} component={SellerOrderDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER)}/>*/}
+    {/*<PrivateRoute exact path={ROUTERS.SELLER_DESIGN_LIBRARY} component={SellerDesignsPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_DESIGNS)}/>*/}
+    {/*<PrivateRoute exact path={ROUTERS.SELLER_STORES} component={SellerStoresPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STORES)}/>*/}
+    {/*<PrivateRoute exact path={ROUTERS.SELLER_DETAIL_STORE} component={SellerStoreDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_STORE)}/>*/}
+    {/*<Route exact path={ROUTERS.SELLER_INTEGRATIONS_WITH_VENDOR} component={SellerIntegrationsPage} />*/}
+    {/*<PrivateRoute exact path={ROUTERS.SELLER_INTEGRATION_ORDERS} component={SellerIntegrationOrdersPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_STORES)}/>*/}
+    {/*<Route exact path={ROUTERS.SELLER_INTEGRATIONS_GET_TOKEN} component={SellerIntegrationsTokenPage} />*/}
+    {/*<PrivateRoute exact path={ROUTERS.SELLER_WALLET} component={SellerWalletPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_WALLET)}/>*/}
+    {/*<PrivateRoute exact path={ROUTERS.SELLER_MY_ACCOUNT} component={SellerMyAccountPage} isAuthenticated={props.isLogin}/>*/}
+    {/*<PrivateRoute exact path={ROUTERS.NOTIFICATIONS} component={SellerNotificationsPage} isAuthenticated={props.isLogin}/>*/}
+    {/*<PrivateRoute exact path={ROUTERS.SELLER_PRODUCT_CATEGORY} component={SellerProductCategoriesPage} isAuthenticated={props.isLogin}/>*/}
   </Switch>
 )
 
@@ -291,7 +295,7 @@ const App = (props) => {
   const currentRouter = props.router.location.pathname;
   const selectedRouters = [currentRouter];
   if (!isLoadedCheckLogin) return null;
-  if (currentRouter.startsWith(ROUTERS.LOGIN) || currentRouter.startsWith(ROUTERS.FORGOT_PASSWORD) || currentRouter.startsWith(ROUTERS.CHANGE_PASSWORD)) {
+  if (currentRouter.startsWith(ROUTERS.LOGIN) || currentRouter.startsWith(ROUTERS.REGISTER) || currentRouter.startsWith(ROUTERS.FORGOT_PASSWORD) || currentRouter.startsWith(ROUTERS.CHANGE_PASSWORD)) {
     return (
       <AppWrapper>
         <HelmetMeta />
@@ -345,13 +349,12 @@ const App = (props) => {
           )}
           sider={<SellerSider selectedRouters={selectedRouters} redirectTo={redirectTo} setGlobalStore={props.setGlobalStore} systemConfigs={props.systemConfigs}/>}
           content={<AppContent isLogin={props.isLogin}/>}
-          footer={<SellerFooter systemConfigs={props.systemConfigs} />}
+          // footer={<SellerFooter systemConfigs={props.systemConfigs} />}
           router={props.router}
         />
       </AppWrapper>
     )
   }
-  const isFrontFooter = currentRouter !== ROUTERS.FRONT_USER_REGISTER;
   return (
     <AppWrapper>
       <HelmetMeta />
@@ -364,7 +367,7 @@ const App = (props) => {
           />
         )}
         content={<FrontUserAppContent />}
-        footer={isFrontFooter && <FrontUserFooter systemConfigs={props.systemConfigs} redirectTo={redirectTo}  />}
+        footer={<FrontUserFooter systemConfigs={props.systemConfigs} redirectTo={redirectTo}  />}
         router={props.router}
       />
     </AppWrapper>

@@ -19,7 +19,7 @@ const getFrontUserBaseURL = () => {
 }
 
 const getSellerBaseURL = () => {
-  return getBaseURL() + '/reseller';
+  return getBaseURL() + '/seller';
 }
 
 const getAdminBaseURL = () => {

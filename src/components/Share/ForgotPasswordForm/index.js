@@ -3,7 +3,6 @@ import { Button, Form } from 'antd';
 import BoxHeader from 'components/Share/BoxHeader';
 import BoxCard from 'components/Share/BoxCard';
 import InputText from 'components/Common/InputText';
-import { getFrontUserUrl } from 'services/BaseService';
 import { ROUTERS } from 'components/contants';
 
 import './style.scss';
@@ -48,7 +47,7 @@ export default function ForgotPasswordForm({ onFinish = () => {}, hasBoxCard = t
           !isAdminMode && (
             <Form.Item>
               <div className="forgot-password-form__note">
-                Don't have an account? <span className="link" onClick={() => window.open(getFrontUserUrl() + ROUTERS.FRONT_USER_REGISTER, '_self')}>Sign up</span>.
+                Don't have an account? <span className="link" onClick={() => redirectTo(ROUTERS.REGISTER)}>Sign up</span>.
               </div>
               <div className="forgot-password-form__note">
                 Already have an account? <span className="link" onClick={() => redirectTo(ROUTERS.LOGIN)}>Log In</span>

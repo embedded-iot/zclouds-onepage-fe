@@ -13,6 +13,7 @@ import * as  SellerUsersService from './Seller/UsersService';
 import * as  SellerBanksService from './Seller/BanksService';
 import * as  SellerNotificationsService from './Seller/NotificationsService';
 import * as  SellerSystemService from './Seller/SystemService';
+import * as  SellerDomainsService from './Seller/DomainsService';
 import * as  SellerDashboardService from './Seller/DashboardService';
 import * as  AdminUsersService from 'services/Admin/UsersService';
 import * as  AdminProductsService from './Admin/ProductsService';
@@ -70,4 +71,5 @@ export {
   SellerNotificationsService,
   SellerSystemService,
   SellerDashboardService,
+  SellerDomainsService,
 }

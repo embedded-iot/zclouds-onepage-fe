@@ -4,12 +4,11 @@ import BoxHeader from 'components/Share/BoxHeader';
 import BoxCard from 'components/Share/BoxCard';
 import InputText from 'components/Common/InputText';
 import InputPassword , { validatePassword } from 'components/Common/InputPassword';
-import { getSellerUrl } from 'services/BaseService';
 import { ROUTERS } from 'components/contants';
 
 import './style.scss';
 
-export default function RegisterForm({ onFinish = () => {}, hasBoxCard = true }) {
+export default function RegisterForm({ onFinish = () => {}, redirectTo = () => {}, hasBoxCard = true }) {
   // eslint-disable-next-line
   const BoxWrapper = hasBoxCard ? BoxCard : 'div';
   return (
@@ -57,29 +56,6 @@ export default function RegisterForm({ onFinish = () => {}, hasBoxCard = true })
         >
           <InputPassword placeholder="Password" />
         </Form.Item>
-        <Form.Item
-          name="phoneNumber"
-          rules={[
-            {
-              required: true,
-              message: 'Please enter phone!',
-            },
-          ]}
-        >
-          <InputText placeholder="Phone" />
-        </Form.Item>
-
-        <Form.Item
-          name="storeName"
-          rules={[
-            {
-              required: true,
-              message: 'Please enter store name!',
-            },
-          ]}
-        >
-          <InputText placeholder="Store Name"  />
-        </Form.Item>
         <Form.Item>
           <Button type="primary" size='large' htmlType="submit" className="ant-btn--full-width">
            Sign Up Now
@@ -87,7 +63,7 @@ export default function RegisterForm({ onFinish = () => {}, hasBoxCard = true })
         </Form.Item>
         <Form.Item>
           <div className="sign-up-form__note">
-            Already have an account? <span className="link" onClick={() => window.open(getSellerUrl() + ROUTERS.LOGIN,'_self')}>Log In</span>
+            Already have an account? <span className="link" onClick={() => redirectTo(ROUTERS.LOGIN)}>Log In</span>
           </div>
         </Form.Item>
       </Form>

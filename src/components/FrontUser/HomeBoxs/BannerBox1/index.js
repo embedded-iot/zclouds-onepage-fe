@@ -25,7 +25,7 @@ export default function BannerBox1({ customClass, redirectTo }) {
               Imagine, you just focus on sales and marketing. CS- Fulfillment will handle the remaining stages: printing, shipping, and order synchronization... All you need to do create is creating orders. CS-Fulfillment can help decrease fulfillment headaches as you scale your business.
             </div>
             <div className='home-box__buttons banner-box-1__buttons'>
-              <Button type="primary" onClick={() => redirectTo(ROUTERS.FRONT_USER_REGISTER)}>Sign up</Button>
+              <Button type="primary" onClick={() => redirectTo(ROUTERS.REGISTER)}>Sign up</Button>
               <Button>Passionate</Button>
               <Button>Simple</Button>
             </div>

@@ -4,7 +4,6 @@ import BoxHeader from 'components/Share/BoxHeader';
 import BoxCard from 'components/Share/BoxCard';
 import InputPassword from 'components/Common/InputPassword';
 import InputText from 'components/Common/InputText';
-import { getFrontUserUrl } from 'services/BaseService';
 import { ROUTERS } from 'components/contants';
 
 import './style.scss';
@@ -59,7 +58,7 @@ export default function LoginForm({ onFinish = () => {}, hasBoxCard = true, isAd
           {
             !isAdminMode && (
               <div className="sign-in-form__note">
-                Don't have an account? <span className="link" onClick={() => window.open(getFrontUserUrl() + ROUTERS.FRONT_USER_REGISTER, '_self')}>Sign up</span>.
+                Don't have an account? <span className="link" onClick={() => redirectTo(ROUTERS.REGISTER)}>Sign up</span>.
               </div>
             )
           }

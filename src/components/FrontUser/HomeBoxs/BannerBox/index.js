@@ -37,7 +37,7 @@ export default function BannerBox({ customClass, redirectTo }) {
               </div>
             </div>
             <div className='home-box__buttons'>
-              <Button type="primary" onClick={() => redirectTo(ROUTERS.FRONT_USER_REGISTER)}>Register now</Button>
+              <Button type="primary" onClick={() => redirectTo(ROUTERS.REGISTER)}>Register now</Button>
               <Button onClick={() => redirectTo(ROUTERS.FRONT_USER_ALL_PRODUCTS)}>Sample products</Button>
               <Button>Contact now</Button>
             </div>

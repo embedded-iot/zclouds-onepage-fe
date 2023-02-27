@@ -63,7 +63,7 @@ export default function Footer({ systemConfigs = [], redirectTo = () => {}}) {
         </Row>
       </div>
       <div className='public-footer__social-contact--fixed'>
-        <Button type="primary" shape="round" icon={<DoubleRightOutlined />} size={isMobile ? 'middle' : 'large'} onClick={() => redirectTo(ROUTERS.FRONT_USER_REGISTER)}>Register Now</Button>
+        <Button type="primary" shape="round" icon={<DoubleRightOutlined />} size={isMobile ? 'middle' : 'large'} onClick={() => redirectTo(ROUTERS.REGISTER)}>Register Now</Button>
         {
           !!pageID && <MessengerChat pageId={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK_PAGE_ID)} />
         }

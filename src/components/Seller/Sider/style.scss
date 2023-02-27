@@ -1,8 +1,21 @@
-.seller-sider__wrapper {
-  .ant-menu-item:not(.ant-menu-item-only-child), .ant-menu-submenu-title{
+.seller-sider {
+  &__sider {
+    flex-grow: 1;
+    .ant-menu-item:not(.ant-menu-item-only-child), .ant-menu-submenu-title{
       padding-left: 24px !important;
+    }
+    .ant-menu-item.ant-menu-item-only-child {
+      padding-left: 48px !important;
+    }
   }
-  .ant-menu-item.ant-menu-item-only-child {
-    padding-left: 48px !important;
+  &__wrapper {
+    display: flex;
+    flex-flow: column;
+  }
+  &__footer {
+    padding: 28px 42px;
+    span {
+      display: block;
+    }
   }
 }

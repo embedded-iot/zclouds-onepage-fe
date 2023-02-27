@@ -19,7 +19,7 @@ const TabletAndDesktopLayout = props => {
     <Layout className={`layout__wrapper ${props.className}`}>
       {
         isMenu && (
-          <Sider theme="light" width={239} >
+          <Sider theme="light" width={239} className="layout__sider-wrapper" >
             <Logo src={logo} height={64} style={{ display: 'block', margin: '36px auto'}} />
             {props.sider}
           </Sider>
