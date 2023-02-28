@@ -27,14 +27,14 @@ function register(data, successCallback, failureCallback) {
 }
 
 function forgotPassword(params, successCallback, failureCallback) {
-  const url = getFrontUserBaseURL() + '/users/forgot';
+  const url = getFrontUserBaseURL() + '/users/forgot-password';
   const config = {
     params
   };
   makeGetWithConfigs(url, config, successCallback, failureCallback)
 }
 function changePassword(data, successCallback, failureCallback) {
-  const url = getFrontUserBaseURL() + '/users/reset-pass';
+  const url = getFrontUserBaseURL() + '/users/reset-password';
   const config = {
     data
   };
