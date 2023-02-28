@@ -7,9 +7,8 @@ import { goBack, push } from 'connected-react-router';
 import ForgotPasswordBox from 'components/Share/ForgotPasswordBox';
 import NormalContent from 'components/Share/NormalContent';
 import Logo from 'components/Share/Logo';
-import logoGray from 'images/logo_gray.svg';
-import logoImg from 'images/logo.svg';
-import logoWhite from 'images/logo-white.svg';
+import logoImg from 'images/logo_icon.svg';
+import logoWhite from 'images/logo_icon.svg';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
 
@@ -18,7 +17,6 @@ import './style.scss';
 
 const ForgotPasswordPage = (props) => {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const isAdminMode = props.isAdminMode;
   return (
     <div className={`page-wrapper forgot-password__wrapper ${isAdminMode && 'forgot-password-admin__wrapper'}`}>
@@ -37,17 +35,6 @@ const ForgotPasswordPage = (props) => {
                   redirectTo={props.push}
                   hasBoxCard={!isMobile}
                 />
-                {
-                  !isMobile && !isTablet && (
-                    <>
-                      <div className='forgot-password__image forgot-password__image--left' />
-                      <div className='forgot-password__image forgot-password__image--bottom-logo'>
-                        <Logo src={logoGray} height={32} />
-                      </div>
-                      <div className='forgot-password__image forgot-password__image--right' />
-                    </>
-                  )
-                }
               </div>
             )
           }

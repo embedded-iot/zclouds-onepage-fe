@@ -19,7 +19,7 @@ export default function Footer({ systemConfigs = [] }) {
       <div className={`seller-footer__contents ${isMobile && 'seller-footer__contents--mobile'}`}>
         <Row gutter={isMobile ? [0, 24] : [66, 0]}>
           <Col span={isMobile ? 24 : 12}>
-            <div className='seller-footer__title'>Thank you for sticking with CS Fulfill. Follow us now</div>
+            <div className='seller-footer__title'>Thank you for sticking with Onepage. Follow us now</div>
             <div className='seller-footer__text'>
               <Icon src={facebook} height={12} width={12} />
               <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_FULFILL)} target='_blank' rel="noreferrer">
@@ -29,7 +29,7 @@ export default function Footer({ systemConfigs = [] }) {
             <div className='seller-footer__text'>
               <Icon src={facebook} height={12} width={12} />
               <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.SELLER_FULFILL_FULFILLMENT_COMMUNITY)} target='_blank' rel="noreferrer">
-                CS FULFILL - Group
+                ONEPAGE - Group
               </a>
             </div>
             <div className='seller-footer__title seller-footer__title--margin-top'>Contact us</div>

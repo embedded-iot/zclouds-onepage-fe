@@ -16,9 +16,9 @@ module.exports = {
         lessLoaderOptions: {
           lessOptions: {
             modifyVars: {
-              'primary-color': isAdminMode ? '#8270DB' : '#0065FF',
-              'link-color': isAdminMode ? '#8270DB' : '#0065FF',
-              'menu-item-active-bg': isAdminMode ? '#8270DB' : '#0065FF',
+              'primary-color': isAdminMode ? '#8270DB' : '#F37644',
+              'link-color': isAdminMode ? '#8270DB' : '#F37644',
+              'menu-item-active-bg': isAdminMode ? '#8270DB' : '#F37644',
               // 'menu-highlight-color': isAdminMode ? '#fff' : '#fff',
               'border-radius-base': '4px',
               'font-size-base': '16px',

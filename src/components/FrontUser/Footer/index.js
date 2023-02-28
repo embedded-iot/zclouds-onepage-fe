@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Col, Row } from 'antd';
-import logo from 'images/logo-white.svg';
+import logo from 'images/logo_icon.svg';
 import call from 'images/call.png';
 import zalo from 'images/zalo.png';
 import facebook from 'images/facebook.png';

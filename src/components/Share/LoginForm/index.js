@@ -13,7 +13,7 @@ export default function LoginForm({ onFinish = () => {}, hasBoxCard = true, isAd
   return (
     <BoxWrapper className="sign-in-form__wrapper" style={{ width: hasBoxCard && 400 }}>
       <BoxHeader
-        title="Sign in to CS Fulfill"
+        title="Sign in to Onepage"
         description="Log in with your data that you entered during registration."
       />
       <Form

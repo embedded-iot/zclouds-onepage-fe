@@ -4,7 +4,7 @@ import wooCommerceLogo from 'images/woocommerce_logo.svg'
 
 import {  ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 
-export const WEBSITE_NAME = 'CS Fulfill';
+export const WEBSITE_NAME = 'Onepage';
 export const ROUTERS = {
   ROOT: '/',
   LOGIN: '/login',

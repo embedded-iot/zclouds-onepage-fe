@@ -7,16 +7,14 @@ import { goBack, push } from 'connected-react-router';
 import LoginBox from 'components/Share/LoginBox';
 import NormalContent from 'components/Share/NormalContent';
 import Logo from 'components/Share/Logo';
-import logoGray from 'images/logo_gray.svg';
-import logoImg from 'images/logo.svg';
-import logoWhite from 'images/logo-white.svg';
+import logoImg from 'images/logo_icon.svg';
+import logoWhite from 'images/logo_icon.svg';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
 
 import './style.scss';
 const LoginPage = (props) => {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const queryParams = new URLSearchParams(props.location.search);
   const onFinish = () => {
     const redirect = queryParams.get("redirect")
@@ -45,17 +43,6 @@ const LoginPage = (props) => {
                           setGlobalStore={props.setGlobalStore}
                           hasBoxCard={!isMobile}
                 />
-                {
-                  !isMobile && !isTablet && (
-                    <>
-                      <div className='sign-in__image sign-in__image--left' />
-                      <div className='sign-in__image sign-in__image--bottom-logo'>
-                        <Logo src={logoGray} height={32} />
-                      </div>
-                      <div className='sign-in__image sign-in__image--right' />
-                    </>
-                  )
-                }
               </div>
             )
           }

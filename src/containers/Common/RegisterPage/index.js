@@ -10,7 +10,7 @@ import { BaseService, UserService } from 'services';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import NormalContent from 'components/Share/NormalContent';
 import bannerImg from 'images/banner-img.png';
-import logoImg from 'images/logo.svg';
+import logoImg from 'images/logo_icon.svg';
 import Logo from 'components/Share/Logo';
 import { useMediaQuery } from 'react-responsive';
 
@@ -38,7 +38,7 @@ const RegisterPage = (props) => {
         <title>Sign up</title>
       </Helmet>
       <Row className="page-contents sign-up__contents">
-        <Col span={isMobile ? 24 : 14} >
+        <Col span={isMobile ? 24 : 24} >
           <NormalContent style={{ background: isMobile && '#fff'}}>
             <div className="sign-up__box">
               <div className='sign-up__logo'>
@@ -51,13 +51,6 @@ const RegisterPage = (props) => {
             </div>
           </NormalContent>
         </Col>
-        {
-          !isMobile && (
-            <Col span={10} className="sign-up__img">
-              <img src={bannerImg} alt='sign-up' />
-            </Col>
-          )
-        }
       </Row>
     </div>
   );

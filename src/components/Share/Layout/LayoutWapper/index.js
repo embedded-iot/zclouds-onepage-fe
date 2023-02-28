@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 import Logo from 'components/Share/Logo';
-import logo from 'images/logo.svg';
+import logo from 'images/logo_icon.svg';
 import arrowLeft from 'images/arrow-left.png';
 import Icon from 'components/Common/Icon';
 import dashboard from 'images/darhboard-black-icon.svg';

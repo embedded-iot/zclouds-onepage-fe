@@ -7,9 +7,8 @@ import { goBack, push } from 'connected-react-router';
 import ChangePasswordBox from 'components/Share/ChangePasswordBox';
 import NormalContent from 'components/Share/NormalContent';
 import Logo from 'components/Share/Logo';
-import logoGray from 'images/logo_gray.svg';
-import logoImg from 'images/logo.svg';
-import logoWhite from 'images/logo-white.svg';
+import logoImg from 'images/logo_icon.svg';
+import logoWhite from 'images/logo_icon.svg';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
 
@@ -18,7 +17,6 @@ import './style.scss';
 
 const ChangePasswordPage = (props) => {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const isAdminMode = props.isAdminMode;
   const queryParams = new URLSearchParams(props.location.search);
   const email = queryParams.get("email");
@@ -41,17 +39,6 @@ const ChangePasswordPage = (props) => {
                   redirectTo={props.push}
                   hasBoxCard={!isMobile}
                 />
-                {
-                  !isMobile && !isTablet && (
-                    <>
-                      <div className='change-password__image change-password__image--left' />
-                      <div className='change-password__image change-password__image--bottom-logo'>
-                        <Logo src={logoGray} height={32} />
-                      </div>
-                      <div className='change-password__image change-password__image--right' />
-                    </>
-                  )
-                }
               </div>
             )
           }
@@ -62,7 +49,7 @@ const ChangePasswordPage = (props) => {
                   <Logo src={logoWhite} height={54}/>
                 </div>
                 <ChangePasswordBox
-                  defaultParams={{ username, code }}
+                  defaultParams={{ email, code }}
                   redirectTo={props.push}
                   isAdminMode={true}
                 />
