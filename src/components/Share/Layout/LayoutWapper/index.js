@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 import Logo from 'components/Share/Logo';
 import logo from 'images/logo_icon.svg';
+import logoBg from 'images/logo_bg_icon.png';
 import arrowLeft from 'images/arrow-left.png';
 import Icon from 'components/Common/Icon';
 import dashboard from 'images/darhboard-black-icon.svg';
@@ -19,8 +20,9 @@ const TabletAndDesktopLayout = props => {
     <Layout className={`layout__wrapper ${props.className}`}>
       {
         isMenu && (
-          <Sider theme="light" width={239} className="layout__sider-wrapper" >
-            <Logo src={logo} height={64} style={{ display: 'block', margin: '36px auto'}} />
+          <Sider theme="light" width={314} className="layout__sider-wrapper" >
+            <Icon src={logoBg} className='layout__logo-bg-icon'/>
+            <Logo src={logo} height={85} width={94}  className='layout__logo-icon' />
             {props.sider}
           </Sider>
         )

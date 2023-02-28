@@ -6,16 +6,16 @@ import {
   SYSTEM_CONFIG_VALUE,
 } from 'components/contants';
 import Icon from 'components/Common/Icon';
-import dashboardIcon from 'images/darhboard-icon.png';
-import dashboardActiveIcon from 'images/darhboard-white-icon.svg';
-import ordersIcon from 'images/orders-icon.png';
-import ordersActiveIcon from 'images/orders-white-icon.svg';
-import designsLibraryIcon from 'images/designs-library-icon.png';
-import designsLibraryActiveIcon from 'images/designs-library-white-icon.svg';
-import storesIcon from 'images/stores-icon.png';
-import storesActiveIcon from 'images/stores-white-icon.svg';
-import walletIcon from 'images/wallet-icon.png';
-import walletActiveIcon from 'images/wallet-white-icon.svg';
+import dashboardIcon from 'images/home_icon.svg';
+import dashboardActiveIcon from 'images/home_white_icon.svg';
+import ordersIcon from 'images/cart_icon.svg';
+import ordersActiveIcon from 'images/cart_white_icon.svg';
+import productIcon from 'images/tag_icon.svg';
+import productActiveIcon from 'images/tag_white_icon.svg';
+import analyticIcon from 'images/trending_up_icon.svg';
+import analyticActiveIcon from 'images/trending_up_white_icon.svg';
+import settingsIcon from 'images/wrench_icon.svg';
+import settingsActiveIcon from 'images/wrench_white_icon.svg';
 import { SellerSystemService } from 'services';
 import { filterListByPermission } from 'services/BaseService';
 import { authentication } from 'utils';
@@ -30,9 +30,9 @@ export default function UserSider({ selectedRouters = [], redirectTo = () => {},
   const items = filterListByPermission([
     getItem('Home', ROUTERS.ROOT, <Icon src={dashboardIcon} activeSrc={dashboardActiveIcon} active={checkRouterMatchFn(ROUTERS.ROOT)} />),
     getItem('Orders', ROUTERS.SELLER_ORDERS, <Icon src={ordersIcon} activeSrc={ordersActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_ORDERS)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_ORDERS)),
-    getItem( 'Products', ROUTERS.SELLER_PRODUCTS, <Icon src={designsLibraryIcon} activeSrc={designsLibraryActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_PRODUCTS)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_PRODUCTS)),
-    getItem('Analytics', ROUTERS.SELLER_ANALYTICS, <Icon src={storesIcon} activeSrc={storesActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_ANALYTICS)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_ANALYTICS)),
-    getItem('Settings', ROUTERS.SELLER_SETTINGS, <Icon src={walletIcon} activeSrc={walletActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_SETTINGS)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_SETTINGS)),
+    getItem( 'Products', ROUTERS.SELLER_PRODUCTS, <Icon src={productIcon} activeSrc={productActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_PRODUCTS)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_PRODUCTS)),
+    getItem('Analytics', ROUTERS.SELLER_ANALYTICS, <Icon src={analyticIcon} activeSrc={analyticActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_ANALYTICS)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_ANALYTICS)),
+    getItem('Settings', ROUTERS.SELLER_SETTINGS, <Icon src={settingsIcon} activeSrc={settingsActiveIcon} active={checkRouterMatchFn(ROUTERS.SELLER_SETTINGS)} />, undefined, undefined, authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_SETTINGS)),
   ]);
   const defaultOpenKeys = items.map(item => item.key);
 

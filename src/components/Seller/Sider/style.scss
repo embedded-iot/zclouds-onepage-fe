@@ -14,8 +14,13 @@
   }
   &__footer {
     padding: 28px 42px;
+    font-size: 18px;
     span {
       display: block;
+      margin-top: 20px;
+      &:first-child {
+        margin-top: 0;
+      }
     }
   }
 }
