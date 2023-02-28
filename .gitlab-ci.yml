@@ -2,8 +2,8 @@ image: node
 
 stages:
   - deploy-seller-stg
-  - deploy-admin-stg
-  - deploy-home-stg
+#  - deploy-admin-stg
+#  - deploy-home-stg
 #  - deploy-seller-prod
 #  - deploy-admin-prod
 #  - deploy-home-prod
@@ -33,28 +33,28 @@ deploy-seller-stg:
     - scp -r build/* root@172.105.122.9:/var/www/html/seller.onepage.zclouds.vn/
   only:
     - main
-
-deploy-admin-stg:
-  stage: deploy-admin-stg
-  environment:
-    name: staging
-  script:
-    - yarn install
-    - yarn run build-stg:admin
-    - scp -r build/* root@172.105.122.9:/var/www/html/admin.onepage.zclouds.vn/
-  only:
-    - main
-
-deploy-home-stg:
-  stage: deploy-home-stg
-  environment:
-    name: staging
-  script:
-    - yarn install
-    - yarn run build-stg
-    - scp -r build/* root@172.105.122.9:/var/www/html/onepage.zclouds.vn/
-  only:
-    - main
+#
+#deploy-admin-stg:
+#  stage: deploy-admin-stg
+#  environment:
+#    name: staging
+#  script:
+#    - yarn install
+#    - yarn run build-stg:admin
+#    - scp -r build/* root@172.105.122.9:/var/www/html/admin.onepage.zclouds.vn/
+#  only:
+#    - main
+#
+#deploy-home-stg:
+#  stage: deploy-home-stg
+#  environment:
+#    name: staging
+#  script:
+#    - yarn install
+#    - yarn run build-stg
+#    - scp -r build/* root@172.105.122.9:/var/www/html/onepage.zclouds.vn/
+#  only:
+#    - main
 
 #deploy-seller-prod:
 #  stage: deploy-seller-prod
