@@ -4,10 +4,10 @@ const isAdminMode = process.env.REACT_APP_MODE === 'admin';
 
 module.exports = {
   eslint: {
-    enable: false,
+    enable: true,
   },
   typescript: {
-    enableTypeChecking: false
+    enableTypeChecking: true
   },
   plugins: [
     {

@@ -1,9 +1,22 @@
 .settings-grid {
-    &__item {
-      padding: 20px 26px;
-      display: flex;
-      gap: 24px;
-      cursor: pointer;
-    }
+  &__item {
+    padding: 20px 26px;
+    display: flex;
+    gap: 24px;
+    cursor: pointer;
+    height: 100%;
+    background: #F6F5F5;
+    border: 1px solid #E1DFDF;
+    border-radius: 8px;
   }
-  
+  &__title {
+    font-weight: 700;
+    color: #231814;
+    font-size: 24px;
+  }
+  &__description {
+    font-size: 18px;
+    color: #4C4441;
+    margin-top: 6px;
+  }
+}

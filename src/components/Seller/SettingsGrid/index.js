@@ -4,6 +4,17 @@ import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS, ROUTERS, SETTING_KEY_VALUES, SETTING_LABEL_VALUES } from 'components/contants';
 import Icon from 'components/Common/Icon';
 import settingIcon from 'images/settings_icon.svg';
+import paymentIcon from 'images/payment_icon.svg';
+import sellerIcon from 'images/user_icon.svg';
+import emailIcon from 'images/email_icon.svg';
+import smsIcon from 'images/sms_icon.svg';
+import legalIcon from 'images/legal_icon.svg';
+import billingIcon from 'images/billing_icon.svg';
+import userAndPermissionsIcon from 'images/user_icon.svg';
+import appIcon from 'images/iphone_icon.svg';
+import storeFrontIcon from 'images/basket_icon.svg';
+import fulfillmentIcon from 'images/light_icon.svg';
+import discountsIcon from 'images/banknote_icon.svg';
 
 import './style.scss';
 
@@ -23,12 +34,13 @@ const gridItemTemplate = ({ item }) => {
 
 export default function SettingsGrid({ redirectTo = () => {}}) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+  const isExTablet = useMediaQuery(RESPONSIVE_MEDIAS.EX_TABLET);
   const isTablet = useMediaQuery(RESPONSIVE_MEDIAS.TABLET);
   const configs = {
     gutter: isMobile ? [0, 20] : [20, 20],
     className: isMobile && 'box-card--mobile',
     // eslint-disable-next-line
-    colSpan: isMobile && 24 || isTablet && 12 || 8,
+    colSpan: isMobile && 24 || isTablet && 24 || isExTablet && 12 || 8,
     gridItemTemplate: gridItemTemplate,
   }
 
@@ -44,69 +56,69 @@ export default function SettingsGrid({ redirectTo = () => {}}) {
       key: SETTING_KEY_VALUES.GENERAL,
     },
     {
-      title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.GENERAL],
+      title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.PAYMENTS],
       description: 'Enable and manage your store’s payment providers',
-      icon: settingIcon,
+      icon: paymentIcon,
       key: SETTING_KEY_VALUES.GENERAL,
     },
     {
       title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.SELLERS],
       description: 'Manage seller can create store',
-      icon: settingIcon,
+      icon: sellerIcon,
       key: SETTING_KEY_VALUES.SELLERS,
     },
     {
       title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.EMAIL],
       description: 'Manage email support & template',
-      icon: settingIcon,
+      icon: emailIcon,
       key: SETTING_KEY_VALUES.EMAIL,
     },
     {
       title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.SMS],
       description: 'Manage sms & template',
-      icon: settingIcon,
+      icon: smsIcon,
       key: SETTING_KEY_VALUES.SMS,
     },
     {
       title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.LEGAL],
       description: 'Manage your legal page on sellpage',
-      icon: settingIcon,
+      icon: legalIcon,
       key: SETTING_KEY_VALUES.LEGAL,
     },
     {
       title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.BILLING],
       description: 'Manage your billing info and view your invoices',
-      icon: settingIcon,
+      icon: billingIcon,
       key: SETTING_KEY_VALUES.BILLING,
     },
     {
       title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.USER_AND_PERMISSIONS],
       description: 'Manage what users can see or doing',
-      icon: settingIcon,
+      icon: userAndPermissionsIcon,
       key: SETTING_KEY_VALUES.USER_AND_PERMISSIONS,
     },
     {
       title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.APPS],
       description: 'Manage your integrate app',
-      icon: settingIcon,
+      icon: appIcon,
       key: SETTING_KEY_VALUES.APPS,
     },
     {
       title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.STOREFRONT],
       description: 'Manage storefront',
-      icon: settingIcon,
+      icon: storeFrontIcon,
       key: SETTING_KEY_VALUES.STOREFRONT,
     },
     {
       title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.FULFILLMENT],
       description: 'Manage how you fulfillment orders to customer',
-      icon: settingIcon,
+      icon: fulfillmentIcon,
       key: SETTING_KEY_VALUES.FULFILLMENT,
     },
     {
       title: SETTING_LABEL_VALUES[SETTING_KEY_VALUES.DISCOUNTS],
       description: 'Manage discounts',
-      icon: settingIcon,
+      icon: discountsIcon,
       key: SETTING_KEY_VALUES.DISCOUNTS,
     },
   ]
