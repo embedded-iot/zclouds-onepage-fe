@@ -7,7 +7,7 @@ import SettingSubSiderBox from 'components/Seller/SettingDetailBox/SettingSubSid
 
 import './style.scss';
 
-export default function SettingSiderBox({ settingKey = '', subSettingKey = '', title = '', breadcrumbRouters = [], redirectTo = () => {},  }) {
+export default function SettingSiderBox({ settingKey, subSettingKey, title = '', breadcrumbRouters = [], redirectTo = () => {},  }) {
   const settingIcon = SETTING_ICON[settingKey];
   return (
     <div className='setting-sibar-box__wrapper'>

@@ -1,6 +1,9 @@
 .box-header-card {
   &__wrapper {
     text-align: center;
+    &.left {
+      text-align: left;
+    }
   }
   &__title {
     font-weight: 600;
