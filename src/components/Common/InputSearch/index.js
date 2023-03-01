@@ -3,11 +3,11 @@ import { Input } from 'antd';
 
 import './style.less';
 
-export default function InputSearch({ name, value, onChange, placeholder, theme, ...restProps }) {
+export default function InputSearch({ name, value, onChange, placeholder, theme, className, ...restProps }) {
   const handlerOnchange = (e) => onChange(e.target.value, name);
 
   return (
-    <div className={`input-search ${theme}`}>
+    <div className={`input-search ${className} ${theme}`}>
       <Input allowClear
               prefix={<span className="search-icon" />}
               placeholder={placeholder}

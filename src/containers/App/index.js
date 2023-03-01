@@ -154,8 +154,10 @@ const FrontUserAppContent = (props) => (
 const AppContent = (props) => (
   <Switch>
     <PrivateRoute exact path={ROUTERS.ROOT} component={SellerHomePage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.ROOT} component={SellerHomePage} isAuthenticated={props.isLogin}/>
     <PrivateRoute exact path={ROUTERS.SELLER_SETTINGS} component={SellerSettingsPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_SETTINGS)}/>
     <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_SETTING} component={SellerSettingDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_SETTINGS)}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_SUB_DETAIL_SETTING} component={SellerSettingDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_SETTINGS)}/>
     {/*<PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER} component={SellerOrderDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER)}/>*/}
     {/*<PrivateRoute exact path={ROUTERS.SELLER_DETAIL_ORDER_WITH_PRODUCT} component={SellerOrderDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_ORDER)}/>*/}
     {/*<PrivateRoute exact path={ROUTERS.SELLER_DESIGN_LIBRARY} component={SellerDesignsPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_DESIGNS)}/>*/}

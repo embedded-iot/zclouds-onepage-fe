@@ -1,9 +1,12 @@
 .user-info {
+
   &__wrapper, &__avatar {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     flex-flow: nowrap;
-    margin-left: 40px;
+    gap: 32px;
+    width: 100%;
   }
   &__title {
     display: flex;
@@ -12,5 +15,17 @@
     span {
       line-height: normal;
     }
+  }
+  &__input-search {
+    max-width: 410px;
+  }
+  &__down-icon {
+    width: 24px;
+    height: 24px;
+    background: #E1DFDF;
+    border-radius: 4px;
+    padding: 5px;
+    display: flex !important;
+    align-items: center;
   }
 }

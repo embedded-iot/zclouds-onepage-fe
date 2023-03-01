@@ -1,17 +1,21 @@
 import React from 'react';
-import { Avatar, Badge, Dropdown, Menu } from 'antd';
+import { Avatar, Space } from 'antd';
 import {
   LogoutOutlined,
+  SettingOutlined,
+  CaretDownOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { ROLE_LABELS, ROUTERS } from 'components/contants';
-import systemNotificationIcon from 'images/bell_gray_icon.svg';
-import myAccountIcon from 'images/my-account-icon.png';
-import Icon from 'components/Common/Icon';
+
+import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import { filterListByPermission } from 'services/BaseService';
 import './style.scss';
+import DropdownMenu from 'components/Common/DropdownMenu';
+import InputSearch from 'components/Common/InputSearch';
+import { useMediaQuery } from 'react-responsive';
 
-export default function UserInfo({ notificationsCount = 0, isAdmin = false, currentUser = {}, selectedRouters = [], redirectTo = () => {}, goBack = () => {}, signOut = () => {}}) {
+export default function UserInfo({ isAdmin = false, currentUser = {}, redirectTo = () => {}, signOut = () => {}}) {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const handleMenuClick = (e) => {
     switch (e.key) {
       case ROUTERS.LOGOUT:
@@ -23,48 +27,35 @@ export default function UserInfo({ notificationsCount = 0, isAdmin = false, curr
     }
   }
 
-  const menu = (
-    <Menu
-      onClick={handleMenuClick}
-      items={filterListByPermission([
-        {
-          label: 'My account',
-          key: ROUTERS.SELLER_MY_ACCOUNT,
-          icon: <Icon src={myAccountIcon} width={20} height={20} />,
-          permission: !isAdmin,
-        },
-        {
-          label: 'Logout',
-          key: ROUTERS.LOGOUT,
-          icon: <LogoutOutlined style={{ fontSize: 18, color: '#626F86' }}/>,
-        },
-      ])}
-    />
-  );
-
-  const handleShowNotices = () => {
-    if (selectedRouters[0] !== ROUTERS.NOTIFICATIONS) {
-      redirectTo(ROUTERS.NOTIFICATIONS)
-    } else {
-      goBack();
-    }
-  }
+  const actionItems = filterListByPermission([
+    {
+      label: 'User Settings',
+      key: ROUTERS.SELLER_MY_ACCOUNT,
+      icon:<SettingOutlined style={{ fontSize: 18 }} />,
+      permission: !isAdmin,
+    },
+    {
+      label: 'Log out',
+      key: ROUTERS.LOGOUT,
+      icon: <LogoutOutlined style={{ fontSize: 18 }}/>,
+    },
+  ]);
 
   return (
     <div className="user-info__wrapper">
-      <span className="cursor-pointer" onClick={handleShowNotices}>
-        <Badge count={notificationsCount}>
-          <Icon src={systemNotificationIcon}/>
-        </Badge>
-      </span>
-      <Dropdown
-        overlay={menu}
-        placement="bottomRight"
-        arrow={{
-          pointAtCenter: true,
-        }}
+      {
+        !isMobile && (
+          <InputSearch
+            name={"Search"}
+            placeholder="Search"
+            className="user-info__input-search"
+          />
+        )
+      }
+      <DropdownMenu items={actionItems}
+                    onMenuClick={handleMenuClick}
       >
-        <div className="user-info__avatar">
+        <Space>
           <Avatar
             style={{
               backgroundColor: '#87d068',
@@ -73,12 +64,12 @@ export default function UserInfo({ notificationsCount = 0, isAdmin = false, curr
             src={currentUser.convertedAvatar}
             icon={<UserOutlined />}
           />
-          <div className="user-info__title">
-            <span>{currentUser.username || 'User name'}</span>
-            <span className="link">{ROLE_LABELS[currentUser.role] || (isAdmin ? 'Admin' : 'Seller')}</span>
-          </div>
-        </div>
-      </Dropdown>
+          <Space>
+            <span>{currentUser.email || 'Email'}</span>
+            <CaretDownOutlined style={{ fontSize: 18}} className="user-info__down-icon"/>
+          </Space>
+        </Space>
+      </DropdownMenu>
     </div>
   );
 }

@@ -11,7 +11,7 @@ import { RESPONSIVE_MEDIAS } from 'components/contants';
 function SettingsPage(props) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper layout__wrapper--box">
       <Helmet>
         <title>Settings</title>
       </Helmet>

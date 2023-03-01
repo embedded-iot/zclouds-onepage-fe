@@ -2,18 +2,25 @@
   &__sider {
     flex-grow: 1;
     .ant-menu-item:not(.ant-menu-item-only-child), .ant-menu-submenu-title{
-      padding-left: 24px !important;
+      padding-left: 6px !important;
     }
     .ant-menu-item.ant-menu-item-only-child {
       padding-left: 48px !important;
+    }
+    .ant-menu-item {
+      font-weight: 600;
+      font-size: 20px;
+      color: #827C7A;
+      border-radius: 8px;
     }
   }
   &__wrapper {
     display: flex;
     flex-flow: column;
+    padding: 0 22px;
   }
   &__footer {
-    padding: 28px 42px;
+    padding: 28px 0;
     font-size: 18px;
     span {
       display: block;

@@ -20,6 +20,8 @@ module.exports = {
               'link-color': isAdminMode ? '#8270DB' : '#F37644',
               'menu-item-active-bg': isAdminMode ? '#8270DB' : '#F37644',
               // 'menu-highlight-color': isAdminMode ? '#fff' : '#fff',
+              'menu-item-height': '58px',
+              'menu-inline-toplevel-item-height': '58px',
               'border-radius-base': '4px',
               'font-size-base': '16px',
               'line-height-base': '24px',

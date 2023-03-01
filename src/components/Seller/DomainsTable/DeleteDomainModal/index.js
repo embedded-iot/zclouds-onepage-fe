@@ -24,7 +24,7 @@ export default function DeleteDomainModal({ open, data, onOk, onCancel }) {
                onOk={handleOk}
                onCancel={onCancel}
     >
-    <div>Delete {data ? data.domain : 'Domain'}</div>
+    <div>Delete {data ? data.name : 'Domain'}</div>
     </ModalView>
   )
 }

@@ -2,6 +2,20 @@ import shopifyLogo from 'images/shopify_logo.svg'
 import shopBaseLogo from 'images/shopbase_logo.svg'
 import wooCommerceLogo from 'images/woocommerce_logo.svg'
 
+import settingIcon from 'images/settings_icon.svg';
+import paymentIcon from 'images/payment_icon.svg';
+import sellerIcon from 'images/user_icon.svg';
+import emailIcon from 'images/email_icon.svg';
+import smsIcon from 'images/sms_icon.svg';
+import legalIcon from 'images/legal_icon.svg';
+import billingIcon from 'images/billing_icon.svg';
+import userAndPermissionsIcon from 'images/user_icon.svg';
+import appIcon from 'images/iphone_icon.svg';
+import storeFrontIcon from 'images/basket_icon.svg';
+import fulfillmentIcon from 'images/light_icon.svg';
+import discountsIcon from 'images/banknote_icon.svg';
+
+
 import {  ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 
 export const WEBSITE_NAME = 'Onepage';
@@ -25,6 +39,7 @@ export const ROUTERS = {
   SELLER_ANALYTICS: '/analytics',
   SELLER_SETTINGS: '/settings',
   SELLER_DETAIL_SETTING: '/settings/:settingKey',
+  SELLER_SUB_DETAIL_SETTING: '/settings/:settingKey/:subSettingKey',
   SELLER_HELP: '/help',
 
   SELLER_DETAIL_ORDER: '/orders/:orderId',
@@ -577,11 +592,6 @@ export const EMAILS_STATE_LABEL_VALUE_OPTIONS = [
   { label: STATE_LABELS[STATE_VALUES.DEACTIVATED], value: STATE_VALUES.DEACTIVATED },
 ];
 
-export const DOMAINS_STATE_LABEL_VALUE_OPTIONS = [
-  { label: 'Select domain status', value: '' },
-  { label: STATE_LABELS[STATE_VALUES.CONNECTED], value: STATE_VALUES.CONNECTED },
-  { label: STATE_LABELS[STATE_VALUES.UNKNOWN], value: STATE_VALUES.UNKNOWN },
-];
 
 export const SYSTEM_CONFIG_VALUE = {
   SELLER_MIN_TOP_UP: 'SELLER_MIN_TOP_UP',
@@ -653,6 +663,14 @@ export const SETTING_KEY_VALUES = {
   DISCOUNTS : 'discounts',
 };
 
+export const GENERAL_SETTING_KEY_VALUES = {
+  DEFAULT: 'default',
+  USER: 'user',
+  ADS_AND_ANALYTICS : 'ads-and-analytics',
+  FRESHDESK : 'freshdesk',
+  KLAVIYO : 'klaviyo',
+};
+
 export const SETTING_LABEL_VALUES = {
   [SETTING_KEY_VALUES.GENERAL]: 'General',
   [SETTING_KEY_VALUES.PAYMENTS]: 'Payments',
@@ -666,4 +684,19 @@ export const SETTING_LABEL_VALUES = {
   [SETTING_KEY_VALUES.STOREFRONT]: 'Storefront',
   [SETTING_KEY_VALUES.FULFILLMENT]: 'Fulfullment',
   [SETTING_KEY_VALUES.DISCOUNTS] : 'Discounts',
+};
+
+export const SETTING_ICON = {
+  [SETTING_KEY_VALUES.GENERAL]: settingIcon,
+  [SETTING_KEY_VALUES.PAYMENTS]: paymentIcon,
+  [SETTING_KEY_VALUES.SELLERS]: sellerIcon,
+  [SETTING_KEY_VALUES.EMAIL]: emailIcon,
+  [SETTING_KEY_VALUES.SMS]: smsIcon,
+  [SETTING_KEY_VALUES.LEGAL]: legalIcon,
+  [SETTING_KEY_VALUES.BILLING]: billingIcon,
+  [SETTING_KEY_VALUES.USER_AND_PERMISSIONS]: userAndPermissionsIcon,
+  [SETTING_KEY_VALUES.APPS]: appIcon,
+  [SETTING_KEY_VALUES.STOREFRONT]: storeFrontIcon,
+  [SETTING_KEY_VALUES.FULFILLMENT]: fulfillmentIcon,
+  [SETTING_KEY_VALUES.DISCOUNTS] : discountsIcon,
 };

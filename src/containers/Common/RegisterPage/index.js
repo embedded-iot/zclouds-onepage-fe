@@ -9,7 +9,6 @@ import RegisterForm from 'components/Share/RegisterForm';
 import { BaseService, UserService } from 'services';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import NormalContent from 'components/Share/NormalContent';
-import bannerImg from 'images/banner-img.png';
 import logoImg from 'images/logo_icon.svg';
 import Logo from 'components/Share/Logo';
 import { useMediaQuery } from 'react-responsive';

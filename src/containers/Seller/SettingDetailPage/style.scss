@@ -1,7 +1,9 @@
 .store-detail {
-    &__description {
-      color: #626F86;
-      margin-bottom: 16px;
-    }
+  &__description {
+    color: #626F86;
+    margin-bottom: 16px;
   }
-  
+  &__container {
+    min-height: 100%;
+  }
+}

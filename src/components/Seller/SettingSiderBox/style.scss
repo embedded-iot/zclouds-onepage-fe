@@ -1,0 +1,31 @@
+.setting-sibar-box {
+    &__wrapper {
+      height: 100%;
+      padding: 64px 45px;
+      background: #FAFBFC;
+    }
+    &__back-title {
+      margin-left: 12px;
+      color: #4C4441;
+    }
+    &__breadcrumb {
+      margin: 32px 0 8px;
+    }
+    &__header {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 17px;
+    }
+    &__title {
+      color: #231814;
+      font-size: 32px;
+      font-weight: 600;
+    }
+    &__divider {
+      background: #E1DFDF;
+      height: 2px;
+      margin: 24px 0;
+    }
+  }
+  
