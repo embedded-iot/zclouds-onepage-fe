@@ -1,4 +1,8 @@
 .sign-in-form {
+  &__wrapper {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+  }
   &__note {
     text-align: center;
     color: #5E6C84;
