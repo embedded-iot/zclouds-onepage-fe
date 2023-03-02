@@ -81,10 +81,31 @@ function changeUserInfo(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback)
 }
 
+function changeUserGeneral(userGeneralId, data, successCallback, failureCallback) {
+  const url = getSellerBaseURL() + `/account/` + userGeneralId;
+  const config = {
+    data
+  };
+  makePostWithConfigs(url, config, successCallback, failureCallback)
+}
+
+function getUserInfo(successCallback, failureCallback) {
+  const url = getSellerBaseURL() + `/account`;
+  makeGetWithConfigs(url, {}, successCallback, failureCallback)
+}
+
+function getUserGeneral(successCallback, failureCallback) {
+  const url = getSellerBaseURL() + `/account/general`;
+  makeGetWithConfigs(url, {}, successCallback, failureCallback)
+}
+
 export {
   getAccountsStaff,
   createAccountStaff,
   updateAccountStaff,
   changeUserInfo,
   changePassword,
+  changeUserGeneral,
+  getUserInfo,
+  getUserGeneral,
 }

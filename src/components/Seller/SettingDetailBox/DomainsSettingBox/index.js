@@ -1,10 +1,15 @@
 import React from 'react';
 import DomainsTable from 'components/Seller/DomainsTable';
 import PageHeader from 'components/Share/PageHeader';
+import { useMediaQuery } from 'react-responsive';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
+import BoxCard from 'components/Share/BoxCard';
 
 export default function DomainsSettingBox() {
+  const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
+  const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
-    <>
+    <BoxWrapper className={!isMobile && 'content-box__wrapper'} >
       <PageHeader
         title='Homepage'
         description={(
@@ -15,6 +20,6 @@ export default function DomainsSettingBox() {
         )}
       />
       <DomainsTable />
-    </>
+    </BoxWrapper>
   )
 }

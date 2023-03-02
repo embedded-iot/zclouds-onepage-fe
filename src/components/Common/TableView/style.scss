@@ -4,11 +4,15 @@
     background: transparent;
   }
   .ant-table-thead {
+    tr {
+      border-radius: 8px 8px 0px 0px;
+    }
     tr th {
-      background: #8993A5;
+      background: #E1DFDF;
       font-weight: 600;
-      color: #FFFFFF;
-      padding: 7px 13px 9px 13px;
+      color: #231814;
+      font-size: 20px;
+      padding: 21px 20px;
       &:before {
         display: none;
       }
@@ -17,13 +21,18 @@
   .ant-table-tbody {
     tr {
       td {
-        padding: 11px 13px 9px 11px;
+        padding: 18px 20px;
+        color: #231814;
+        min-height: 65px;
       }
       &:nth-child(odd) {
-        background: #F1F2F4;
+        background: #ECECEB;
       }
       &:nth-child(even) {
         background: transparent;
+      }
+      &:last-of-type {
+        border-radius: 0 0 8px 8px;
       }
     }
   }

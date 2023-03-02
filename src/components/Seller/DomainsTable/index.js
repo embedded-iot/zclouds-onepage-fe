@@ -7,10 +7,10 @@ import { EditOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import AddEditDomainBox from './AddEditDomainBox';
 import DeleteDomainModal from './DeleteDomainModal';
 import BoxCard from 'components/Share/BoxCard';
-import StatusTag from 'components/Share/StatusTag';
 import { PERMISSION_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
+import StatusCell from 'components/Share/StatusCell';
 
 const ACTION_KEYS = {
   ACTION_EVENTS: "ACTION_EVENTS",
@@ -29,7 +29,7 @@ const columns = [
     title: 'Status',
     dataIndex: 'convertedStatus',
     render: (convertedStatus, record) => {
-      return (<StatusTag value={record.state} label={convertedStatus}/>);
+      return (<StatusCell value={record.state} label={convertedStatus}/>);
     }
   },
   {
@@ -64,7 +64,7 @@ const columns = [
         )
       ]
       return (
-        <ButtonListWrapper buttonList={buttonList}/>
+        <ButtonListWrapper buttonList={buttonList} className="no-margin" />
       );
     }
   },

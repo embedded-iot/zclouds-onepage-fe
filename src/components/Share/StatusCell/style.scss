@@ -1,0 +1,18 @@
+.status-cell {
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    &__circle {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: block;
+      background: #cccccc;
+    }
+    &__label {
+      color: #665F5C;
+    }
+  }
+  

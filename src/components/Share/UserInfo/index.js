@@ -16,13 +16,13 @@ import { useMediaQuery } from 'react-responsive';
 
 export default function UserInfo({ isAdmin = false, currentUser = {}, redirectTo = () => {}, signOut = () => {}}) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
-  const handleMenuClick = (e) => {
-    switch (e.key) {
+  const handleMenuClick = (key) => {
+    switch (key) {
       case ROUTERS.LOGOUT:
         signOut();
         break;
       default:
-        redirectTo(e.key);
+        redirectTo(key);
         break;
     }
   }

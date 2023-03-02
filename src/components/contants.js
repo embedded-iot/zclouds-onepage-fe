@@ -115,7 +115,7 @@ export const STATE_VALUES = {
   NOT_ACTIVE  : 'NOT_ACTIVE',
   DELETED   : 'DELETED',
   CONNECTED  : 'CONNECTED',
-  UNKNOWN    : 'UNKNOWN ',
+  UNKNOWN    : 'UNKNOWN',
 };
 
 export const STATE_LABELS = {
@@ -151,6 +151,7 @@ export const STATE_COLORS = {
   [STATE_VALUES.COMPLETED]: '#22A06B',
   [STATE_VALUES.ACTIVATED]: '#22A06B',
   [STATE_VALUES.IS_ACTIVE]: '#22A06B',
+  [STATE_VALUES.CONNECTED]: '#22A06B',
 };
 
 export const STATE_LABEL_VALUE_OPTIONS = [
@@ -184,6 +185,9 @@ export const PERMISSION_VALUES = {
   SELLER_VIEW_DOMAINS: 'VIEW_DOMAINS',
   SELLER_ADD_EDIT_DOMAIN: 'ADD_EDIT_DOMAIN',
   SELLER_DELETE_DOMAIN: 'DELETE_DOMAIN',
+  SELLER_VIEW_PAYMENTS: 'VIEW_PAYMENTS',
+  SELLER_ADD_EDIT_PAYMENT: 'ADD_EDIT_PAYMENT',
+  SELLER_DELETE_PAYMENT: 'DELETE_PAYMENT',
   SELLER_VIEW_DESIGNS: 'VIEW_DESIGNS',
   SELLER_ADD_EDIT_DESIGN: 'ADD_EDIT_DESIGN',
   SELLER_VIEW_STAFFS: 'VIEW_STAFFS',
@@ -663,6 +667,13 @@ export const SETTING_KEY_VALUES = {
   DISCOUNTS : 'discounts',
 };
 
+export const PAYMENT_KEY_VALUES = {
+  PAYPAL: 'paypal',
+  PAYFLOW : 'payflow',
+  STRIPE : 'stripe',
+  AIRWALLEX : 'airwallex',
+};
+
 export const GENERAL_SETTING_KEY_VALUES = {
   DEFAULT: 'default',
   USER: 'user',
@@ -700,3 +711,14 @@ export const SETTING_ICON = {
   [SETTING_KEY_VALUES.FULFILLMENT]: fulfillmentIcon,
   [SETTING_KEY_VALUES.DISCOUNTS] : discountsIcon,
 };
+
+
+export const TIMEZONE_STATE_LABEL_VALUE_OPTIONS = [
+  { label: 'Select time zone', value: '' },
+  { label: 'UTC -9', value: 'Etc/GMT+9' },
+  { label: 'UTC -8 (US)', value: 'Etc/GMT+8' },
+  { label: 'UTC -7', value: 'Etc/GMT+7' },
+  { label: 'UTC +0', value: 'Etc/GMT-0' },
+  { label: 'UTC +7 (VN)', value: 'Etc/GMT-7' },
+  { label: 'UTC +8 (CN)', value: 'Etc/GMT-7' },
+];
