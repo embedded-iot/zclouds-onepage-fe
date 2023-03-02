@@ -6,7 +6,7 @@ import BoxCard from 'components/Share/BoxCard';
 import BoxHeader from 'components/Share/BoxHeader';
 import AddPaymentBox from 'components/Seller/PaymentsTable/AddPaymentBox';
 
-export default function PaymentsBox({ redirectTo }) {
+export default function PaymentsBox({ redirectTo, settingKey }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
@@ -19,6 +19,7 @@ export default function PaymentsBox({ redirectTo }) {
         />
         <AddPaymentBox
           redirectTo={redirectTo}
+          settingKey={settingKey}
         />
       </BoxWrapper>
       <BoxWrapper className={!isMobile && 'content-box__wrapper'} >

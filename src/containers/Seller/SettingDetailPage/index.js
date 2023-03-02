@@ -32,6 +32,7 @@ function SettingDetailPage(props) {
           subSettingKey={subSettingKey}
           breadcrumbRouters={breadcrumbRouters}
           redirectTo={props.push}
+          goBack={props.goBack}
         />
       </Col>
       <Col span={18}>

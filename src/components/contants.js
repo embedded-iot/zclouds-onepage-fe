@@ -675,7 +675,6 @@ export const PAYMENT_KEY_VALUES = {
 };
 
 export const GENERAL_SETTING_KEY_VALUES = {
-  DEFAULT: 'default',
   USER: 'user',
   ADS_AND_ANALYTICS : 'ads-and-analytics',
   FRESHDESK : 'freshdesk',
