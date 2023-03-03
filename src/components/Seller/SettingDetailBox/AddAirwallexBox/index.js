@@ -1,17 +1,17 @@
 import React from 'react';
-import { BaseService, SellerUsersService } from 'services';
+import { BaseService, SellerPaymentsService } from 'services';
 import { notification } from 'antd';
 import AirwallexForm from './AirwallexForm';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 import BoxCard from 'components/Share/BoxCard';
 
-export default function AddAirwallexBox() {
+export default function AddAirwallexBox({ goBack }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const BoxWrapper = isMobile ? 'div' : BoxCard;
 
   const handlerFinish = (values) => {
-    SellerUsersService.changeUserInfo(values, response => {
+    SellerPaymentsService.createPayment(values, response => {
       notification.success({
         message: "Add airwallex payment success!",
       });
@@ -28,6 +28,7 @@ export default function AddAirwallexBox() {
         <div className='general-setting-box__wrapper'>
           <AirwallexForm
             onFinish={handlerFinish}
+            onCancel={goBack}
           />
         </div>
       </BoxWrapper>

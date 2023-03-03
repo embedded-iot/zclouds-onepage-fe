@@ -4,7 +4,7 @@ import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import SettingDetailBox from 'components/Seller/SettingDetailBox';
-import { ROUTERS, SETTING_LABEL_VALUES } from 'components/contants';
+import { ROUTERS, SETTING_KEY_VALUES, SETTING_LABEL_VALUES } from 'components/contants';
 import { Col, Row } from 'antd';
 import SettingSiderBox from 'components/Seller/SettingSiderBox';
 
@@ -23,8 +23,35 @@ function SettingDetailPage(props) {
       breadcrumbName: title,
     },
   ]
+
+  const handleGoBack = () => {
+    if (subSettingKey) {
+      props.push(ROUTERS.SELLER_SETTINGS + '/' + settingKey);
+    } else {
+      props.push(ROUTERS.SELLER_SETTINGS);
+    }
+  }
+
+  const settingDetailsPage = (
+    <div className="page-wrapper edit-domain-page__wrapper">
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
+      <div className="page-contents">
+        <SettingDetailBox
+          settingKey={settingKey}
+          subSettingKey={subSettingKey}
+          redirectTo={props.push}
+          goBack={handleGoBack}
+        />
+      </div>
+    </div>
+  )
+  if (settingKey === SETTING_KEY_VALUES.STOREFRONT && !!subSettingKey) {
+    return settingDetailsPage;
+  }
   return (
-    <Row className="store-detail__container">
+    <Row className="setting-detail-page__wrapper">
       <Col span={6}>
         <SettingSiderBox
           title={title}
@@ -32,22 +59,13 @@ function SettingDetailPage(props) {
           subSettingKey={subSettingKey}
           breadcrumbRouters={breadcrumbRouters}
           redirectTo={props.push}
-          goBack={props.goBack}
+          goBack={handleGoBack}
         />
       </Col>
       <Col span={18}>
-        <div className="page-wrapper store-detail__wrapper">
-          <Helmet>
-            <title>{title}</title>
-          </Helmet>
-          <div className="page-contents">
-            <SettingDetailBox
-              settingKey={settingKey}
-              subSettingKey={subSettingKey}
-              redirectTo={props.push}
-            />
-          </div>
-        </div>
+        {
+          settingDetailsPage
+        }
       </Col>
     </Row>
   );

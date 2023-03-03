@@ -1,0 +1,46 @@
+.accepted-payments {
+    &__wrapper {
+      width: 100%;
+      > label {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        margin-right: 0;
+        span:nth-child(2) {
+          flex-grow: 1;
+        }
+        &:not(:last-of-type) {
+          border-bottom: 1px solid #E1DFDF;
+        }
+      }
+    }
+    &__item {
+      display: flex;
+      align-items: center;
+      & > div:nth-child(2) {
+        flex-grow: 1;
+      }
+    }
+    &__icon {
+  
+    }
+    &__card {
+      height: 36px;
+      width: 64px;
+      background: #FFFFFF;
+      border: 1px solid #ABA8A6;
+      border-radius: 4px;
+  
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &__name {
+      color: #1D9AAA;
+      margin-left: 15px;
+    }
+    &__type {
+      color: #4C4441;
+    }
+  }
+  

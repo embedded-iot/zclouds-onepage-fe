@@ -18,6 +18,8 @@
   }
   &__input-search {
     max-width: 410px;
+    display: flex;
+    align-items: center;
   }
   &__down-icon {
     width: 24px;

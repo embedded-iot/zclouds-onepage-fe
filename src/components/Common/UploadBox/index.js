@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Modal, Upload } from 'antd';
+import { Button, Modal, Upload } from 'antd';
 import { getAuthorizationHeaders } from 'utils';
-import uploadIcon from 'images/upload-icon.svg';
-import Icon from 'components/Common/Icon';
+import { UploadOutlined } from '@ant-design/icons';
 import './style.scss';
 
 const getBase64 = (file) => new Promise((resolve, reject) => {
@@ -12,7 +11,7 @@ const getBase64 = (file) => new Promise((resolve, reject) => {
     reader.onerror = (error) => reject(error);
 });
 
-export default function UploadBox({ action, onRemove, headers, selectLabel, maxFileUpload = 50, ...restProps }) {
+export default function UploadBox({ action, className, onRemove, widthAuto = false, headers, selectLabel, selectNote, maxFileUpload = 50, ...restProps }) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -28,8 +27,10 @@ export default function UploadBox({ action, onRemove, headers, selectLabel, maxF
   // const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
   const uploadButton = (
     <div>
-      <Icon src={uploadIcon} width={24} height={24} />
-      <div className="upload-box__select-label">{selectLabel || 'Upload'}</div>
+      <Button type='primary' icon={<UploadOutlined />}>
+        {selectLabel || 'Upload'}
+      </Button>
+      { !!selectNote &&  <div className="upload-box__select-note">{selectNote}</div>}
     </div>
   );
 
@@ -40,7 +41,7 @@ export default function UploadBox({ action, onRemove, headers, selectLabel, maxF
     return true;
   };
   return (
-    <div className="upload-box__wrapper">
+    <div className={`upload-box__wrapper ${className} ${widthAuto && 'upload-box__wrapper--full-width-card'}`}>
       <Upload
         {...restProps}
         headers={getAuthorizationHeaders()}

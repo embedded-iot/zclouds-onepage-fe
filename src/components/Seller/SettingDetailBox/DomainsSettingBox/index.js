@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 import BoxCard from 'components/Share/BoxCard';
 
-export default function DomainsSettingBox() {
+export default function DomainsSettingBox({ redirectTo }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const BoxWrapper = isMobile ? 'div' : BoxCard;
   return (
@@ -19,7 +19,7 @@ export default function DomainsSettingBox() {
           </>
         )}
       />
-      <DomainsTable />
+      <DomainsTable redirectTo={redirectTo} />
     </BoxWrapper>
   )
 }

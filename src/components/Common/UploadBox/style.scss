@@ -1,25 +1,35 @@
 .upload-box {
   &__wrapper {
+    &--full-width-card {
+      .ant-upload-list-picture-card-container, .ant-upload-select.ant-upload-select-picture-card {
+        width: 100% !important;
+      }
+    }
     .ant-upload-list-picture-card-container, .ant-upload-select.ant-upload-select-picture-card {
       width: 140px;
       height: 140px;
-      background: #F7F8F9;
+      background: #ECECEB;
     }
     .ant-upload-list-item-error {
       border-color: #ff4d4f !important;
     }
     .ant-upload-list-item {
       border-radius: 8px;
-      border: 1px solid #DCDFE4;
+      border: 2px dashed #C5C2C1;
     }
     .ant-upload-select.ant-upload-select-picture-card {
-      border: 1px dashed #DCDFE4;
+      border: 2px dashed #C5C2C1;
       border-radius: 8px;
     }
+    .ant-upload-list-item-card-actions-btn {
+      height: auto;
+    }
   }
-  &__select-label {
-    margin-top: 8px;
-    font-size: 12px;
-    color: #758195;
+  &__select-note {
+    font-size: 14px;
+    color: #9E9997;
+    position: absolute;
+    bottom: 14px;
+    line-height: 25px;
   }
 }

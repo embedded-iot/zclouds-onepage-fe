@@ -1,10 +1,18 @@
 .general-setting-box {
-    &__wrapper {
-      max-width: 350px;
-      margin: 0 auto;
-    }
-    &__note {
-      color: #908A88;
-    }
+  &__wrapper {
+    max-width: 350px;
+    margin: 0 auto;
   }
-  
+  &__note {
+    color: #908A88;
+    font-size: 14px;
+  }
+&__divider {
+  &--vertical {
+    height: 100%;
+    margin: 0px auto;
+    display: block;
+    width: 2px;
+  }
+}
+}

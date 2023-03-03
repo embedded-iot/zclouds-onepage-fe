@@ -681,6 +681,17 @@ export const GENERAL_SETTING_KEY_VALUES = {
   KLAVIYO : 'klaviyo',
 };
 
+
+export const PAYMENT_CARD_KEY_VALUES = {
+  VISA: 'visa',
+  MASTER : 'master',
+  AMEX : 'amex',
+  JCB : 'jcb',
+  DISCOVER : 'discover',
+  DINERS : 'OD',
+};
+
+
 export const SETTING_LABEL_VALUES = {
   [SETTING_KEY_VALUES.GENERAL]: 'General',
   [SETTING_KEY_VALUES.PAYMENTS]: 'Payments',

@@ -5,10 +5,13 @@ import BoxHeader from 'components/Share/BoxHeader';
 import InputText from 'components/Common/InputText';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 
-export default function AirwallexForm({ onFinish = () => {}, }) {
+export default function AirwallexForm({ onFinish = () => {},  onCancel = () => {}, }) {
   const buttonList = [
+    <Button onClick={onCancel}>
+      Discard
+    </Button>,
     <Button type="primary" htmlType="submit">
-      Save
+      Add
     </Button>
   ];
   return (
@@ -20,7 +23,7 @@ export default function AirwallexForm({ onFinish = () => {}, }) {
     >
       <Form.Item>
         <BoxHeader
-          title="Add Paypal Express Checkout"
+          title="AIRWALLEX"
           align="left"
         />
       </Form.Item>
@@ -38,10 +41,10 @@ export default function AirwallexForm({ onFinish = () => {}, }) {
       </Form.Item>
 
       <Form.Item
-        label="Secret"
-        name="secret"
+        label="API KEY"
+        name="apiKey"
       >
-        <InputPassword placeholder="Secret" />
+        <InputPassword placeholder="API KEY" />
       </Form.Item>
       <ButtonListWrapper buttonList={buttonList}
                          align="right"

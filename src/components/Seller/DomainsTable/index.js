@@ -7,7 +7,7 @@ import { EditOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import AddEditDomainBox from './AddEditDomainBox';
 import DeleteDomainModal from './DeleteDomainModal';
 import BoxCard from 'components/Share/BoxCard';
-import { PERMISSION_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
+import { PERMISSION_VALUES, RESPONSIVE_MEDIAS, ROUTERS, SETTING_KEY_VALUES } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import StatusCell from 'components/Share/StatusCell';
@@ -70,7 +70,7 @@ const columns = [
   },
 ];
 
-export default function DomainsTable() {
+export default function DomainsTable({ redirectTo = () => {} }) {
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const [openDeleteDomain, setOpenDeleteDomain] = useState(false);
   const [selectedDomain, setSelectedDomain] = useState(null);
@@ -137,7 +137,7 @@ export default function DomainsTable() {
   }
 
   const editDomain = domain => {
-
+    redirectTo(ROUTERS.SELLER_SETTINGS + '/' + SETTING_KEY_VALUES.STOREFRONT + '/' + domain.name);
   }
 
   const deleteDomain = domain => {

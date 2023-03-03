@@ -5,10 +5,13 @@ import BoxHeader from 'components/Share/BoxHeader';
 import InputText from 'components/Common/InputText';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 
-export default function PaypalForm({ onFinish = () => {}, }) {
+export default function PaypalForm({ onFinish = () => {},  onCancel = () => {}, }) {
   const buttonList = [
+    <Button onClick={onCancel}>
+      Discard
+    </Button>,
     <Button type="primary" htmlType="submit">
-      Save
+      Add
     </Button>
   ];
   return (

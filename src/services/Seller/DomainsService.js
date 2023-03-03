@@ -1,5 +1,5 @@
 import { getSellerBaseURL } from 'services/BaseService';
-import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs, makePutWithConfigs } from 'utils';
+import { makeDeleteWithConfigs, makeGetWithConfigs, makePostWithConfigs } from 'utils';
 import { STATE_LABELS } from 'components/contants';
 
 const transformDomain = item => {
@@ -33,12 +33,12 @@ function createDomain(data, successCallback, failureCallback) {
   makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
-function updateDomain(id, data, successCallback, failureCallback) {
+function editDomainTemplate(domain, data, successCallback, failureCallback) {
   const config = {
     data
   };
-  const url = getSellerBaseURL() + '/domains/' + id;
-  makePutWithConfigs(url, config, successCallback, failureCallback);
+  const url = getSellerBaseURL() + '/domains/' + domain;
+  makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
 function deleteDomain(id, successCallback, failureCallback) {
@@ -49,6 +49,6 @@ function deleteDomain(id, successCallback, failureCallback) {
 export {
   getDomains,
   createDomain,
-  updateDomain,
+  editDomainTemplate,
   deleteDomain,
 }
