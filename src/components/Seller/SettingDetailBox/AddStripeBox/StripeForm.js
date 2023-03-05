@@ -42,19 +42,37 @@ export default function StripeForm({ onFinish = () => {},  onCancel = () => {}, 
             </Form.Item>
             <Form.Item
               label="Name / Email"
-              name="nameEmail"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please enter payment name/email!',
+                },
+              ]}
             >
               <InputText placeholder="Name / Email" />
             </Form.Item>
             <Form.Item
               label="Publishable Key"
-              name="publishableKey"
+              name="clientId"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please enter publishable key!',
+                },
+              ]}
             >
               <InputText placeholder="Publishable Key"  />
             </Form.Item>
             <Form.Item
               label="Secret Key"
-              name="secretKey"
+              name="secret"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please enter secret!',
+                },
+              ]}
             >
               <InputPassword placeholder="Secret Key" />
             </Form.Item>

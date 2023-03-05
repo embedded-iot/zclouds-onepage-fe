@@ -42,7 +42,13 @@ export default function PayflowForm({ onFinish = () => {},  onCancel = () => {},
             </Form.Item>
             <Form.Item
               label="Name / Email"
-              name="nameEmail"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please enter payment name/email!',
+                },
+              ]}
             >
               <InputText placeholder="Name / Email" />
             </Form.Item>
@@ -76,13 +82,25 @@ export default function PayflowForm({ onFinish = () => {},  onCancel = () => {},
             </Form.Item>
             <Form.Item
               label="Client ID"
-              name="clientID"
+              name="clientId"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please enter client ID!',
+                },
+              ]}
             >
               <InputText placeholder="Client ID"  />
             </Form.Item>
             <Form.Item
               label="Secret Key"
-              name="secretKey"
+              name="secret"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please enter secret!',
+                },
+              ]}
             >
               <InputPassword placeholder="Secret Key" />
             </Form.Item>

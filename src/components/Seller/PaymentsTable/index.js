@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TableGrid from 'components/Common/TableGrid';
 import { SellerPaymentsService } from 'services';
-import { authentication, cui,events } from 'utils';
+import { cui,events } from 'utils';
 import { Button} from 'antd';
 import { EditOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import DeletePaymentModal from './DeletePaymentModal';
-import { PERMISSION_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
+import { RESPONSIVE_MEDIAS } from 'components/contants';
 import { useMediaQuery } from 'react-responsive';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
+import { filterListByPermission } from 'services/BaseService';
 
 const ACTION_KEYS = {
   ACTION_EVENTS: "ACTION_EVENTS",
@@ -23,7 +24,7 @@ const columns = [
   },
   {
     title: 'Payment',
-    dataIndex: 'payment',
+    dataIndex: 'adapter',
   },
   {
     title: 'Active seller',
@@ -40,30 +41,27 @@ const columns = [
         })
       }
       const buttonList = [
-        authentication.getPermission(PERMISSION_VALUES.SELLER_ADD_EDIT_PAYMENT) && (
-          <Button
-            key={ACTION_KEYS.EDIT_PAYMENT}
-            icon={<EditOutlined />}
-            onClick={() => handleClick(ACTION_KEYS.EDIT_PAYMENT)}
-          >
-            Edit
-          </Button>
-        ),
-        authentication.getPermission(PERMISSION_VALUES.SELLER_DELETE_PAYMENT) && (
-          <Button
-            danger
+        <Button
+          key={ACTION_KEYS.EDIT_PAYMENT}
+          icon={<EditOutlined />}
+          onClick={() => handleClick(ACTION_KEYS.EDIT_PAYMENT)}
+        >
+          Edit
+        </Button>,
+        <Button
+          danger
 
-            icon={<MinusCircleOutlined />}
-            onClick={() => handleClick(ACTION_KEYS.DELETE_PAYMENT)}
-          >
-            Remove
-          </Button>
-        )
+          icon={<MinusCircleOutlined />}
+          onClick={() => handleClick(ACTION_KEYS.DELETE_PAYMENT)}
+        >
+          Remove
+        </Button>
       ]
       return (
         <ButtonListWrapper buttonList={buttonList} className="no-margin" />
       );
-    }
+    },
+    permission: false,
   },
 ];
 
@@ -76,7 +74,7 @@ export default function PaymentsTable() {
   let ref = useRef({});
   const tableConfig = {
     className: isMobile && 'box-card--mobile',
-    columns,
+    columns: filterListByPermission(columns),
     getDataFunc: (params, successCallback, failureCallback) => {
       SellerPaymentsService.getPayments(cui.removeEmpty(params), successCallback, failureCallback)
     },

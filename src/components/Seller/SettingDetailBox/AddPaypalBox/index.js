@@ -3,7 +3,7 @@ import { BaseService, SellerPaymentsService } from 'services';
 import { notification } from 'antd';
 import PaypalForm from 'components/Seller/SettingDetailBox/AddPaypalBox/PaypalForm';
 import { useMediaQuery } from 'react-responsive';
-import { RESPONSIVE_MEDIAS } from 'components/contants';
+import { PAYMENT_KEY_VALUES, RESPONSIVE_MEDIAS } from 'components/contants';
 import BoxCard from 'components/Share/BoxCard';
 
 export default function AddPaypalBox({ goBack }) {
@@ -11,10 +11,14 @@ export default function AddPaypalBox({ goBack }) {
   const BoxWrapper = isMobile ? 'div' : BoxCard;
 
   const handlerFinish = (values) => {
-    SellerPaymentsService.createPayment(values, response => {
+    SellerPaymentsService.createPayment({
+      adapter: PAYMENT_KEY_VALUES.PAYPAL,
+      ...values
+    }, response => {
       notification.success({
         message: "Add paypal payment success!",
       });
+      goBack();
     }, error => {
       notification.error({
         message: BaseService.getErrorMessage(error, "Add paypal payment failure!"),

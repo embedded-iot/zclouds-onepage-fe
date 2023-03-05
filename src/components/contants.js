@@ -668,10 +668,11 @@ export const SETTING_KEY_VALUES = {
 };
 
 export const PAYMENT_KEY_VALUES = {
-  PAYPAL: 'paypal',
-  PAYFLOW : 'payflow',
-  STRIPE : 'stripe',
-  AIRWALLEX : 'airwallex',
+  PAYPAL: 'PAYPAL',
+  PAYFLOW : 'PAYPAL_PRO',
+  STRIPE : 'STRIPE',
+  AIRWALLEX : 'AIRWALLEX',
+  AUTHORIZE  : 'AUTHORIZE ',
 };
 
 export const GENERAL_SETTING_KEY_VALUES = {

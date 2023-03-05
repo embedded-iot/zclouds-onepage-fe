@@ -5,7 +5,7 @@ import BoxHeader from 'components/Share/BoxHeader';
 import InputText from 'components/Common/InputText';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 
-export default function AirwallexForm({ onFinish = () => {},  onCancel = () => {}, }) {
+export default function AuthorizeForm({ onFinish = () => {},  onCancel = () => {}, }) {
   const buttonList = [
     <Button onClick={onCancel}>
       Discard
@@ -40,12 +40,12 @@ export default function AirwallexForm({ onFinish = () => {},  onCancel = () => {
         <InputText placeholder="Name / Email" />
       </Form.Item>
       <Form.Item
-        label="Client ID"
+        label="API LOGIN ID"
         name="clientId"
         rules={[
           {
             required: true,
-            message: 'Please enter client ID!',
+            message: 'Please enter API login ID!',
           },
         ]}
       >
@@ -53,12 +53,12 @@ export default function AirwallexForm({ onFinish = () => {},  onCancel = () => {
       </Form.Item>
 
       <Form.Item
-        label="API KEY"
+        label="TRANSACTION KEY"
         name="secret"
         rules={[
           {
             required: true,
-            message: 'Please enter API key!',
+            message: 'Please enter traction key!',
           },
         ]}
       >

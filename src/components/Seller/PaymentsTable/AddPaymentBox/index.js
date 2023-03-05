@@ -39,6 +39,13 @@ export const PAYMENTS = [
     key: PAYMENT_KEY_VALUES.AIRWALLEX,
     btnLabel: 'Add AIRWALLEX Processor'
   },
+  {
+    title: 'AUTHORIZE',
+    description: 'https://authorize.net/',
+    icon: null,
+    key: PAYMENT_KEY_VALUES.AUTHORIZE,
+    btnLabel: 'Add AUTHORIZE Processor'
+  },
 ]
 
 export default function AddPaymentBox({ redirectTo, settingKey }) {

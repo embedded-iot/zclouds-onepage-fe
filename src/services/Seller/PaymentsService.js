@@ -10,7 +10,7 @@ function getPayments(params, successCallback, failureCallback) {
   const config = {
     params
   };
-  const url = getSellerBaseURL() + '/payments';
+  const url = getSellerBaseURL() + '/gateways';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     const items = !!response && !!response.content ? response.content.map(transformPayment) : [];
     return {
@@ -27,7 +27,7 @@ function createPayment(data, successCallback, failureCallback) {
   const config = {
     data
   };
-  const url = getSellerBaseURL() + '/payments';
+  const url = getSellerBaseURL() + '/gateways';
   makePostWithConfigs(url, config, successCallback, failureCallback);
 }
 
@@ -35,12 +35,12 @@ function updatePayment(id, data, successCallback, failureCallback) {
   const config = {
     data
   };
-  const url = getSellerBaseURL() + '/payments/' + id;
+  const url = getSellerBaseURL() + '/gateways/' + id;
   makePutWithConfigs(url, config, successCallback, failureCallback);
 }
 
 function deletePayment(id, successCallback, failureCallback) {
-  const url = getSellerBaseURL() + '/payments/' + id;
+  const url = getSellerBaseURL() + '/gateways/' + id;
   makeDeleteWithConfigs(url, {}, successCallback, failureCallback);
 }
 

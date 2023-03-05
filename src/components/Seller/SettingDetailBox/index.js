@@ -11,6 +11,7 @@ import AddPaypalBox from './AddPaypalBox';
 import AddPayflowBox from './AddPayflowBox';
 import AddStripeBox from './AddStripeBox';
 import AddAirwallexBox from './AddAirwallexBox';
+import AddAuthorizeBox from './AddAuthorizeBox';
 
 import './style.scss';
 
@@ -28,6 +29,7 @@ const SETTING_COMPONENTS = {
     [PAYMENT_KEY_VALUES.PAYFLOW]: AddPayflowBox,
     [PAYMENT_KEY_VALUES.STRIPE]: AddStripeBox,
     [PAYMENT_KEY_VALUES.AIRWALLEX]: AddAirwallexBox,
+    [PAYMENT_KEY_VALUES.AUTHORIZE]: AddAuthorizeBox,
   },
   [SETTING_KEY_VALUES.STOREFRONT]: {
     "DEFAULT": DomainsSettingBox,
