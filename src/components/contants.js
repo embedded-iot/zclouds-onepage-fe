@@ -384,6 +384,21 @@ export const SELLER_STAFF_ROLES_LABEL_VALUE_OPTIONS = [
   { label: ROLE_LABELS[ROLE_VALUES.DESIGNER], value: ROLE_VALUES.DESIGNER },
 ];
 
+export const DOMAIN_TEMPLATE_LABEL_VALUE_OPTIONS = [
+  { label: 'Default', value: 'default' },
+  { label: 'Slide', value: 'slide' },
+];
+
+export const POLICIES_VERSIONS_LABEL_VALUE_OPTIONS = [
+  { label: 'Default', value: 'default' },
+  { label: 'V1test', value: 'V1test' },
+];
+
+export const HAVE_MENU_LABEL_VALUE_OPTIONS = [
+  { label: 'Yes', value: 'yes' },
+  { label: 'No', value: 'no' },
+];
+
 export const DESIGN_VALUES = {
   _2D: '2D',
   _3D: '3D',

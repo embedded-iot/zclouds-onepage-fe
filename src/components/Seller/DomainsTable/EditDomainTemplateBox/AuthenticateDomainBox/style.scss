@@ -1,0 +1,12 @@
+.authenticate-domain-box {
+    &__for-email {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      margin-bottom: 8px;
+    }
+    &__for-email-label {
+      flex-grow: 1;
+    }
+  }
+  

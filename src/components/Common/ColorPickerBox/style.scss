@@ -1,0 +1,26 @@
+.color-picker-box {
+    &__wrapper {
+      background: #ECECEB;
+      border: 1px solid #E1DFDF;
+      border-radius: 8px;
+      padding: 14px;
+    }
+    &__header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    &__label {
+      color: #4C4441;
+      flex-grow: 1;
+    }
+    &__color-hex-label {
+      color: #665F5C;
+      background: #FFFFFF;
+      border: 1px solid #E1DFDF;
+      border-radius: 4px;
+      line-height: 25px;
+      padding: 2px 4px;
+    }
+  }
+  
