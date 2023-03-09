@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import NotificationsList from 'components/Admin/NotificationsList';
 import { setGlobalStore } from 'containers/App/actions';
 import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
@@ -21,7 +20,6 @@ function HomePage(props) {
         title="Dashboard"
       />
       <div className="page-contents">
-        <NotificationsList isExplain={false} redirectTo={props.push} noData='No notifications'/>
       </div>
     </div>
   );

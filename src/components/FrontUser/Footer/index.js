@@ -1,9 +1,6 @@
 import React from 'react';
 import { Button, Col, Row } from 'antd';
 import logo from 'images/logo_icon.svg';
-import call from 'images/call.png';
-import zalo from 'images/zalo.png';
-import facebook from 'images/facebook.png';
 import { SellerSystemService } from 'services';
 import { RESPONSIVE_MEDIAS, ROUTERS, SYSTEM_CONFIG_VALUE } from 'components/contants';
 import { MessengerChat } from 'react-messenger-chat-plugin';
@@ -31,14 +28,8 @@ export default function Footer({ systemConfigs = [], redirectTo = () => {}}) {
                 <div className='public-footer__detail-contact-label'>Social network:</div>
                 <div className='public-footer__social-contact'>
                   <span className="cursor-pointer" onClick={() => window.open(`tel:${SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_PHONE_CALL)}`, '_self')}>
-                    <img src={call} alt='call' />
+                    {/*<img src={call} alt='call' />*/}
                   </span>
-                  <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_ZALO)} target='_blank' rel="noreferrer">
-                    <img src={zalo} alt='zalo' />
-                  </a>
-                  <a href={SellerSystemService.getSystemConfigValue(systemConfigs, SYSTEM_CONFIG_VALUE.HOME_FACEBOOK)} target='_blank' rel="noreferrer">
-                    <img src={facebook} alt='facebook' />
-                  </a>
                 </div>
               </div>
             </div>

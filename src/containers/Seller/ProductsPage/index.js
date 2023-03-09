@@ -3,17 +3,18 @@ import { Helmet } from 'react-helmet';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import ProductCategoriesGrid from 'components/Seller/ProductsGrid';
 
-import './style.scss';
-
-function HomePage(props) {
+function ProductsPage(props) {
   return (
-    <div className="page-wrapper--full-width home-page__wrapper">
+    <div className="page-wrapper">
       <Helmet>
-        <title>Home</title>
+        <title>Products</title>
       </Helmet>
       <div className="page-contents">
-
+        <ProductCategoriesGrid
+          redirectTo={props.push}
+        />
       </div>
     </div>
   );
@@ -38,4 +39,4 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-)(HomePage);
+)(ProductsPage);

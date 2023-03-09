@@ -6,7 +6,7 @@ import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import AddEditOrderBox from 'components/Admin/AddEditOrderBox';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
-import { FrontUserCategoriesService, AdminOrdersService } from 'services';
+import { AdminOrdersService, FrontUserCategoriesService } from 'services';
 import { useMediaQuery } from 'react-responsive';
 
 function OrderDetailManagementPage(props) {

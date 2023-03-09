@@ -1,5 +1,5 @@
 import React from 'react';
-import logo_lg from 'images/logo_lg.svg';
+import logo_lg from 'images/logo_icon.svg';
 import Logo from 'components/Share/Logo';
 
 import './style.scss';

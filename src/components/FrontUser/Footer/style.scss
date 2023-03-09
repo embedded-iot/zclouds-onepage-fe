@@ -1,20 +1,4 @@
 .public-footer {
-  &__wrapper {
-    margin: -24px -50px;
-    padding: 48px 20px 44px;
-    background: url("~images/front-footer.png") center center no-repeat;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    &--mobile {
-      background: url("~images/front-footer-1.png") center center no-repeat;
-      background-size: cover;
-      .public-footer__logo {
-        text-align: center;
-        margin-bottom: 24px;
-      }
-    }
-  }
   &__contents {
     max-width: 1000px;
     width: 100%;

@@ -1,7 +1,3 @@
-import shopifyLogo from 'images/shopify_logo.svg'
-import shopBaseLogo from 'images/shopbase_logo.svg'
-import wooCommerceLogo from 'images/woocommerce_logo.svg'
-
 import settingIcon from 'images/settings_icon.svg';
 import paymentIcon from 'images/payment_icon.svg';
 import sellerIcon from 'images/user_icon.svg';
@@ -27,12 +23,7 @@ export const ROUTERS = {
   FORGOT_PASSWORD: '/forgot-password',
   CHANGE_PASSWORD: '/change-password',
   REGISTER: '/register',
-  FRONT_USER_ALL_PRODUCTS: '/products',
-  FRONT_USER_ALL_PRODUCTS_WITH_CATEGORY: '/products/:categoryName/:categoryId',
-  FRONT_USER_PRODUCT_DETAIL: '/products/:categoryName/:productName/:categoryId/:productId',
-  FRONT_USER_SKU: '/sku',
-  FRONT_USER_BLOGS: '/blogs',
-  FRONT_USER_BLOG_DETAIL: '/blogs/:blogCategoryName/:blogName/:blogCategoryId/:blogId',
+
   SELLER_ORDERS: '/orders',
   SELLER_STORES: '/stores',
   SELLER_PRODUCTS: '/products',
@@ -42,20 +33,6 @@ export const ROUTERS = {
   SELLER_SUB_DETAIL_SETTING: '/settings/:settingKey/:subSettingKey',
   SELLER_HELP: '/help',
 
-  SELLER_DETAIL_ORDER: '/orders/:orderId',
-  SELLER_DETAIL_ORDER_WITH_PRODUCT: '/orders/:orderId/productId/:productId',
-  SELLER_DESIGN_LIBRARY: '/design-library',
-  SELLER_MY_ACCOUNT: '/my-account',
-  SELLER_DETAIL_STORE: '/stores/:storeId',
-  SELLER_WALLET: '/wallet',
-  SELLER_INTEGRATIONS: '/integration',
-  SELLER_INTEGRATIONS_WITH_VENDOR: '/integration/:vendorId',
-  SELLER_INTEGRATIONS_GET_TOKEN: '/integration/:vendorId/get-token',
-  SELLER_INTEGRATION_ORDERS: '/integration/:vendorId/orders/:storeId/:storeName',
-  SELLER_PRODUCT_CATEGORY: '/product-category',
-  SELLER_TICKETS: '/tickets',
-  SELLER_CHAT_WITH_ME: '/chat-with-me',
-  SELLER_CREATOR_COMMUNITY: '/creator-community',
   ADMIN_PRODUCTS_MANAGEMENT: '/products-management',
   ADMIN_DETAIL_PRODUCT: '/products-management/:productId',
   ADMIN_CATEGORIES_MANAGEMENT: '/categories-management',
@@ -379,11 +356,6 @@ export const ROLES_LABEL_VALUE_OPTIONS = [
   { label: ROLE_LABELS[ROLE_VALUES.DESIGNER], value: ROLE_VALUES.DESIGNER },
 ];
 
-export const SELLER_STAFF_ROLES_LABEL_VALUE_OPTIONS = [
-  { label: ROLE_LABELS[ROLE_VALUES.RESELLER], value: ROLE_VALUES.RESELLER },
-  { label: ROLE_LABELS[ROLE_VALUES.DESIGNER], value: ROLE_VALUES.DESIGNER },
-];
-
 export const DOMAIN_TEMPLATE_LABEL_VALUE_OPTIONS = [
   { label: 'Default', value: 'default' },
   { label: 'Slide', value: 'slide' },
@@ -409,11 +381,6 @@ export const DESIGN_LABELS = {
   [DESIGN_VALUES._3D]: '3D product',
 };
 
-export const DESIGN_LABEL_VALUE_OPTIONS = [
-  { label: DESIGN_LABELS[DESIGN_VALUES._2D], value: DESIGN_VALUES._2D },
-  { label: DESIGN_LABELS[DESIGN_VALUES._3D], value: DESIGN_VALUES._3D },
-];
-
 export const STORE_TYPE_VALUES = {
   SHOPIFY: 'shopify',
   SHOP_BASE: 'shopbase',
@@ -424,12 +391,6 @@ export const STORE_TYPE_LABELS = {
   [STORE_TYPE_VALUES.SHOPIFY]: 'Shopify',
   [STORE_TYPE_VALUES.SHOP_BASE]: 'ShopBase',
   [STORE_TYPE_VALUES.WOO_COMMERCE]: 'WooCommerce',
-};
-
-export const STORE_TYPE_ICONS = {
-  [STORE_TYPE_VALUES.SHOPIFY]: shopifyLogo,
-  [STORE_TYPE_VALUES.SHOP_BASE]: shopBaseLogo,
-  [STORE_TYPE_VALUES.WOO_COMMERCE]: wooCommerceLogo,
 };
 
 export const STORE_TYPE_LABEL_VALUE_OPTIONS = [

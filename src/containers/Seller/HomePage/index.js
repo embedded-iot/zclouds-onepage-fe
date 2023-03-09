@@ -5,8 +5,6 @@ import { goBack, push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
-// import DashboardBox from 'components/Seller/DashboardBox';
-// import NotificationsList from 'components/Seller/NotificationsList';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 
@@ -20,10 +18,6 @@ function HomePage(props) {
       <PageHeader
         className={isMobile && 'box-card--mobile'}title={`Dashboard`}
       />
-      {/*<div className="page-contents">*/}
-      {/*  <NotificationsList isExplain={false} redirectTo={props.push}/>*/}
-      {/*  <DashboardBox />*/}
-      {/*</div>*/}
     </div>
   );
 }

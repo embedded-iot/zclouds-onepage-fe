@@ -4,7 +4,6 @@ import { AdminStoresService } from 'services';
 import { authentication, events } from 'utils';
 import {
   PERMISSION_VALUES, RESPONSIVE_MEDIAS,
-  STORE_TYPE_ICONS,
   STORE_TYPE_LABEL_VALUE_OPTIONS,
 } from 'components/contants';
 import DropdownSelect from 'components/Common/DropdownSelect';
@@ -23,11 +22,6 @@ const columns = [
   {
     title: 'Store ID',
     dataIndex: 'id',
-  },
-  {
-    title: 'Platform Store',
-    dataIndex: 'platform',
-    render: (platform) => <Icon src={STORE_TYPE_ICONS[platform.toLowerCase()]} height={60} />
   },
   {
     title: 'Store Name',
