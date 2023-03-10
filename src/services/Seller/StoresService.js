@@ -1,7 +1,6 @@
 import { getSellerBaseURL } from 'services/BaseService';
 import { datetime, makeGetWithConfigs, makePutWithConfigs } from 'utils';
-import { DATE_FORMAT, STORE_TYPE_LABELS, STORE_TYPE_VALUES } from 'components/contants';
-import Icon from 'components/Common/Icon';
+import { DATE_FORMAT, STORE_TYPE_LABELS } from 'components/contants';
 
 const transformStore = item => {
   return {

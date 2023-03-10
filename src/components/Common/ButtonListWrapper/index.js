@@ -13,10 +13,11 @@ export default function ButtonListWrapper({
                                             onActionItemClick = () => {},
                                             align = '',
                                             className = '',
+                                            fullWidth = false,
                                             ...restProps
 }) {
   return (
-    <div className={`button-list__wrapper ${className} ${!!align && ('button-list__wrapper--' + align)}`}>
+    <div className={`button-list__wrapper ${className} ${!!align && ('button-list__wrapper--' + align)} ${fullWidth && 'button-list__wrapper--full-width'}`}>
       {
         !!buttonList.length && buttonList.map(button => button)
       }

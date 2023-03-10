@@ -27,6 +27,8 @@ export const ROUTERS = {
   SELLER_ORDERS: '/orders',
   SELLER_STORES: '/stores',
   SELLER_PRODUCTS: '/products',
+  SELLER_PRODUCT_PAGES: '/products/pages',
+  SELLER_DETAIL_PRODUCT_PAGE: '/products/pages/:productPageId',
   SELLER_ANALYTICS: '/analytics',
   SELLER_SETTINGS: '/settings',
   SELLER_DETAIL_SETTING: '/settings/:settingKey',
@@ -93,6 +95,10 @@ export const STATE_VALUES = {
   DELETED   : 'DELETED',
   CONNECTED  : 'CONNECTED',
   UNKNOWN    : 'UNKNOWN',
+  DRAFT    : 'DRAFT',
+  PUBLISHED    : 'PUBLISHED',
+  DISABLE    : 'DISABLE',
+  ENABLE    : 'ENABLE',
 };
 
 export const STATE_LABELS = {
@@ -113,6 +119,8 @@ export const STATE_LABELS = {
   [STATE_VALUES.DELETED]: 'Deleted',
   [STATE_VALUES.CONNECTED]: 'Connected',
   [STATE_VALUES.UNKNOWN]: 'Unknown',
+  [STATE_VALUES.DRAFT]: 'Draft',
+  [STATE_VALUES.PUBLISHED]: 'Published',
 };
 
 export const STATE_COLORS = {
@@ -128,7 +136,8 @@ export const STATE_COLORS = {
   [STATE_VALUES.COMPLETED]: '#22A06B',
   [STATE_VALUES.ACTIVATED]: '#22A06B',
   [STATE_VALUES.IS_ACTIVE]: '#22A06B',
-  [STATE_VALUES.CONNECTED]: '#22A06B',
+  [STATE_VALUES.DISABLE]: '#E34935',
+  [STATE_VALUES.ENABLE]: '#22A06B',
 };
 
 export const STATE_LABEL_VALUE_OPTIONS = [

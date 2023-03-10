@@ -10,8 +10,9 @@
         border: none;
         padding: 16px;
         .ant-modal-title {
-          color: #2C3E5D;
-          font-weight: 500;
+          color: #231814;
+          font-weight: 600;
+          font-size: 32px;
           display: flex;
           align-items: center;
           img {
@@ -20,7 +21,7 @@
         }
       }
       .ant-modal-body {
-        padding: 0 16px;
+        padding: 16px;
       }
       .ant-modal-footer {
         border: none;

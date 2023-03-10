@@ -6,7 +6,7 @@ import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import AddEditOrderBox from 'components/Admin/AddEditOrderBox';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
-import { AdminOrdersService, FrontUserCategoriesService } from 'services';
+import { AdminOrdersService, FrontUserProductsService } from 'services';
 import { useMediaQuery } from 'react-responsive';
 
 function OrderDetailManagementPage(props) {
@@ -18,7 +18,7 @@ function OrderDetailManagementPage(props) {
   const pageDescription = isEdit ? `Order ID: ${orderId}` : 'Great job, your dashboard is ready to go! Grow your business with Fulfill.';
 
   const getProduct = (productId, successCallback, failureCallback) => {
-    FrontUserCategoriesService.getProductDetail(productId, successCallback, failureCallback)
+    FrontUserProductsService.getProductDetail(productId, successCallback, failureCallback)
   }
 
   const getOrder = orderId => {

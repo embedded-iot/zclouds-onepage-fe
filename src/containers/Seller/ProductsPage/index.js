@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import ProductCategoriesGrid from 'components/Seller/ProductsGrid';
+import ProductsGrid from 'components/Seller/ProductsGrid';
 
 function ProductsPage(props) {
   return (
@@ -12,7 +12,7 @@ function ProductsPage(props) {
         <title>Products</title>
       </Helmet>
       <div className="page-contents">
-        <ProductCategoriesGrid
+        <ProductsGrid
           redirectTo={props.push}
         />
       </div>

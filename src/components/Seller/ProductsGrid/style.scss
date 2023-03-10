@@ -1,24 +1,25 @@
-.product-categories {
-    &__product-item {
-      cursor: default !important;
-      .ant-card-cover {
-        height: auto !important;
-        flex-grow: 1;
-      }
-    }
-    &__category-list {
-      .categories-filters__list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        .categories-filters__item {
-          flex-shrink: 0;
-          border: 1px solid #cccccc;
-          .categories-filters__item-count {
-            margin-left: 10px;
-          }
-        }
-      }
+.products-grid {
+  &__wrapper {
+
+  }
+  &__add-product-box {
+    background: url("~images/add_product_bg.svg") center center no-repeat;
+    padding: 24px 54px;
+    border-radius: 16px;
+    background-size: cover;
+  }
+  &__search-box {
+    flex-grow: 1;
+    margin-right: 24px;
+    & > * {
+      max-width: 470px;
     }
   }
-  
+  &__product-grid {
+    margin-top: 52px;
+  }
+  &__product-item-value {
+    font-weight: 500;
+    word-break: break-word;
+  }
+}

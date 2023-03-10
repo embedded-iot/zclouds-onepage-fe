@@ -41,7 +41,7 @@ export default function AddEditOrderBox({ isEdit, data, product, onOk, onCancel,
   let ref = useRef({});
 
   const getProducts = (params = {}) => {
-    FrontUserProductsService.getCategories({ pageNum: 1, pageSize: 100, ...params }, response => {
+    FrontUserProductsService.getProducts({ pageNum: 1, pageSize: 100, ...params }, response => {
       const newProductOptions = getProductsOptions(response.items, false);
       setProductsOptions(newProductOptions);
       if (!isEdit) {

@@ -1,11 +1,13 @@
 .button-list {
   &__wrapper {
     width: 100%;
-    margin-bottom: 15px;
     display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
+    &--full-width > * {
+      flex-grow: 1;
+    }
     &--right {
       justify-content: flex-end;
     }
