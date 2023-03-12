@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
-import { FrontUserProductsService } from 'services';
+import { SellerProductsService } from 'services';
 import ProductImagesPreview from './ProductImagesPreview';
 import ProductInfo from './ProductInfo';
 import PlainText from 'components/Common/PlainText';
@@ -14,7 +14,7 @@ export default function ProductDetailBox({ defaultProduct = null, isAddOrder, pr
   const [product, setProduct] = useState(defaultProduct);
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const getProductDetail = () => {
-    FrontUserProductsService.getProductDetail(productId, response => {
+    SellerProductsService.getProductDetail(productId, response => {
       setProduct(response);
     })
   }

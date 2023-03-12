@@ -3,7 +3,7 @@ import { cui, events } from 'utils';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 import TableGrid from 'components/Common/TableGrid';
-import { FrontUserProductsService } from 'services';
+import { SellerProductsService } from 'services';
 import Icon from 'components/Common/Icon';
 import timeIcon from 'images/time_light_icon.svg';
 import ProductItem from 'components/Seller/ProductsGrid/ProductItem';
@@ -64,7 +64,7 @@ export default function ProductPagesGrid({ data, redirectToProductPage  = () => 
     gridItemTemplate,
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
-      FrontUserProductsService.getProductPages(data.id, cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
+      SellerProductsService.getProductPages(data.id, cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
     },
     successCallback: (response) => {
 

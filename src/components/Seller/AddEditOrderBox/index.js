@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Form, notification } from 'antd';
 import OrderForm from 'components/Seller/AddEditOrderBox/OrderForm';
 import {
-  BaseService, FrontUserProductsService,
+  BaseService, SellerProductsService,
   SellerDesignsService,
   SellerOrdersService,
   SellerStoresService,
@@ -10,7 +10,7 @@ import {
 import BoxCard from 'components/Share/BoxCard';
 import { getStoresOptions } from 'services/Seller/StoresService';
 import { getDesignsOptions } from 'services/Seller/DesignsService';
-import { getProductsOptions } from 'services/FrontUser/ProductsService';
+import { getProductsOptions } from 'services/Seller/ProductsService';
 import { cui, download, format } from 'utils';
 import { getShortPathImage } from 'services/BaseService';
 import AddEditDesignModal from 'components/Seller/DesignsTable/AddEditDesignModal';
@@ -41,7 +41,7 @@ export default function AddEditOrderBox({ isEdit, data, product, onOk, onCancel,
   let ref = useRef({});
 
   const getProducts = (params = {}) => {
-    FrontUserProductsService.getProducts({ pageNum: 1, pageSize: 100, ...params }, response => {
+    SellerProductsService.getProducts({ pageNum: 1, pageSize: 100, ...params }, response => {
       const newProductOptions = getProductsOptions(response.items, false);
       setProductsOptions(newProductOptions);
       if (!isEdit) {

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import PageHeader from 'components/Share/PageHeader';
 import AddEditOrderBox from 'components/Seller/AddEditOrderBox';
-import { FrontUserProductsService, SellerOrdersService } from 'services';
+import { SellerProductsService, SellerOrdersService } from 'services';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS } from 'components/contants';
 
@@ -20,7 +20,7 @@ function OrderDetailPage(props) {
   const pageDescription = isEdit ? `Order ID: ${orderId}` : 'Great job, your dashboard is ready to go! Grow your business with Fulfill.';
 
   const getProduct = (productId, successCallback, failureCallback) => {
-    FrontUserProductsService.getProductDetail(productId, successCallback, failureCallback)
+    SellerProductsService.getProductDetail(productId, successCallback, failureCallback)
   }
 
   const getOrder = orderId => {

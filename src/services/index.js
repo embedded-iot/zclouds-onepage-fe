@@ -1,6 +1,6 @@
 import * as  BaseService from "./BaseService";
 import * as  UserService from "./Common/UserService";
-import * as  FrontUserProductsService from './FrontUser/ProductsService';
+import * as  SellerProductsService from 'services/Seller/ProductsService';
 import * as  SellerDesignsService from './Seller/DesignsService';
 import * as  SellerStoresService from './Seller/StoresService';
 import * as  SellerIntegrationsService from './Seller/IntegrationsService';
@@ -37,7 +37,7 @@ import * as  AdminDashboardService from './Admin/DashboardService';
 export {
   BaseService,
   UserService,
-  FrontUserProductsService,
+  SellerProductsService,
   AdminUsersService,
   AdminProductsService,
   AdminCategoriesService,

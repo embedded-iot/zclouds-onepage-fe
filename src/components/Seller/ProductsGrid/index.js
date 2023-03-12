@@ -3,7 +3,7 @@ import { cui, events } from 'utils';
 import { useMediaQuery } from 'react-responsive';
 import { RESPONSIVE_MEDIAS, ROUTERS } from 'components/contants';
 import TableGrid from 'components/Common/TableGrid';
-import { FrontUserProductsService } from 'services';
+import { SellerProductsService } from 'services';
 import ProductItem from './ProductItem';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import { Button, Col, Row } from 'antd';
@@ -88,7 +88,7 @@ export default function ProductsGrid({ redirectTo  = () => {} }) {
     gridItemTemplate: (itemProps) => gridItemTemplate({ ...itemProps, redirectTo}),
     getDataFunc: (params, successCallback, failureCallback) => {
       const { pageSize, pageNum, ...restParams} = params || {};
-      FrontUserProductsService.getProducts(cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
+      SellerProductsService.getProducts(cui.removeEmpty({ ...restParams, pageSize, pageNum }), successCallback, failureCallback)
     },
     successCallback: (response) => {
 

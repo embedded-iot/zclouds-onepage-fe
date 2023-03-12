@@ -1,0 +1,27 @@
+.product-options-box {
+  &__wrapper {
+
+  }
+  &__option-label {
+    color: #4C4441;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  &__option {
+    padding-bottom: 10px;
+  }
+  &__option-value {
+    display: flex;
+    align-items: center;
+  }
+  &__add-button {
+    background: #ECECEB;
+    border: 1.37402px dashed #C5C2C1;
+    border-radius: 4px;
+    cursor: pointer;
+    button {
+      //background: transparent;
+      margin: 0 auto;
+    }
+  }
+}

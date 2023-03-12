@@ -111,7 +111,7 @@ export default function DomainTemplateForm({ form, initialValues, onFinish, onCa
       onFinish={onFinish}
       layout="vertical"
     >
-      <Row className='edit-domain-template__wrapper'>
+      <Row className='page-content-box__contents'>
         <Col span={6} className='edit-domain-template__left-box'>
           <Form.Item
             label="Add Media"
@@ -413,7 +413,7 @@ export default function DomainTemplateForm({ form, initialValues, onFinish, onCa
           </Form.Item>
         </Col>
       </Row>
-      <div className='edit-domain-template__footer'>
+      <div className='page-content-box__footer'>
         <ButtonListWrapper buttonList={buttonList}
                            align="right"
                            className="no-margin"

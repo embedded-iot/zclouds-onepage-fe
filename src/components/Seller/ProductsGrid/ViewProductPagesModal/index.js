@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ModalView, { MODAL_TYPES } from 'components/Common/ModalView';
 import ProductPagesGrid from 'components/Seller/ProductsGrid/ViewProductPagesModal/ProductPagesGrid';
 import { ROUTERS } from 'components/contants';
-import { FrontUserProductsService } from 'services';
+import { SellerProductsService } from 'services';
 import AddProductPageModal from 'components/Seller/ProductsGrid/ViewProductPagesModal/AddProductPageModal';
 
 export default function ViewProductPagesModal({ open, data, redirectTo, onCancel }) {
@@ -12,7 +12,7 @@ export default function ViewProductPagesModal({ open, data, redirectTo, onCancel
   }
 
   const handleAddProductPage = () => {
-    FrontUserProductsService.createProductPages(data.id, response => {
+    SellerProductsService.createProductPages(data.id, response => {
       redirectToProductPage(response.id);
     })
   };

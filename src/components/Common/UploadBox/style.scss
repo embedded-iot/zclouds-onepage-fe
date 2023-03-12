@@ -6,9 +6,10 @@
       }
     }
     .ant-upload-list-picture-card-container, .ant-upload-select.ant-upload-select-picture-card {
-      width: 140px;
-      height: 140px;
+      width: 240px;
+      height: 240px;
       background: #ECECEB;
+      position: relative;
     }
     .ant-upload-list-item-error {
       border-color: #ff4d4f !important;

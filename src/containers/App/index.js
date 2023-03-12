@@ -46,6 +46,7 @@ import SellerHomePage from 'containers/Seller/HomePage/Loadable';
 import SellerSettingsPage from 'containers/Seller/SettingsPage/Loadable';
 import SellerSettingDetailPage from 'containers/Seller/SettingDetailPage/Loadable';
 import SellerProductsPage from 'containers/Seller/ProductsPage/Loadable';
+import SellerProductDetailPage from 'containers/Seller/ProductDetailPage/Loadable';
 
 
 import AdminHomePage from 'containers/Admin/HomePage/Loadable';
@@ -121,6 +122,7 @@ const AppContent = (props) => (
     <PrivateRoute exact path={ROUTERS.SELLER_DETAIL_SETTING} component={SellerSettingDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_SETTINGS)}/>
     <PrivateRoute exact path={ROUTERS.SELLER_SUB_DETAIL_SETTING} component={SellerSettingDetailPage} isAuthenticated={props.isLogin && authentication.getPermission(PERMISSION_VALUES.SELLER_VIEW_SETTINGS)}/>
     <PrivateRoute exact path={ROUTERS.SELLER_PRODUCTS} component={SellerProductsPage} isAuthenticated={props.isLogin}/>
+    <PrivateRoute exact path={ROUTERS.SELLER_PRODUCT_DETAIL} component={SellerProductDetailPage} isAuthenticated={props.isLogin}/>
   </Switch>
 )
 
