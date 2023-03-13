@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import AddEditProductBox from 'components/Seller/AddEditProductBox';
 import { ROUTERS } from 'components/contants';
-import { AdminProductsService } from 'services';
+import { SellerProductsService } from 'services';
 
 function ProductDetailPage(props) {
   const [data, setData] = useState(null);
@@ -15,7 +15,7 @@ function ProductDetailPage(props) {
 
 
   const getProduct = productId => {
-    AdminProductsService.getProduct(productId, product => {
+    SellerProductsService.getProductDetail(productId, product => {
      setData(product);
     })
   }
