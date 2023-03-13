@@ -113,24 +113,25 @@ export default function ProductsGrid({ redirectTo  = () => {} }) {
     buttonList: [],
   }
 
-  const viewProductDetail = () => {
+  const viewProductDetail = (selectProduct) => {
+    setSelectedProduct(selectProduct);
     setOpenProductDetail(true);
   }
 
-  const addEditProduct = (isEdit = false) => {
-    redirectTo(ROUTERS.SELLER_PRODUCTS + '/' + (isEdit ? selectedProduct.id :  0));
+  const addEditProduct = (product) => {
+    setSelectedProduct(product);
+    redirectTo(ROUTERS.SELLER_PRODUCTS + '/' + (product ? product.id :  0));
   }
 
   const actionListenerFunc = () => {
     let reloadListener = null;
     reloadListener = events.subscribe(ACTION_KEYS.ACTION_EVENTS, ({ key, record }) => {
-      setSelectedProduct(record);
       switch (key) {
         case ACTION_KEYS.VIEW_PRODUCT_DETAIL:
           viewProductDetail(record);
           break;
         case ACTION_KEYS.EDIT_PRODUCT:
-          addEditProduct(true);
+          addEditProduct(record);
           break;
         default:
       }
