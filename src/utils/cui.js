@@ -107,6 +107,38 @@ function hexAToRGBA(h) {
   }
 }
 
+// input:
+// [
+//   ['a', 'b', 'c'],
+//   ['1', '2'],
+//   ['w', 'x', 'y', 'z']
+// ]
+//
+// output:
+// a 1 w
+// a 1 x
+// a 1 y
+
+function detectCombinations(input, output, position, path) {
+  if (position == null) {
+    position = 0;
+  }
+  if (path == null) {
+    path = [];
+  }
+  if (position < input.length) {
+    var item = input[position];
+    for (var i = 0; i < item.length; ++i) {
+      var value = item[i];
+      path.push(value);
+      detectCombinations(input, output, position + 1, path);
+      path.pop();
+    }
+  } else {
+    output.push(path.slice());
+  }
+};
+
 export {
   removeEmpty,
   groupBy,
@@ -115,4 +147,5 @@ export {
   parseStringObject,
   RGBAToHexA,
   hexAToRGBA,
+  detectCombinations,
 }

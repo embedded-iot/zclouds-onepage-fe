@@ -1,5 +1,11 @@
-import { getFrontUserBaseURL, getFullPathImage } from 'services/BaseService';
-import { datetime, makeGetWithConfigs, makePostWithConfigs } from 'utils';
+import { getFullPathImage, getSellerBaseURL } from 'services/BaseService';
+import {
+  cui,
+  datetime,
+  makeGetWithConfigs,
+  makePostWithConfigs,
+  makePutWithConfigs,
+} from 'utils';
 import productImage from 'images/product_ex_icon.png';
 import { DATE_FORMAT, STATE_LABELS, STATE_VALUES } from 'components/contants';
 
@@ -11,43 +17,39 @@ const transformProduct = item => {
     convertedUpdatedDate: !!item.updatedAt ? datetime.convert(item.updatedAt, DATE_FORMAT) : '',
   }
 }
-
-const products = [];
-
-for (let i = 0; i < 4; i++) {
-  products.push(transformProduct({
-    "createdAt": "2023-03-06T14:46:47.050038+00:00",
-    "id": i,
-    "labelId": null,
-    "description": "",
-    "shippingRules": null,
-    "merchantId": 48,
-    "updatedAt": "2023-03-06T14:46:47.050048+00:00",
-    "title": "Garmin Forerunner 245",
-    "supportEmail": "support@kiemnx.plusplus.vn",
-    "images1": [
-      {
-        "url": "https://static.wtecdn.net/files/33b3b338b9f3a040d3844aea2abd673d/prod.png",
-        "id": 1
-      },
-      {
-        "url": "https://static.wtecdn.net/files/6294fd8fa1f8d4f63cf5dba78516606a/download.jpg",
-        "id": 2
-      }
-    ],
-    "adminVisibleStatus": "VISIBLE"
-  }))
-}
+//
+// const products = [];
+//
+// for (let i = 0; i < 4; i++) {
+//   products.push(transformProduct({
+//     "createdAt": "2023-03-06T14:46:47.050038+00:00",
+//     "id": i,
+//     "labelId": null,
+//     "description": "",
+//     "shippingRules": null,
+//     "merchantId": 48,
+//     "updatedAt": "2023-03-06T14:46:47.050048+00:00",
+//     "title": "Garmin Forerunner 245",
+//     "supportEmail": "support@kiemnx.plusplus.vn",
+//     "images1": [
+//       {
+//         "url": "https://static.wtecdn.net/files/33b3b338b9f3a040d3844aea2abd673d/prod.png",
+//         "id": 1
+//       },
+//       {
+//         "url": "https://static.wtecdn.net/files/6294fd8fa1f8d4f63cf5dba78516606a/download.jpg",
+//         "id": 2
+//       }
+//     ],
+//     "adminVisibleStatus": "VISIBLE"
+//   }))
+// }
 
 function getProducts(params, successCallback, failureCallback) {
-  successCallback({
-    items: products,
-    totalCount: products.length,
-  });
   const config = {
     params
   };
-  const url = getFrontUserBaseURL() + '/products';
+  const url = getSellerBaseURL() + '/products';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     const items = response.content.map(transformProduct)
     return {
@@ -59,10 +61,24 @@ function getProducts(params, successCallback, failureCallback) {
   });
 }
 
+function createProduct(data, successCallback, failureCallback) {
+  const config = {
+    data
+  };
+  const url = getSellerBaseURL() + '/products';
+  makePostWithConfigs(url, config, successCallback, failureCallback);
+}
 
+function updateProduct(id, data, successCallback, failureCallback) {
+  const config = {
+    data
+  };
+  const url = getSellerBaseURL() + '/products/' + id;
+  makePutWithConfigs(url, config, successCallback, failureCallback);
+}
 
 function getProductDetail(productId, successCallback, failureCallback) {
-  const url = getFrontUserBaseURL() + '/products/' + productId;
+  const url = getSellerBaseURL() + '/products/' + productId;
   makeGetWithConfigs(url, {}, successCallback, failureCallback, transformProduct);
 }
 
@@ -72,6 +88,48 @@ function getProductsOptions(products, isHasDefaultOption = true) {
     ...(isHasDefaultOption ? [{ label: 'Select product', value: '' }] : []),
     ...(products.map(product => ({...product, label: product.name, value: product.id })))
   ]
+}
+
+const getVariantOption = (option = {}) => {
+  return {
+    id: 0,
+    image: '',
+    defaultPrice: 0,
+    comparedPrice: 0,
+    productCost: 0,
+    fulfillmentCost: 0,
+    options: [],
+    sku: '',
+    ...option
+  }
+}
+
+function generateVariantsFromOptions(options = []) {
+  const validOptions = options.filter(option => !!option.name && option.value.length);
+
+  const optionList = validOptions.map((option, optionIndex) => option.value.map((optionValue, optionValueIndex) => ({
+    id: optionValueIndex + 1,
+    name: option.name,
+    value: optionValue,
+  })));
+  const variants = [];
+  optionList.length && cui.detectCombinations(optionList, variants);
+  return variants.map((variant, index) => (getVariantOption({
+    id: index,
+    options: variant,
+  })));
+}
+
+
+function generateOptionValuesSelectFromOptions(options = []) {
+  let optionValues = [];
+  options.forEach(option => {
+    optionValues = optionValues.concat(option.value);
+  })
+  return optionValues.map((optionValue, index) => ({
+    label: optionValue,
+    value: false
+  }));
 }
 
 const transformProductPage = item => {
@@ -142,7 +200,7 @@ function getProductPages(id, params, successCallback, failureCallback) {
     items: productPages,
     totalCount: productPages.length,
   });
-  const url = getFrontUserBaseURL() + '/products/' + id + '/product_pages';
+  const url = getSellerBaseURL() + '/products/' + id + '/product_pages';
   makeGetWithConfigs(url, config, successCallback, failureCallback, response => {
     const items = response.content.map(transformProduct)
     return {
@@ -156,13 +214,18 @@ function getProductPages(id, params, successCallback, failureCallback) {
 
 function createProductPages(id, successCallback, failureCallback) {
   successCallback(transformProductPage(getProductPageItem(0)));
-  const url = getFrontUserBaseURL() + '/products/' + id + '/product_pages';
+  const url = getSellerBaseURL() + '/products/' + id + '/product_pages';
   makePostWithConfigs(url, {}, successCallback, failureCallback);
 }
 
 export {
   getProducts,
   getProductDetail,
+  createProduct,
+  updateProduct,
+  getVariantOption,
+  generateVariantsFromOptions,
+  generateOptionValuesSelectFromOptions,
   getProductsOptions,
   getProductPages,
   createProductPages,

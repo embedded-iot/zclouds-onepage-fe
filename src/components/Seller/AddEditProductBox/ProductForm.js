@@ -2,17 +2,18 @@ import React, {  useState } from 'react';
 import { Button, Col, Form, Row } from 'antd';
 import {
   RESPONSIVE_MEDIAS,
-  STATE_VALUES,
 } from 'components/contants';
 import InputText from 'components/Common/InputText';
-import { AdminProductsService } from 'services';
-import { upload } from 'utils';
+import { SellerFilesService, SellerProductsService } from 'services';
+import { events, upload } from 'utils';
 import UploadBox from 'components/Common/UploadBox';
 import ProductOptionsBox from './ProductOptionsBox';
 import ButtonListWrapper from 'components/Common/ButtonListWrapper';
 import BoxCard from 'components/Share/BoxCard';
 import { useMediaQuery } from 'react-responsive';
 import BoxHeader from 'components/Share/BoxHeader';
+import VariantsTable from './VariantsTable';
+import VariantsSelectList from './VariantsSelectList';
 
 export default function ProductForm(
   {
@@ -22,8 +23,9 @@ export default function ProductForm(
     ...restProps
   }
 ) {
+  const [isAddVariants, setIsAddVariants] = useState(false);
   const [deletedImages, setDeletedImages] = useState([]);
-  const action = AdminProductsService.getUploadProductImageUrl();
+  const action = SellerFilesService.uploadImage();
   const isMobile = useMediaQuery(RESPONSIVE_MEDIAS.MOBILE);
   const handleRemoveImage = (file) => {
     setDeletedImages([
@@ -42,7 +44,7 @@ export default function ProductForm(
       return;
     }
     const promiseUnusedImages = unusedImages.map(image => new Promise((resolve, reject) => {
-      AdminProductsService.deleteProductImage(image.id, resolve, reject);
+      SellerFilesService.deleteImageByPath(image.url, resolve, reject);
     }));
     Promise.all(promiseUnusedImages).then(() => {
       setDeletedImages([]);
@@ -50,9 +52,9 @@ export default function ProductForm(
     })
   }
 
-  const handleProductOptionsChange = (options) => {
+  const handleFormChange = (name, value) => {
     form.setFieldsValue({
-      productOptions: options,
+      [name]: value,
     });
   }
 
@@ -71,23 +73,37 @@ export default function ProductForm(
     </Button>
   ];
 
+  const handleValueChanges = (value, values) => {
+    if (value.options) {
+      const variants = SellerProductsService.generateVariantsFromOptions(value.options);
+      const optionValuesSelect = SellerProductsService.generateOptionValuesSelectFromOptions(value.options);
+      handleFormChange('variants', variants)
+      handleFormChange("optionValuesSelect", optionValuesSelect);
+    } else if (value.optionValuesSelect) {
+      events.publish("EVENT_OPTION_VALUES_SELECT", { optionValuesSelect: value.optionValuesSelect});
+    }
+  }
+
+  const showAddVariants = () => {
+    handleFormChange('options', [{
+      name: 'Size',
+      value: []
+    }]);
+    setIsAddVariants(true);
+  }
 
   const BoxWrapper = isMobile ? 'div' : BoxCard;
-
   return (
     <Form
       name="basic"
       form={form}
       autoComplete="off"
       initialValues={{
-        state: STATE_VALUES.ACTIVATED,
-        categoryId: '',
-        price: 0,
-        displayOrder: 0,
         ...initialValues,
-        sellerId: initialValues && initialValues.sellerId ? initialValues.sellerId : '',
         imageFiles: upload.getFileListFromList((initialValues ? initialValues.convertedProductImages : [])),
-        productOptions: AdminProductsService.buildProductOptions(initialValues ? initialValues.productOptions : []),
+        options: [],
+        optionValuesSelect: [],
+        variants: initialValues ? initialValues.variants : [SellerProductsService.getVariantOption()],
       }}
       onFinish={(values) => {
         removeUnusedImagesBefore(() => {
@@ -95,9 +111,9 @@ export default function ProductForm(
         }, true)
       }}
       layout="vertical"
+      onValuesChange={handleValueChanges}
       {...restProps}
     >
-
       <div className='page-content-box__contents'>
         <BoxWrapper className={!isMobile && 'card-box__wrapper'}>
           <Row gutter={[24, 24]}>
@@ -156,11 +172,34 @@ export default function ProductForm(
             align="left"
           />
           <Form.Item
-            label=""
-            name="productOptions"
-            valuePropName="values"
+            label={<span className="cursor-pointer" onClick={showAddVariants}>Add Variants</span>}
+            name="isAddVariants"
+            hidden={isAddVariants}
           >
-            <ProductOptionsBox onChange={handleProductOptionsChange}/>
+            <div>If this product has multiple options, like different sizes or colors</div>
+          </Form.Item>
+          <Form.Item
+            label=""
+            name="options"
+            valuePropName="options"
+            hidden={!isAddVariants}
+          >
+            <ProductOptionsBox />
+          </Form.Item>
+          <Form.Item
+            label="Select"
+            name="optionValuesSelect"
+            valuePropName="list"
+            hidden={!isAddVariants}
+          >
+            <VariantsSelectList />
+          </Form.Item>
+          <Form.Item
+            label="Preview"
+            name="variants"
+            valuePropName="variants"
+          >
+            <VariantsTable />
           </Form.Item>
         </BoxWrapper>
       </div>

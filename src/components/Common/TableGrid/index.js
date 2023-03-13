@@ -33,7 +33,9 @@ export default function TableGrid({
                                     defaultParams = {},
                                     defaultData = {},
                                     isAllowUpdateDefaultData = false,
+                                    isAllowUpdateDefaultSelectedRowKeys = false,
                                     isSingleSelection = false,
+                                    defaultSelectedRowKeys = [],
                                     onSelectedItemsChange = () => {},
                                     onSelectGridItem = () => {},
                                     isShowIndex = true,
@@ -106,6 +108,13 @@ export default function TableGrid({
     });
     // eslint-disable-next-line
   }, [defaultData])
+
+  useEffect(() => {
+    if (!isAllowUpdateDefaultSelectedRowKeys)
+      return;
+    setSelectedRowKeys(defaultSelectedRowKeys);
+    // eslint-disable-next-line
+  }, [defaultSelectedRowKeys])
 
   useEffect(() => {
     getDataFunc(params);

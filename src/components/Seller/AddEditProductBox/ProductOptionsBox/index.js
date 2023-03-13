@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Col, Row } from 'antd';
 import InputText from 'components/Common/InputText';
 import InputTags from 'components/Common/InputTags';
@@ -10,23 +10,15 @@ import {
 
 import './style.scss';
 
-export default function ProductOptionsBox({ values, onChange }) {
-  const [options, setOptions] = useState(values || [
-    {
-      name: '',
-      values: []
-    }
-  ]);
-
+export default function ProductOptionsBox({ options, onChange }) {
   const addOption = () => {
-    setOptions([...options, {
+    onChange([...options, {
       name: '',
-      values: [],
+      value: [],
     }]);
   }
 
   const updateOptions = options => {
-    setOptions(options);
     onChange(options);
   }
 
@@ -64,9 +56,9 @@ export default function ProductOptionsBox({ values, onChange }) {
               />
             </Col>
             <Col span={10} className="product-options-box__option-value">
-              <InputTags placeholder="Enter to add option"
-                         value={option.values}
-                         name={'values'}
+              <InputTags placeholder="Enter to add option value"
+                         value={option.value}
+                         name={'value'}
                          theme="light"
                          onChange={(value, name) => updateOption(value, name, optionId)}
               />

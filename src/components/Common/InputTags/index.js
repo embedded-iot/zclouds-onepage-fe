@@ -7,7 +7,7 @@ export default function InputTags({ name, value = [], onChange, placeholder, the
   const handlerOnchange = (value) => onChange(value, name);
 
   return (
-    <div className={`input-tags ${theme}`}>
+    <div className={`input-tags__wrapper ${theme}`}>
       <TagsInput
         {...restProps}
         value={value}

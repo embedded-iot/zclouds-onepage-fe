@@ -33,7 +33,7 @@ const gridItemTemplate = ({ item, redirectTo }) => {
     })
   }
   const buttonList = [
-    <Button key={ACTION_KEYS.EDIT_PRODUCT} icon={<EditOutlined />} onClick={() => handleActions(ACTION_KEYS.VIEW_PRODUCT_DETAIL, item)}>Edit</Button>,
+    <Button key={ACTION_KEYS.EDIT_PRODUCT} icon={<EditOutlined />} onClick={() => handleActions(ACTION_KEYS.EDIT_PRODUCT, item)}>Edit</Button>,
     <Button key={ACTION_KEYS.VIEW_PRODUCT_DETAIL} icon={<EyeOutlined /> } onClick={() => handleActions(ACTION_KEYS.VIEW_PRODUCT_DETAIL, item)}>View product pages</Button>,
   ]
   return (
